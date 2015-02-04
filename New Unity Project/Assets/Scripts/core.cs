@@ -70,9 +70,9 @@ public class core : MonoBehaviour {
 
     public void ShowLight(test sender)
     {
-        Light light = GameObject.Find("TestLight").GetComponent<Light>();
+        //Light light = GameObject.Find("TestLight").GetComponent<Light>();
 
-        light.light.intensity = 5;
+        //light.light.intensity = 5;
     }
 
 	char checkForWin() {

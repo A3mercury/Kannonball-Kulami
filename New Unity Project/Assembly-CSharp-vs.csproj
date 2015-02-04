@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\GamePlace.cs" />
+     <Compile Include="Assets\Scripts\Networking_Scripts\Network_Manager.cs" />
+     <Compile Include="Assets\Scripts\Networking_Scripts\Send_Move_Over_Network.cs" />
      <Compile Include="Assets\Scripts\click.cs" />
      <Compile Include="Assets\Scripts\core.cs" />
      <Compile Include="Assets\Scripts\test.cs" />
