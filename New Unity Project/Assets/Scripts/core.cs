@@ -6,7 +6,7 @@ using System.IO;
 public class core : MonoBehaviour {
 
 	public Material solid;
-	private bool firstMove;
+	
 	public GamePlace[,] gamePlaces;
 	public string turn;
 	private int redLastCol;
@@ -20,7 +20,7 @@ public class core : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         turnsLeft = 56;
-		firstMove = true;
+		
 		turn = "red";
 		StreamReader reader = new StreamReader ("gameBoard.txt");
 		string[] pieceNumbers = reader.ReadToEnd().Split(',');
@@ -101,24 +101,25 @@ public class core : MonoBehaviour {
 		bool result = true;
 		Debug.Log (gamePlaces [y, x].pieceNum);
 		Debug.Log (redLastPiece);
-		if (firstMove == true) {
-						firstMove = false;
-		} else {
-			if (gamePlaces [y, x].pieceNum == redLastPiece || 
-			    gamePlaces [y, x].pieceNum == blackLastPiece) {
-				result = false;
-			}
-			if (turn == "red" && x != blackLastCol && y != blackLastRow)
-				result = false;
 
-			if (turn == "black" && x != redLastCol && y != redLastRow) 
-				result = false;
+            if (gamePlaces[y, x].pieceNum == redLastPiece ||
+                gamePlaces[y, x].pieceNum == blackLastPiece)
+            {
+                result = false;
+            }
+            if (turn == "red" && x != blackLastCol && y != blackLastRow)
+                result = false;
 
-			if (gamePlaces [y, x].pieceNum == redLastPiece ||
-			    gamePlaces [y, x].pieceNum == blackLastPiece) {
-				result = false;
-			}
-		}
+            if (turn == "black" && x != redLastCol && y != redLastRow)
+                result = false;
+
+            if (gamePlaces[y, x].pieceNum == redLastPiece ||
+                gamePlaces[y, x].pieceNum == blackLastPiece)
+            {
+                result = false;
+            }
+        
+        Debug.Log(result);
 		return result;
 	}
 
