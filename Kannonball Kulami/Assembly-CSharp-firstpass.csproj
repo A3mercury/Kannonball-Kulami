@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{C62E21C4-7CD8-5581-1E66-AC8E36219989}</ProjectGuid>
+	<ProjectGuid>{B4F2818B-999E-8E56-D9D4-37CAD8ACDBC5}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-UnityScript-firstpass</AssemblyName>
+	<AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,10 +46,15 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Standard Assets\Scripts\Camera Scripts\MouseOrbit.js" />
-     <Compile Include="Assets\Standard Assets\Scripts\Camera Scripts\SmoothFollow.js" />
-     <Compile Include="Assets\Standard Assets\Scripts\Camera Scripts\SmoothLookAt.js" />
-     <Compile Include="Assets\Standard Assets\Scripts\General Scripts\DragRigidbody.js" />
+     <Compile Include="Assets\Standard Assets\Water (Basic)\Sources\Scripts\WaterSimple.cs" />
+     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Sources\Scripts\Water.cs" />
+     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Scripts\Displace.cs" />
+     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Scripts\GerstnerDisplace.cs" />
+     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Scripts\MeshContainer.cs" />
+     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Scripts\PlanarReflection.cs" />
+     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Scripts\SpecularLighting.cs" />
+     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Scripts\WaterBase.cs" />
+     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Scripts\WaterTile.cs" />
      <None Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Shaders\FX-SimpleWater4.shader" />
      <None Include="Assets\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
      <None Include="Assets\Standard Assets\Water (Pro Only)\Sources\Shaders\FX-Water.shader" />
