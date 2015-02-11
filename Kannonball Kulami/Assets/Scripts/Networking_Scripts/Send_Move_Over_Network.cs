@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Send_Move_Over_Network : MonoBehaviour {
+public class Send_Move_Over_Network : MonoBehaviour 
+{
+    private int x, y;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    [RPC]
+    private void SendMove(int movex, int movey)
+    {
+        x = movex;
+        y = movey;
+    }
 }

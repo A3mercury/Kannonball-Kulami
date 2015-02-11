@@ -6,7 +6,8 @@ using System.IO;
 public class core : MonoBehaviour {
 
 	public Material solid;
-	
+
+    bool isOnline;
 	public GamePlace[,] gamePlaces;
 	public string turn;
 	private int redLastCol;
