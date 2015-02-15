@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Buoyancy.cs" />
+     <Compile Include="Assets\Scripts\Core_Scripts\ReadGameboard.cs" />
      <Compile Include="Assets\Scripts\GamePlace.cs" />
      <Compile Include="Assets\Scripts\Networking_Scripts\Network_Manager.cs" />
      <Compile Include="Assets\Scripts\Networking_Scripts\Send_Move_Over_Network.cs" />

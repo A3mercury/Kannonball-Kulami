@@ -16,35 +16,49 @@ public class core : MonoBehaviour {
 	private int blackLastRow;
 	private int blackLastPiece;
 	private int turnsLeft;
+    private int boardSize = 8;
+
+    public ReadGameboard boardReader;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
         turnsLeft = 56;
 		
 		turn = "red";
-		StreamReader reader = new StreamReader ("gameBoard.txt");
-		string[] pieceNumbers = reader.ReadToEnd().Split(',');
-		//Debug.Log (pieceNumbers);
-		gamePlaces = new GamePlace[8,8];
-		for (int i = 0; i < 8; i++) {
-			for (int k = 0; k < 8; k++) {
-				GamePlace gp = new GamePlace();
-				//Debug.Log(gp);
-				Debug.Log(pieceNumbers[(8 * i) + k]);
-				//System.Console.Write(pieceNumbers[(8 * i) + k]);
-				gp.pieceNum = int.Parse(pieceNumbers[(8 * i) + k]);
-				gp.owner = "open";
-				//Debug.Log(gp);
-				gamePlaces[i,k] =  gp;
-			}
-		}
-		for (int i = 0; i < 8; i++) {
-			for (int k = 0; k < 8; k++) {
-				Debug.Log(gamePlaces[i,k].pieceNum);
-				Debug.Log(gamePlaces[i,k].owner);
-			}
-			Debug.Log('\n');
-		}
+
+        gamePlaces = new GamePlace[boardSize, boardSize];
+
+        boardReader = new ReadGameboard(gamePlaces);
+
+        //StreamReader reader = new StreamReader ("gameBoard.txt");
+        //string[] pieceNumbers = reader.ReadToEnd().Split(',');
+        ////Debug.Log (pieceNumbers);
+        //gamePlaces = new GamePlace[8,8];
+        //for (int i = 0; i < 8; i++) 
+        //{
+        //    for (int k = 0; k < 8; k++) 
+        //    {
+        //        GamePlace gp = new GamePlace();
+        //        //Debug.Log(gp);
+        //        Debug.Log(pieceNumbers[(8 * i) + k]);
+        //        //System.Console.Write(pieceNumbers[(8 * i) + k]);
+        //        gp.pieceNum = int.Parse(pieceNumbers[(8 * i) + k]);
+        //        gp.owner = "open";
+        //        //Debug.Log(gp);
+        //        gamePlaces[i,k] =  gp;
+        //    }
+        //}
+
+        for (int i = 0; i < 8; i++)
+        {
+            for (int k = 0; k < 8; k++)
+            {
+                Debug.Log("pieceNum " + gamePlaces[i, k].pieceNum);
+                Debug.Log("owner " + gamePlaces[i, k].owner);
+            }
+            Debug.Log('\n');
+        }
 	}
 
 	public void PlacePiece (test sender) {
