@@ -35,12 +35,4 @@ public class test : MonoBehaviour {
 			gameObject.collider.enabled = false;
 		}
 	}
-
-    void OnMouseOver()
-    {
-        if(firstMove || gameCore.isValidMove(boardX, boardY))
-        {
-            gameCore.ShowLight(this);
-        }
-    }
 }

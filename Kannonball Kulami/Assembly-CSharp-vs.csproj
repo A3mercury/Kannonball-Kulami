@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Buoyancy.cs" />
+     <Compile Include="Assets\Scripts\Core_Scripts\ClickGameboard.cs" />
+     <Compile Include="Assets\Scripts\Core_Scripts\GameCore.cs" />
      <Compile Include="Assets\Scripts\Core_Scripts\ReadGameboard.cs" />
      <Compile Include="Assets\Scripts\GamePlace.cs" />
      <Compile Include="Assets\Scripts\Networking_Scripts\Network_Manager.cs" />

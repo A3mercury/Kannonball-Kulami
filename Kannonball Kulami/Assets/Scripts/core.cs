@@ -29,65 +29,64 @@ public class core : MonoBehaviour {
 
         gamePlaces = new GamePlace[boardSize, boardSize];
 
-        boardReader = new ReadGameboard(gamePlaces);
+        //boardReader = new ReadGameboard(gamePlaces);
 
-        //StreamReader reader = new StreamReader ("gameBoard.txt");
-        //string[] pieceNumbers = reader.ReadToEnd().Split(',');
-        ////Debug.Log (pieceNumbers);
-        //gamePlaces = new GamePlace[8,8];
-        //for (int i = 0; i < 8; i++) 
-        //{
-        //    for (int k = 0; k < 8; k++) 
-        //    {
-        //        GamePlace gp = new GamePlace();
-        //        //Debug.Log(gp);
-        //        Debug.Log(pieceNumbers[(8 * i) + k]);
-        //        //System.Console.Write(pieceNumbers[(8 * i) + k]);
-        //        gp.pieceNum = int.Parse(pieceNumbers[(8 * i) + k]);
-        //        gp.owner = "open";
-        //        //Debug.Log(gp);
-        //        gamePlaces[i,k] =  gp;
-        //    }
-        //}
-
+        StreamReader reader = new StreamReader("gameBoard.txt");
+        string[] pieceNumbers = reader.ReadToEnd().Split(',');
+        //Debug.Log (pieceNumbers);
+        gamePlaces = new GamePlace[8, 8];
         for (int i = 0; i < 8; i++)
         {
             for (int k = 0; k < 8; k++)
             {
-                Debug.Log("pieceNum " + gamePlaces[i, k].pieceNum);
-                Debug.Log("owner " + gamePlaces[i, k].owner);
+                GamePlace gp = new GamePlace();
+                //Debug.Log(gp);
+                //Debug.Log(pieceNumbers[(8 * i) + k]);
+                //System.Console.Write(pieceNumbers[(8 * i) + k]);
+                gp.pieceNum = int.Parse(pieceNumbers[(8 * i) + k]);
+                gp.owner = "open";
+                //Debug.Log(gp);
+                gamePlaces[i, k] = gp;
             }
-            Debug.Log('\n');
         }
+
+        //for (int i = 0; i < 8; i++)
+        //{
+        //    for (int k = 0; k < 8; k++)
+        //    {
+        //        Debug.Log("pieceNum " + gamePlaces[i, k].pieceNum);
+        //        Debug.Log("owner " + gamePlaces[i, k].owner);
+        //    }
+        //    Debug.Log('\n');
+        //}
 	}
 
-	public void PlacePiece (test sender) {
+	public void PlacePiece (test sender) 
+    {
 		gamePlaces [sender.boardX, sender.boardY].owner = turn;
         sender.gameObject.renderer.enabled = true;
 		sender.gameObject.renderer.material = solid;
-		if (turn == "red") {
+
+		if (turn == "red") 
+        {
 			sender.gameObject.renderer.material.color = Color.red;
 			redLastCol = sender.boardX;
 			redLastRow = sender.boardY;
 			redLastPiece = sender.pieceNum;
 			turn = "black";
-		} else {
+		}
+        else
+        {
 			sender.gameObject.renderer.material.color = Color.black;
 			blackLastCol = sender.boardX;
 			blackLastRow = sender.boardY;
 			blackLastPiece = sender.pieceNum;
 			turn = "red";
 		}
+
         turnsLeft--;
 		char winner = checkForWin ();
 	}
-
-    public void ShowLight(test sender)
-    {
-        //Light light = GameObject.Find("TestLight").GetComponent<Light>();
-
-        //light.light.intensity = 5;
-    }
 
 	char checkForWin() {
 		char winner = '*';
@@ -111,27 +110,23 @@ public class core : MonoBehaviour {
         return result;
 	}
 
-	public bool isValidMove(int x, int y){
+	public bool isValidMove(int x, int y)
+    {
 		bool result = true;
-		Debug.Log (gamePlaces [y, x].pieceNum);
+		Debug.Log (gamePlaces[x, y].pieceNum);
 		Debug.Log (redLastPiece);
 
-            if (gamePlaces[y, x].pieceNum == redLastPiece ||
-                gamePlaces[y, x].pieceNum == blackLastPiece)
-            {
-                result = false;
-            }
-            if (turn == "red" && x != blackLastCol && y != blackLastRow)
+        if (gamePlaces[x, y].pieceNum == redLastPiece || gamePlaces[x, y].pieceNum == blackLastPiece)
                 result = false;
 
-            if (turn == "black" && x != redLastCol && y != redLastRow)
+            if (turn == "red" && x != blackLastRow && y != blackLastCol)
                 result = false;
 
-            if (gamePlaces[y, x].pieceNum == redLastPiece ||
-                gamePlaces[y, x].pieceNum == blackLastPiece)
-            {
+            if (turn == "black" && x != redLastRow && y != redLastCol)
                 result = false;
-            }
+
+            if (gamePlaces[x, y].pieceNum == redLastPiece || gamePlaces[x, y].pieceNum == blackLastPiece)
+                result = false;
         
         Debug.Log(result);
 		return result;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.IO;
 using System.Text;
 
@@ -12,9 +13,11 @@ public class ReadGameboard
     private int gameBoardNum;
 
 
-    public ReadGameboard(GamePlace[,] gamePlaces)
+    public ReadGameboard(GamePlace[,] gamePlaces, int gbNum)
     {
-        StreamReader reader = new StreamReader("gameBoard.txt");
+        gameBoardNum = gbNum;
+
+        StreamReader reader = new StreamReader("gameBoard"+gbNum+".txt");
         pieceNumbers = reader.ReadToEnd().Split(',');
 
         //gamePlaces = new GamePlace[boardSize, boardSize];
@@ -37,6 +40,17 @@ public class ReadGameboard
                 gp.owner = "open";
 
                 gamePlaces[i, j] = gp;
+            }
+        }
+    }
+
+    public void Output()
+    {
+        for (int i = 0; i < boardSize; i++)
+        {
+            for (int j = 0; j < boardSize; j++)
+            {
+                Debug.Log("priceNum: " + gamePlaces[i, j].pieceNum + " owner: " + gamePlaces[i, j].owner);
             }
         }
     }
