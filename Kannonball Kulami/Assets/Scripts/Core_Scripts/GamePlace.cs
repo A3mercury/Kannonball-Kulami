@@ -13,4 +13,5 @@ public struct GamePlace
 {
 	public int pieceNum;
 	public string owner;
+    public bool isValid;
 }

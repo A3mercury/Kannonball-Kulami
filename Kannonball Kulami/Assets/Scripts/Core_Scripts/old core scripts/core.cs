@@ -50,15 +50,15 @@ public class core : MonoBehaviour {
             }
         }
 
-        //for (int i = 0; i < 8; i++)
-        //{
-        //    for (int k = 0; k < 8; k++)
-        //    {
-        //        Debug.Log("pieceNum " + gamePlaces[i, k].pieceNum);
-        //        Debug.Log("owner " + gamePlaces[i, k].owner);
-        //    }
-        //    Debug.Log('\n');
-        //}
+        for (int i = 0; i < 8; i++)
+        {
+            for (int k = 0; k < 8; k++)
+            {
+                Debug.Log("pieceNum " + gamePlaces[i, k].pieceNum);
+                Debug.Log("owner " + gamePlaces[i, k].owner);
+            }
+            Debug.Log('\n');
+        }
 	}
 
 	public void PlacePiece (test sender) 

@@ -7,13 +7,12 @@ public class test : MonoBehaviour {
 	public int boardX;
 	public int boardY;
 	public int pieceNum;
-    private bool firstMove;
+    private bool firstMove = true;
 	private core gameCore;
 
 	// Use this for initialization
 	void Start () {
 		gameCore = GameObject.Find ("GameCore").GetComponent<core>();
-        firstMove = true;
 	}
 	
 	// Update is called once per frame
