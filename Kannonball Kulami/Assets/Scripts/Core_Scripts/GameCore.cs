@@ -3,10 +3,12 @@ using System.Collections;
 using System.Text;
 using System.IO;
 
-public class GameCore : MonoBehaviour 
+public class GameCore : MonoBehaviour
 {
     public Material solid;
     public MeshRenderer meshRenderer;
+
+
 
     public GamePlace[,] gamePlaces;
     public string turn;
@@ -18,15 +20,19 @@ public class GameCore : MonoBehaviour
     private int blackLastPiece;
     public int currentRow;
     public int currentCol;
-    private int turnsLeft;
+    //private int turnsLeft;
+    private int redTurnsLeft;
+    private int blackTurnsLeft;
     private int boardSize = 8;
 
     public ReadGameboard boardReader;
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start()
     {
-        turnsLeft = 56;
+        //turnsLeft = 56;
+        redTurnsLeft = 28;
+        blackTurnsLeft = 28;
 
         turn = "red";
 
@@ -35,15 +41,15 @@ public class GameCore : MonoBehaviour
         // Gameboard number is send as second parameter
         boardReader = new ReadGameboard(gamePlaces, 1);
 
-        boardReader.Output();
+        //boardReader.Output();
 
         for (int i = 0; i < boardSize; i++)
             for (int j = 0; j < boardSize; j++)
                 gamePlaces[i, j].isValid = true;
-	}
-	
-	// Update is called once per frame
-	void Update () { }
+    }
+
+    // Update is called once per frame
+    void Update() { }
 
     public void PlacePiece(ClickGameboard sender)
     {
@@ -52,13 +58,14 @@ public class GameCore : MonoBehaviour
         sender.gameObject.renderer.enabled = true;
         sender.gameObject.renderer.material = solid;
 
-        if(turn == "red")
+        if (turn == "red")
         {
             sender.gameObject.renderer.material.color = Color.red;
             redLastRow = sender.boardX;
             redLastCol = sender.boardY;
             redLastPiece = sender.pieceNum;
             turn = "black";
+            redTurnsLeft--;
         }
         else
         {
@@ -67,42 +74,36 @@ public class GameCore : MonoBehaviour
             blackLastCol = sender.boardY;
             blackLastPiece = sender.pieceNum;
             turn = "red";
+            blackTurnsLeft--;
         }
 
-        turnsLeft--;
+        //Debug.Log("Black: " + blackTurnsLeft + ", Red: " + redTurnsLeft);
+        //turnsLeft--;
     }
 
     public bool isGameOver()
     {
-        bool gameOver = false;
+        if (blackTurnsLeft == 0 || redTurnsLeft == 0)
+            return true;
+        if ((blackTurnsLeft > 0 && redTurnsLeft == 0) && noValidMoves())
+            return true;
 
-        if (turnsLeft == 0)
-            gameOver = true;
-        if (turnsLeft > 0 && noValidMoves())
-            gameOver = true;
-
-        return gameOver;
+        return false;
     }
 
     // return true if there are no valid moves left on the board
     public bool noValidMoves()
     {
-        bool result = true;
-
         for (int row = 0; row < boardSize; row++)
         {
-            for(int col = 0; col < boardSize; col++)
+            for (int col = 0; col < boardSize; col++)
             {
-                if (row != currentRow || col != currentCol)
-                {
-                    if (row == currentRow || col == currentCol)
-                        if (isValidMove(row, col))
-                            result = false;
-                }
+                if (isValidMove(row, col))
+                    return false;
             }
         }
 
-        return result;
+        return true;
     }
 
     public bool isValidMove(int x, int y)
@@ -129,4 +130,6 @@ public class GameCore : MonoBehaviour
 
         return result;
     }
+
+    
 }

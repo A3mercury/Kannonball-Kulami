@@ -25,6 +25,10 @@ public class ClickGameboard : MonoBehaviour
         gameCore.currentRow = boardX;
         gameCore.currentCol = boardY;
 
+        //if(gameCore.isGameOver())
+        //{
+        //    Debug.Log("Game is over, no more moves.");
+        //}
         if (!gameOver)
         {
             if (firstMove)
@@ -39,9 +43,12 @@ public class ClickGameboard : MonoBehaviour
                 {
                     gameCore.PlacePiece(this);
                     gameObject.collider.enabled = false;
-                    
+
                     if (gameCore.isGameOver())
+                    {
                         gameOver = true;
+                        Debug.Log("Game Over!");
+                    }
                 }
             }
         }
@@ -50,9 +57,9 @@ public class ClickGameboard : MonoBehaviour
         // do game over stuff
         // (call a method in GameCore.cs)
 
-        if(gameOver)
+        if (gameOver)
         {
-            Debug.Log("Game Over!");
+            Application.Quit();
         }
 
         //Debug.Log("gameOver: " + gameOver);
