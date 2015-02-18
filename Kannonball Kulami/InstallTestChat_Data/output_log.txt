@@ -6,21 +6,21 @@ Direct3D:
     Vendor:   ATI
     VRAM:     999 MB
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\TestRunWithNetworkManager_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\TestRunWithNetworkManager_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\TestRunWithNetworkManager_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
-Loading C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\TestRunWithNetworkManager_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
-Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\TestRunWithNetworkManager_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\TestRunWithNetworkManager_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\TestRunWithNetworkManager_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
-Loading C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\TestRunWithNetworkManager_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
-Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\TestRunWithNetworkManager_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\TestRunWithNetworkManager_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\InstallTestChat_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\InstallTestChat_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\InstallTestChat_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\InstallTestChat_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\InstallTestChat_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\InstallTestChat_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\InstallTestChat_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\InstallTestChat_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\InstallTestChat_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\InstallTestChat_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 - Completed reload, in  0.046 seconds
 desktop: 1600x900 60Hz; virtual: 3200x900 at -1600,0
 <RI> Initializing input.
 <RI> Input initialized.
-Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\TestRunWithNetworkManager_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\InstallTestChat_Data\Managed\System.Core.dll (this message is harmless)
 1
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
@@ -829,10 +829,4 @@ open
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\TestRunWithNetworkManager_Data\Managed\System.dll (this message is harmless)
-NullReferenceException: Object reference not set to an instance of an object
-  at ChatScript.windowFunc (Int32 id) [0x00000] in <filename unknown>:0 
-  at UnityEngine.GUI.CallWindowDelegate (UnityEngine.WindowFunction func, Int32 id, UnityEngine.GUISkin _skin, Int32 forceRect, Single width, Single height, UnityEngine.GUIStyle style) [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
+Platform assembly: C:\Users\softdev\Documents\Kannonball-Kulami\Kannonball Kulami\InstallTestChat_Data\Managed\System.dll (this message is harmless)
