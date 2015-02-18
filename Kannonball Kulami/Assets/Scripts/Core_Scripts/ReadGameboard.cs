@@ -10,12 +10,8 @@ public class ReadGameboard
 
     string[] pieceNumbers;
 
-    private int gameBoardNum;
-
     public ReadGameboard(GamePlace[,] gamePlaces, int gbNum)
     {
-        gameBoardNum = gbNum;
-
         StreamReader reader = new StreamReader("gameBoard"+gbNum+".txt");
         pieceNumbers = reader.ReadToEnd().Split(',');
 

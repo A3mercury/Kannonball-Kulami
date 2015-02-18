@@ -84,10 +84,15 @@ public class GameCore : MonoBehaviour
     public bool isGameOver()
     {
         if (blackTurnsLeft == 0 || redTurnsLeft == 0)
+        {
+            Debug.Log("game over from out of CBs");
             return true;
-        if ((blackTurnsLeft > 0 && redTurnsLeft == 0) && noValidMoves())
+        }
+        if ((blackTurnsLeft > 0 && redTurnsLeft > 0) && noValidMoves())
+        {
+            Debug.Log("game over from no available moves");
             return true;
-
+        }
         return false;
     }
 
