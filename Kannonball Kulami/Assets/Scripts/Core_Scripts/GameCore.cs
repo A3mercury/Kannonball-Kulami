@@ -22,6 +22,7 @@ public class GameCore : MonoBehaviour
     private int boardSize = 8;
 	public bool GameIsOver = false;
     public List<KeyValuePair<int, int>> Moves;
+    public AIJob myJob;
 
     public ReadGameboard boardReader;
 
@@ -47,7 +48,16 @@ public class GameCore : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () { }
+	void Update () {
+        if (myJob != null)
+        {
+            if (myJob.Update())
+            {
+                PlaceAIMove();
+                myJob = null;
+            }
+        }
+    }
 
     public void PlacePiece(ClickGameboard sender)
     {
@@ -136,16 +146,25 @@ public class GameCore : MonoBehaviour
 
         return true;
     }
+
+
     public void MakeAIMove()
-    {
-        KeyValuePair<int, int>[] MoveArray = new KeyValuePair<int,int>[Moves.Count];
-        for(var i =0; i<Moves.Count; i++)
+    {   
+        myJob = new AIJob();
+        myJob.AIMoveArray = new KeyValuePair<int, int>[Moves.Count];
+        for (var i = 0; i < Moves.Count; i++)
         {
-            MoveArray[i] = Moves[i];
+            myJob.AIMoveArray[i] = Moves[i];
         }
-        KeyValuePair<int, int> AIChosenMove = KulamiCSharpLibrary.KulamiCSharpLibrary.AIMove(true, MoveArray, 1);
+        myJob.Start();
+    }
+
+
+    public void PlaceAIMove()
+    {
+        KeyValuePair<int, int> AIChosenMove = myJob.AIChosenMove;
         string CannonBallObjectString = "CannonBall" + AIChosenMove.Key.ToString() + AIChosenMove.Value.ToString();
-        GameObject chosenObject =  GameObject.Find(CannonBallObjectString);
+        GameObject chosenObject = GameObject.Find(CannonBallObjectString);
         Moves.Add(new KeyValuePair<int, int>(AIChosenMove.Key, AIChosenMove.Value));
         gamePlaces[AIChosenMove.Key, AIChosenMove.Value].owner = turn;
         gamePlaces[AIChosenMove.Key, AIChosenMove.Value].isValid = false;
@@ -169,10 +188,10 @@ public class GameCore : MonoBehaviour
             turn = "red";
         }
         turnsLeft--;
-		if (isGameOver ()) 
-		{
-			GameIsOver = true;
-		}
+        if (isGameOver())
+        {
+            GameIsOver = true;
+        }
     }
 
 }
