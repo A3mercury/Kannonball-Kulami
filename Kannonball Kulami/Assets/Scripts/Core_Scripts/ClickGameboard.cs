@@ -25,13 +25,14 @@ public class ClickGameboard : MonoBehaviour
         gameCore.currentRow = boardX;
         gameCore.currentCol = boardY;
 
-        if (!gameOver)
+		if (!gameCore.GameIsOver)
         {
             if (firstMove)
             {
                 gameCore.PlacePiece(this);
                 gameObject.collider.enabled = false;
                 firstMove = false;
+                gameCore.MakeAIMove();
             }
             else //if (gameCore.isValidMove(boardX, boardY))
             {
@@ -39,9 +40,13 @@ public class ClickGameboard : MonoBehaviour
                 {
                     gameCore.PlacePiece(this);
                     gameObject.collider.enabled = false;
-                    
-                    if (gameCore.isGameOver())
+
+					if (gameCore.GameIsOver)
                         gameOver = true;
+                    else
+                    {
+                        gameCore.MakeAIMove();
+                    }
                 }
             }
         }
