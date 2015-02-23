@@ -67,12 +67,9 @@ public class Network_Manager : MonoBehaviour
                 single = false;
             }
 
-            windowRect = GUI.Window(0, windowRect, windowFunc, "Players");
 
-            //if(beingconnected == true)
-            //{
-                
-            //}
+
+            windowRect = GUI.Window(0, windowRect, windowFunc, "Players");
 
         }
 
@@ -101,7 +98,7 @@ public class Network_Manager : MonoBehaviour
                 if (GUILayout.Button("Connect"))
                 {
                     Network.Connect(c);
-                    networkView.RPC("ConnectionRequest", RPCMode.All, userName, true);
+                    //networkView.RPC("ConnectionRequest", RPCMode.All, userName, true);
                 }
                 GUILayout.EndHorizontal();
             }
