@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Threading;
+
 public class ClickGameboard : MonoBehaviour 
 {
     public int boardX;
@@ -25,14 +25,17 @@ public class ClickGameboard : MonoBehaviour
         gameCore.currentRow = boardX;
         gameCore.currentCol = boardY;
 
-		if (!gameCore.GameIsOver)
+        //if(gameCore.isGameOver())
+        //{
+        //    Debug.Log("Game is over, no more moves.");
+        //}
+        if (!gameOver)
         {
             if (firstMove)
             {
                 gameCore.PlacePiece(this);
                 gameObject.collider.enabled = false;
                 firstMove = false;
-                gameCore.MakeAIMove();
             }
             else //if (gameCore.isValidMove(boardX, boardY))
             {
@@ -41,11 +44,10 @@ public class ClickGameboard : MonoBehaviour
                     gameCore.PlacePiece(this);
                     gameObject.collider.enabled = false;
 
-					if (gameCore.GameIsOver)
-                        gameOver = true;
-                    else
+                    if (gameCore.isGameOver())
                     {
-                        gameCore.MakeAIMove();
+                        gameOver = true;
+                        Debug.Log("Game Over!");
                     }
                 }
             }
@@ -55,9 +57,9 @@ public class ClickGameboard : MonoBehaviour
         // do game over stuff
         // (call a method in GameCore.cs)
 
-        if(gameOver)
+        if (gameOver)
         {
-            Debug.Log("Game Over!");
+            Application.Quit();
         }
 
         //Debug.Log("gameOver: " + gameOver);
