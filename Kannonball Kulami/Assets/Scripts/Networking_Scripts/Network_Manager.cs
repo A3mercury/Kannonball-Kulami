@@ -4,38 +4,57 @@ using System;
 
 public class Network_Manager : MonoBehaviour
 {
+    bool isOnline = false;
+    bool single = false;
+    bool beingconnected = false;
+    bool playerresponse = false;
     public GUISkin myskin;
+    private Rect windowRect = new Rect(0, 50, 200, 400);
     public string userName = "", maxPlayers = "2", port = "21212";
-    private Rect windowRect = new Rect(0, 100, 200, 400);
-
+    string playerwantingtoconnect = "";
 
     private void OnGUI()
     {
         GUI.skin = myskin;
-        windowRect = GUI.Window(0, windowRect, windowFunc, "Players");
+        //windowRect = GUI.Window(0, windowRect, windowFunc, "Players");
+
         if (Network.peerType == NetworkPeerType.Disconnected)
         {
-            GUILayout.Label("Please enter your User Name:");
-            userName = GUILayout.TextField(userName);
-
-            /* GUILayout.Label("Port");
-             port = GUILayout.TextField(port);
-
-             GUILayout.Label("Max Player");
-             maxPlayers = GUILayout.TextField(maxPlayers);*/
-
-            if (GUILayout.Button("Connect to Kannonball Kulami!"))
+            if (!isOnline && !single)
             {
-                try
+                GUILayout.Label("Select type of play:");
+                if (GUILayout.Button("Single Player!"))
                 {
-                    Network.InitializeSecurity();
-                    Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
-                    MasterServer.RegisterHost("Testing KK_Chat", userName);
+                    single = true;
                 }
-                catch (Exception)
-                {
-                    print("Please type in numbers for port and max players");
 
+                if (GUILayout.Button("Online Multiplayer!"))
+                {
+                    isOnline = true;
+                }
+            }
+            else if (!isOnline && single)
+            {
+                GUILayout.Label("Single Player play now started.");
+            }
+            else if (isOnline && !single)
+            {
+                GUILayout.Label("Please enter a username:");
+                userName = GUILayout.TextField(userName);
+
+                if (GUILayout.Button("Connect to Kannonball Kulami!"))
+                {
+                    try
+                    {
+                        Network.InitializeSecurity();
+                        Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
+                        MasterServer.RegisterHost("Testing KK_Chat", userName);
+                    }
+                    catch (Exception)
+                    {
+                        print("Please type in numbers for port and max players");
+
+                    }
                 }
             }
         }
@@ -44,8 +63,19 @@ public class Network_Manager : MonoBehaviour
             if (GUILayout.Button("Disconnect"))
             {
                 Network.Disconnect();
+                isOnline = false;
+                single = false;
             }
+
+            windowRect = GUI.Window(0, windowRect, windowFunc, "Players");
+
+            //if(beingconnected == true)
+            //{
+                
+            //}
+
         }
+
     }
 
     private void windowFunc(int id)
@@ -71,11 +101,37 @@ public class Network_Manager : MonoBehaviour
                 if (GUILayout.Button("Connect"))
                 {
                     Network.Connect(c);
+                    networkView.RPC("ConnectionRequest", RPCMode.All, userName, true);
                 }
                 GUILayout.EndHorizontal();
             }
         }
         GUI.DragWindow(new Rect(0, 0, Screen.width, Screen.height));
+    }
+
+    [RPC]
+    private void ConnectionRequest(string userName, bool connect)
+    {
+        Debug.Log(userName);
+        GUILayout.Label(userName + "wants to play kulami.  Do you accept?");
+        if (GUILayout.Button("Yes"))
+        {
+            playerresponse = true;
+        }
+        else if (GUILayout.Button("No"))
+        {
+            playerresponse = false;
+        }
+
+        networkView.RPC("ConnectionResponse", RPCMode.Others, playerresponse);
+        playerwantingtoconnect = userName;
+        beingconnected = connect;
+    }
+
+    [RPC]
+    private void ConnectionResponse(bool response)
+    {
+        playerresponse = response;
     }
 
 }
