@@ -61,6 +61,12 @@
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/Editor/UnityEditor.UI.dll</HintPath>
+<<<<<<< HEAD
+=======
+ </Reference>
+ <Reference Include="KulamiCSharpLibrary">
+ <HintPath>C:/Users/softdev/Documents/Kannonball-Kulami/Kannonball Kulami/Assets/Plugins/KulamiCSharpLibrary.dll</HintPath>
+>>>>>>> AI_Test
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
