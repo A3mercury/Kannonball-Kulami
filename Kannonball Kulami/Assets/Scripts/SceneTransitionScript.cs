@@ -4,12 +4,12 @@ using System.Collections;
 public class SceneTransitionScript : MonoBehaviour {
 
 	public void SinglePlayer () {
-        GameCore.isOnline = false;
+        Network_Manager.isOnline = false;
 		Application.LoadLevel("gameboardTestScene");
 	}
 	
 	public void NetworkPlay () {
-        GameCore.isOnline = true;
+        Network_Manager.isOnline = true;
 		Application.LoadLevel("gameboardTestScene");
 	}
 
