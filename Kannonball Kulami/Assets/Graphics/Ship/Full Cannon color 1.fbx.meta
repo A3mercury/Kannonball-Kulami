@@ -1,0 +1,139 @@
+fileFormatVersion: 2
+guid: f4fa896306e03f847b6701f32061a21e
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Group1106
+    100004: Group1106_MeshPart0
+    100006: Group1106_MeshPart1
+    100008: Group14031
+    100010: Group16884
+    100012: Group20293
+    100014: Group26530
+    100016: Group26760
+    100018: Group33974
+    100020: Group47634
+    100022: Group49670
+    100024: Group52558
+    100026: Group59721
+    100028: Group61065
+    100030: Group65141
+    100032: Group65329
+    400000: //RootNode
+    400002: Group1106
+    400004: Group1106_MeshPart0
+    400006: Group1106_MeshPart1
+    400008: Group14031
+    400010: Group16884
+    400012: Group20293
+    400014: Group26530
+    400016: Group26760
+    400018: Group33974
+    400020: Group47634
+    400022: Group49670
+    400024: Group52558
+    400026: Group59721
+    400028: Group61065
+    400030: Group65141
+    400032: Group65329
+    2300000: Group1106_MeshPart0
+    2300002: Group1106_MeshPart1
+    2300004: Group14031
+    2300006: Group16884
+    2300008: Group20293
+    2300010: Group26530
+    2300012: Group26760
+    2300014: Group33974
+    2300016: Group47634
+    2300018: Group49670
+    2300020: Group52558
+    2300022: Group59721
+    2300024: Group61065
+    2300026: Group65141
+    2300028: Group65329
+    3300000: Group1106_MeshPart0
+    3300002: Group1106_MeshPart1
+    3300004: Group14031
+    3300006: Group16884
+    3300008: Group20293
+    3300010: Group26530
+    3300012: Group26760
+    3300014: Group33974
+    3300016: Group47634
+    3300018: Group49670
+    3300020: Group52558
+    3300022: Group59721
+    3300024: Group61065
+    3300026: Group65141
+    3300028: Group65329
+    4300000: Group20293
+    4300002: Group26530
+    4300004: Group26760
+    4300006: Group14031
+    4300008: Group49670
+    4300010: Group59721
+    4300012: Group47634
+    4300014: Group65141
+    4300016: Group65329
+    4300018: Group52558
+    4300020: Group61065
+    4300022: Group33974
+    4300024: Group16884
+    4300026: Group1106_MeshPart0
+    4300028: Group1106_MeshPart1
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
