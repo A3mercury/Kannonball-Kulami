@@ -5,6 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 public class GameCore : MonoBehaviour 
 {
+    public static bool isOnline;
     public Material solid;
     public MeshRenderer meshRenderer;
 
