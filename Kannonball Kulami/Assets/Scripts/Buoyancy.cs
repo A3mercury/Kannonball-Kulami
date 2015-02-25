@@ -4,9 +4,21 @@ using System.Collections;
 public class Buoyancy : MonoBehaviour 
 {
     public float UpwardForce = 12.72f; 
-    private bool isInWater = false;
+    public bool isInWater = false;
+    GameObject w = GameObject.Find("Water4Example (Advanced)");
 
-	void OnTriggerEnter(Collider collidier)
+    void InWater()
+    {
+        float height = w.transform.position.y;
+
+        if(this.transform.position.y <= 0)
+        {
+            isInWater = true;
+            rigidbody.drag = 5f;
+        }
+    }
+
+	void OnTriggerEnter(Collider collider)
     {
         isInWater = true;
         rigidbody.drag = 5f;
