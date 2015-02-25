@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SceneTransitionScript : MonoBehaviour {
+public class SceneTransitionScript : MonoBehaviour {    
 
 	public void SinglePlayer () {
-        Network_Manager.isOnline = false;
+        Network_Manager.fromtransition = false;
 		Application.LoadLevel("gameboardTestScene");
 	}
 	
 	public void NetworkPlay () {
-        Network_Manager.isOnline = true;
+        Network_Manager.fromtransition = true;
 		Application.LoadLevel("gameboardTestScene");
 	}
 

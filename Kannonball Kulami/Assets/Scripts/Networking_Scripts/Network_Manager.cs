@@ -21,12 +21,21 @@ public class Network_Manager : MonoBehaviour {
     /// -windowRect- defines a new window. 
     /// </summary>
     
-    public static bool isOnline;
+    public bool isOnline;
+    public static bool fromtransition;
     public static int networkplayer;
     bool sendrequest = false, prompt = false, beingconnectedto = false, respondtorequest = false, waitingforresponse = false, isconnected = false;
     public string userName = "", maxPlayers = "50", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     public GUISkin myskin;
     private Rect windowRect = new Rect(0, 80, 200, 300);
+    private GameCore gameCore;
+
+    void Start()
+    {
+        gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
+        isOnline = fromtransition;
+    }
+
 	
     /// <summary>
     /// ///////////////////////////////////////////////////Server initialization and connection////////////////////////////////////////////////
@@ -142,11 +151,11 @@ public class Network_Manager : MonoBehaviour {
     private void RespondtoRequest(bool response, bool message)
     { }
 
-   // [RPC]
-   // private void SendMove()
-   // {
-        
-   // }
+   [RPC]
+   public void SendMove(ClickGameboard sender)
+   {
+       gameCore.PlacePiece(sender);
+   }
 
 
 }

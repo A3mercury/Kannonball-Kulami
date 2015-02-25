@@ -8,6 +8,7 @@ public class ClickGameboard : MonoBehaviour
     public int pieceNum;
     private static bool firstMove = true;
     private GameCore gameCore;
+    private Network_Manager network;
 
     private bool gameOver = false;
 
@@ -15,6 +16,7 @@ public class ClickGameboard : MonoBehaviour
 	void Start () 
     {
         gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
+        Network_Manager network = GetComponent<Network_Manager>();
 	}
 	
 	// Update is called once per frame
@@ -29,17 +31,33 @@ public class ClickGameboard : MonoBehaviour
         {
             if (firstMove)
             {
-                gameCore.PlacePiece(this);
-                gameObject.collider.enabled = false;
-                firstMove = false;
-                gameCore.MakeAIMove();
+                if (network.isOnline)
+                {
+                    network.networkView.RPC("SendMove", RPCMode.All, this);
+                    gameObject.collider.enabled = false;
+                    firstMove = false;
+                }
+                else
+                {
+                    gameCore.PlacePiece(this);
+                    gameObject.collider.enabled = false;
+                    firstMove = false;
+                    gameCore.MakeAIMove();
+                }
             }
             else //if (gameCore.isValidMove(boardX, boardY))
             {
                 if (gameCore.isValidMove(boardX, boardY))
                 {
-                    gameCore.PlacePiece(this);
-                    gameObject.collider.enabled = false;
+                    if (network.isOnline)
+                    {
+                        network.networkView.RPC("SendMove", RPCMode.All, this);
+                    }
+                    else
+                    {
+                        gameCore.PlacePiece(this);
+                        gameObject.collider.enabled = false;
+                    }
 
 					if (gameCore.GameIsOver)
                         gameOver = true;

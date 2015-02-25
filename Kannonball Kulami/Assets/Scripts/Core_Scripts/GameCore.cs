@@ -43,7 +43,7 @@ public class GameCore : MonoBehaviour
         // Gameboard number is send as second parameter
         boardReader = new ReadGameboard(gamePlaces, 1);
 
-        boardReader.Output();
+        //boardReader.Output();
 
         for (int i = 0; i < boardSize; i++)
             for (int j = 0; j < boardSize; j++)
