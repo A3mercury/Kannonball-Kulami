@@ -3,8 +3,11 @@ using System.Collections;
 using System.Text;
 using System.IO;
 using System.Collections.Generic;
+
+
 public class GameCore : MonoBehaviour 
 {
+    //public static bool isOnline;
     public Material solid;
     public MeshRenderer meshRenderer;
 
@@ -67,28 +70,29 @@ public class GameCore : MonoBehaviour
         sender.gameObject.renderer.enabled = true;
         sender.gameObject.renderer.material = solid;
 
-        if(turn == "red")
-        {
-            sender.gameObject.renderer.material.color = Color.red;
-            redLastRow = sender.boardX;
-            redLastCol = sender.boardY;
-            redLastPiece = sender.pieceNum;
-            turn = "black";
-        }
-        else
-        {
-            sender.gameObject.renderer.material.color = Color.black;
-            blackLastRow = sender.boardX;
-            blackLastCol = sender.boardY;
-            blackLastPiece = sender.pieceNum;
-            turn = "red";
-        }
+            if (turn == "red")
+            {
+                sender.gameObject.renderer.material.color = Color.red;
+                redLastRow = sender.boardX;
+                redLastCol = sender.boardY;
+                redLastPiece = sender.pieceNum;
+                turn = "black";
+            }
+            else
+            {
+                sender.gameObject.renderer.material.color = Color.black;
+                blackLastRow = sender.boardX;
+                blackLastCol = sender.boardY;
+                blackLastPiece = sender.pieceNum;
+                turn = "red";
+            }
 
-        turnsLeft--;
-		if (isGameOver ()) 
-		{
-			GameIsOver = true;
-		}
+            turnsLeft--;
+            if (isGameOver())
+            {
+                GameIsOver = true;
+            }
+       
     }
 
     public bool isGameOver()
@@ -149,49 +153,53 @@ public class GameCore : MonoBehaviour
 
 
     public void MakeAIMove()
-    {   
-        myJob = new AIJob();
-        myJob.AIMoveArray = new KeyValuePair<int, int>[Moves.Count];
-        for (var i = 0; i < Moves.Count; i++)
-        {
-            myJob.AIMoveArray[i] = Moves[i];
-        }
-        myJob.Start();
+    {
+     
+            myJob = new AIJob();
+            myJob.AIMoveArray = new KeyValuePair<int, int>[Moves.Count];
+            for (var i = 0; i < Moves.Count; i++)
+            {
+                myJob.AIMoveArray[i] = Moves[i];
+            }
+            myJob.Start();
+        
     }
 
 
     public void PlaceAIMove()
     {
-        KeyValuePair<int, int> AIChosenMove = myJob.AIChosenMove;
-        string CannonBallObjectString = "CannonBall" + AIChosenMove.Key.ToString() + AIChosenMove.Value.ToString();
-        GameObject chosenObject = GameObject.Find(CannonBallObjectString);
-        Moves.Add(new KeyValuePair<int, int>(AIChosenMove.Key, AIChosenMove.Value));
-        gamePlaces[AIChosenMove.Key, AIChosenMove.Value].owner = turn;
-        gamePlaces[AIChosenMove.Key, AIChosenMove.Value].isValid = false;
-        chosenObject.gameObject.renderer.enabled = true;
-        chosenObject.gameObject.renderer.material = solid;
+        
+            KeyValuePair<int, int> AIChosenMove = myJob.AIChosenMove;
+            string CannonBallObjectString = "CannonBall" + AIChosenMove.Key.ToString() + AIChosenMove.Value.ToString();
+            GameObject chosenObject = GameObject.Find(CannonBallObjectString);
+            Moves.Add(new KeyValuePair<int, int>(AIChosenMove.Key, AIChosenMove.Value));
+            gamePlaces[AIChosenMove.Key, AIChosenMove.Value].owner = turn;
+            gamePlaces[AIChosenMove.Key, AIChosenMove.Value].isValid = false;
+            chosenObject.gameObject.renderer.enabled = true;
+            chosenObject.gameObject.renderer.material = solid;
 
-        if (turn == "red")
-        {
-            chosenObject.gameObject.renderer.material.color = Color.red;
-            redLastRow = AIChosenMove.Key;
-            redLastCol = AIChosenMove.Value;
-            redLastPiece = gamePlaces[AIChosenMove.Key, AIChosenMove.Value].pieceNum;
-            turn = "black";
-        }
-        else
-        {
-            chosenObject.gameObject.renderer.material.color = Color.black;
-            blackLastRow = AIChosenMove.Key;
-            blackLastCol = AIChosenMove.Value;
-            blackLastPiece = gamePlaces[AIChosenMove.Key, AIChosenMove.Value].pieceNum;
-            turn = "red";
-        }
-        turnsLeft--;
-        if (isGameOver())
-        {
-            GameIsOver = true;
-        }
+            if (turn == "red")
+            {
+                chosenObject.gameObject.renderer.material.color = Color.red;
+                redLastRow = AIChosenMove.Key;
+                redLastCol = AIChosenMove.Value;
+                redLastPiece = gamePlaces[AIChosenMove.Key, AIChosenMove.Value].pieceNum;
+                turn = "black";
+            }
+            else
+            {
+                chosenObject.gameObject.renderer.material.color = Color.black;
+                blackLastRow = AIChosenMove.Key;
+                blackLastCol = AIChosenMove.Value;
+                blackLastPiece = gamePlaces[AIChosenMove.Key, AIChosenMove.Value].pieceNum;
+                turn = "red";
+            }
+            turnsLeft--;
+            if (isGameOver())
+            {
+                GameIsOver = true;
+            }
+        
     }
 
 }
