@@ -16,7 +16,7 @@ public class ClickGameboard : MonoBehaviour
 	void Start () 
     {
         gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
-        Network_Manager network = GetComponent<Network_Manager>();
+        network = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
 	}
 	
 	// Update is called once per frame
