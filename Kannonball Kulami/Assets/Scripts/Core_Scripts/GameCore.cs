@@ -4,10 +4,7 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 
-/// <summary>
-/// I added several if statements that will turn the AI off if networkplay is detected.  Also there is an if statement in the 
-/// PlacePiece function again for handling network play. 
-/// </summary>
+
 public class GameCore : MonoBehaviour 
 {
     //public static bool isOnline;
@@ -67,46 +64,11 @@ public class GameCore : MonoBehaviour
 
     public void PlacePiece(ClickGameboard sender)
     {
-        int networkplayer = 0;
-
-        if(Network_Manager.isOnline)
-        {
-            networkplayer = 1;
-        }
-
         Moves.Add(new KeyValuePair<int, int>(sender.boardX, sender.boardY));
         gamePlaces[sender.boardX, sender.boardY].owner = turn;
         gamePlaces[sender.boardX, sender.boardY].isValid = false;
         sender.gameObject.renderer.enabled = true;
         sender.gameObject.renderer.material = solid;
-
-        if (Network_Manager.isOnline)
-        {
-            if (networkplayer == 1)
-            {
-                sender.gameObject.renderer.material.color = Color.red;
-                redLastRow = sender.boardX;
-                redLastCol = sender.boardY;
-                redLastPiece = sender.pieceNum;
-                networkplayer = 2;
-            }
-            else
-            {
-                sender.gameObject.renderer.material.color = Color.black;
-                blackLastRow = sender.boardX;
-                blackLastCol = sender.boardY;
-                blackLastPiece = sender.pieceNum;
-                networkplayer = 1;
-            }
-
-            turnsLeft--;
-            if (isGameOver())
-            {
-                GameIsOver = true;
-            }
-        }
-        else
-        {
 
             if (turn == "red")
             {
@@ -130,8 +92,7 @@ public class GameCore : MonoBehaviour
             {
                 GameIsOver = true;
             }
-        }
-        //////////////////////////////////////////////////////////////////////////////////////////
+       
     }
 
     public bool isGameOver()
@@ -193,8 +154,7 @@ public class GameCore : MonoBehaviour
 
     public void MakeAIMove()
     {
-        if (!Network_Manager.isOnline)
-        {
+     
             myJob = new AIJob();
             myJob.AIMoveArray = new KeyValuePair<int, int>[Moves.Count];
             for (var i = 0; i < Moves.Count; i++)
@@ -202,14 +162,13 @@ public class GameCore : MonoBehaviour
                 myJob.AIMoveArray[i] = Moves[i];
             }
             myJob.Start();
-        }
+        
     }
 
 
     public void PlaceAIMove()
     {
-        if (!Network_Manager.isOnline)
-        {
+        
             KeyValuePair<int, int> AIChosenMove = myJob.AIChosenMove;
             string CannonBallObjectString = "CannonBall" + AIChosenMove.Key.ToString() + AIChosenMove.Value.ToString();
             GameObject chosenObject = GameObject.Find(CannonBallObjectString);
@@ -240,7 +199,7 @@ public class GameCore : MonoBehaviour
             {
                 GameIsOver = true;
             }
-        }
+        
     }
 
 }

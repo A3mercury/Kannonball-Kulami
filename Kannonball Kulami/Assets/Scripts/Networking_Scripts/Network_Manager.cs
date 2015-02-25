@@ -22,6 +22,7 @@ public class Network_Manager : MonoBehaviour {
     /// </summary>
     
     public static bool isOnline;
+    public static int networkplayer;
     bool sendrequest = false, prompt = false, beingconnectedto = false, respondtorequest = false, waitingforresponse = false, isconnected = false;
     public string userName = "", maxPlayers = "50", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     public GUISkin myskin;
@@ -88,7 +89,7 @@ public class Network_Manager : MonoBehaviour {
 
             if(Network.isServer && isconnected)
             {
-                networkView.RPC("SendMove", RPCMode.All);
+                networkplayer = 1;
             }
 
         }
@@ -100,7 +101,7 @@ public class Network_Manager : MonoBehaviour {
     {
         if (GUILayout.Button("Refresh"))
         {
-            MasterServer.RequestHostList("Testing KK_Chat");
+            MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
         }
 
         GUILayout.BeginHorizontal();
@@ -141,11 +142,11 @@ public class Network_Manager : MonoBehaviour {
     private void RespondtoRequest(bool response, bool message)
     { }
 
-    [RPC]
-    private void SendMove()
-    {
+   // [RPC]
+   // private void SendMove()
+   // {
         
-    }
+   // }
 
 
 }
