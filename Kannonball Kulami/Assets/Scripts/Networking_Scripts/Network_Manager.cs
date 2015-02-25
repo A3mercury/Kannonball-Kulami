@@ -89,9 +89,7 @@ public class Network_Manager : MonoBehaviour {
 
             if(Network.isServer && isconnected)
             {
-
                 networkplayer = 1;
-                //ClickGameboard.
             }
 
         }

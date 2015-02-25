@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
@@ -30,8 +29,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-<<<<<<< HEAD
-																																																																																									GlobalSection(MonoDevelopProperties) = preSolution
+																																																																																										GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -69,7 +67,7 @@ Global
 	EndGlobalSection
 																																																																																					GlobalSection(MonoDevelopProperties) = preSolution
 =======
-																																																																																								GlobalSection(MonoDevelopProperties) = preSolution
+																																																																																							GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> cb8bf784d5ac0bc791c4fb30555d358b35f9a117
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
@@ -88,41 +86,7 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 	EndGlobalSection
-
-EndGlobal
-=======
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{C50F6703-EDAA-A7FE-4B4D-A00E391D8457}") = "Kannonball Kulami", "Assembly-CSharp-firstpass-vs.csproj", "{B4F2818B-999E-8E56-D9D4-37CAD8ACDBC5}"
-EndProject
-Project("{C50F6703-EDAA-A7FE-4B4D-A00E391D8457}") = "Kannonball Kulami", "Assembly-CSharp-vs.csproj", "{57E3B957-D263-5F5A-902A-D2A75A322858}"
-EndProject
-Project("{C50F6703-EDAA-A7FE-4B4D-A00E391D8457}") = "Kannonball Kulami", "Assembly-CSharp-Editor-vs.csproj", "{FEDF6246-4537-0DC1-A756-59129911D93B}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B4F2818B-999E-8E56-D9D4-37CAD8ACDBC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4F2818B-999E-8E56-D9D4-37CAD8ACDBC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4F2818B-999E-8E56-D9D4-37CAD8ACDBC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4F2818B-999E-8E56-D9D4-37CAD8ACDBC5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{57E3B957-D263-5F5A-902A-D2A75A322858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57E3B957-D263-5F5A-902A-D2A75A322858}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57E3B957-D263-5F5A-902A-D2A75A322858}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57E3B957-D263-5F5A-902A-D2A75A322858}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FEDF6246-4537-0DC1-A756-59129911D93B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FEDF6246-4537-0DC1-A756-59129911D93B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FEDF6246-4537-0DC1-A756-59129911D93B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FEDF6246-4537-0DC1-A756-59129911D93B}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-																																																																													GlobalSection(MonoDevelopProperties) = preSolution
+																																																																												GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -160,4 +124,3 @@ Global
 	EndGlobalSection
 
 EndGlobal
->>>>>>> 482bc98c7277f3867a3b459fde813878a893be77
