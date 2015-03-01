@@ -3,7 +3,7 @@ using System.Collections;
 using System.Threading;
 public class ClickGameboard : MonoBehaviour 
 {
-    public int row;
+	public int row;
     public int col;
     public int pieceNum;
     private static bool firstMove = true;
