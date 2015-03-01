@@ -152,9 +152,9 @@ public class Network_Manager : MonoBehaviour {
     { }
 
    [RPC]
-   public void SendMove(ClickGameboard sender)
+   public void SendMove(int row, int col)
    {
-       gameCore.PlacePiece(sender);
+       gameCore.PlacePiece(row, col);
    }
 
 

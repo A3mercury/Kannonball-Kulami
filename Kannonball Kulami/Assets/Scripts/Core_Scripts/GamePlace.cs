@@ -12,6 +12,6 @@ using System;
 public struct GamePlace
 {
 	public int pieceNum;
-	public string owner;
-    public bool isValid;
+	public string owner; //red, black, open
+    //public bool isValid;
 }
