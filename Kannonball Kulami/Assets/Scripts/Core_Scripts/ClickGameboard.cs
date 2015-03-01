@@ -3,8 +3,8 @@ using System.Collections;
 using System.Threading;
 public class ClickGameboard : MonoBehaviour 
 {
-    public int boardX;
-    public int boardY;
+    public int row;
+    public int col;
     public int pieceNum;
     private static bool firstMove = true;
     private GameCore gameCore;
@@ -24,8 +24,8 @@ public class ClickGameboard : MonoBehaviour
 
     void OnMouseDown()
     {
-        gameCore.currentRow = boardX;
-        gameCore.currentCol = boardY;
+		gameCore.currentRow = row;
+		gameCore.currentCol = col;
 
 		if (!gameCore.GameIsOver)
         {
@@ -34,29 +34,26 @@ public class ClickGameboard : MonoBehaviour
                 if (network.isOnline)
                 {
                     network.networkView.RPC("SendMove", RPCMode.All, this);
-                    gameObject.collider.enabled = false;
                     firstMove = false;
                 }
                 else
                 {
-                    gameCore.PlacePiece(this);
-                    gameObject.collider.enabled = false;
+                    gameCore.PlacePiece(row, col);
                     firstMove = false;
                     gameCore.MakeAIMove();
                 }
             }
             else //if (gameCore.isValidMove(boardX, boardY))
             {
-                if (gameCore.isValidMove(boardX, boardY))
+				if (gameCore.isValidMove(row, col))
                 {
                     if (network.isOnline)
                     {
-                        network.networkView.RPC("SendMove", RPCMode.All, this);
+                        network.networkView.RPC("SendMove", RPCMode.All, row, col);
                     }
                     else
                     {
-                        gameCore.PlacePiece(this);
-                        gameObject.collider.enabled = false;
+                        gameCore.PlacePiece(row, col);
                     }
 
 					if (gameCore.GameIsOver)
