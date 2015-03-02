@@ -7,27 +7,65 @@ public class Chat_Script : MonoBehaviour
     void Awake()
     {
         get = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
+        //myStyle = new GUIStyle();
+        
+        //myOtherStyle = new GUIStyle();
+        
     }
 
+    public Vector2 scrollPosition;
     public GUISkin myskin;
-    private Rect windowRect = new Rect(450, 50, 300, 450);
+    private GUIStyle myStyle;
+    private GUIStyle myOtherStyle;
+    private bool firstConnection = true;
+    private Rect windowRect = new Rect(0, 275, 300, 200);
     private string messBox = "", messageToSend = "", user = "";
 
     private void OnGUI()
     {
             GUI.skin = myskin;
-            windowRect = GUI.Window(1, windowRect, windowFunc, "Chat");
+            if (get.isInGame)
+            {
+                if (firstConnection)
+                {
+                    if (Network.isServer)
+                    {
+                        messBox = get.clientName + " has challenged you to a game! You will go second, and play as black.\n";
+                    }
+                    else
+                    {
+                        messBox = "You have connected to " + get.serverName + ". You will go first, and play as red.\n";
+                    }
+                    firstConnection = false;
+                }
+                
+                windowRect = GUI.Window(1, windowRect, windowFunc, "Chat");
+            }
+            
     }
 
     private void windowFunc(int id)
     {
-        GUILayout.Box(messBox, GUILayout.Height(350));
+        myStyle = GUI.skin.box;
+        myStyle.alignment = TextAnchor.UpperLeft;
+        myStyle.wordWrap = true;
+        myStyle.stretchHeight = true;
+        myOtherStyle = GUI.skin.textField;
+        myOtherStyle.alignment = TextAnchor.MiddleLeft;
+        myOtherStyle.clipping = TextClipping.Clip;
+        myOtherStyle.wordWrap = false;
+        myOtherStyle.fixedWidth = 200;
+        //GUILayout.Box(messBox, myStyle, GUILayout.Height(350));
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(280));
+        GUILayout.Box(messBox, myStyle);
+        GUILayout.EndScrollView();
         GUILayout.BeginHorizontal();
-        messageToSend = GUILayout.TextField(messageToSend);
+        messageToSend = GUILayout.TextField(messageToSend, myOtherStyle);
         if (GUILayout.Button("Send", GUILayout.Width(75)))
         {
-
-            networkView.RPC("SendMessage", RPCMode.All, get.userName + ": " + messageToSend + "\n");
+            
+            networkView.RPC("SendMyMessage", RPCMode.All, get.userName + ": " + messageToSend + "\n");
+            Debug.Log(messBox);
             messageToSend = "";
         }
         GUILayout.EndHorizontal();
@@ -38,10 +76,11 @@ public class Chat_Script : MonoBehaviour
         GUI.DragWindow(new Rect(0, 0, Screen.width, Screen.height));
     }
 
-    [RPC]
-    private void SendMessage(string mess)
-    {
-        messBox += mess;
-    }
+   [RPC]
+   private void SendMyMessage(string mess)
+   {
+       Debug.Log(mess);
+       messBox += mess;
+   }
 
 }

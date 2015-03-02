@@ -23,13 +23,17 @@ public class Network_Manager : MonoBehaviour {
 
     public static bool chat = false;
     public bool isOnline;
+    public bool isInGame = false;
     public static bool fromtransition;
+    public string serverName;
+    public string clientName;
     public static int networkplayer;
     bool sendrequest = false, prompt = false, beingconnectedto = false, respondtorequest = false, waitingforresponse = false, isconnected = false;
     public string userName = "", maxPlayers = "50", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     public GUISkin myskin;
-    private Rect windowRect = new Rect(0, 80, 200, 300);
+    private Rect windowRect = new Rect(0, 43, 200, 200);
     private GameCore gameCore;
+    public Vector2 scrollPosition;
 
     void Start()
     {
@@ -104,10 +108,10 @@ public class Network_Manager : MonoBehaviour {
                 gameCore.playerColor = "black";
                 networkplayer = 1;
             }
-            //if(Network.isClient)
-            //{
-             //   networkView.RPC("RespondtoRequest", RPCMode.All, isconnected);
-           // }
+            if(Network.isClient && !isInGame)
+            {
+                networkView.RPC("OnChallenge", RPCMode.All, userwantingtoconnectfromserver, userName);
+           }
 
         }
         else
@@ -120,12 +124,13 @@ public class Network_Manager : MonoBehaviour {
         {
             MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
         }
+        
 
-        GUILayout.BeginHorizontal();
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition);
 
         GUILayout.Box("Player Name");
 
-        GUILayout.EndHorizontal();
+        GUILayout.EndScrollView();
 
         if (MasterServer.PollHostList().Length != 0)
         {
@@ -142,6 +147,7 @@ public class Network_Manager : MonoBehaviour {
                         sendrequest = true;
                         userwantingtoconnectfromserver = c.gameName;
                         isconnected = true;
+                        networkView.RPC("OnChallenge", RPCMode.All);
                         gameCore.playerColor = "red";
                         
                     }
@@ -169,5 +175,12 @@ public class Network_Manager : MonoBehaviour {
        gameCore.PlacePiece(row, col);
    }
 
-
+    [RPC]
+    public void OnChallenge(string sName, string cName)
+   {
+       Debug.Log("OnChallenge");
+       serverName = sName;
+       clientName = cName;
+       isInGame = true;
+   }
 }
