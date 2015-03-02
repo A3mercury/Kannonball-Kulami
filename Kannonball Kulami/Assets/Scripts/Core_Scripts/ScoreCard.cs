@@ -16,7 +16,7 @@ public class ScoreCard : MonoBehaviour {
     {
         if (index == 5 || index == 6)
         {
-            scoreText.text = "Red Score: " + redScore + "\n\nBlack Score: " + blackScore; 
+            scoreText.text = "Red Score: " + redScore + "\nBlack Score: " + blackScore; 
         }
     }
 
