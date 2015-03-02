@@ -97,6 +97,14 @@ public class GameCore : MonoBehaviour
 				KeyValuePair<int, int> score = GetScore();
 				Debug.Log("Red score: " + score.Key);
 				Debug.Log("Black score: " + score.Value);
+                if (playerColor == "red" && score.Key > score.Value)
+                {
+                    Application.LoadLevel("VictoryScene");
+                }
+                else
+                {
+                    Application.LoadLevel("LoseScene");
+                }
             }
        
     }
@@ -142,6 +150,8 @@ public class GameCore : MonoBehaviour
 				black += total;
 			}
 		}
+        ScoreCard.redScore = red;
+        ScoreCard.blackScore = black;
 		return new KeyValuePair<int, int> (red, black);
 	}
 
