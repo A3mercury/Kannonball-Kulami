@@ -3,8 +3,8 @@ using System.Collections;
 using System.Threading;
 public class ClickGameboard : MonoBehaviour 
 {
-    public int boardX;
-    public int boardY;
+	public int row;
+    public int col;
     public int pieceNum;
     private static bool firstMove = true;
     private GameCore gameCore;
@@ -15,8 +15,14 @@ public class ClickGameboard : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+		row = int.Parse(gameObject.name[10].ToString());
+		col = int.Parse(gameObject.name[11].ToString());
         gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
-        Network_Manager network = GetComponent<Network_Manager>();
+        network = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
+		if(!network.isOnline)
+		{
+			gameCore.playerColor = "red";
+		}
 	}
 	
 	// Update is called once per frame
@@ -24,46 +30,44 @@ public class ClickGameboard : MonoBehaviour
 
     void OnMouseDown()
     {
-        gameCore.currentRow = boardX;
-        gameCore.currentCol = boardY;
-
-		if (!gameCore.GameIsOver)
+		gameCore.currentRow = row;
+		gameCore.currentCol = col;
+        Debug.Log(gameCore.playerColor);
+		if (!gameCore.GameIsOver && (gameCore.playerColor == gameCore.turn))
         {
-            if (firstMove)
+            if (firstMove && (gameCore.playerColor == "red"))
             {
                 if (network.isOnline)
                 {
-                    network.networkView.RPC("SendMove", RPCMode.All, this);
-                    gameObject.collider.enabled = false;
+                    network.networkView.RPC("SendMove", RPCMode.All, row, col);
                     firstMove = false;
                 }
                 else
                 {
-                    gameCore.PlacePiece(this);
-                    gameObject.collider.enabled = false;
+                    gameCore.PlacePiece(row, col);
                     firstMove = false;
                     gameCore.MakeAIMove();
                 }
             }
             else //if (gameCore.isValidMove(boardX, boardY))
             {
-                if (gameCore.isValidMove(boardX, boardY))
+				if (gameCore.isValidMove(row, col))
                 {
                     if (network.isOnline)
                     {
-                        network.networkView.RPC("SendMove", RPCMode.All, this);
+                        network.networkView.RPC("SendMove", RPCMode.All, row, col);
+                        if (gameCore.GameIsOver)
+                            gameOver = true;
                     }
                     else
                     {
-                        gameCore.PlacePiece(this);
-                        gameObject.collider.enabled = false;
-                    }
-
-					if (gameCore.GameIsOver)
-                        gameOver = true;
-                    else
-                    {
-                        gameCore.MakeAIMove();
+                        gameCore.PlacePiece(row, col);
+                        if (gameCore.GameIsOver)
+                            gameOver = true;
+                        else
+                        {
+                            gameCore.MakeAIMove();
+                        }
                     }
                 }
             }

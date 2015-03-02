@@ -13,6 +13,7 @@ public class GameCore : MonoBehaviour
 
     public GamePlace[,] gamePlaces;
     public string turn;
+    public string playerColor;
     private int redLastCol;
     private int redLastRow;
     private int redLastPiece;
@@ -37,17 +38,15 @@ public class GameCore : MonoBehaviour
         turnsLeft = 56;
 
         turn = "red";
+        playerColor = "black";
 
         gamePlaces = new GamePlace[boardSize, boardSize];
 
-        // Gameboard number is send as second parameter
+        // Gameboard number is sent as second parameter
         boardReader = new ReadGameboard(gamePlaces, 1);
 
         //boardReader.Output();
-
-        for (int i = 0; i < boardSize; i++)
-            for (int j = 0; j < boardSize; j++)
-                gamePlaces[i, j].isValid = true;
+		
 	}
 	
 	// Update is called once per frame
@@ -56,34 +55,37 @@ public class GameCore : MonoBehaviour
         {
             if (myJob.Update())
             {
-                PlaceAIMove();
+                PlacePiece(myJob.AIChosenMove.Key, myJob.AIChosenMove.Value);
                 myJob = null;
             }
         }
     }
 
-    public void PlacePiece(ClickGameboard sender)
+    public void PlacePiece(int row, int col)
     {
-        Moves.Add(new KeyValuePair<int, int>(sender.boardX, sender.boardY));
-        gamePlaces[sender.boardX, sender.boardY].owner = turn;
-        gamePlaces[sender.boardX, sender.boardY].isValid = false;
-        sender.gameObject.renderer.enabled = true;
-        sender.gameObject.renderer.material = solid;
+        Moves.Add(new KeyValuePair<int, int>(row, col));
+		string CannonBallObjectString = "CannonBall" + row.ToString() + col.ToString();
+		GameObject chosenObject = GameObject.Find(CannonBallObjectString);
+        gamePlaces[row, col].owner = turn;
+        //gamePlaces[row, col].isValid = false;
+		chosenObject.collider.enabled = false;
+        chosenObject.renderer.enabled = true;
+		chosenObject.renderer.material = solid;
 
             if (turn == "red")
             {
-                sender.gameObject.renderer.material.color = Color.red;
-                redLastRow = sender.boardX;
-                redLastCol = sender.boardY;
-                redLastPiece = sender.pieceNum;
+				chosenObject.renderer.material.color = Color.red;
+                redLastRow = row;
+                redLastCol = col;
+				redLastPiece = gamePlaces[row, col].pieceNum;
                 turn = "black";
             }
             else
             {
-                sender.gameObject.renderer.material.color = Color.black;
-                blackLastRow = sender.boardX;
-                blackLastCol = sender.boardY;
-                blackLastPiece = sender.pieceNum;
+				chosenObject.renderer.material.color = Color.grey;
+                blackLastRow = row;
+                blackLastCol = col;
+				blackLastPiece = gamePlaces[row, col].pieceNum;
                 turn = "red";
             }
 
@@ -91,9 +93,67 @@ public class GameCore : MonoBehaviour
             if (isGameOver())
             {
                 GameIsOver = true;
+				Debug.Log("Game is over!");
+				KeyValuePair<int, int> score = GetScore();
+				Debug.Log("Red score: " + score.Key);
+				Debug.Log("Black score: " + score.Value);
+                if (playerColor == "red" && score.Key > score.Value)
+                {
+                    Application.LoadLevel("VictoryScene");
+                }
+                else
+                {
+                    Application.LoadLevel("LoseScene");
+                }
             }
        
     }
+
+	private struct GamePiece
+	{
+		public int red;
+		public int black;
+		public int open;
+	};
+
+	public KeyValuePair<int, int> GetScore()
+	{
+		int red = 0;
+		int black = 0;
+		GamePiece[] gamePieces = new GamePiece[17];
+		for (int i = 0; i < 17; i++) {
+			GamePiece piece;
+			piece.red = 0;
+			piece.black = 0;
+			piece.open = 0;
+			gamePieces[i] = piece;
+		}
+		for (int i = 0; i < 8; i++) {
+			for (int k = 0; k < 8; k++) {
+				if (gamePlaces[i,k].owner == "red") {
+					gamePieces[gamePlaces[i,k].pieceNum - 1].red++;
+				}
+				else if (gamePlaces[i,k].owner == "black") {
+					gamePieces[gamePlaces[i,k].pieceNum - 1].black++;
+				}
+				else if (gamePlaces[i,k].owner == "open") {
+					gamePieces[gamePlaces[i,k].pieceNum - 1].open++;
+				}
+			}
+		}
+		foreach (GamePiece piece in gamePieces) {
+			int total = piece.red + piece.black + piece.open;
+			if (piece.red > piece.black) {
+				red += total;
+			}
+			else if (piece.black > piece.red) {
+				black += total;
+			}
+		}
+        ScoreCard.redScore = red;
+        ScoreCard.blackScore = black;
+		return new KeyValuePair<int, int> (red, black);
+	}
 
     public bool isGameOver()
     {
@@ -126,25 +186,26 @@ public class GameCore : MonoBehaviour
         return true;
     }
 
-    public bool isValidMove(int x, int y)
+    public bool isValidMove(int row, int col)
     {
       //  bool result = true;
         //Debug.Log(gamePlaces[x, y].pieceNum);
         //Debug.Log("last red piece: " + redLastPiece);
         //Debug.Log("last black piece: " + blackLastPiece);
 
+		if (gamePlaces[row, col].owner != "open")
+			return false;
+
         // if not the last 2 board pieces
-        if (gamePlaces[x, y].pieceNum == redLastPiece || gamePlaces[x, y].pieceNum == blackLastPiece)
+		if (gamePlaces[row, col].pieceNum == redLastPiece || gamePlaces[row, col].pieceNum == blackLastPiece)
             return false;
 
-        if (turn == "red" && x != blackLastRow && y != blackLastCol)
+		if (turn == "red" && row != blackLastRow && col != blackLastCol)
             return false;
 
-        if (turn == "black" && x != redLastRow && y != redLastCol)
+		if (turn == "black" && row != redLastRow && col != redLastCol)
             return false;
 
-        if (!gamePlaces[x, y].isValid)
-            return false;
 
         //Debug.Log("gamePlace[" + x + ", " + y + "]" + " | valid: " + gamePlaces[x, y].isValid);
 
@@ -174,7 +235,7 @@ public class GameCore : MonoBehaviour
             GameObject chosenObject = GameObject.Find(CannonBallObjectString);
             Moves.Add(new KeyValuePair<int, int>(AIChosenMove.Key, AIChosenMove.Value));
             gamePlaces[AIChosenMove.Key, AIChosenMove.Value].owner = turn;
-            gamePlaces[AIChosenMove.Key, AIChosenMove.Value].isValid = false;
+            //gamePlaces[AIChosenMove.Key, AIChosenMove.Value].isValid = false;
             chosenObject.gameObject.renderer.enabled = true;
             chosenObject.gameObject.renderer.material = solid;
 

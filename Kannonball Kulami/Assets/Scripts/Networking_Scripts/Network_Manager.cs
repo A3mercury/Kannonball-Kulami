@@ -20,7 +20,8 @@ public class Network_Manager : MonoBehaviour {
     /// -myskin- is used for testing GUI at this point in development 2/24/2015
     /// -windowRect- defines a new window. 
     /// </summary>
-    
+
+    public static bool chat = false;
     public bool isOnline;
     public static bool fromtransition;
     public static int networkplayer;
@@ -96,10 +97,17 @@ public class Network_Manager : MonoBehaviour {
                 windowRect = GUI.Window(0, windowRect, windowFunc, "Players");
             }
 
-            if(Network.isServer && isconnected)
+            if(Network.isServer)
             {
+                //if (isconnected)
+                    //chat = true;
+                gameCore.playerColor = "black";
                 networkplayer = 1;
             }
+            //if(Network.isClient)
+            //{
+             //   networkView.RPC("RespondtoRequest", RPCMode.All, isconnected);
+           // }
 
         }
         else
@@ -134,6 +142,8 @@ public class Network_Manager : MonoBehaviour {
                         sendrequest = true;
                         userwantingtoconnectfromserver = c.gameName;
                         isconnected = true;
+                        gameCore.playerColor = "red";
+                        
                     }
                 }
                 GUILayout.EndHorizontal();
@@ -148,13 +158,15 @@ public class Network_Manager : MonoBehaviour {
     { }
 
     [RPC]
-    private void RespondtoRequest(bool response, bool message)
-    { }
+    private void RespondtoRequest(bool response)
+    {
+        isconnected = response;
+    }
 
    [RPC]
-   public void SendMove(ClickGameboard sender)
+   public void SendMove(int row, int col)
    {
-       gameCore.PlacePiece(sender);
+       gameCore.PlacePiece(row, col);
    }
 
 
