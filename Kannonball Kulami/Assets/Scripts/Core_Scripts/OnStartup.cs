@@ -13,6 +13,6 @@ public class OnStartup : MonoBehaviour
         //    print(res.width + "x" + res.height);
         //}
 
-        Screen.SetResolution(1440, 900, true);
+        //Screen.SetResolution(1440, 900, true);
     }
 }

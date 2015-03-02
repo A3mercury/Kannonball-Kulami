@@ -82,7 +82,7 @@ public class GameCore : MonoBehaviour
             }
             else
             {
-				chosenObject.renderer.material.color = Color.black;
+				chosenObject.renderer.material.color = Color.grey;
                 blackLastRow = row;
                 blackLastCol = col;
 				blackLastPiece = gamePlaces[row, col].pieceNum;
