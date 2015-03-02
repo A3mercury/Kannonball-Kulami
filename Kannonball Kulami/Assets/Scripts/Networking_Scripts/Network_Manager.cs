@@ -22,7 +22,7 @@ public class Network_Manager : MonoBehaviour {
     /// </summary>
     
     public bool isOnline;
-    public static bool fromtransition, enablechat = false;
+    public static bool fromtransition;
     public static int networkplayer;
     bool sendrequest = false, prompt = false, beingconnectedto = false, respondtorequest = false, waitingforresponse = false, isconnected = false;
     public string userName = "", maxPlayers = "50", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
@@ -49,7 +49,7 @@ public class Network_Manager : MonoBehaviour {
     {
         Network.InitializeSecurity();
         Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
-        MasterServer.RegisterHost("Kannonball_Kulami_HU_Softdev_Team1_2015", userName);
+        MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
     }
 
     void OnServerInitialized()
@@ -110,7 +110,7 @@ public class Network_Manager : MonoBehaviour {
     {
         if (GUILayout.Button("Refresh"))
         {
-            MasterServer.RequestHostList("Kannonball_Kulami_HU_Softdev_Team1_2015");
+            MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
         }
 
         GUILayout.BeginHorizontal();
@@ -153,9 +153,9 @@ public class Network_Manager : MonoBehaviour {
     { }
 
    [RPC]
-   public void SendMove(int row, int col)
+   public void SendMove(ClickGameboard sender)
    {
-       gameCore.PlacePiece(row, col);
+       gameCore.PlacePiece(sender);
    }
 
 
