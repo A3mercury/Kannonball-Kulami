@@ -15,8 +15,14 @@ public class ClickGameboard : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+		row = int.Parse(gameObject.name[10].ToString());
+		col = int.Parse(gameObject.name[11].ToString());
         gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
         network = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
+		if(!network.isOnline)
+		{
+			gameCore.playerColor = "red";
+		}
 	}
 	
 	// Update is called once per frame
