@@ -13,6 +13,7 @@ public class GameCore : MonoBehaviour
 
     public GamePlace[,] gamePlaces;
     public string turn;
+    public string playerColor;
     private int redLastCol;
     private int redLastRow;
     private int redLastPiece;
@@ -37,6 +38,7 @@ public class GameCore : MonoBehaviour
         turnsLeft = 56;
 
         turn = "red";
+        playerColor = "black";
 
         gamePlaces = new GamePlace[boardSize, boardSize];
 

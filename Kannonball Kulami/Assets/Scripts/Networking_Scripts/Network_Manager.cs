@@ -134,6 +134,7 @@ public class Network_Manager : MonoBehaviour {
                         sendrequest = true;
                         userwantingtoconnectfromserver = c.gameName;
                         isconnected = true;
+                        gameCore.playerColor = "red";
                     }
                 }
                 GUILayout.EndHorizontal();

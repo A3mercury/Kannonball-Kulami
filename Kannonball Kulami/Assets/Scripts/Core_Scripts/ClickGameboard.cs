@@ -26,14 +26,14 @@ public class ClickGameboard : MonoBehaviour
     {
 		gameCore.currentRow = row;
 		gameCore.currentCol = col;
-
-		if (!gameCore.GameIsOver)
+        Debug.Log(gameCore.playerColor);
+		if (!gameCore.GameIsOver && (gameCore.playerColor == gameCore.turn))
         {
-            if (firstMove)
+            if (firstMove && (gameCore.playerColor == "red"))
             {
                 if (network.isOnline)
                 {
-                    network.networkView.RPC("SendMove", RPCMode.All, this);
+                    network.networkView.RPC("SendMove", RPCMode.All, row, col);
                     firstMove = false;
                 }
                 else
@@ -50,17 +50,18 @@ public class ClickGameboard : MonoBehaviour
                     if (network.isOnline)
                     {
                         network.networkView.RPC("SendMove", RPCMode.All, row, col);
+                        if (gameCore.GameIsOver)
+                            gameOver = true;
                     }
                     else
                     {
                         gameCore.PlacePiece(row, col);
-                    }
-
-					if (gameCore.GameIsOver)
-                        gameOver = true;
-                    else
-                    {
-                        gameCore.MakeAIMove();
+                        if (gameCore.GameIsOver)
+                            gameOver = true;
+                        else
+                        {
+                            gameCore.MakeAIMove();
+                        }
                     }
                 }
             }
