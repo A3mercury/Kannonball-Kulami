@@ -63,9 +63,6 @@
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.3/UnityEngine.UI.dll</HintPath>
  </Reference>
- <Reference Include="KulamiCSharpLibrary">
- <HintPath>C:/Users/A5mer_000/Documents/Kannonball-Kulami/Kannonball Kulami/Assets/Plugins/KulamiCSharpLibrary.dll</HintPath>
- </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

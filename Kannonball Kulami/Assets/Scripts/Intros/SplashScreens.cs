@@ -8,9 +8,13 @@ public class SplashScreens : MonoBehaviour
     GameObject ssLogo;
     GameObject kkLogo;
 
+    float countdown;
+
 	// Use this for initialization
 	void Start () 
     {
+        countdown = 5f;
+
         firstLogo = true;
 
         ssLogo = GameObject.Find("sslogo");
@@ -20,16 +24,20 @@ public class SplashScreens : MonoBehaviour
         kkLogo.SetActive(false);
 	}
 	
+
 	// Update is called once per frame
 	void Update ()
     {
-	    if(Input.GetKeyDown(KeyCode.Space))
+        countdown -= Time.deltaTime;
+
+	    if(countdown <= 0 || Input.GetKeyDown(KeyCode.Space))
         {
             if(firstLogo)
             {
                 ssLogo.SetActive(false);
                 kkLogo.SetActive(true);
                 firstLogo = false;
+                countdown = 15f;
             }
             else
             {
