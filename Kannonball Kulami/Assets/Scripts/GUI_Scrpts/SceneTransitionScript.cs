@@ -1,7 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SceneTransitionScript : MonoBehaviour {    
+public class SceneTransitionScript : MonoBehaviour {
+    GameObject OptionsCanvas;
+    private bool optionsMenu;
+
+
+    void Start()
+    {
+        OptionsCanvas = GameObject.Find("OptionsMenuCanvas");
+        optionsMenu = false;
+    }
+
+    void Update()
+    {
+        if(optionsMenu)
+        {
+
+        }
+    }
 
 	public void SinglePlayer () {
         Network_Manager.fromtransition = false;
@@ -14,7 +31,9 @@ public class SceneTransitionScript : MonoBehaviour {
 	}
 
 	public void Options () {
-		Application.LoadLevel ("OptionsScene");
+        OptionsCanvas.SetActive(true);
+        optionsMenu = true;
+		//Application.LoadLevel ("OptionsScene");
 	}
 
 	public void Credits () {
@@ -31,29 +50,32 @@ public class SceneTransitionScript : MonoBehaviour {
     }
 
 	public void OnMouseDown () {
-		if (gameObject.name.ToString () == "MenuCube") 
-		{
-			MainMenu ();
-		}
-        
-        if(gameObject.name.ToString() == "singleplayer")
+        if (!optionsMenu)
         {
-            SinglePlayer();
-        }
+            if (gameObject.name.ToString() == "MenuCube")
+            {
+                MainMenu();
+            }
 
-        if(gameObject.name.ToString() == "networkplay")
-        {
-            NetworkPlay();
-        }
+            if (gameObject.name.ToString() == "singleplayer")
+            {
+                SinglePlayer();
+            }
 
-        if(gameObject.name.ToString() == "options")
-        {
-            Options();
-        }
+            if (gameObject.name.ToString() == "networkplay")
+            {
+                NetworkPlay();
+            }
 
-        if(gameObject.name.ToString() == "credits")
-        {
-            Credits();
+            if (gameObject.name.ToString() == "options")
+            {
+                Options();
+            }
+
+            if (gameObject.name.ToString() == "credits")
+            {
+                Credits();
+            }
         }
 	}
 }
