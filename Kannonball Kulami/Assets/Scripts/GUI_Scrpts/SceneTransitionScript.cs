@@ -2,15 +2,6 @@
 using System.Collections;
 
 public class SceneTransitionScript : MonoBehaviour {
-    public bool optionsMenu = false;
-    public GameObject optionsCanvas;
-
-    void Start()
-    {
-        //optionsCanvas = GameObject.Find("OptionsCanvas");
-        optionsCanvas = GameObject.FindGameObjectWithTag("Options");
-        //optionsCanvas.SetActive(false);
-    }
 
 	public void SinglePlayer () {
         Network_Manager.fromtransition = false;
@@ -22,20 +13,14 @@ public class SceneTransitionScript : MonoBehaviour {
 		Application.LoadLevel("GameScene");
 	}
 
-	public void Options () {
-        if (!optionsCanvas.activeSelf)
-        {
-            optionsMenu = true;
-            optionsCanvas.SetActive(true);
-        }
-        else
-        {
-            optionsMenu = false;
-            optionsCanvas.SetActive(false);
-        }
+    //public void Options()
+    //{
+    //    OptionsScirpt
 
-		//Application.LoadLevel ("OptionsScene");
-	}
+    //    opScript.OpenOptionsMenu();
+
+    //    //Application.LoadLevel ("OptionsScene");
+    //}
 
 	public void Credits () {
 		Application.LoadLevel("CreditsScene");
@@ -52,32 +37,29 @@ public class SceneTransitionScript : MonoBehaviour {
 
     public void OnMouseDown()
     {
-        if (!optionsMenu)
+        if (gameObject.name.ToString() == "MenuCube")
         {
-            if (gameObject.name.ToString() == "MenuCube")
-            {
-                MainMenu();
-            }
+            MainMenu();
+        }
 
-            if (gameObject.name.ToString() == "singleplayer")
-            {
-                SinglePlayer();
-            }
+        if (gameObject.name.ToString() == "singleplayer")
+        {
+            SinglePlayer();
+        }
 
-            if (gameObject.name.ToString() == "networkplay")
-            {
-                NetworkPlay();
-            }
+        if (gameObject.name.ToString() == "networkplay")
+        {
+            NetworkPlay();
+        }
 
-            if (gameObject.name.ToString() == "options")
-            {
-                Options();
-            }
+        //if (gameObject.name.ToString() == "options")
+        //{
+        //    Options();
+        //}
 
-            if (gameObject.name.ToString() == "credits")
-            {
-                Credits();
-            }
+        if (gameObject.name.ToString() == "credits")
+        {
+            Credits();
         }
     }
 }

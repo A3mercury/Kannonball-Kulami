@@ -33,10 +33,10 @@ public class MainMenuScript : MonoBehaviour
             Scenes.NetworkPlay();
         }
 
-        if (gameObject.name.ToString() == "options")
-        {
-            Scenes.Options();
-        }
+        //if (gameObject.name.ToString() == "options")
+        //{
+        //    Scenes.Options();
+        //}
 
         if (gameObject.name.ToString() == "credits")
         {

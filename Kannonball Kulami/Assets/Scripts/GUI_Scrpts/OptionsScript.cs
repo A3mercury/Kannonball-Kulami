@@ -3,27 +3,11 @@ using System.Collections;
 
 public class OptionsScript : MonoBehaviour 
 {
-    public static bool isOptionsOpen = false;
+    public Animator optionsButton;
 
-	// Use this for initialization
-	void Start () 
+    public void OpenOptionsMenu()
     {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () 
-    {
-	    
-	}
-
-    public void ResumeApplication()
-    {
-
-    }
-
-    public void QuitApplication()
-    {
-        Application.Quit();
+        Debug.Log("clicked");
+        optionsButton.SetBool("isVisible", true);
     }
 }
