@@ -13,6 +13,7 @@ public class TieToMouseScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 myMousePosition = Input.mousePosition;
+		myMousePosition.x = Input.mousePosition.x + 5;
 		myMousePosition.z = actualDistance;
 		transform.position = Camera.main.ScreenToWorldPoint (myMousePosition);
 	}

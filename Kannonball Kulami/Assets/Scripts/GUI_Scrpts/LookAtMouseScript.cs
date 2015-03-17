@@ -3,11 +3,10 @@ using System.Collections;
 
 public class LookAtMouseScript : MonoBehaviour {
 
-	public Transform target;
-		
+	public GameObject target;
+
 	void Update () 
 	{
-		Vector3 relativePos = target.position - transform.position;
-		transform.rotation = Quaternion.LookRotation(relativePos);
+		transform.LookAt(target.transform);
 	}
 }
