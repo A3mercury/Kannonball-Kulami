@@ -6,6 +6,7 @@ public class ClickGameboard : MonoBehaviour
 	public int row;
     public int col;
     public int pieceNum;
+    
     private static bool firstMove = true;
     private GameCore gameCore;
     private Network_Manager network;
@@ -30,6 +31,7 @@ public class ClickGameboard : MonoBehaviour
 
     void OnMouseDown()
     {
+        var fire:AudioClip;
 		gameCore.currentRow = row;
 		gameCore.currentCol = col;
         Debug.Log(gameCore.playerColor);
