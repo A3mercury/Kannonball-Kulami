@@ -6,7 +6,6 @@ public class ClickGameboard : MonoBehaviour
 	public int row;
     public int col;
     public int pieceNum;
-    
     private static bool firstMove = true;
     private GameCore gameCore;
     private Network_Manager network;
@@ -20,6 +19,7 @@ public class ClickGameboard : MonoBehaviour
 		col = int.Parse(gameObject.name[11].ToString());
         gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
         network = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
+        
 		if(!network.isOnline)
 		{
 			gameCore.playerColor = "red";
@@ -31,7 +31,6 @@ public class ClickGameboard : MonoBehaviour
 
     void OnMouseDown()
     {
-        var fire:AudioClip;
 		gameCore.currentRow = row;
 		gameCore.currentCol = col;
         Debug.Log(gameCore.playerColor);
