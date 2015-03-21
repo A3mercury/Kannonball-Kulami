@@ -5,7 +5,7 @@ public class OnStartup : MonoBehaviour
 {
     void Awake()
     {
-        Debug.Log("Awake!");
+        //Debug.Log("Awake!");
 
         //Resolution[] resolutions = Screen.resolutions;
         //foreach(Resolution res in resolutions)

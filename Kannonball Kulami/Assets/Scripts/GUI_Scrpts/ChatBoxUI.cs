@@ -4,9 +4,9 @@ using System.Collections;
 
 public class ChatBoxUI : MonoBehaviour 
 {
-    Animator[] chatboxAnimators;
-    Animator ChatOpenCloseAnimator;
-    Animator SendButtonAnimator;
+    public Animator[] chatboxAnimators;
+    public Animator ChatOpenCloseAnimator;
+    public Animator SendButtonAnimator;
 
     public Button[] chatboxButtons;
     public Button sendChatButton;
@@ -23,7 +23,6 @@ public class ChatBoxUI : MonoBehaviour
             {
                 ChatOpenCloseAnimator = anim;
                 ChatOpenCloseAnimator.SetBool("isChatOpen", false);
-                Debug.Log("Is this running?");
             }
             else if(anim.runtimeAnimatorController.name == "SendButtonController")
             {

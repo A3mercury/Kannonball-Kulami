@@ -33,7 +33,7 @@ public class ClickGameboard : MonoBehaviour
     {
 		gameCore.currentRow = row;
 		gameCore.currentCol = col;
-        Debug.Log(gameCore.playerColor);
+        //Debug.Log(gameCore.playerColor);
 		if (!gameCore.GameIsOver && (gameCore.playerColor == gameCore.turn))
         {
             if (firstMove && (gameCore.playerColor == "red"))
