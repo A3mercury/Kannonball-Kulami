@@ -41,7 +41,7 @@ public class SplashScreens : MonoBehaviour
             }
             else
             {
-                Application.LoadLevel("MainMenuS");
+                Application.LoadLevel("MainMenuScene");
             }
         }
 	}
