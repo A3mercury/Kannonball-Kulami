@@ -60,7 +60,6 @@ public class ChatBoxUI : MonoBehaviour
         // access the animator to change the button when pressed
         SendButtonAnimator.SetBool("isSend", true);
         
-
         // will send message to chat
     }
 }
