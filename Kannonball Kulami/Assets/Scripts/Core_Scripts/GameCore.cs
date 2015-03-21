@@ -63,6 +63,10 @@ public class GameCore : MonoBehaviour
 
     public void PlacePiece(int row, int col)
     {
+        if (turn == playerColor)
+        {
+            HideValidMoves();
+        }
         audio.Play();
         Moves.Add(new KeyValuePair<int, int>(row, col));
 		string CannonBallObjectString = "CannonBall" + row.ToString() + col.ToString();
@@ -91,6 +95,10 @@ public class GameCore : MonoBehaviour
             }
 
             turnsLeft--;
+            if (turn == playerColor)
+            {
+                ShowValidMoves();
+            }
             if (isGameOver())
             {
                 GameIsOver = true;
@@ -98,7 +106,7 @@ public class GameCore : MonoBehaviour
 				KeyValuePair<int, int> score = GetScore();
 				Debug.Log("Red score: " + score.Key);
 				Debug.Log("Black score: " + score.Value);
-                if (playerColor == "red" && score.Key > score.Value)
+                if ((playerColor == "red" && score.Key > score.Value) || (playerColor == "black" && score.Key < score.Value) )
                 {
                     Application.LoadLevel("VictoryScene");
                 }
@@ -216,7 +224,6 @@ public class GameCore : MonoBehaviour
 
     public void MakeAIMove()
     {
-     
             myJob = new AIJob();
             myJob.AIMoveArray = new KeyValuePair<int, int>[Moves.Count];
             for (var i = 0; i < Moves.Count; i++)
@@ -262,6 +269,42 @@ public class GameCore : MonoBehaviour
                 GameIsOver = true;
             }
         
+    }
+
+    public void ShowValidMoves()
+    {
+        for (var i = 0; i < 8; i++)
+        {
+            for (var j = 0; j < 8; j++)
+            {
+                if (isValidMove(i, j))
+                {
+                    string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
+                    GameObject chosenObject = GameObject.Find(CannonBallObjectString);
+                    chosenObject.renderer.enabled = true;
+                    chosenObject.renderer.material = solid;
+                    chosenObject.renderer.material.color = Color.white;
+                }
+            }
+        }
+    }
+    public void HideValidMoves()
+    {
+        for (var i = 0; i < 8; i++)
+        {
+            for (var j = 0; j < 8; j++)
+            {
+                    string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
+                    GameObject chosenObject = GameObject.Find(CannonBallObjectString);
+                    if (chosenObject.renderer.material.color == Color.white)
+                    {
+                        chosenObject.renderer.enabled = false;
+                        chosenObject.renderer.material = solid;
+                        chosenObject.renderer.material.color = Color.white;
+                    }
+            }
+        }
+
     }
 
 }
