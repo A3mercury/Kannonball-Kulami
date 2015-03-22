@@ -39,6 +39,7 @@ public class Network_Manager : MonoBehaviour {
     {
         gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
         isOnline = fromtransition;
+        gameCore.ChooseCamera();
     }
 
 	

@@ -8,10 +8,13 @@ public class TieToMouseScript : MonoBehaviour {
     float depthIntoScene = 10f;
     GameObject PlayerCannon;
 
+    Camera mainCam;
+
 	// Use this for initialization
 	void Start () {
         //////////actualDistance = (transform.position - Camera.main.transform.position).magnitude;
         PlayerCannon = GameObject.Find("PlayerCannon");
+        mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
 	}
 	
 	// Update is called once per frame
@@ -28,26 +31,29 @@ public class TieToMouseScript : MonoBehaviour {
         Vector3 mouseScreenPosition = Input.mousePosition;
 
         // create a ray that goes into the scene from the camera, through the mouse position
-        Ray ray = Camera.main.ScreenPointToRay(mouseScreenPosition);
-        float depth;
-        RaycastHit hitInfo; // var to store info about the object hit (if any)
-
-        // Check to see if ray hits any objects in scene (namely gameboard pieces)
-        // pass in hitInfo, so that Raycast can store the info about the hit there
-        // the 'out' keyword is a parameter modifier used to tell C# that this obj should be passed by ref
-        //   to properly access hitInfo
-        // objets we hope to hit must have a collider component
-        if (Physics.Raycast (ray, out hitInfo))
+        if (mainCam.enabled)
         {
-            // move this obj to the position we hit
-            this.transform.position = new Vector3(hitInfo.point.x, hitInfo.point.y, hitInfo.point.z);
+            Ray ray = Camera.main.ScreenPointToRay(mouseScreenPosition);
+            float depth;
+            RaycastHit hitInfo; // var to store info about the object hit (if any)
 
-            MoveCannon(this.transform.position);
-        }
-        else // didn't hit anything
-        {
-            depth = depthIntoScene;
-            MoveToMouseAtSpecifiedDepth(depthIntoScene);
+            // Check to see if ray hits any objects in scene (namely gameboard pieces)
+            // pass in hitInfo, so that Raycast can store the info about the hit there
+            // the 'out' keyword is a parameter modifier used to tell C# that this obj should be passed by ref
+            //   to properly access hitInfo
+            // objets we hope to hit must have a collider component
+            if (Physics.Raycast(ray, out hitInfo))
+            {
+                // move this obj to the position we hit
+                this.transform.position = new Vector3(hitInfo.point.x, hitInfo.point.y, hitInfo.point.z);
+
+                MoveCannon(this.transform.position);
+            }
+            else // didn't hit anything
+            {
+                depth = depthIntoScene;
+                MoveToMouseAtSpecifiedDepth(depthIntoScene);
+            }
         }
     }
 

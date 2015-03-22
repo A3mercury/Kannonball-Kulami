@@ -30,6 +30,10 @@ public class GameCore : MonoBehaviour
 
     public ReadGameboard boardReader;
 
+    public Camera mainCam;
+    public Camera serverCam;
+    private Network_Manager networkManager;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -46,7 +50,11 @@ public class GameCore : MonoBehaviour
         boardReader = new ReadGameboard(gamePlaces, 1);
 
         //boardReader.Output();
-		
+
+        mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
+        serverCam = GameObject.Find("ServerCamera").GetComponent<Camera>();
+        networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
+        ChooseCamera();
 	}
 	
 	// Update is called once per frame
@@ -223,7 +231,6 @@ public class GameCore : MonoBehaviour
         return true;
     }
 
-
     public void MakeAIMove()
     {
             myJob = new AIJob();
@@ -235,7 +242,6 @@ public class GameCore : MonoBehaviour
             myJob.Start();
         
     }
-
 
     public void PlaceAIMove()
     {
@@ -290,6 +296,7 @@ public class GameCore : MonoBehaviour
             }
         }
     }
+
     public void HideValidMoves()
     {
         for (var i = 0; i < 8; i++)
@@ -309,4 +316,17 @@ public class GameCore : MonoBehaviour
 
     }
 
+    public void ChooseCamera()
+    {
+        if(networkManager.isOnline)
+        {
+            serverCam.enabled = true;
+            mainCam.enabled = false;
+        }
+        else
+        {
+            serverCam.enabled = false;
+            mainCam.enabled = true;
+        }
+    }
 }
