@@ -67,7 +67,9 @@ public class GameCore : MonoBehaviour
         {
             HideValidMoves();
         }
+
         audio.Play();
+
         Moves.Add(new KeyValuePair<int, int>(row, col));
 		string CannonBallObjectString = "CannonBall" + row.ToString() + col.ToString();
 		GameObject chosenObject = GameObject.Find(CannonBallObjectString);
