@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class OptionsMenuTT : MonoBehaviour 
 {
-    Canvas optionsCanvas;
-    public AudioSource soundSource;
+    Image[] images;
+    GameObject optionPanel;
+    //public AudioSource soundSource;
 
     Slider[] optionSliders;
     Slider soundSlider;
@@ -25,12 +27,12 @@ public class OptionsMenuTT : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        optionsCanvas = GetComponent<Canvas>();
-        optionsCanvas.enabled = false;
-
         AssignSliders();
         AssignAnimators();
         AssignButtons();
+
+        optionPanel = GameObject.Find("OptionsPanel");
+        optionPanel.gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -38,20 +40,19 @@ public class OptionsMenuTT : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (optionsCanvas.enabled == true)
+            if (optionPanel.gameObject.activeSelf == true)
             {
-                optionsCanvas.enabled = false;
+                optionPanel.gameObject.SetActive(false);
             }
             else
             {
-                optionsCanvas.enabled = true;
+                optionPanel.gameObject.SetActive(true);
             }
         }
 	}
 
     void AssignSliders()
     {
-        Debug.Log("Make sure this is called");
         optionSliders = GetComponentsInChildren<Slider>();
         foreach (Slider slider in optionSliders)
         {
@@ -59,14 +60,14 @@ public class OptionsMenuTT : MonoBehaviour
             {
                 soundSlider = slider;
                 soundSlider.interactable = true;
-                soundSlider.value = 0.5f;
+                soundSlider.value = 0.75f;
                 SetSoundsToHalf();
             }
             else if (slider.name == "music_slider")
             {
                 musicSlider = slider;
                 musicSlider.interactable = true;
-                musicSlider.value = 0.5f;
+                musicSlider.value = 0.75f;
                 SetMusicToHalf();
             }
         }
@@ -74,7 +75,6 @@ public class OptionsMenuTT : MonoBehaviour
     void AssignAnimators()
     {
         optionAnimators = GetComponentsInChildren<Animator>();
-        Debug.Log("Now for the animators " + optionAnimators.Length);
 
         foreach(Animator animator in optionAnimators)
         {
@@ -111,17 +111,16 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void soundSliderChange()
     {
-        soundSource.volume = soundSlider.value;
+        //soundSource.volume = soundSlider.value;
     }
 
     public void MuteSounds()
     {
         if (SoundsButtonAnimator.GetBool("isSoundsMuted"))
         {
-            Debug.Log("test ths");
             SoundsButtonAnimator.SetBool("isSoundsMuted", false);
             soundSlider.value = 0.5f;
-            soundSlider.interactable = false;
+            soundSlider.interactable = true;
 
             // TURN ON ALL SOUNDS
             SetSoundsToHalf();
@@ -130,10 +129,10 @@ public class OptionsMenuTT : MonoBehaviour
         {
             SoundsButtonAnimator.SetBool("isSoundsMuted", true);
             soundSlider.value = 0.0f;
-            soundSlider.interactable = true;
+            soundSlider.interactable = false;
 
             // TURN OFF ALL SOUNDS
-            soundSource.volume = 0.0f;
+            //soundSource.volume = 0.0f;
         }
     }
 
@@ -157,7 +156,7 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void SetSoundsToHalf()
     {
-        soundSource.volume = 0.5f;
+        //soundSource.volume = 0.5f;
     }
 
     public void SetMusicToHalf()
@@ -167,7 +166,7 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void resumeGame()
     {
-        optionsCanvas.enabled = false;
+        optionPanel.gameObject.SetActive(false);
     }
 
     public void concedeGame()

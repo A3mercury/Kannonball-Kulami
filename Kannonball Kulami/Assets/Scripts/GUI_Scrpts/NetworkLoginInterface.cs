@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class NetworkLoginInterface : MonoBehaviour 
 {
@@ -13,15 +14,29 @@ public class NetworkLoginInterface : MonoBehaviour
     Button disconnectButton;
     Button inviteToGameButton;
 
+    Image[] images;
+    Image opponentPanel;
+    Text[] textObjects;
+    Text opponentName;
+    
+    GameObject opponentsList;
+
+    Network_Manager network;
+    GameCore gameCore;
+
+    Vector2 scrollPosition;
+
 	// Use this for initialization
 	void Start () 
     {
+        gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
         serverCanvas = GetComponent<Canvas>();
         serverCanvas.enabled = true;
 
         // get username field
         usernameField = GetComponentInChildren<InputField>();
 
+        // assign all the buttons in the server list
         serverButtons = GetComponentsInChildren<Button>();
         foreach(Button b in serverButtons)
         {
@@ -33,25 +48,108 @@ public class NetworkLoginInterface : MonoBehaviour
                 inviteToGameButton = b;
         }
 
+        // get the panel that will be copied to make the list of opponents
+        images = GetComponentsInChildren<Image>();
+        foreach(Image i in images)
+        {
+            if (i.name == "opponent_panel")
+                opponentPanel = i;
+        }
+
+        // get the opponent's name out of all the text objects in the children
+        textObjects = GetComponentsInChildren<Text>();
+        foreach(Text t in textObjects)
+        {
+            if (t.name == "opponent_name")
+                opponentName = t;
+        }
+
+        // set the necessary properties
+        opponentPanel.enabled = false;
+        opponentName.enabled = false;
+        inviteToGameButton.image.enabled = false;
+
+        connectButton.enabled = false;
+        disconnectButton.enabled = false;
         connectButton.onClick.AddListener(ConnectToServer);
         disconnectButton.onClick.AddListener(DisconnectFromServer);
-        //inviteToGameButton.onClick.AddListener(InviteToGame);
-	}
-	
+        inviteToGameButton.onClick.AddListener(InviteToGame);
+
+        network = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
+
+    }
+    private Rect windowRect = new Rect(0, 43, 200, 200);
 	// Update is called once per frame
-	void Update () 
+    private void OnGUI()
     {
-	
-	}
+        if (network.isOnline)
+        {
+            if (Network.peerType == NetworkPeerType.Disconnected)
+            {
+                network.userName = usernameField.text;
+
+                if (network.userName != "")
+                {
+                    connectButton.enabled = true;
+                    disconnectButton.enabled = true;
+                }
+                else
+                {
+                    connectButton.enabled = false;
+                    disconnectButton.enabled = false;
+                }
+            }
+            if (Network.isServer)
+            {
+                gameCore.playerColor = "black";
+            }
+            if (Network.isClient && !network.isInGame)
+            {
+                network.networkView.RPC("OnChallenge", RPCMode.Server, network.userwantingtoconnectfromserver, network.userName);
+            }
+
+            //windowRect = GUI.Window(0, windowRect, network.windowFunc, "Players");
+        }
+    }
+    
 
     void ConnectToServer()
     {
-
+        try
+        {
+           network.StartServer();
+           ListOpponents();
+        }
+        catch(Exception ex)
+        {
+            print("Exception " + ex);
+            Debug.Log("Exception " + ex);
+        }
     }
 
     void DisconnectFromServer()
     {
+        usernameField.text = "";
+        Network.Disconnect();
 
+        if (!Network.isServer)
+            Debug.Log("Disconnected from server");
+    }
+
+    void ListOpponents()
+    {
+        MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
+    
+        // scroller
+
+        if(MasterServer.PollHostList().Length != 0)
+        {
+            HostData[] data = MasterServer.PollHostList();
+            foreach(HostData c in data)
+            {
+                
+            }
+        }
     }
 
     void InviteToGame()
