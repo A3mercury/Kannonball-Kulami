@@ -7,6 +7,8 @@ public class OptionsMenuTT : MonoBehaviour
 {
     Canvas parentCanvas;
 
+	ClickGameboard clickScript;
+
     Image[] images;
     GameObject optionPanel;
     public AudioSource soundSource;
@@ -45,6 +47,8 @@ public class OptionsMenuTT : MonoBehaviour
 
         parentCanvas = GetComponentInParent<Canvas>();
 
+		clickScript = GameObject.FindObjectOfType (typeof(ClickGameboard)) as ClickGameboard;
+
         // disable rest of game's OnMouseDown methods
 	}
 	
@@ -56,10 +60,12 @@ public class OptionsMenuTT : MonoBehaviour
             if (optionPanel.gameObject.activeSelf == true)
             {
                 optionPanel.gameObject.SetActive(false);
+				clickScript.ToggleClickablity();
             }
             else
             {
                 optionPanel.gameObject.SetActive(true);
+				clickScript.ToggleClickablity();
             }
         }
 
