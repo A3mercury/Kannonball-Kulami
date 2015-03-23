@@ -33,7 +33,8 @@ public class OptionsMenuTT : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        cannonballFire = GameObject.Find("GameCore").GetComponent<AudioSource>();
+        if(Application.loadedLevelName == "GameScene")
+            cannonballFire = GameObject.Find("GameCore").GetComponent<AudioSource>();
 
         AssignSliders();
         AssignAnimators();
@@ -44,6 +45,7 @@ public class OptionsMenuTT : MonoBehaviour
 
         parentCanvas = GetComponentInParent<Canvas>();
 
+        // disable rest of game's OnMouseDown methods
 	}
 	
 	// Update is called once per frame
@@ -63,6 +65,8 @@ public class OptionsMenuTT : MonoBehaviour
 
         if(optionPanel.gameObject.activeSelf == true)
             soundSliderChange();
+
+        
 	}
 
     void AssignSliders()
@@ -116,7 +120,8 @@ public class OptionsMenuTT : MonoBehaviour
         }
 
         // button even listeners
-        ConcedeButton.onClick.AddListener(concedeGame);
+        if(Application.loadedLevelName == "GameScene")
+            ConcedeButton.onClick.AddListener(concedeGame);
         QuitButton.onClick.AddListener(quitGame);
         ResumeButton.onClick.AddListener(resumeGame);
         SoundsButton.onClick.AddListener(MuteSounds);
@@ -125,8 +130,11 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void soundSliderChange()
     {
-        soundSource.volume = soundSlider.value;
-        cannonballFire.volume = soundSlider.value;
+        if (Application.loadedLevelName == "GameScene")
+        {
+            soundSource.volume = soundSlider.value;
+            cannonballFire.volume = soundSlider.value;
+        }
     }
 
     public void MuteSounds()
@@ -172,8 +180,11 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void SetSoundsToHalf()
     {
-        soundSource.volume = sliderStartVol;
-        cannonballFire.volume = cannonballStartVol;
+        if (Application.loadedLevelName == "GameScene")
+        {
+            soundSource.volume = sliderStartVol;
+            cannonballFire.volume = cannonballStartVol;
+        }
     }
 
     public void SetMusicToHalf()
