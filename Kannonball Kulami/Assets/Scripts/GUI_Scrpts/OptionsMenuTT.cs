@@ -61,7 +61,8 @@ public class OptionsMenuTT : MonoBehaviour
             }
         }
 
-        soundSliderChange();
+        if(optionPanel.gameObject.activeSelf == true)
+            soundSliderChange();
 	}
 
     void AssignSliders()

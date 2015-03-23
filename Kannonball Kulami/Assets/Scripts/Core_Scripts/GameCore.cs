@@ -4,7 +4,6 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 
-
 public class GameCore : MonoBehaviour 
 {
     //public static bool isOnline;
@@ -31,6 +30,9 @@ public class GameCore : MonoBehaviour
     public ReadGameboard boardReader;
 
     public Camera mainCam;
+    public GameObject CameraLookat1;
+    public GameObject CameraLookat2;
+
     public Camera serverCam;
     private Network_Manager networkManager;
 
@@ -52,9 +54,7 @@ public class GameCore : MonoBehaviour
         //boardReader.Output();
 
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
-        serverCam = GameObject.Find("ServerCamera").GetComponent<Camera>();
-        networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
-        ChooseCamera();
+        //networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
 	}
 	
 	// Update is called once per frame
@@ -320,19 +320,5 @@ public class GameCore : MonoBehaviour
             }
         }
 
-    }
-
-    public void ChooseCamera()
-    {
-        if (networkManager.isOnline)
-        {
-            serverCam.enabled = true;
-            mainCam.enabled = false;
-        }
-        else
-        {
-            serverCam.enabled = false;
-            mainCam.enabled = true;
-        }
     }
 }

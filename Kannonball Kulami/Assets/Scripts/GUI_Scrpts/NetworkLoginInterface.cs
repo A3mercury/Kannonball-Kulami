@@ -112,8 +112,6 @@ public class NetworkLoginInterface : MonoBehaviour
             {
                 network.networkView.RPC("OnChallenge", RPCMode.Server, network.userwantingtoconnectfromserver, network.userName);
             }
-
-            //windowRect = GUI.Window(0, windowRect, network.windowFunc, "Players");
         }
     }
 
@@ -143,6 +141,8 @@ public class NetworkLoginInterface : MonoBehaviour
     void ListOpponents()
     {
         MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
+
+
 
         if (MasterServer.PollHostList().Length != 0)
         {
