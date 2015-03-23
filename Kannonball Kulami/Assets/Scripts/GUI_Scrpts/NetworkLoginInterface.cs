@@ -21,7 +21,7 @@ public class NetworkLoginInterface : MonoBehaviour
 
     GameObject opponentsListParent;
     GameObject[] opponentsList;
-    GameObject opponentsPanel;
+    public GameObject opponentsPanel;
 
     Network_Manager network;
     GameCore gameCore;
@@ -69,14 +69,16 @@ public class NetworkLoginInterface : MonoBehaviour
         }
 
         // set the necessary properties
-        opponentsListParent = GameObject.Find("opponents_list");
-        opponentsListParent.SetActive(false);
+        //opponentsListParent = GameObject.Find("opponents_list");
+        //opponentsListParent.SetActive(false);
+
+        opponentsPanel = GameObject.Find("opponents_panel");
 
         connectButton.enabled = false;
         disconnectButton.enabled = false;
         connectButton.onClick.AddListener(ConnectToServer);
         disconnectButton.onClick.AddListener(DisconnectFromServer);
-        inviteToGameButton.onClick.AddListener(InviteToGame);
+        //inviteToGameButton.onClick.AddListener(InviteToGame);
 
         network = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
 
@@ -117,16 +119,16 @@ public class NetworkLoginInterface : MonoBehaviour
 
     void ConnectToServer()
     {
-        try
-        {
+        //try
+        //{
            network.StartServer();
            ListOpponents();
-        }
-        catch(Exception ex)
-        {
-            print("Exception " + ex);
-            Debug.Log("Exception " + ex);
-        }
+        //}
+        //catch(Exception ex)
+        //{
+        //    //print("Exception " + ex);
+        //    Debug.Log("Exception " + ex);
+        //}
     }
 
     void DisconnectFromServer()
@@ -141,18 +143,15 @@ public class NetworkLoginInterface : MonoBehaviour
     void ListOpponents()
     {
         MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
-    
-        // scroller
 
-        if(MasterServer.PollHostList().Length != 0)
+        if (MasterServer.PollHostList().Length != 0)
         {
             HostData[] data = MasterServer.PollHostList();
-            foreach(HostData c in data)
+            foreach (HostData c in data)
             {
-
-
-                Debug.Log(c.gameName);   
-
+                GameObject newPanel = Instantiate(opponentsPanel) as GameObject;
+                Image newPanelBackground = newPanel.GetComponent<Image>();
+                newPanel.SetActive(true);
 
             }
         }
