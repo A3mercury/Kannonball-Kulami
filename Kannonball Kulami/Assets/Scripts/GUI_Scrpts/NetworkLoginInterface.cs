@@ -14,17 +14,21 @@ public class NetworkLoginInterface : MonoBehaviour
     Button disconnectButton;
     Button inviteToGameButton;
 
-    Image[] images;
-    Image opponentPanel;
+    //Image opponentPanel;
+
     Text[] textObjects;
     Text opponentName;
-    
-    GameObject opponentsList;
+
+    GameObject opponentsListParent;
+    GameObject[] opponentsList;
+    GameObject opponentsPanel;
 
     Network_Manager network;
     GameCore gameCore;
 
     Vector2 scrollPosition;
+
+    private Rect windowRect = new Rect(0, 43, 200, 200);
 
 	// Use this for initialization
 	void Start () 
@@ -49,12 +53,12 @@ public class NetworkLoginInterface : MonoBehaviour
         }
 
         // get the panel that will be copied to make the list of opponents
-        images = GetComponentsInChildren<Image>();
-        foreach(Image i in images)
-        {
-            if (i.name == "opponent_panel")
-                opponentPanel = i;
-        }
+        //images = GetComponentsInChildren<Image>();
+        //foreach(Image i in images)
+        //{
+        //    if (i.name == "opponent_panel")
+        //        opponentPanel = i;
+        //}
 
         // get the opponent's name out of all the text objects in the children
         textObjects = GetComponentsInChildren<Text>();
@@ -65,9 +69,8 @@ public class NetworkLoginInterface : MonoBehaviour
         }
 
         // set the necessary properties
-        opponentPanel.enabled = false;
-        opponentName.enabled = false;
-        inviteToGameButton.image.enabled = false;
+        opponentsListParent = GameObject.Find("opponents_list");
+        opponentsListParent.SetActive(false);
 
         connectButton.enabled = false;
         disconnectButton.enabled = false;
@@ -78,7 +81,7 @@ public class NetworkLoginInterface : MonoBehaviour
         network = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
 
     }
-    private Rect windowRect = new Rect(0, 43, 200, 200);
+    
 	// Update is called once per frame
     private void OnGUI()
     {
@@ -111,7 +114,6 @@ public class NetworkLoginInterface : MonoBehaviour
             //windowRect = GUI.Window(0, windowRect, network.windowFunc, "Players");
         }
     }
-    
 
     void ConnectToServer()
     {
@@ -147,7 +149,11 @@ public class NetworkLoginInterface : MonoBehaviour
             HostData[] data = MasterServer.PollHostList();
             foreach(HostData c in data)
             {
-                
+
+
+                Debug.Log(c.gameName);   
+
+
             }
         }
     }

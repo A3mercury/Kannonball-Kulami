@@ -68,6 +68,7 @@ public class TieToMouseScript : MonoBehaviour {
     void MoveCannon(Vector3 target)
     {
         PlayerCannon.transform.LookAt(target);
+        //Debug.Log("Euler angle x: " + PlayerCannon.transform.eulerAngles.x + " y: " + PlayerCannon.transform.eulerAngles.y + 90 + " z: " + PlayerCannon.transform.eulerAngles.z);
         PlayerCannon.transform.eulerAngles = new Vector3(0, PlayerCannon.transform.eulerAngles.y + 90, 0);
     }
 }

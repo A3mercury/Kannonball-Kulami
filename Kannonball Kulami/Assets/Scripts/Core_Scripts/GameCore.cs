@@ -324,15 +324,15 @@ public class GameCore : MonoBehaviour
 
     public void ChooseCamera()
     {
-        //if(networkManager.isOnline)
-        //{
-        //    serverCam.enabled = true;
-        //    mainCam.enabled = false;
-        //}
-        //else
-        //{
-        serverCam.enabled = false;
-        mainCam.enabled = true;
-        //}
+        if (networkManager.isOnline)
+        {
+            serverCam.enabled = true;
+            mainCam.enabled = false;
+        }
+        else
+        {
+            serverCam.enabled = false;
+            mainCam.enabled = true;
+        }
     }
 }
