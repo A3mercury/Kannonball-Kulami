@@ -36,6 +36,8 @@ public class GameCore : MonoBehaviour
     public Camera serverCam;
     private Network_Manager networkManager;
 
+    public ParticleSystem CannonSmoke;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -55,7 +57,7 @@ public class GameCore : MonoBehaviour
 
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
         //networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -85,44 +87,46 @@ public class GameCore : MonoBehaviour
         chosenObject.renderer.enabled = true;
 		chosenObject.renderer.material = solid;
 
-            if (turn == "red")
+        if (turn == "red")
+        {
+            chosenObject.renderer.material.color = new Color32(102, 0, 0, 1);
+            redLastRow = row;
+            redLastCol = col;
+			redLastPiece = gamePlaces[row, col].pieceNum;
+            turn = "black";
+
+            CannonParticleFire.Instance.CreateParticles();
+        }
+        else
+        {
+            chosenObject.renderer.material.color = new Color32(51, 51, 51, 1);
+            blackLastRow = row;
+            blackLastCol = col;
+			blackLastPiece = gamePlaces[row, col].pieceNum;
+            turn = "red";
+        }
+
+        turnsLeft--;
+        if (turn == playerColor)
+        {
+            ShowValidMoves();
+        }
+        if (isGameOver())
+        {
+            GameIsOver = true;
+			Debug.Log("Game is over!");
+			KeyValuePair<int, int> score = GetScore();
+			Debug.Log("Red score: " + score.Key);
+			Debug.Log("Black score: " + score.Value);
+            if ((playerColor == "red" && score.Key > score.Value) || (playerColor == "black" && score.Key < score.Value) )
             {
-                chosenObject.renderer.material.color = new Color32(102, 0, 0, 1);
-                redLastRow = row;
-                redLastCol = col;
-				redLastPiece = gamePlaces[row, col].pieceNum;
-                turn = "black";
+                Application.LoadLevel("VictoryScene");
             }
             else
             {
-                chosenObject.renderer.material.color = new Color32(51, 51, 51, 1);
-                blackLastRow = row;
-                blackLastCol = col;
-				blackLastPiece = gamePlaces[row, col].pieceNum;
-                turn = "red";
+                Application.LoadLevel("LoseScene");
             }
-
-            turnsLeft--;
-            if (turn == playerColor)
-            {
-                ShowValidMoves();
-            }
-            if (isGameOver())
-            {
-                GameIsOver = true;
-				Debug.Log("Game is over!");
-				KeyValuePair<int, int> score = GetScore();
-				Debug.Log("Red score: " + score.Key);
-				Debug.Log("Black score: " + score.Value);
-                if ((playerColor == "red" && score.Key > score.Value) || (playerColor == "black" && score.Key < score.Value) )
-                {
-                    Application.LoadLevel("VictoryScene");
-                }
-                else
-                {
-                    Application.LoadLevel("LoseScene");
-                }
-            }
+        }
        
     }
 
