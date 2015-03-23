@@ -8,6 +8,7 @@ public class OptionsMenuTT : MonoBehaviour
     Canvas parentCanvas;
 
 	ClickGameboard clickScript;
+	SceneTransitionScript mainMenuClickScript;
 
     Image[] images;
     GameObject optionPanel;
@@ -35,8 +36,11 @@ public class OptionsMenuTT : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        if(Application.loadedLevelName == "GameScene")
-            cannonballFire = GameObject.Find("GameCore").GetComponent<AudioSource>();
+        if (Application.loadedLevelName == "GameScene") 
+		{
+			cannonballFire = GameObject.Find ("GameCore").GetComponent<AudioSource> ();
+			clickScript = GameObject.FindObjectOfType (typeof(ClickGameboard)) as ClickGameboard;
+		}
 
         AssignSliders();
         AssignAnimators();
@@ -47,7 +51,7 @@ public class OptionsMenuTT : MonoBehaviour
 
         parentCanvas = GetComponentInParent<Canvas>();
 
-		clickScript = GameObject.FindObjectOfType (typeof(ClickGameboard)) as ClickGameboard;
+		mainMenuClickScript = GameObject.FindObjectOfType (typeof(SceneTransitionScript)) as SceneTransitionScript;
 
         // disable rest of game's OnMouseDown methods
 	}
@@ -60,13 +64,15 @@ public class OptionsMenuTT : MonoBehaviour
             if (optionPanel.gameObject.activeSelf == true)
             {
                 optionPanel.gameObject.SetActive(false);
-				clickScript.ToggleClickablity();
             }
             else
             {
                 optionPanel.gameObject.SetActive(true);
-				clickScript.ToggleClickablity();
             }
+			mainMenuClickScript.ToggleClickability();
+
+			if (Application.loadedLevelName == "GameScene")
+				clickScript.ToggleClickablity();
         }
 
         if(optionPanel.gameObject.activeSelf == true)
