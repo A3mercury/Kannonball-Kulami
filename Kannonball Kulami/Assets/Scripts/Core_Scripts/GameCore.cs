@@ -71,10 +71,8 @@ public class GameCore : MonoBehaviour
 
     public void PlacePiece(int row, int col)
     {
-        if (turn == playerColor)
-        {
-            HideValidMoves();
-        }
+
+        HideValidMoves();
 
         audio.Play();
 
@@ -89,7 +87,7 @@ public class GameCore : MonoBehaviour
 
             if (turn == "red")
             {
-				chosenObject.renderer.material.color = Color.red;
+                chosenObject.renderer.material.color = new Color32(102, 0, 0, 1);
                 redLastRow = row;
                 redLastCol = col;
 				redLastPiece = gamePlaces[row, col].pieceNum;
@@ -97,7 +95,7 @@ public class GameCore : MonoBehaviour
             }
             else
             {
-				chosenObject.renderer.material.color = Color.grey;
+                chosenObject.renderer.material.color = new Color32(51, 51, 51, 1);
                 blackLastRow = row;
                 blackLastCol = col;
 				blackLastPiece = gamePlaces[row, col].pieceNum;
@@ -303,14 +301,22 @@ public class GameCore : MonoBehaviour
         {
             for (var j = 0; j < 8; j++)
             {
-                    string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
-                    GameObject chosenObject = GameObject.Find(CannonBallObjectString);
-                    if (chosenObject.renderer.material.color == Color.white)
-                    {
-                        chosenObject.renderer.enabled = false;
-                        chosenObject.renderer.material = solid;
-                        chosenObject.renderer.material.color = Color.white;
-                    }
+                string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
+                GameObject chosenObject = GameObject.Find(CannonBallObjectString);
+                if (chosenObject.renderer.material.color == Color.white)
+                {
+                    chosenObject.renderer.enabled = false;
+                    chosenObject.renderer.material = solid;
+                    chosenObject.renderer.material.color = Color.white;
+                }
+                if (chosenObject.renderer.material.color == new Color32(102, 0, 0, 1) && turn == "red")
+                {
+                    chosenObject.renderer.material.color = Color.red;
+                }
+                else if (chosenObject.renderer.material.color == new Color32(51, 51, 51, 1) && turn == "black")
+                {
+                    chosenObject.renderer.material.color = Color.grey;
+                }
             }
         }
 
