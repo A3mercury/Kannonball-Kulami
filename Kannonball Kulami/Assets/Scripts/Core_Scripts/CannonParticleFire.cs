@@ -17,7 +17,7 @@ class CannonParticleFire : MonoBehaviour
         Instance = this;
     }
 
-    public ParticleSystem CreateParticles()
+    public ParticleSystem CreateParticles(string parent)
     {
         ParticleSystem newPS = Instantiate(
             CannonSmoke,
@@ -25,7 +25,11 @@ class CannonParticleFire : MonoBehaviour
             Quaternion.identity
             ) as ParticleSystem;
 
-        newPS.transform.parent = GameObject.Find("ParticleObject").transform;
+        if (parent == "PlayerParticleObject")
+            newPS.transform.parent = GameObject.Find("PlayerParticleObject").transform;
+        else if (parent == "OpponentParticleObject")
+            newPS.transform.parent = GameObject.Find("OpponentParticleObject").transform;
+
         newPS.transform.position = newPS.transform.parent.transform.position;
 
         Destroy(

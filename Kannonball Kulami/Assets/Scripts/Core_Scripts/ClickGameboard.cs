@@ -10,11 +10,13 @@ public class ClickGameboard : MonoBehaviour
     private GameCore gameCore;
     private Network_Manager network;
 
-    private bool gameOver = false;
+    private bool gameOver;
 
 	// Use this for initialization
 	void Start () 
     {
+        gameOver = false;
+
 		row = int.Parse(gameObject.name[10].ToString());
 		col = int.Parse(gameObject.name[11].ToString());
         gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();

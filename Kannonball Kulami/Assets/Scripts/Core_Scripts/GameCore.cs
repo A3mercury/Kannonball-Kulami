@@ -23,7 +23,7 @@ public class GameCore : MonoBehaviour
     public int currentCol;
     private int turnsLeft;
     private int boardSize = 8;
-	public bool GameIsOver = false;
+    public bool GameIsOver;
     public List<KeyValuePair<int, int>> Moves;
     public AIJob myJob;
 
@@ -41,6 +41,7 @@ public class GameCore : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+        GameIsOver = false;
         Moves = new List<KeyValuePair<int, int>>();
 
         turnsLeft = 56;
@@ -95,7 +96,7 @@ public class GameCore : MonoBehaviour
 			redLastPiece = gamePlaces[row, col].pieceNum;
             turn = "black";
 
-            CannonParticleFire.Instance.CreateParticles();
+            CannonParticleFire.Instance.CreateParticles("PlayerParticleObject");
         }
         else
         {
@@ -104,6 +105,8 @@ public class GameCore : MonoBehaviour
             blackLastCol = col;
 			blackLastPiece = gamePlaces[row, col].pieceNum;
             turn = "red";
+
+            CannonParticleFire.Instance.CreateParticles("OpponentParticleObject");
         }
 
         turnsLeft--;
@@ -120,10 +123,12 @@ public class GameCore : MonoBehaviour
 			Debug.Log("Black score: " + score.Value);
             if ((playerColor == "red" && score.Key > score.Value) || (playerColor == "black" && score.Key < score.Value) )
             {
+                GameIsOver = false;
                 Application.LoadLevel("VictoryScene");
             }
             else
             {
+                GameIsOver = false;
                 Application.LoadLevel("LoseScene");
             }
         }
