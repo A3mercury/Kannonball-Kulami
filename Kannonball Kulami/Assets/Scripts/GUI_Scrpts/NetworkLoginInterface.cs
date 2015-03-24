@@ -14,8 +14,6 @@ public class NetworkLoginInterface : MonoBehaviour
     Button disconnectButton;
     Button inviteToGameButton;
 
-    //Image opponentPanel;
-
     Text[] textObjects;
     Text opponentName;
 
@@ -27,6 +25,8 @@ public class NetworkLoginInterface : MonoBehaviour
     GameCore gameCore;
 
     Vector2 scrollPosition;
+    public GameObject opponentListRect;
+    GameObject opponentListContent;
 
     private Rect windowRect = new Rect(0, 43, 200, 200);
 
@@ -52,14 +52,6 @@ public class NetworkLoginInterface : MonoBehaviour
                 inviteToGameButton = b;
         }
 
-        // get the panel that will be copied to make the list of opponents
-        //images = GetComponentsInChildren<Image>();
-        //foreach(Image i in images)
-        //{
-        //    if (i.name == "opponent_panel")
-        //        opponentPanel = i;
-        //}
-
         // get the opponent's name out of all the text objects in the children
         textObjects = GetComponentsInChildren<Text>();
         foreach(Text t in textObjects)
@@ -69,11 +61,6 @@ public class NetworkLoginInterface : MonoBehaviour
         }
 
         // set the necessary properties
-        //opponentsListParent = GameObject.Find("opponents_list");
-        //opponentsListParent.SetActive(false);
-
-        opponentsPanel = GameObject.Find("opponents_panel");
-
         connectButton.enabled = false;
         disconnectButton.enabled = false;
         connectButton.onClick.AddListener(ConnectToServer);
@@ -81,7 +68,6 @@ public class NetworkLoginInterface : MonoBehaviour
         //inviteToGameButton.onClick.AddListener(InviteToGame);
 
         network = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
-
     }
     
 	// Update is called once per frame
@@ -117,16 +103,16 @@ public class NetworkLoginInterface : MonoBehaviour
 
     void ConnectToServer()
     {
-        //try
-        //{
-           network.StartServer();
-           ListOpponents();
-        //}
-        //catch(Exception ex)
-        //{
-        //    //print("Exception " + ex);
-        //    Debug.Log("Exception " + ex);
-        //}
+        try
+        {
+            network.StartServer();
+            ListOpponents();
+        }
+        catch (Exception ex)
+        {
+            //print("Exception " + ex);
+            Debug.Log("Exception " + ex);
+        }
     }
 
     void DisconnectFromServer()
@@ -142,17 +128,43 @@ public class NetworkLoginInterface : MonoBehaviour
     {
         MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
 
+        opponentListContent = new GameObject("opponent_content");
+        opponentListContent.transform.parent = opponentListRect.transform;
+        opponentListContent.transform.position = opponentListRect.transform.position;
+       
+        RectTransform RT = opponentListContent.AddComponent<RectTransform>();
+        RectTransform PRT = opponentListContent.GetComponentInParent<RectTransform>();
 
+        RT.sizeDelta = new Vector2(0, 500f);
+        RT.position = new Vector3(PRT.position.x, PRT.position.y - 400, PRT.position.z);
 
+        opponentListContent.AddComponent<Image>().color = Color.green;
+
+        Debug.Log("get here");
         if (MasterServer.PollHostList().Length != 0)
         {
+            
             HostData[] data = MasterServer.PollHostList();
-            foreach (HostData c in data)
+            //foreach (HostData c in data)
+            for (int i = 0; i < 10; i++)
             {
-                GameObject newPanel = Instantiate(opponentsPanel) as GameObject;
-                Image newPanelBackground = newPanel.GetComponent<Image>();
-                newPanel.SetActive(true);
+                GameObject newGO = Instantiate(
+                    opponentsPanel,
+                    new Vector3(0, 0, 0),
+                    Quaternion.identity
+                ) as GameObject;
 
+                newGO.transform.parent = opponentListContent.transform;
+                newGO.GetComponent<RectTransform>().sizeDelta = new Vector2(275f, 54f);
+                newGO.GetComponent<RectTransform>().transform.position = new Vector3(
+                    newGO.transform.parent.position.x,
+                    (newGO.GetComponent<RectTransform>().sizeDelta.y / 2),
+                    0
+                );
+
+                opponentListRect.GetComponent<ScrollRect>().content = opponentListContent.GetComponent<RectTransform>();
+                opponentListRect.GetComponent<ScrollRect>().verticalScrollbar = GameObject.Find("opponent_scrollbar").GetComponent<Scrollbar>();
+                opponentListRect.GetComponent<Scrollbar>().size = 1f;
             }
         }
     }

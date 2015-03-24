@@ -68,6 +68,7 @@ public class Network_Manager : MonoBehaviour {
             Debug.Log("Registration was successful.");
     }
 
+    /*
    public void windowFunc(int id)
     {
         if (GUILayout.Button("Refresh"))
@@ -107,7 +108,7 @@ public class Network_Manager : MonoBehaviour {
             }
         }
         GUI.DragWindow(new Rect(0, 0, Screen.width, Screen.height));
-    }
+    }*/
 	
 	[RPC]
     private void SendConnectionRequest(string userName, bool request, bool message)
