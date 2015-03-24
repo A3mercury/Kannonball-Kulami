@@ -17,6 +17,7 @@ public class ClickGameboard : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+		firstMove = true;
         gameOver = false;
 
 		row = int.Parse(gameObject.name[10].ToString());

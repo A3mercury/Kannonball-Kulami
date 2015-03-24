@@ -47,6 +47,6 @@ public class ReadGameboard
     {
         for (int i = 0; i < boardSize; i++)
             for (int j = 0; j < boardSize; j++)
-                Debug.Log("priceNum: " + gamePlaces[i, j].pieceNum + " owner: " + gamePlaces[i, j].owner);
+                Debug.Log("pieceNum: " + gamePlaces[i, j].pieceNum + " owner: " + gamePlaces[i, j].owner);
     }
 }
