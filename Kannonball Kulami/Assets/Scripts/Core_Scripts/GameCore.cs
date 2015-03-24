@@ -130,6 +130,8 @@ public class GameCore : MonoBehaviour
                 Application.LoadLevel("LoseScene");
             }
         }
+
+		chosenObject.rigidbody.AddForceAtPosition(new Vector3(0f, -100f, 0f), chosenObject.rigidbody.worldCenterOfMass);
     }
 
 	private struct GamePiece
