@@ -68,7 +68,7 @@ public class ClickGameboard : MonoBehaviour
 										}
 								}
 						}
-	        
+
 						// if game is over
 						// do game over stuff
 						// (call a method in GameCore.cs)

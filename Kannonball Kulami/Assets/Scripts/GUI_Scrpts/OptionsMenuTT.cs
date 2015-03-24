@@ -12,8 +12,11 @@ public class OptionsMenuTT : MonoBehaviour
 
     Image[] images;
     GameObject optionPanel;
-    public AudioSource soundSource;
-    AudioSource cannonballFire;
+
+    GameObject soundsParent;
+    //AudioSource[] sounds;
+    AudioSource backgroundShipNoise;
+    //AudioSource cannonballFireSound;
 
     Slider[] optionSliders;
     Slider soundSlider;
@@ -30,16 +33,20 @@ public class OptionsMenuTT : MonoBehaviour
     Button SoundsButton;
     Button MusicButton;
 
-    float sliderStartVol = 0.75f;
-    float cannonballStartVol = 0.6f;
+    // starts at half
+    float sliderStartVol = 0.5f;
+    float cannonballStartVol = 0.5f;
 
 	// Use this for initialization
 	void Start () 
     {
+        // load the sounds for GameScene
         if (Application.loadedLevelName == "GameScene") 
 		{
-			cannonballFire = GameObject.Find ("GameCore").GetComponent<AudioSource> ();
-			clickScript = GameObject.FindObjectOfType (typeof(ClickGameboard)) as ClickGameboard;
+            soundsParent = GameObject.Find("AudioSounds");
+            backgroundShipNoise = GameObject.Find("BackgroundShipNoise").GetComponent<AudioSource>();
+            
+            clickScript = GameObject.FindObjectOfType(typeof(ClickGameboard)) as ClickGameboard;		
 		}
 
         AssignSliders();
@@ -75,11 +82,12 @@ public class OptionsMenuTT : MonoBehaviour
 				clickScript.ToggleClickablity();
         }
 
+        // if the options menu is open, call soundSliderChange()
         if(optionPanel.gameObject.activeSelf == true)
-            soundSliderChange();
-
-        
+            soundSliderChange(); 
 	}
+
+    #region Assignments
 
     void AssignSliders()
     {
@@ -140,13 +148,18 @@ public class OptionsMenuTT : MonoBehaviour
         MusicButton.onClick.AddListener(MuteMusic);
     }
 
+    #endregion
+
     public void soundSliderChange()
     {
+        // sliders for the GameScene
         if (Application.loadedLevelName == "GameScene")
         {
-            soundSource.volume = soundSlider.value;
-            cannonballFire.volume = soundSlider.value;
+            CannonFireSound.SetVolume(soundSlider.value);
+            backgroundShipNoise.volume = soundSlider.value;
         }
+
+        // sliders for the MainMenuScene
     }
 
     public void MuteSounds()
@@ -167,13 +180,14 @@ public class OptionsMenuTT : MonoBehaviour
             soundSlider.interactable = false;
 
             // TURN OFF ALL SOUNDS
-            soundSource.volume = 0.0f;
+            // soundSliderChange() will be called on Update()
+            //soundSource.volume = 0.0f;
         }
     }
 
     public void MuteMusic()
     {
-        if(MusicButtonAnimator.GetBool("isMusicMuted"))
+        if (MusicButtonAnimator.GetBool("isMusicMuted"))
         {
             MusicButtonAnimator.SetBool("isMusicMuted", false);
             musicSlider.value = sliderStartVol;
@@ -194,8 +208,8 @@ public class OptionsMenuTT : MonoBehaviour
     {
         if (Application.loadedLevelName == "GameScene")
         {
-            soundSource.volume = sliderStartVol;
-            cannonballFire.volume = cannonballStartVol;
+            backgroundShipNoise.volume = 0.5f;
+            CannonFireSound.SetVolume(0.5f);
         }
     }
 

@@ -10,9 +10,7 @@ class CannonParticleFire : MonoBehaviour
     {
         // Register singleton
         if(Instance != null)
-        {
-            Debug.LogError("Multiple instances of singleton");
-        }
+            Debug.LogError("Multiple instances of CannonParticleSystem");
 
         Instance = this;
     }
@@ -31,29 +29,6 @@ class CannonParticleFire : MonoBehaviour
             newPS.transform.parent = GameObject.Find("OpponentParticleObject").transform;
 
         newPS.transform.position = newPS.transform.parent.transform.position;
-
-        Destroy(
-            newPS.gameObject,
-            newPS.startLifetime
-            );
-
-        return newPS;
-    }
-
-    public void Explosion(Vector3 position)
-    {
-        instantiate(CannonSmoke, position);
-    }
-
-    private ParticleSystem instantiate(ParticleSystem prefab, Vector3 position)
-    {
-        ParticleSystem newPS = Instantiate(
-            prefab,
-            position,
-            Quaternion.identity
-            ) as ParticleSystem;
-
-        newPS.transform.parent = GameObject.Find("ParticleObject").transform;
 
         Destroy(
             newPS.gameObject,

@@ -36,8 +36,6 @@ public class GameCore : MonoBehaviour
     public Camera serverCam;
     private Network_Manager networkManager;
 
-    public ParticleSystem CannonSmoke;
-
 	// Use this for initialization
 	void Start () 
     {
@@ -74,10 +72,10 @@ public class GameCore : MonoBehaviour
 
     public void PlacePiece(int row, int col)
     {
-
         HideValidMoves();
 
-        audio.Play();
+        //audio.Play();
+        CannonFireSound.Instance.FireCannon();
 
         Moves.Add(new KeyValuePair<int, int>(row, col));
 		string CannonBallObjectString = "CannonBall" + row.ToString() + col.ToString();
@@ -132,7 +130,6 @@ public class GameCore : MonoBehaviour
                 Application.LoadLevel("LoseScene");
             }
         }
-       
     }
 
 	private struct GamePiece
