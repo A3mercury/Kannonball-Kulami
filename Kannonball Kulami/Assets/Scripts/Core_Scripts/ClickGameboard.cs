@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Threading;
+
 public class ClickGameboard : MonoBehaviour 
 {
 	public int row;

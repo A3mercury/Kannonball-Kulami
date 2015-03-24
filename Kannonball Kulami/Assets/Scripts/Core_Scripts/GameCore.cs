@@ -131,7 +131,7 @@ public class GameCore : MonoBehaviour
             }
         }
 
-		chosenObject.rigidbody.AddForceAtPosition(new Vector3(0f, -100f, 0f), chosenObject.rigidbody.worldCenterOfMass);
+		chosenObject.rigidbody.AddForceAtPosition(new Vector3(0f, -250f, 0f), chosenObject.rigidbody.worldCenterOfMass);
     }
 
 	private struct GamePiece

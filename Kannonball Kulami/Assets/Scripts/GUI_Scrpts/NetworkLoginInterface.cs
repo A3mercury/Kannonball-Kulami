@@ -29,6 +29,7 @@ public class NetworkLoginInterface : MonoBehaviour
     GameObject opponentListContent;
 
     private Rect windowRect = new Rect(0, 43, 200, 200);
+    float opponentListFloatIncrease;
 
 	// Use this for initialization
 	void Start () 
@@ -68,6 +69,7 @@ public class NetworkLoginInterface : MonoBehaviour
         //inviteToGameButton.onClick.AddListener(InviteToGame);
 
         network = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
+        opponentListFloatIncrease = 0;
     }
     
 	// Update is called once per frame
@@ -135,16 +137,16 @@ public class NetworkLoginInterface : MonoBehaviour
         RectTransform RT = opponentListContent.AddComponent<RectTransform>();
         RectTransform PRT = opponentListContent.GetComponentInParent<RectTransform>();
 
-        RT.sizeDelta = new Vector2(0, 500f);
-        RT.position = new Vector3(PRT.position.x, PRT.position.y - 400, PRT.position.z);
+        RT.sizeDelta = new Vector2(0, 600f);
+        RT.position = new Vector3(PRT.position.x, PRT.position.y - 500, PRT.position.z);
 
         opponentListContent.AddComponent<Image>().color = Color.green;
 
         Debug.Log("get here");
-        if (MasterServer.PollHostList().Length != 0)
-        {
+        //if (MasterServer.PollHostList().Length != 0)
+        //{
             
-            HostData[] data = MasterServer.PollHostList();
+            //HostData[] data = MasterServer.PollHostList();
             //foreach (HostData c in data)
             for (int i = 0; i < 10; i++)
             {
@@ -158,15 +160,14 @@ public class NetworkLoginInterface : MonoBehaviour
                 newGO.GetComponent<RectTransform>().sizeDelta = new Vector2(275f, 54f);
                 newGO.GetComponent<RectTransform>().transform.position = new Vector3(
                     newGO.transform.parent.position.x,
-                    (newGO.GetComponent<RectTransform>().sizeDelta.y / 2),
+                    (newGO.GetComponent<RectTransform>().sizeDelta.y / 2) - ((newGO.GetComponent<RectTransform>().sizeDelta.y + 10) * opponentListFloatIncrease++),
                     0
                 );
 
                 opponentListRect.GetComponent<ScrollRect>().content = opponentListContent.GetComponent<RectTransform>();
                 opponentListRect.GetComponent<ScrollRect>().verticalScrollbar = GameObject.Find("opponent_scrollbar").GetComponent<Scrollbar>();
-                opponentListRect.GetComponent<Scrollbar>().size = 1f;
             }
-        }
+        //}
     }
 
     void InviteToGame()
