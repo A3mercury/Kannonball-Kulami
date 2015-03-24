@@ -71,6 +71,14 @@ public class SceneTransitionScript : MonoBehaviour {
 				if (gameObject.name.ToString () == "credits") {
 					Credits ();
 				}
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			float depth;
+			RaycastHit hitInfo;
+			if (Physics.Raycast(ray, out hitInfo))
+			{
+				gameObject.rigidbody.AddForceAtPosition(new Vector3(0f, -100f, 0f), new Vector3(hitInfo.point.x, hitInfo.point.y, hitInfo.point.z));
+			}
+
 		}
     }
 }

@@ -33,12 +33,15 @@ public class Float : MonoBehaviour {
 
 			if (autoFill) {
 				FloatShared fl = gameObject.GetComponentInParent<FloatShared>();
-				floatHeight = fl.floatHeight;
-				bouyancyForce = fl.bouyancyForce;
-				waterLevel = fl.waterLevel;
-				bounceDamp = fl.bounceDamp;
-				gameObject.rigidbody.drag = fl.drag;
-				gameObject.rigidbody.angularDrag = fl.angularDrag;
+				if (fl != null) {
+					floatHeight = fl.floatHeight;
+					bouyancyForce = fl.bouyancyForce;
+					waterLevel = fl.waterLevel;
+					bounceDamp = fl.bounceDamp;
+					gameObject.rigidbody.drag = fl.drag;
+					gameObject.rigidbody.angularDrag = fl.angularDrag;
+				}
+				gameObject.rigidbody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationY;
 				size = gameObject.collider.bounds.size;
 				float x = size.x / 2 / 4 * 3;
 				float y = size.y / 2 / 4 * 3;
