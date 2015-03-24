@@ -4,7 +4,6 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 
-
 public class GameCore : MonoBehaviour 
 {
     //public static bool isOnline;
@@ -24,15 +23,23 @@ public class GameCore : MonoBehaviour
     public int currentCol;
     private int turnsLeft;
     private int boardSize = 8;
-	public bool GameIsOver = false;
+    public bool GameIsOver;
     public List<KeyValuePair<int, int>> Moves;
     public AIJob myJob;
 
     public ReadGameboard boardReader;
 
+    public Camera mainCam;
+    public GameObject CameraLookat1;
+    public GameObject CameraLookat2;
+
+    public Camera serverCam;
+    private Network_Manager networkManager;
+
 	// Use this for initialization
 	void Start () 
     {
+        GameIsOver = false;
         Moves = new List<KeyValuePair<int, int>>();
 
         turnsLeft = 56;
@@ -46,8 +53,10 @@ public class GameCore : MonoBehaviour
         boardReader = new ReadGameboard(gamePlaces, 1);
 
         //boardReader.Output();
-		
-	}
+
+        mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
+        //networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -63,12 +72,10 @@ public class GameCore : MonoBehaviour
 
     public void PlacePiece(int row, int col)
     {
-        if (turn == playerColor)
-        {
-            HideValidMoves();
-        }
+        HideValidMoves();
 
-        audio.Play();
+        //audio.Play();
+        CannonFireSound.Instance.FireCannon();
 
         Moves.Add(new KeyValuePair<int, int>(row, col));
 		string CannonBallObjectString = "CannonBall" + row.ToString() + col.ToString();
@@ -79,45 +86,50 @@ public class GameCore : MonoBehaviour
         chosenObject.renderer.enabled = true;
 		chosenObject.renderer.material = solid;
 
-            if (turn == "red")
+        if (turn == "red")
+        {
+            chosenObject.renderer.material.color = new Color32(102, 0, 0, 1);
+            redLastRow = row;
+            redLastCol = col;
+			redLastPiece = gamePlaces[row, col].pieceNum;
+            turn = "black";
+
+            CannonParticleFire.Instance.CreateParticles("PlayerParticleObject");
+        }
+        else
+        {
+            chosenObject.renderer.material.color = new Color32(51, 51, 51, 1);
+            blackLastRow = row;
+            blackLastCol = col;
+			blackLastPiece = gamePlaces[row, col].pieceNum;
+            turn = "red";
+
+            CannonParticleFire.Instance.CreateParticles("OpponentParticleObject");
+        }
+
+        turnsLeft--;
+        if (turn == playerColor)
+        {
+            ShowValidMoves();
+        }
+        if (isGameOver())
+        {
+            GameIsOver = true;
+			Debug.Log("Game is over!");
+			KeyValuePair<int, int> score = GetScore();
+			Debug.Log("Red score: " + score.Key);
+			Debug.Log("Black score: " + score.Value);
+            if ((playerColor == "red" && score.Key > score.Value) || (playerColor == "black" && score.Key < score.Value) )
             {
-				chosenObject.renderer.material.color = Color.red;
-                redLastRow = row;
-                redLastCol = col;
-				redLastPiece = gamePlaces[row, col].pieceNum;
-                turn = "black";
+                GameIsOver = false;
+                Application.LoadLevel("VictoryScene");
             }
             else
             {
-				chosenObject.renderer.material.color = Color.grey;
-                blackLastRow = row;
-                blackLastCol = col;
-				blackLastPiece = gamePlaces[row, col].pieceNum;
-                turn = "red";
+                GameIsOver = false;
+                Application.LoadLevel("LoseScene");
             }
-
-            turnsLeft--;
-            if (turn == playerColor)
-            {
-                ShowValidMoves();
-            }
-            if (isGameOver())
-            {
-                GameIsOver = true;
-				Debug.Log("Game is over!");
-				KeyValuePair<int, int> score = GetScore();
-				Debug.Log("Red score: " + score.Key);
-				Debug.Log("Black score: " + score.Value);
-                if ((playerColor == "red" && score.Key > score.Value) || (playerColor == "black" && score.Key < score.Value) )
-                {
-                    Application.LoadLevel("VictoryScene");
-                }
-                else
-                {
-                    Application.LoadLevel("LoseScene");
-                }
-            }
-       
+        }
     }
 
 	private struct GamePiece
@@ -223,7 +235,6 @@ public class GameCore : MonoBehaviour
         return true;
     }
 
-
     public void MakeAIMove()
     {
             myJob = new AIJob();
@@ -235,7 +246,6 @@ public class GameCore : MonoBehaviour
             myJob.Start();
         
     }
-
 
     public void PlaceAIMove()
     {
@@ -290,23 +300,31 @@ public class GameCore : MonoBehaviour
             }
         }
     }
+
     public void HideValidMoves()
     {
         for (var i = 0; i < 8; i++)
         {
             for (var j = 0; j < 8; j++)
             {
-                    string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
-                    GameObject chosenObject = GameObject.Find(CannonBallObjectString);
-                    if (chosenObject.renderer.material.color == Color.white)
-                    {
-                        chosenObject.renderer.enabled = false;
-                        chosenObject.renderer.material = solid;
-                        chosenObject.renderer.material.color = Color.white;
-                    }
+                string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
+                GameObject chosenObject = GameObject.Find(CannonBallObjectString);
+                if (chosenObject.renderer.material.color == Color.white)
+                {
+                    chosenObject.renderer.enabled = false;
+                    chosenObject.renderer.material = solid;
+                    chosenObject.renderer.material.color = Color.white;
+                }
+                if (chosenObject.renderer.material.color == new Color32(102, 0, 0, 1) && turn == "red")
+                {
+                    chosenObject.renderer.material.color = Color.red;
+                }
+                else if (chosenObject.renderer.material.color == new Color32(51, 51, 51, 1) && turn == "black")
+                {
+                    chosenObject.renderer.material.color = Color.grey;
+                }
             }
         }
 
     }
-
 }

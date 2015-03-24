@@ -1,11 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class OptionsMenuTT : MonoBehaviour 
 {
-    Canvas optionsCanvas;
-    public AudioSource soundSource;
+    Canvas parentCanvas;
+
+	ClickGameboard clickScript;
+	SceneTransitionScript mainMenuClickScript;
+
+    Image[] images;
+    GameObject optionPanel;
+
+    GameObject soundsParent;
+    //AudioSource[] sounds;
+    AudioSource backgroundShipNoise;
+    //AudioSource cannonballFireSound;
 
     Slider[] optionSliders;
     Slider soundSlider;
@@ -22,15 +33,34 @@ public class OptionsMenuTT : MonoBehaviour
     Button SoundsButton;
     Button MusicButton;
 
+    // starts at half
+    float sliderStartVol = 0.5f;
+    float cannonballStartVol = 0.5f;
+
 	// Use this for initialization
 	void Start () 
     {
-        optionsCanvas = GetComponent<Canvas>();
-        optionsCanvas.enabled = false;
+        // load the sounds for GameScene
+        if (Application.loadedLevelName == "GameScene") 
+		{
+            soundsParent = GameObject.Find("AudioSounds");
+            backgroundShipNoise = GameObject.Find("BackgroundShipNoise").GetComponent<AudioSource>();
+            
+            clickScript = GameObject.FindObjectOfType(typeof(ClickGameboard)) as ClickGameboard;		
+		}
 
         AssignSliders();
         AssignAnimators();
         AssignButtons();
+
+        optionPanel = GameObject.Find("OptionsPanel");
+        optionPanel.gameObject.SetActive(false);
+
+        parentCanvas = GetComponentInParent<Canvas>();
+
+		mainMenuClickScript = GameObject.FindObjectOfType (typeof(SceneTransitionScript)) as SceneTransitionScript;
+
+        // disable rest of game's OnMouseDown methods
 	}
 	
 	// Update is called once per frame
@@ -38,20 +68,29 @@ public class OptionsMenuTT : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (optionsCanvas.enabled == true)
+            if (optionPanel.gameObject.activeSelf == true)
             {
-                optionsCanvas.enabled = false;
+                optionPanel.gameObject.SetActive(false);
             }
             else
             {
-                optionsCanvas.enabled = true;
+                optionPanel.gameObject.SetActive(true);
             }
+			mainMenuClickScript.ToggleClickability();
+
+			if (Application.loadedLevelName == "GameScene")
+				clickScript.ToggleClickablity();
         }
+
+        // if the options menu is open, call soundSliderChange()
+        if(optionPanel.gameObject.activeSelf == true)
+            soundSliderChange(); 
 	}
+
+    #region Assignments
 
     void AssignSliders()
     {
-        Debug.Log("Make sure this is called");
         optionSliders = GetComponentsInChildren<Slider>();
         foreach (Slider slider in optionSliders)
         {
@@ -59,14 +98,14 @@ public class OptionsMenuTT : MonoBehaviour
             {
                 soundSlider = slider;
                 soundSlider.interactable = true;
-                soundSlider.value = 0.5f;
+                soundSlider.value = sliderStartVol;
                 SetSoundsToHalf();
             }
             else if (slider.name == "music_slider")
             {
                 musicSlider = slider;
                 musicSlider.interactable = true;
-                musicSlider.value = 0.5f;
+                musicSlider.value = sliderStartVol;
                 SetMusicToHalf();
             }
         }
@@ -74,7 +113,6 @@ public class OptionsMenuTT : MonoBehaviour
     void AssignAnimators()
     {
         optionAnimators = GetComponentsInChildren<Animator>();
-        Debug.Log("Now for the animators " + optionAnimators.Length);
 
         foreach(Animator animator in optionAnimators)
         {
@@ -102,26 +140,35 @@ public class OptionsMenuTT : MonoBehaviour
         }
 
         // button even listeners
-        ConcedeButton.onClick.AddListener(concedeGame);
+        if(Application.loadedLevelName == "GameScene")
+            ConcedeButton.onClick.AddListener(concedeGame);
         QuitButton.onClick.AddListener(quitGame);
         ResumeButton.onClick.AddListener(resumeGame);
         SoundsButton.onClick.AddListener(MuteSounds);
         MusicButton.onClick.AddListener(MuteMusic);
     }
 
+    #endregion
+
     public void soundSliderChange()
     {
-        soundSource.volume = soundSlider.value;
+        // sliders for the GameScene
+        if (Application.loadedLevelName == "GameScene")
+        {
+            CannonFireSound.SetVolume(soundSlider.value);
+            backgroundShipNoise.volume = soundSlider.value;
+        }
+
+        // sliders for the MainMenuScene
     }
 
     public void MuteSounds()
     {
         if (SoundsButtonAnimator.GetBool("isSoundsMuted"))
         {
-            Debug.Log("test ths");
             SoundsButtonAnimator.SetBool("isSoundsMuted", false);
-            soundSlider.value = 0.5f;
-            soundSlider.interactable = false;
+            soundSlider.value = sliderStartVol;
+            soundSlider.interactable = true;
 
             // TURN ON ALL SOUNDS
             SetSoundsToHalf();
@@ -130,18 +177,20 @@ public class OptionsMenuTT : MonoBehaviour
         {
             SoundsButtonAnimator.SetBool("isSoundsMuted", true);
             soundSlider.value = 0.0f;
-            soundSlider.interactable = true;
+            soundSlider.interactable = false;
 
             // TURN OFF ALL SOUNDS
-            soundSource.volume = 0.0f;
+            // soundSliderChange() will be called on Update()
+            //soundSource.volume = 0.0f;
         }
     }
 
     public void MuteMusic()
     {
-        if(MusicButtonAnimator.GetBool("isMusicMuted"))
+        if (MusicButtonAnimator.GetBool("isMusicMuted"))
         {
             MusicButtonAnimator.SetBool("isMusicMuted", false);
+            musicSlider.value = sliderStartVol;
             musicSlider.interactable = false;
 
             // TURN ON ALL MUSIC
@@ -157,7 +206,11 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void SetSoundsToHalf()
     {
-        soundSource.volume = 0.5f;
+        if (Application.loadedLevelName == "GameScene")
+        {
+            backgroundShipNoise.volume = 0.5f;
+            CannonFireSound.SetVolume(0.5f);
+        }
     }
 
     public void SetMusicToHalf()
@@ -167,7 +220,7 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void resumeGame()
     {
-        optionsCanvas.enabled = false;
+        optionPanel.gameObject.SetActive(false);
     }
 
     public void concedeGame()

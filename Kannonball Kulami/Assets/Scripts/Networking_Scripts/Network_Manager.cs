@@ -50,9 +50,9 @@ public class Network_Manager : MonoBehaviour {
     /// was successfully registered. 
     /// </summary>
 
-    private void StartServer()
+    public void StartServer()
     {
-        Network.InitializeSecurity();
+        //Network.InitializeSecurity();
         Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
         MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
     }
@@ -68,57 +68,7 @@ public class Network_Manager : MonoBehaviour {
             Debug.Log("Registration was successful.");
     }
 
-
-
-    private void OnGUI()
-    {
-        if (isOnline)
-        {
-            if(Network.peerType == NetworkPeerType.Disconnected)
-            {
-                GUILayout.Label("Please enter your User Name:");
-                userName = GUILayout.TextField(userName);
-
-                if(GUILayout.Button("Connect to Kannonball Kulami!"))
-                {
-                    try
-                    {
-                        StartServer();
-                    }
-                    catch (Exception)
-                    {
-                        print("Please type in numbers for port and max players");
-
-                    }
-                }
-            }
-            else
-            {
-                if (GUILayout.Button("Disconnect"))
-                {
-                    Network.Disconnect();
-                }
-                windowRect = GUI.Window(0, windowRect, windowFunc, "Players");
-            }
-
-            if(Network.isServer)
-            {
-                //if (isconnected)
-                    //chat = true;
-                gameCore.playerColor = "black";
-                networkplayer = 1;
-            }
-            if(Network.isClient && !isInGame)
-            {
-                networkView.RPC("OnChallenge", RPCMode.All, userwantingtoconnectfromserver, userName);
-           }
-
-        }
-        else
-            return;
-    }
-
-    private void windowFunc(int id)
+   public void windowFunc(int id)
     {
         if (GUILayout.Button("Refresh"))
         {
@@ -138,8 +88,8 @@ public class Network_Manager : MonoBehaviour {
             foreach (HostData c in data)
             {
                 GUILayout.BeginHorizontal();
-                if (c.gameName != userName)
-                {
+                //if (c.gameName != userName)
+                //{
                     GUILayout.Box(c.gameName);
                     if (GUILayout.Button("Connect"))
                     {
@@ -151,7 +101,7 @@ public class Network_Manager : MonoBehaviour {
                         gameCore.playerColor = "red";
                         
                     }
-                }
+                //}
                 GUILayout.EndHorizontal();
 
             }
