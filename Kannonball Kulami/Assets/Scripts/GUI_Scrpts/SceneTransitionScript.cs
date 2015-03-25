@@ -49,6 +49,7 @@ public class SceneTransitionScript : MonoBehaviour {
 
     public void OnMouseDown()
     {
+        Debug.Log("isClickable " + isClickable);
 		if (isClickable) 
 		{
 				if (gameObject.name.ToString () == "MenuCube") {

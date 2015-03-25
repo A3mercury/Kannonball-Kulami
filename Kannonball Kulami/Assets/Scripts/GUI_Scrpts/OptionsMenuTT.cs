@@ -84,21 +84,32 @@ public class OptionsMenuTT : MonoBehaviour
 				clickScript.ToggleClickablity();
         }
 
+
+        if (areSoundsMuted)
+        {
+            soundSlider.interactable = false;
+            soundSlider.value = 0.0f;
+        }
+        else
+        {
+            soundSlider.interactable = true;
+        }
+        if (areMusicMuted)
+        {
+            musicSlider.interactable = false;
+            musicSlider.value = 0.0f;
+        }
+        else
+        {
+            musicSlider.interactable = true;
+        }
+
         // if the options menu is open, call soundSliderChange()
         if(optionPanel.gameObject.activeSelf == true)
             soundSliderChange();
 
         changeSoundsButton();
         changeMusicButton();
-
-        if (areSoundsMuted)
-            soundSlider.interactable = false;
-        else
-            soundSlider.interactable = true;
-        if (areMusicMuted)
-            musicSlider.interactable = false;
-        else
-            musicSlider.interactable = true;
 	}
 
     #region Assignments
@@ -243,8 +254,10 @@ public class OptionsMenuTT : MonoBehaviour
     public void resumeGame()
     {
         optionPanel.gameObject.SetActive(false);
-        if(Application.loadedLevelName == "GameScene")
+        if (Application.loadedLevelName == "GameScene")
             clickScript.ToggleClickablity();
+        if (Application.loadedLevelName == "MainMenuScene")
+            mainMenuClickScript.ToggleClickability();
     }
 
     public void concedeGame()
