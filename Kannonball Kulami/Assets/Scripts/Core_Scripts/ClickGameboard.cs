@@ -40,47 +40,51 @@ public class ClickGameboard : MonoBehaviour
     void OnMouseDown()
     {
 		if (isClickable) {
-						gameCore.currentRow = row;
-						gameCore.currentCol = col;
-						//Debug.Log(gameCore.playerColor);
-						if (!gameCore.GameIsOver && (gameCore.playerColor == gameCore.turn)) {
-								if (firstMove && (gameCore.playerColor == "red")) {
-										if (network.isOnline) {
-												network.networkView.RPC ("SendMove", RPCMode.All, row, col);
-												firstMove = false;
-										} else {
-												gameCore.PlacePiece (row, col);
-												firstMove = false;
-												gameCore.MakeAIMove ();
-										}
-								} else { //if (gameCore.isValidMove(boardX, boardY))
-										if (gameCore.isValidMove (row, col)) {
-												if (network.isOnline) {
-														network.networkView.RPC ("SendMove", RPCMode.All, row, col);
-														if (gameCore.GameIsOver)
-																gameOver = true;
-												} else {
-														gameCore.PlacePiece (row, col);
-														if (gameCore.GameIsOver)
-																gameOver = true;
-														else {
-																gameCore.MakeAIMove ();
-														}
-												}
-										}
-								}
+			gameCore.currentRow = row;
+			gameCore.currentCol = col;
+			//Debug.Log(gameCore.playerColor);
+			if (!gameCore.GameIsOver && (gameCore.playerColor == gameCore.turn)) {
+				if (firstMove && (gameCore.playerColor == "red")) {
+					if (network.isOnline) {
+						network.networkView.RPC ("SendMove", RPCMode.All, row, col);
+						firstMove = false;
+					} else {
+						gameCore.PlacePiece (row, col);
+						firstMove = false;
+						gameCore.MakeAIMove ();
+					}
+				} else { //if (gameCore.isValidMove(boardX, boardY))
+					if (gameCore.isValidMove (row, col)) {
+						if (network.isOnline) {
+							network.networkView.RPC ("SendMove", RPCMode.All, row, col);
+							if (gameCore.GameIsOver)
+								gameOver = true;
+						} else {
+							gameCore.PlacePiece (row, col);
+							if (gameCore.GameIsOver)
+								gameOver = true;
+							else {
+								gameCore.MakeAIMove ();
+							}
 						}
-
-						// if game is over
-						// do game over stuff
-						// (call a method in GameCore.cs)
-
-						if (gameOver) {
-								Debug.Log ("Game Over!");
-						}
-
-						//Debug.Log("gameOver: " + gameOver);
+					}
 				}
+			}
+
+			// if game is over
+			// do game over stuff
+			// (call a method in GameCore.cs)
+
+			if (gameOver) {
+				Debug.Log ("Game Over!");
+			}
+
+			//Debug.Log("gameOver: " + gameOver);
+		} 
+		else {
+			var x = 3;
+		}
+
     }
 
 	public void ToggleClickablity () 
