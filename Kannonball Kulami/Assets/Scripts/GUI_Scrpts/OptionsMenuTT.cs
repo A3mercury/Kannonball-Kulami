@@ -37,6 +37,9 @@ public class OptionsMenuTT : MonoBehaviour
     float sliderStartVol = 0.5f;
     float cannonballStartVol = 0.5f;
 
+    public static bool areSoundsMuted = false;
+    public static bool areMusicMuted = false;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -59,8 +62,6 @@ public class OptionsMenuTT : MonoBehaviour
         parentCanvas = GetComponentInParent<Canvas>();
 
 		mainMenuClickScript = GameObject.FindObjectOfType (typeof(SceneTransitionScript)) as SceneTransitionScript;
-
-        // disable rest of game's OnMouseDown methods
 	}
 	
 	// Update is called once per frame
@@ -75,6 +76,7 @@ public class OptionsMenuTT : MonoBehaviour
             else
             {
                 optionPanel.gameObject.SetActive(true);
+                
             }
 			mainMenuClickScript.ToggleClickability();
 
@@ -84,7 +86,19 @@ public class OptionsMenuTT : MonoBehaviour
 
         // if the options menu is open, call soundSliderChange()
         if(optionPanel.gameObject.activeSelf == true)
-            soundSliderChange(); 
+            soundSliderChange();
+
+        changeSoundsButton();
+        changeMusicButton();
+
+        if (areSoundsMuted)
+            soundSlider.interactable = false;
+        else
+            soundSlider.interactable = true;
+        if (areMusicMuted)
+            musicSlider.interactable = false;
+        else
+            musicSlider.interactable = true;
 	}
 
     #region Assignments
@@ -164,44 +178,52 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void MuteSounds()
     {
-        if (SoundsButtonAnimator.GetBool("isSoundsMuted"))
+        if(areSoundsMuted) // if sounds are muted, unmute them
         {
-            SoundsButtonAnimator.SetBool("isSoundsMuted", false);
+            areSoundsMuted = false;
             soundSlider.value = sliderStartVol;
             soundSlider.interactable = true;
 
-            // TURN ON ALL SOUNDS
             SetSoundsToHalf();
         }
-        else
+        else // if sounds are not muted, mute them
         {
-            SoundsButtonAnimator.SetBool("isSoundsMuted", true);
+            areSoundsMuted = true;
             soundSlider.value = 0.0f;
             soundSlider.interactable = false;
-
-            // TURN OFF ALL SOUNDS
-            // soundSliderChange() will be called on Update()
-            //soundSource.volume = 0.0f;
         }
+
+        changeSoundsButton();
     }
+
+    
 
     public void MuteMusic()
     {
-        if (MusicButtonAnimator.GetBool("isMusicMuted"))
+        if (areMusicMuted)
         {
-            MusicButtonAnimator.SetBool("isMusicMuted", false);
+            areMusicMuted = false;
             musicSlider.value = sliderStartVol;
             musicSlider.interactable = false;
 
-            // TURN ON ALL MUSIC
+            // set music volume
         }
         else
         {
-            MusicButtonAnimator.SetBool("isMusicMuted", true);
+            areMusicMuted = true;
+            musicSlider.value = 0.0f;
             musicSlider.interactable = true;
-
-            // TURN OFF ALL MUSIC
         }
+    }
+
+    void changeSoundsButton()
+    {
+        SoundsButtonAnimator.SetBool("isSoundsMuted", areSoundsMuted);
+    }
+
+    void changeMusicButton()
+    {
+        MusicButtonAnimator.SetBool("isMusicMuted", areMusicMuted);
     }
 
     public void SetSoundsToHalf()
@@ -221,6 +243,8 @@ public class OptionsMenuTT : MonoBehaviour
     public void resumeGame()
     {
         optionPanel.gameObject.SetActive(false);
+        if(Application.loadedLevelName == "GameScene")
+            clickScript.ToggleClickablity();
     }
 
     public void concedeGame()
