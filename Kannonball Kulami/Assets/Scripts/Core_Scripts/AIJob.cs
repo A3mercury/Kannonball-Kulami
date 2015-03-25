@@ -8,9 +8,10 @@ public class AIJob : ThreadedJob
 {
     public KeyValuePair<int, int>[] AIMoveArray;
     public KeyValuePair<int, int> AIChosenMove;
+	public int AIBoard;
     protected override void ThreadFunction()
     {
-       AIChosenMove =  KulamiCSharpLibrary.KulamiCSharpLibrary.AIMove(true, AIMoveArray, 1);
+       AIChosenMove =  KulamiCSharpLibrary.KulamiCSharpLibrary.AIMove(true, AIMoveArray, AIBoard);
     }
     protected override void OnFinished()
     {

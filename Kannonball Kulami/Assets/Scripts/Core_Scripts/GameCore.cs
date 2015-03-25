@@ -26,6 +26,7 @@ public class GameCore : MonoBehaviour
     public bool GameIsOver;
     public List<KeyValuePair<int, int>> Moves;
     public AIJob myJob;
+	private int currentBoard;
 
     public ReadGameboard boardReader;
 
@@ -39,6 +40,15 @@ public class GameCore : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+         GameObject[] theBoards = GameObject.FindGameObjectsWithTag("GameBoard");
+         for (var i = 0; i < 7; i++ )
+		 {
+             theBoards[i].SetActive(false);           
+         }
+		int random = UnityEngine.Random.Range(0, 7);
+		theBoards[random].SetActive(true);
+		currentBoard = theBoards [random].name[theBoards[random].name.Length - 1] - 48;
+
         GameIsOver = false;
         Moves = new List<KeyValuePair<int, int>>();
 
@@ -50,7 +60,7 @@ public class GameCore : MonoBehaviour
         gamePlaces = new GamePlace[boardSize, boardSize];
 
         // Gameboard number is sent as second parameter
-        boardReader = new ReadGameboard(gamePlaces, 1);
+        boardReader = new ReadGameboard(gamePlaces, currentBoard);
 
         //boardReader.Output();
 
@@ -239,13 +249,14 @@ public class GameCore : MonoBehaviour
 
     public void MakeAIMove()
     {
-            myJob = new AIJob();
-            myJob.AIMoveArray = new KeyValuePair<int, int>[Moves.Count];
-            for (var i = 0; i < Moves.Count; i++)
-            {
-                myJob.AIMoveArray[i] = Moves[i];
-            }
-            myJob.Start();
+		myJob = new AIJob();
+        myJob.AIMoveArray = new KeyValuePair<int, int>[Moves.Count];
+		myJob.AIBoard = currentBoard;
+        for (var i = 0; i < Moves.Count; i++)
+        {
+            myJob.AIMoveArray[i] = Moves[i];
+        }
+		myJob.Start();
         
     }
 
