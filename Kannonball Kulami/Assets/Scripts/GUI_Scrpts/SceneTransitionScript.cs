@@ -4,6 +4,11 @@ using System.Collections;
 public class SceneTransitionScript : MonoBehaviour {
 
 	static bool isClickable = true;
+	private GameObject optionsPanel;
+
+	void Start () {
+		optionsPanel = GameObject.Find("OptionsPanel");
+	}
 
 	public void ToggleClickability () {
 		if (isClickable == true) 
@@ -82,4 +87,22 @@ public class SceneTransitionScript : MonoBehaviour {
 
 		}
     }
+
+	void OnGUI () 
+	{
+		if (Application.loadedLevelName == "MainMenuScene" || Application.loadedLevelName == "GameScene") {
+			if (GUI.Button (new Rect (0, 305, 75, 50), "Options")) {
+				if (optionsPanel.activeSelf == true)
+				{
+					optionsPanel.SetActive (false);
+					isClickable = true;
+				}
+				else
+				{
+					optionsPanel.SetActive (true);
+					isClickable = false;
+				}
+			}
+		}
+	}
 }
