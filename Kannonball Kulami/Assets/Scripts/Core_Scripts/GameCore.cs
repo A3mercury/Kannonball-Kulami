@@ -65,6 +65,8 @@ public class GameCore : MonoBehaviour
         //boardReader.Output();
 
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
+
+		ShowValidMoves();
         //networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
     }
 	
@@ -227,6 +229,11 @@ public class GameCore : MonoBehaviour
         //Debug.Log(gamePlaces[x, y].pieceNum);
         //Debug.Log("last red piece: " + redLastPiece);
         //Debug.Log("last black piece: " + blackLastPiece);
+
+		if (turnsLeft == 56) 
+		{
+			return true;
+		}
 
 		if (gamePlaces[row, col].owner != "open")
 			return false;
