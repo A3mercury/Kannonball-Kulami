@@ -33,12 +33,15 @@ public class OptionsMenuTT : MonoBehaviour
     Button SoundsButton;
     Button MusicButton;
 
+	Toggle AssistanceToggle;
+
     // starts at half
     float sliderStartVol = 0.5f;
     float cannonballStartVol = 0.5f;
 
     public static bool areSoundsMuted = false;
     public static bool areMusicMuted = false;
+	public static bool isAssitanceChecked = true;
 
 	// Use this for initialization
 	void Start () 
@@ -55,6 +58,16 @@ public class OptionsMenuTT : MonoBehaviour
         AssignSliders();
         AssignAnimators();
         AssignButtons();
+		AssistanceToggle = GameObject.Find ("assistance_checkbox").GetComponent<Toggle>();
+
+		if (isAssitanceChecked) 
+		{
+			AssistanceToggle.isOn = true;
+		} 
+		else 
+		{
+			AssistanceToggle.isOn = false;
+		}
 
         optionPanel = GameObject.Find("OptionsPanel");
         optionPanel.gameObject.SetActive(false);
@@ -103,6 +116,14 @@ public class OptionsMenuTT : MonoBehaviour
         {
             musicSlider.interactable = true;
         }
+		if (AssistanceToggle.isOn) 
+		{
+			isAssitanceChecked = true;
+		} 
+		else 
+		{
+			isAssitanceChecked = false;
+		}
 
         // if the options menu is open, call soundSliderChange()
         if(optionPanel.gameObject.activeSelf == true)
