@@ -24,7 +24,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 
 	IEnumerator gameStartInfo ()
 	{
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(2);
 
 		doGameStartInfo = true;
 	}

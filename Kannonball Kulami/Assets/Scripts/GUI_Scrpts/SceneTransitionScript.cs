@@ -25,15 +25,6 @@ public class SceneTransitionScript : MonoBehaviour {
 		Application.LoadLevel("GameScene");
 	}
 
-    //public void Options()
-    //{
-    //    OptionsScirpt
-
-    //    opScript.OpenOptionsMenu();
-
-    //    //Application.LoadLevel ("OptionsScene");
-    //}
-
 	public void Credits () {
 		Application.LoadLevel("CreditsScene");
 	}	
@@ -47,30 +38,39 @@ public class SceneTransitionScript : MonoBehaviour {
         Application.Quit();
     }
 
+	IEnumerator delayedSinglePlayer ()
+	{
+		yield return new WaitForSeconds(1);
+		SinglePlayer ();
+	}
+
+	IEnumerator delayedNetworkPlay ()
+	{
+		yield return new WaitForSeconds(1);
+		NetworkPlay ();
+	}
+
+	IEnumerator delayedCredits ()
+	{
+		yield return new WaitForSeconds(1);
+		Credits ();
+	}
+
     public void OnMouseDown()
     {
         Debug.Log("isClickable " + isClickable);
 		if (isClickable) 
 		{
-				if (gameObject.name.ToString () == "MenuCube") {
-					MainMenu ();
-				}
-
 				if (gameObject.name.ToString () == "singleplayer") {
-					SinglePlayer ();
+					StartCoroutine(delayedSinglePlayer());
 				}
 
 				if (gameObject.name.ToString () == "networkplay") {
-					NetworkPlay ();
+					StartCoroutine(delayedNetworkPlay());
 				}
 
-				//if (gameObject.name.ToString() == "options")
-				//{
-				//    Options();
-				//}
-
 				if (gameObject.name.ToString () == "credits") {
-					Credits ();
+					StartCoroutine(delayedCredits());
 				}
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			float depth;
