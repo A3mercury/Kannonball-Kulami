@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameScenePopUpInfo : MonoBehaviour {
+
+	public Toggle assistanceToggle;
 
 	private bool doGameStartInfo = false;
 	// Use this for initialization
@@ -39,8 +42,14 @@ public class GameScenePopUpInfo : MonoBehaviour {
 
 	void OnGUI ()
 	{
-		if (doGameStartInfo)
-			GUI.Window(0, new Rect(500, 10, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");	
+		GUI.skin.window.wordWrap = true;
+		GUI.skin.window.alignment = TextAnchor.MiddleCenter;
+
+		if (assistanceToggle.isOn) 
+		{
+			if (doGameStartInfo)
+				GUI.Window (0, new Rect (500, 10, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");	
+		}
 
 		StartCoroutine (endGameStartInfo ());
 	}

@@ -262,7 +262,7 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void concedeGame()
     {
-        Application.LoadLevel("LoseScene");
+        Application.LoadLevel("MainMenuScene");
     }
 
     public void quitGame()
