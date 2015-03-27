@@ -283,7 +283,6 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void concedeGame()
     {
-		clickScript.ToggleClickablity();
 		mainMenuClickScript.ToggleClickability();
 		Application.LoadLevel("MainMenuScene");
     }
