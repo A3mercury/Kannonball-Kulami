@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 
-public class NetworkLoginInterface : MonoBehaviour 
+public class NetworkLoginInterface : MonoBehaviour
 {
     Canvas serverCanvas;
 
@@ -31,8 +31,11 @@ public class NetworkLoginInterface : MonoBehaviour
     private Rect windowRect = new Rect(0, 43, 200, 200);
     float opponentListFloatIncrease;
 
-	// Use this for initialization
-	void Start () 
+    int frames = 0;
+    bool timeToCheck = false;
+
+    // Use this for initialization
+    void Start()
     {
         gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
         serverCanvas = GetComponent<Canvas>();
@@ -43,7 +46,7 @@ public class NetworkLoginInterface : MonoBehaviour
 
         // assign all the buttons in the server list
         serverButtons = GetComponentsInChildren<Button>();
-        foreach(Button b in serverButtons)
+        foreach (Button b in serverButtons)
         {
             if (b.name == "connect_button")
                 connectButton = b;
@@ -53,13 +56,13 @@ public class NetworkLoginInterface : MonoBehaviour
                 inviteToGameButton = b;
         }
 
-        // get the opponent's name out of all the text objects in the children
-        textObjects = GetComponentsInChildren<Text>();
-        foreach(Text t in textObjects)
-        {
-            if (t.name == "opponent_name")
-                opponentName = t;
-        }
+        //// get the opponent's name out of all the text objects in the children
+        //textObjects = GetComponentsInChildren<Text>();
+        //foreach(Text t in textObjects)
+        //{
+        //    if (t.name == "opponent_name")
+        //        opponentName = t;
+        //}
 
         // set the necessary properties
         connectButton.enabled = false;
@@ -71,10 +74,11 @@ public class NetworkLoginInterface : MonoBehaviour
         network = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
         opponentListFloatIncrease = 0;
     }
-    
-	// Update is called once per frame
-    private void OnGUI()
+
+    // Update is called once per frame
+    private void Update()
     {
+        frames++;
         if (network.isOnline)
         {
             if (Network.peerType == NetworkPeerType.Disconnected)
@@ -92,13 +96,18 @@ public class NetworkLoginInterface : MonoBehaviour
                     disconnectButton.enabled = false;
                 }
             }
+            else
+            {
+                ListOpponents();
+            }
             if (Network.isServer)
             {
                 gameCore.playerColor = "black";
+                //network.networkplayer = 1;
             }
             if (Network.isClient && !network.isInGame)
             {
-                network.networkView.RPC("OnChallenge", RPCMode.Server, network.userwantingtoconnectfromserver, network.userName);
+                //network.networkView.RPC("OnChallenge", RPCMode.All, network.userwantingtoconnectfromserver, network.userName);
             }
         }
     }
@@ -108,7 +117,7 @@ public class NetworkLoginInterface : MonoBehaviour
         try
         {
             network.StartServer();
-            ListOpponents();
+            //******************************DO NOT CALL LIST OPPONENTS FROM HERE!!!!!
         }
         catch (Exception ex)
         {
@@ -119,21 +128,29 @@ public class NetworkLoginInterface : MonoBehaviour
 
     void DisconnectFromServer()
     {
+        // clear text field
         usernameField.text = "";
         Network.Disconnect();
 
+        // clear opponents_list
+
+
+        // disconnect from server
         if (!Network.isServer)
             Debug.Log("Disconnected from server");
     }
 
-    void ListOpponents()
+    public void ListOpponents()
     {
-        MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
+        //if(GUILayout.Button("Refresh"))
+        //for (int i = 0; i < 1; i++ )
+        MasterServer.ClearHostList();
+        MasterServer.RequestHostList("testkannonball");
 
         opponentListContent = new GameObject("opponent_content");
         opponentListContent.transform.parent = opponentListRect.transform;
         opponentListContent.transform.position = opponentListRect.transform.position;
-       
+
         RectTransform RT = opponentListContent.AddComponent<RectTransform>();
         RectTransform PRT = opponentListContent.GetComponentInParent<RectTransform>();
 
@@ -142,14 +159,13 @@ public class NetworkLoginInterface : MonoBehaviour
 
         opponentListContent.AddComponent<Image>().color = Color.green;
 
-        Debug.Log("get here");
-        //if (MasterServer.PollHostList().Length != 0)
-        //{
-            
-            //HostData[] data = MasterServer.PollHostList();
-            //foreach (HostData c in data)
-            for (int i = 0; i < 10; i++)
+        if (MasterServer.PollHostList().Length != 0)
+        {
+            HostData[] data = MasterServer.PollHostList();
+            foreach (HostData c in data)
+            //for (int i = 0; i < 10; i++)
             {
+                Debug.Log(c.gameName);
                 GameObject newGO = Instantiate(
                     opponentsPanel,
                     new Vector3(0, 0, 0),
@@ -166,12 +182,22 @@ public class NetworkLoginInterface : MonoBehaviour
 
                 opponentListRect.GetComponent<ScrollRect>().content = opponentListContent.GetComponent<RectTransform>();
                 opponentListRect.GetComponent<ScrollRect>().verticalScrollbar = GameObject.Find("opponent_scrollbar").GetComponent<Scrollbar>();
+
+                opponentName = newGO.GetComponentInChildren<Text>();
+                opponentName.text = c.gameName;
+
+
             }
-        //}
+        }
     }
 
     void InviteToGame()
     {
-
+        //Network.Connect(c);
+        //network.sendrequest = true;
+        //network.userwantingtoconnectfromserver = c.gameName;
+        //network.isconnected = true;
+        //networkView.RPC("OnChallenge", RPCMode.All);
+        gameCore.playerColor = "red";
     }
 }

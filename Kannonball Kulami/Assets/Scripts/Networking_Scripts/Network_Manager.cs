@@ -29,11 +29,13 @@ public class Network_Manager : MonoBehaviour {
     public string clientName;
     public static int networkplayer;
     bool sendrequest = false, prompt = false, beingconnectedto = false, respondtorequest = false, waitingforresponse = false, isconnected = false;
-    public string userName = "", maxPlayers = "50", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
+    public string userName = "", maxPlayers = "10", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     public GUISkin myskin;
     private Rect windowRect = new Rect(0, 43, 200, 200);
     private GameCore gameCore;
     public Vector2 scrollPosition;
+
+    public NetworkLoginInterface login;
 
     void Start()
     {
@@ -54,7 +56,7 @@ public class Network_Manager : MonoBehaviour {
     {
         //Network.InitializeSecurity();
         Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
-        MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
+        MasterServer.RegisterHost("testkannonball", userName);
     }
 
     void OnServerInitialized()
@@ -69,6 +71,55 @@ public class Network_Manager : MonoBehaviour {
     }
 
     /*
+    private void OnGUI()
+    {
+        if (isOnline)
+        {
+            if(Network.peerType == NetworkPeerType.Disconnected)
+            {
+                GUILayout.Label("Please enter your User Name:");
+                userName = GUILayout.TextField(userName);
+
+                if(GUILayout.Button("Connect to Kannonball Kulami!"))
+                {
+                    try
+                    {
+                        StartServer();
+                    }
+                    catch (Exception)
+                    {
+                        print("Please type in numbers for port and max players");
+
+                    }
+                }
+            }
+            else
+            {
+                if (GUILayout.Button("Disconnect"))
+                {
+                    Network.Disconnect();
+                }
+                windowRect = GUI.Window(0, windowRect, windowFunc, "Players");
+            }
+
+            if(Network.isServer)
+            {
+                //if (isconnected)
+                    //chat = true;
+                gameCore.playerColor = "black";
+                networkplayer = 1;
+            }
+            if(Network.isClient && !isInGame)
+            {
+                networkView.RPC("OnChallenge", RPCMode.All, userwantingtoconnectfromserver, userName);
+           }
+
+        }
+        else
+            return;
+    }
+
+    
    public void windowFunc(int id)
     {
         if (GUILayout.Button("Refresh"))
