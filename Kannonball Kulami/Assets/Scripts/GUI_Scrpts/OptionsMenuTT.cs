@@ -93,8 +93,8 @@ public class OptionsMenuTT : MonoBehaviour
             }
 			mainMenuClickScript.ToggleClickability();
 
-			if (Application.loadedLevelName == "GameScene")
-				clickScript.ToggleClickablity();
+		//	if (Application.loadedLevelName == "GameScene")
+				//clickScript.ToggleClickablity();
         }
 
 
@@ -283,7 +283,8 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void concedeGame()
     {
-        Application.LoadLevel("MainMenuScene");
+		mainMenuClickScript.ToggleClickability();
+		Application.LoadLevel("MainMenuScene");
     }
 
     public void quitGame()

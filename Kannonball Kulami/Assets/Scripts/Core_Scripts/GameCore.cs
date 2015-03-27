@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Text;
 using System.IO;
@@ -27,6 +28,7 @@ public class GameCore : MonoBehaviour
     public List<KeyValuePair<int, int>> Moves;
     public AIJob myJob;
 	private int currentBoard;
+	public bool useAssistance;
 
     public ReadGameboard boardReader;
 
@@ -37,17 +39,25 @@ public class GameCore : MonoBehaviour
     public Camera serverCam;
     private Network_Manager networkManager;
 
+	public Toggle AssistanceToggle;
+
 	// Use this for initialization
 	void Start () 
     {
-         GameObject[] theBoards = GameObject.FindGameObjectsWithTag("GameBoard");
-         for (var i = 0; i < 7; i++ )
-		 {
-             theBoards[i].SetActive(false);           
-         }
-		int random = UnityEngine.Random.Range(0, 7);
-		theBoards[random].SetActive(true);
-		currentBoard = theBoards [random].name[theBoards[random].name.Length - 1] - 48;
+		//AssistanceToggle = GameObject.Find ("assistance_checkbox").GetComponent<Toggle>();
+		
+		//if (AssistanceToggle.isOn) 
+		//{
+			useAssistance = true;
+		//} 
+		//else 
+		//{
+		//	useAssistance = false;
+		//}
+		int random = UnityEngine.Random.Range(1, 8);
+
+		GameObject variableForPrefab = (GameObject)Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + random.ToString()));
+		currentBoard = random;
 
         GameIsOver = false;
         Moves = new List<KeyValuePair<int, int>>();
@@ -100,7 +110,14 @@ public class GameCore : MonoBehaviour
 
         if (turn == "red")
         {
-            chosenObject.renderer.material.color = new Color32(102, 0, 0, 1);
+			if(useAssistance)
+			{
+            	chosenObject.renderer.material.color = new Color32(102, 0, 0, 1);
+			}
+			else
+			{
+				chosenObject.renderer.material.color = Color.red;
+			}
             redLastRow = row;
             redLastCol = col;
 			redLastPiece = gamePlaces[row, col].pieceNum;
@@ -110,7 +127,14 @@ public class GameCore : MonoBehaviour
         }
         else
         {
-            chosenObject.renderer.material.color = new Color32(51, 51, 51, 1);
+			if(useAssistance)
+			{
+            	chosenObject.renderer.material.color = new Color32(51, 51, 51, 1);
+			}
+			else
+			{
+				chosenObject.renderer.material.color = Color.grey;
+			}
             blackLastRow = row;
             blackLastCol = col;
 			blackLastPiece = gamePlaces[row, col].pieceNum;
@@ -120,7 +144,7 @@ public class GameCore : MonoBehaviour
         }
 
         turnsLeft--;
-        if (turn == playerColor)
+        if (turn == playerColor && useAssistance)
         {
             ShowValidMoves();
         }
