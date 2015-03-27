@@ -73,6 +73,7 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
+    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &15441821
 GameObject:
@@ -193,9 +194,9 @@ GameObject:
   - 54: {fileID: 87895075}
   - 65: {fileID: 87895074}
   - 114: {fileID: 87895073}
+  - 145: {fileID: 87895077}
   - 114: {fileID: 87895076}
   - 114: {fileID: 87895078}
-  - 114: {fileID: 87895077}
   m_Layer: 0
   m_Name: networkplay
   m_TagString: Untagged
@@ -276,8 +277,8 @@ Rigidbody:
   m_GameObject: {fileID: 87895069}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: .5
+  m_Drag: 0
+  m_AngularDrag: .0500000007
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -294,11 +295,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a4bfb956b05d046b30b4c5e7470e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterLevel: 1
-  floatHeight: 3
-  bounceDamp: 1
+  waterLevel: -2
+  floatHeight: 2
+  bounceDamp: 0
   forceDampening: 1
-  bouyancyForce: {x: 0, y: 1, z: 0}
+  bouyancyForce: {x: 0, y: 10, z: 10}
   pointNum: 15
   points:
   - {x: 0, y: 0, z: 0}
@@ -3595,6 +3596,23 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: .737254918, g: .58431375, b: .266666681, a: 1}
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &2094675721
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2094675718}
+
   m_Material: {fileID: 0}
   m_Color: {r: .737254918, g: .58431375, b: .266666681, a: 1}
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
