@@ -168,6 +168,13 @@ ModelImporter:
     100324: Group97
     100326: Group99
     100328: //RootNode
+    100330: Group1_MeshPart4
+    100332: Group1_MeshPart5
+    100334: Group1_MeshPart6
+    100336: Group210_MeshPart0
+    100338: Group210_MeshPart1
+    100340: Group211_MeshPart0
+    100342: Group211_MeshPart1
     400000: Group1
     400002: Group10
     400004: Group100
@@ -333,6 +340,13 @@ ModelImporter:
     400324: Group97
     400326: Group99
     400328: //RootNode
+    400330: Group1_MeshPart4
+    400332: Group1_MeshPart5
+    400334: Group1_MeshPart6
+    400336: Group210_MeshPart0
+    400338: Group210_MeshPart1
+    400340: Group211_MeshPart0
+    400342: Group211_MeshPart1
     2300000: Group10
     2300002: Group100
     2300004: Group101
@@ -495,6 +509,13 @@ ModelImporter:
     2300318: Group96
     2300320: Group97
     2300322: Group99
+    2300324: Group1_MeshPart4
+    2300326: Group1_MeshPart5
+    2300328: Group1_MeshPart6
+    2300330: Group210_MeshPart0
+    2300332: Group210_MeshPart1
+    2300334: Group211_MeshPart0
+    2300336: Group211_MeshPart1
     3300000: Group10
     3300002: Group100
     3300004: Group101
@@ -657,6 +678,13 @@ ModelImporter:
     3300318: Group96
     3300320: Group97
     3300322: Group99
+    3300324: Group1_MeshPart4
+    3300326: Group1_MeshPart5
+    3300328: Group1_MeshPart6
+    3300330: Group210_MeshPart0
+    3300332: Group210_MeshPart1
+    3300334: Group211_MeshPart0
+    3300336: Group211_MeshPart1
     4300000: Group1_MeshPart0
     4300002: Group1_MeshPart1
     4300004: Group1_MeshPart2
@@ -819,6 +847,112 @@ ModelImporter:
     4300318: Group96_MeshPart0
     4300320: Group97
     4300322: Group99
+    4300324: Group1_MeshPart4
+    4300326: Group1_MeshPart5
+    4300328: Group1_MeshPart6
+    4300330: Group10_MeshPart0
+    4300332: Group100
+    4300334: Group101_MeshPart0
+    4300336: Group103
+    4300338: Group104_MeshPart0
+    4300340: Group107_MeshPart0
+    4300342: Group109
+    4300344: Group110_MeshPart0
+    4300346: Group112
+    4300348: Group113_MeshPart0
+    4300350: Group116_MeshPart0
+    4300352: Group119
+    4300354: Group120_MeshPart0
+    4300356: Group123
+    4300358: Group124_MeshPart0
+    4300360: Group126
+    4300362: Group127_MeshPart0
+    4300364: Group129
+    4300366: Group130_MeshPart0
+    4300368: Group132
+    4300370: Group133_MeshPart0
+    4300372: Group135_MeshPart0
+    4300374: Group136
+    4300376: Group139
+    4300378: Group140_MeshPart0
+    4300380: Group142
+    4300382: Group143_MeshPart0
+    4300384: Group145
+    4300386: Group146_MeshPart0
+    4300388: Group148
+    4300390: Group149_MeshPart0
+    4300392: Group15_MeshPart0
+    4300394: Group151
+    4300396: Group152_MeshPart0
+    4300398: Group155_MeshPart0
+    4300400: Group158
+    4300402: Group159_MeshPart0
+    4300404: Group161
+    4300406: Group162_MeshPart0
+    4300408: Group164
+    4300410: Group165_MeshPart0
+    4300412: Group168_MeshPart0
+    4300414: Group17
+    4300416: Group170_MeshPart0
+    4300418: Group171_MeshPart0
+    4300420: Group172_MeshPart0
+    4300422: Group174_MeshPart0
+    4300424: Group175
+    4300426: Group176_MeshPart0
+    4300428: Group179
+    4300430: Group18_MeshPart0
+    4300432: Group180_MeshPart0
+    4300434: Group182
+    4300436: Group183_MeshPart0
+    4300438: Group185_MeshPart0
+    4300440: Group187
+    4300442: Group189
+    4300444: Group200_MeshPart0
+    4300446: Group201_MeshPart0
+    4300448: Group202_MeshPart0
+    4300450: Group206_MeshPart0
+    4300452: Group21_MeshPart0
+    4300454: Group210_MeshPart1
+    4300456: Group211_MeshPart1
+    4300458: Group24
+    4300460: Group25_MeshPart0
+    4300462: Group29
+    4300464: Group30_MeshPart0
+    4300466: Group32
+    4300468: Group35
+    4300470: Group36_MeshPart0
+    4300472: Group40_MeshPart0
+    4300474: Group44
+    4300476: Group45_MeshPart0
+    4300478: Group48_MeshPart0
+    4300480: Group51_MeshPart0
+    4300482: Group53_MeshPart0
+    4300484: Group54
+    4300486: Group55_MeshPart0
+    4300488: Group56
+    4300490: Group57_MeshPart0
+    4300492: Group60
+    4300494: Group61_MeshPart0
+    4300496: Group63
+    4300498: Group64_MeshPart0
+    4300500: Group67
+    4300502: Group68_MeshPart0
+    4300504: Group71
+    4300506: Group72_MeshPart0
+    4300508: Group75_MeshPart0
+    4300510: Group78
+    4300512: Group79_MeshPart0
+    4300514: Group81
+    4300516: Group82_MeshPart0
+    4300518: Group86
+    4300520: Group87_MeshPart0
+    4300522: Group89
+    4300524: Group9
+    4300526: Group90_MeshPart0
+    4300528: Group93
+    4300530: Group94_MeshPart0
+    4300532: Group96
+    4300534: Group97_MeshPart0
     9500000: //RootNode
   materials:
     importMaterials: 1
