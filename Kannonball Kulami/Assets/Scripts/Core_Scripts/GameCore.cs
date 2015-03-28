@@ -283,41 +283,6 @@ public class GameCore : MonoBehaviour
         
     }
 
-    public void PlaceAIMove()
-    {
-        
-            KeyValuePair<int, int> AIChosenMove = myJob.AIChosenMove;
-            string CannonBallObjectString = "CannonBall" + AIChosenMove.Key.ToString() + AIChosenMove.Value.ToString();
-            GameObject chosenObject = GameObject.Find(CannonBallObjectString);
-            Moves.Add(new KeyValuePair<int, int>(AIChosenMove.Key, AIChosenMove.Value));
-            gamePlaces[AIChosenMove.Key, AIChosenMove.Value].owner = turn;
-            //gamePlaces[AIChosenMove.Key, AIChosenMove.Value].isValid = false;
-            chosenObject.gameObject.renderer.enabled = true;
-            chosenObject.gameObject.renderer.material = solid;
-
-            if (turn == "red")
-            {
-                chosenObject.gameObject.renderer.material.color = Color.red;
-                redLastRow = AIChosenMove.Key;
-                redLastCol = AIChosenMove.Value;
-                redLastPiece = gamePlaces[AIChosenMove.Key, AIChosenMove.Value].pieceNum;
-                turn = "black";
-            }
-            else
-            {
-                chosenObject.gameObject.renderer.material.color = Color.black;
-                blackLastRow = AIChosenMove.Key;
-                blackLastCol = AIChosenMove.Value;
-                blackLastPiece = gamePlaces[AIChosenMove.Key, AIChosenMove.Value].pieceNum;
-                turn = "red";
-            }
-            turnsLeft--;
-            if (isGameOver())
-            {
-                GameIsOver = true;
-            }
-        
-    }
 
     public void ShowValidMoves()
     {
