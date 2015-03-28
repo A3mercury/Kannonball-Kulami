@@ -7,7 +7,7 @@ public class OptionsMenuTT : MonoBehaviour
 {
     Canvas parentCanvas;
 
-	ClickGameboard clickScript;
+	GameCore clickScript;
 	SceneTransitionScript mainMenuClickScript;
 
     Image[] images;
@@ -52,7 +52,7 @@ public class OptionsMenuTT : MonoBehaviour
             soundsParent = GameObject.Find("AudioSounds");
             backgroundShipNoise = GameObject.Find("BackgroundShipNoise").GetComponent<AudioSource>();
             
-			clickScript = GameObject.FindObjectOfType (typeof(ClickGameboard)) as ClickGameboard;		
+			clickScript = GameObject.FindObjectOfType (typeof(GameCore)) as GameCore;		
 		}
 
         AssignSliders();
