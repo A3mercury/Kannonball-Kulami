@@ -48,14 +48,14 @@ public class GameCore : MonoBehaviour
     {
 		//AssistanceToggle = GameObject.Find ("assistance_checkbox").GetComponent<Toggle>();
 		
-		//if (AssistanceToggle.isOn) 
-		//{
+		if (AssistanceToggle.isOn) 
+		{
 			useAssistance = true;
-		//} 
-		//else 
-		//{
-		//	useAssistance = false;
-		//}
+		} 
+		else 
+		{
+			useAssistance = false;
+		}
 		isClickable = true;
 
 		int random = UnityEngine.Random.Range(1, 8);
@@ -79,8 +79,10 @@ public class GameCore : MonoBehaviour
         //boardReader.Output();
 
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
-
-		ShowValidMoves();
+		if (useAssistance) 
+		{
+			ShowValidMoves ();
+		}
         //networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
     }
 	
@@ -331,6 +333,7 @@ public class GameCore : MonoBehaviour
 
 	public void ToggleClickablity () 
 	{
+
 		if (isClickable == true) {
 			isClickable = false;
 			Debug.Log("Board not clickable.");
