@@ -39,8 +39,6 @@ public class GameCore : MonoBehaviour
     public Camera serverCam;
     private Network_Manager networkManager;
 
-	public Toggle AssistanceToggle;
-
 	// Use this for initialization
 	void Start () 
     {
@@ -55,6 +53,7 @@ public class GameCore : MonoBehaviour
 		//	useAssistance = false;
 		//}
 		int random = UnityEngine.Random.Range(1, 8);
+		//random = 3;
 
 		GameObject variableForPrefab = (GameObject)Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + random.ToString()));
 		currentBoard = random;

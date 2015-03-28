@@ -91,7 +91,7 @@ public class SceneTransitionScript : MonoBehaviour {
 	void OnGUI () 
 	{
 		if (Application.loadedLevelName == "MainMenuScene" || Application.loadedLevelName == "GameScene") {
-			if (GUI.Button (new Rect (0, 305, 75, 50), "Options")) {
+			if (GUI.Button (new Rect (3, 570, 75, 50), "Options")) {
 				if (optionsPanel.activeSelf == true)
 				{
 					optionsPanel.SetActive (false);

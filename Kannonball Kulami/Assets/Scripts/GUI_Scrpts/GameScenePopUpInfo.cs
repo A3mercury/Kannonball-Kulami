@@ -48,7 +48,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 		if (assistanceToggle.isOn) 
 		{
 			if (doGameStartInfo)
-				GUI.Window (0, new Rect (360, 10, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");	
+				GUI.Window (0, new Rect (760, 10, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");	
 		}
 
 		StartCoroutine (endGameStartInfo ());
