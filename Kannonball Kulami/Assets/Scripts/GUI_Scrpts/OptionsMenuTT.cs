@@ -291,4 +291,9 @@ public class OptionsMenuTT : MonoBehaviour
     {
         Application.Quit();
     }
+
+	public void ToggleClickScript ()
+	{
+		clickScript.ToggleClickablity();
+	}
 }

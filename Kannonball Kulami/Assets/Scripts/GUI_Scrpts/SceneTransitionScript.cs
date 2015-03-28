@@ -5,9 +5,10 @@ public class SceneTransitionScript : MonoBehaviour {
 
 	static bool isClickable = true;
 	public GameObject optionsPanel;
+	OptionsMenuTT optionsScript;
 
 	void Start () {
-
+		optionsScript = GameObject.FindObjectOfType (typeof(OptionsMenuTT)) as OptionsMenuTT;
 	}
 
 	public void ToggleClickability () {
@@ -96,11 +97,13 @@ public class SceneTransitionScript : MonoBehaviour {
 				{
 					optionsPanel.SetActive (false);
 					isClickable = true;
+					optionsScript.ToggleClickScript();
 				}
 				else
 				{
 					optionsPanel.SetActive (true);
 					isClickable = false;
+					optionsScript.ToggleClickScript();
 				}
 			}
 		}
