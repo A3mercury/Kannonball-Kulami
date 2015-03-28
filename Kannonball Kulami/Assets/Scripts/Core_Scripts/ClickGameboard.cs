@@ -91,10 +91,12 @@ public class ClickGameboard : MonoBehaviour
 	{
 		if (isClickable == true) {
 			isClickable = false;
+			Debug.Log("Board not clickable.");
 		} 
 		else 
 		{
 			isClickable = true;
+			Debug.Log("Board is clickable");
 		}
 
 	}

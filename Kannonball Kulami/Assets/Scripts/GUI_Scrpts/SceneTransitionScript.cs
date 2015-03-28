@@ -4,10 +4,10 @@ using System.Collections;
 public class SceneTransitionScript : MonoBehaviour {
 
 	static bool isClickable = true;
-	private GameObject optionsPanel;
+	public GameObject optionsPanel;
 
 	void Start () {
-		optionsPanel = GameObject.Find("OptionsPanel");
+
 	}
 
 	public void ToggleClickability () {
