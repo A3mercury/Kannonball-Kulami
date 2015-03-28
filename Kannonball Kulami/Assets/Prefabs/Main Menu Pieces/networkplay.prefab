@@ -158,11 +158,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a4bfb956b05d046b30b4c5e7470e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterLevel: -2
-  floatHeight: 2
-  bounceDamp: 0
+  waterLevel: 1
+  floatHeight: 3
+  bounceDamp: 1
   forceDampening: 1
-  bouyancyForce: {x: 0, y: 10, z: 10}
+  bouyancyForce: {x: 0, y: 1, z: 0}
   pointNum: 15
   points:
   - {x: 0, y: 0, z: 0}
