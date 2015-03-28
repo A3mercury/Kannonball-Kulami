@@ -2876,7 +2876,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b591b7315340d4fc3894b83eaf8b2ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 408150479}
 --- !u!148 &391198545
 NetworkView:
   m_ObjectHideFlags: 0
@@ -3754,7 +3753,7 @@ MonoBehaviour:
   CameraLookat1: {fileID: 989183492}
   CameraLookat2: {fileID: 1296537131}
   serverCam: {fileID: 0}
-  AssistanceToggle: {fileID: 0}
+  AssistanceToggle: {fileID: 914861443}
 --- !u!148 &555267529
 NetworkView:
   m_ObjectHideFlags: 0
@@ -5966,7 +5965,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 962707942}
   m_LocalRotation: {x: .0871723294, y: .899590552, z: .210452557, w: -.372622699}
-  m_LocalPosition: {x: 708.300293, y: -466.69101, z: 471.618683}
+  m_LocalPosition: {x: 1941.56299, y: -1329.97473, z: 1704.88147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1512727415}

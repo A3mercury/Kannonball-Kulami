@@ -48,14 +48,14 @@ public class GameCore : MonoBehaviour
     {
 		//AssistanceToggle = GameObject.Find ("assistance_checkbox").GetComponent<Toggle>();
 		
-		//if (AssistanceToggle.isOn) 
-		//{
+		if (AssistanceToggle.isOn) 
+		{
 			useAssistance = true;
-		//} 
-		//else 
-		//{
-		//	useAssistance = false;
-		//}
+		} 
+		else 
+		{
+			useAssistance = false;
+		}
 		isClickable = true;
 
 		int random = UnityEngine.Random.Range(1, 8);

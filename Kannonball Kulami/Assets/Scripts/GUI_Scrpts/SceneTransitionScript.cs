@@ -4,11 +4,12 @@ using System.Collections;
 public class SceneTransitionScript : MonoBehaviour {
 
 	static bool isClickable = true;
-	public GameObject optionsPanel;
+	GameObject optionsPanel;
 	OptionsMenuTT optionsScript;
 
 	void Start () {
 		optionsScript = GameObject.FindObjectOfType (typeof(OptionsMenuTT)) as OptionsMenuTT;
+		optionsPanel = GameObject.Find ("OptionsPanel");
 	}
 
 	public void ToggleClickability () {

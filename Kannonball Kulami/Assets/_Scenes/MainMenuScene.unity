@@ -263,7 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b591b7315340d4fc3894b83eaf8b2ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 0}
 --- !u!65 &87895074
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -427,7 +426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b591b7315340d4fc3894b83eaf8b2ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 0}
 --- !u!65 &87895083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1527,7 +1525,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b591b7315340d4fc3894b83eaf8b2ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 0}
 --- !u!65 &874083959
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2618,7 +2615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b591b7315340d4fc3894b83eaf8b2ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 0}
 --- !u!54 &1338274399
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3113,7 +3109,6 @@ GameObject:
   - 23: {fileID: 1868108308}
   - 54: {fileID: 1868108312}
   - 65: {fileID: 1868108311}
-  - 114: {fileID: 1868108310}
   - 114: {fileID: 1868108313}
   - 95: {fileID: 1868108314}
   - 114: {fileID: 1868108315}
@@ -3168,18 +3163,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 498862332}
   m_GameObject: {fileID: 1868108306}
   m_Mesh: {fileID: 4300002, guid: 27f3097e4e1e8e0478b7a8fdb2e78209, type: 3}
---- !u!114 &1868108310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1868108306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b591b7315340d4fc3894b83eaf8b2ecd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 0}
 --- !u!65 &1868108311
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3469,7 +3452,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1937220268}
   m_LocalRotation: {x: .0871723294, y: .899590552, z: .210452557, w: -.372622699}
-  m_LocalPosition: {x: 14.0756836, y: -458.683197, z: 365.103058}
+  m_LocalPosition: {x: 1247.33838, y: -1321.96692, z: 1598.36584}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 663912114}
