@@ -39,7 +39,10 @@ public class GameCore : MonoBehaviour
     private Network_Manager networkManager;
 
 	static bool isClickable;
-	
+
+    public Canvas GameSceneCanvas;
+    public GameObject ChatBoxPanel;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -75,6 +78,12 @@ public class GameCore : MonoBehaviour
             ShowValidMoves(false);
         }
         //networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
+
+        // this will make the ChatBoxPanel active whenever the game is being played over the network
+        //if (networkManager.isOnline)
+        bool testOnlineBool = false;
+        if(testOnlineBool)
+            ChatBoxPanel.SetActive(true);
     }
 	
 	// Update is called once per frame
