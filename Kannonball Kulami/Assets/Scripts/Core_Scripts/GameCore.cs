@@ -56,6 +56,7 @@ public class GameCore : MonoBehaviour
 
         GameIsOver = false;
         Moves = new List<KeyValuePair<int, int>>();
+        MovesBlockedByOptions = new List<KeyValuePair<int, int>>();
 
         turnsLeft = 56;
 
