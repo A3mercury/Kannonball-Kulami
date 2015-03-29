@@ -39,21 +39,26 @@ public class GameCore : MonoBehaviour
     public Camera serverCam;
     private Network_Manager networkManager;
 
+	public Toggle AssistanceToggle;
+
+	static bool isClickable;
+	
 	// Use this for initialization
 	void Start () 
     {
 		//AssistanceToggle = GameObject.Find ("assistance_checkbox").GetComponent<Toggle>();
 		
-		//if (AssistanceToggle.isOn) 
-		//{
+		if (AssistanceToggle.isOn) 
+		{
 			useAssistance = true;
-		//} 
-		//else 
-		//{
-		//	useAssistance = false;
-		//}
+		} 
+		else 
+		{
+			useAssistance = false;
+		}
+		isClickable = true;
+
 		int random = UnityEngine.Random.Range(1, 8);
-		//random = 3;
 
 		GameObject variableForPrefab = (GameObject)Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + random.ToString()));
 		currentBoard = random;
@@ -74,8 +79,10 @@ public class GameCore : MonoBehaviour
         //boardReader.Output();
 
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
-
-		ShowValidMoves();
+		if (useAssistance) 
+		{
+			ShowValidMoves ();
+		}
         //networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
     }
 	
@@ -93,80 +100,68 @@ public class GameCore : MonoBehaviour
 
     public void PlacePiece(int row, int col)
     {
-        HideValidMoves();
+		if (isClickable) {
+						HideValidMoves ();
 
-        //audio.Play();
-        CannonFireSound.Instance.FireCannon();
+						//audio.Play();
+						CannonFireSound.Instance.FireCannon ();
 
-        Moves.Add(new KeyValuePair<int, int>(row, col));
-		string CannonBallObjectString = "CannonBall" + row.ToString() + col.ToString();
-		GameObject chosenObject = GameObject.Find(CannonBallObjectString);
-        gamePlaces[row, col].owner = turn;
-        //gamePlaces[row, col].isValid = false;
-		chosenObject.collider.enabled = false;
-        chosenObject.renderer.enabled = true;
-		chosenObject.renderer.material = solid;
+						Moves.Add (new KeyValuePair<int, int> (row, col));
+						string CannonBallObjectString = "CannonBall" + row.ToString () + col.ToString ();
+						GameObject chosenObject = GameObject.Find (CannonBallObjectString);
+						gamePlaces [row, col].owner = turn;
+						//gamePlaces[row, col].isValid = false;
+						chosenObject.collider.enabled = false;
+						chosenObject.renderer.enabled = true;
+						chosenObject.renderer.material = solid;
 
-        if (turn == "red")
-        {
-			if(useAssistance)
-			{
-            	chosenObject.renderer.material.color = new Color32(102, 0, 0, 1);
-			}
-			else
-			{
-				chosenObject.renderer.material.color = Color.red;
-			}
-            redLastRow = row;
-            redLastCol = col;
-			redLastPiece = gamePlaces[row, col].pieceNum;
-            turn = "black";
+						if (turn == "red") {
+								if (useAssistance) {
+										chosenObject.renderer.material.color = new Color32 (102, 0, 0, 1);
+								} else {
+										chosenObject.renderer.material.color = Color.red;
+								}
+								redLastRow = row;
+								redLastCol = col;
+								redLastPiece = gamePlaces [row, col].pieceNum;
+								turn = "black";
 
-            CannonParticleFire.Instance.CreateParticles("PlayerParticleObject");
-        }
-        else
-        {
-			if(useAssistance)
-			{
-            	chosenObject.renderer.material.color = new Color32(51, 51, 51, 1);
-			}
-			else
-			{
-				chosenObject.renderer.material.color = Color.grey;
-			}
-            blackLastRow = row;
-            blackLastCol = col;
-			blackLastPiece = gamePlaces[row, col].pieceNum;
-            turn = "red";
+								CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
+						} else {
+								if (useAssistance) {
+										chosenObject.renderer.material.color = new Color32 (51, 51, 51, 1);
+								} else {
+										chosenObject.renderer.material.color = Color.grey;
+								}
+								blackLastRow = row;
+								blackLastCol = col;
+								blackLastPiece = gamePlaces [row, col].pieceNum;
+								turn = "red";
 
-            CannonParticleFire.Instance.CreateParticles("OpponentParticleObject");
-        }
+								CannonParticleFire.Instance.CreateParticles ("OpponentParticleObject");
+						}
 
-        turnsLeft--;
-        if (turn == playerColor && useAssistance)
-        {
-            ShowValidMoves();
-        }
-        if (isGameOver())
-        {
-            GameIsOver = true;
-			Debug.Log("Game is over!");
-			KeyValuePair<int, int> score = GetScore();
-			Debug.Log("Red score: " + score.Key);
-			Debug.Log("Black score: " + score.Value);
-            if ((playerColor == "red" && score.Key > score.Value) || (playerColor == "black" && score.Key < score.Value) )
-            {
-                GameIsOver = false;
-                Application.LoadLevel("VictoryScene");
-            }
-            else
-            {
-                GameIsOver = false;
-                Application.LoadLevel("LoseScene");
-            }
-        }
+						turnsLeft--;
+						if (turn == playerColor && useAssistance) {
+								ShowValidMoves ();
+						}
+						if (isGameOver ()) {
+								GameIsOver = true;
+								Debug.Log ("Game is over!");
+								KeyValuePair<int, int> score = GetScore ();
+								Debug.Log ("Red score: " + score.Key);
+								Debug.Log ("Black score: " + score.Value);
+								if ((playerColor == "red" && score.Key > score.Value) || (playerColor == "black" && score.Key < score.Value)) {
+										GameIsOver = false;
+										Application.LoadLevel ("VictoryScene");
+								} else {
+										GameIsOver = false;
+										Application.LoadLevel ("LoseScene");
+								}
+						}
 
-		chosenObject.rigidbody.AddForceAtPosition(new Vector3(0f, -250f, 0f), chosenObject.rigidbody.worldCenterOfMass);
+						chosenObject.rigidbody.AddForceAtPosition (new Vector3 (0f, -250f, 0f), chosenObject.rigidbody.worldCenterOfMass);
+				}
     }
 
 	private struct GamePiece
@@ -290,41 +285,6 @@ public class GameCore : MonoBehaviour
         
     }
 
-    public void PlaceAIMove()
-    {
-        
-            KeyValuePair<int, int> AIChosenMove = myJob.AIChosenMove;
-            string CannonBallObjectString = "CannonBall" + AIChosenMove.Key.ToString() + AIChosenMove.Value.ToString();
-            GameObject chosenObject = GameObject.Find(CannonBallObjectString);
-            Moves.Add(new KeyValuePair<int, int>(AIChosenMove.Key, AIChosenMove.Value));
-            gamePlaces[AIChosenMove.Key, AIChosenMove.Value].owner = turn;
-            //gamePlaces[AIChosenMove.Key, AIChosenMove.Value].isValid = false;
-            chosenObject.gameObject.renderer.enabled = true;
-            chosenObject.gameObject.renderer.material = solid;
-
-            if (turn == "red")
-            {
-                chosenObject.gameObject.renderer.material.color = Color.red;
-                redLastRow = AIChosenMove.Key;
-                redLastCol = AIChosenMove.Value;
-                redLastPiece = gamePlaces[AIChosenMove.Key, AIChosenMove.Value].pieceNum;
-                turn = "black";
-            }
-            else
-            {
-                chosenObject.gameObject.renderer.material.color = Color.black;
-                blackLastRow = AIChosenMove.Key;
-                blackLastCol = AIChosenMove.Value;
-                blackLastPiece = gamePlaces[AIChosenMove.Key, AIChosenMove.Value].pieceNum;
-                turn = "red";
-            }
-            turnsLeft--;
-            if (isGameOver())
-            {
-                GameIsOver = true;
-            }
-        
-    }
 
     public void ShowValidMoves()
     {
@@ -370,4 +330,19 @@ public class GameCore : MonoBehaviour
         }
 
     }
+
+	public void ToggleClickablity () 
+	{
+
+		if (isClickable == true) {
+			isClickable = false;
+			Debug.Log("Board not clickable.");
+		} 
+		else 
+		{
+			isClickable = true;
+			Debug.Log("Board is clickable");
+		}
+		
+	}
 }
