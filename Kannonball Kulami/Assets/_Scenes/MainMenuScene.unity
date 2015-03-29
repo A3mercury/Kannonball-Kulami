@@ -263,7 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b591b7315340d4fc3894b83eaf8b2ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 1530105861}
 --- !u!65 &87895074
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -427,7 +426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b591b7315340d4fc3894b83eaf8b2ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 0}
 --- !u!65 &87895083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1475,7 +1473,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b591b7315340d4fc3894b83eaf8b2ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 1530105861}
 --- !u!65 &874083959
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1931,8 +1928,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1094647778}
-  m_LocalRotation: {x: -.324832469, y: .0184383299, z: .00633372134, w: .945570648}
-  m_LocalPosition: {x: -379.461151, y: -296.092712, z: -106.39209}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .779632568, y: -406.609009, z: -1257.63599}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 663912114}
@@ -2473,6 +2470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0b49734c1676c4cb70f5a93a48b4c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AssistanceToggle: {fileID: 0}
 --- !u!114 &1321017958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2622,7 +2620,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b591b7315340d4fc3894b83eaf8b2ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 1530105861}
 --- !u!54 &1338274399
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3237,7 +3234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b591b7315340d4fc3894b83eaf8b2ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsPanel: {fileID: 1530105861}
 --- !u!65 &1868108311
 BoxCollider:
   m_ObjectHideFlags: 0

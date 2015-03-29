@@ -39,7 +39,8 @@ public class Network_Manager : MonoBehaviour {
 
     void Start()
     {
-        gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
+        if(Application.loadedLevelName == "GameScene")
+            gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
         isOnline = fromtransition;
     }
 
@@ -56,7 +57,7 @@ public class Network_Manager : MonoBehaviour {
     {
         //Network.InitializeSecurity();
         Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
-        MasterServer.RegisterHost("testkannonball", userName);
+        MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
     }
 
     void OnServerInitialized()
