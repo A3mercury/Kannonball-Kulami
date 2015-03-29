@@ -28,7 +28,6 @@ public class GameCore : MonoBehaviour
     public List<KeyValuePair<int, int>> Moves;
     public AIJob myJob;
 	private int currentBoard;
-	public bool useAssistance;
 
     public ReadGameboard boardReader;
 
@@ -39,23 +38,11 @@ public class GameCore : MonoBehaviour
     public Camera serverCam;
     private Network_Manager networkManager;
 
-	public Toggle AssistanceToggle;
-
 	static bool isClickable;
 	
 	// Use this for initialization
 	void Start () 
     {
-		//AssistanceToggle = GameObject.Find ("assistance_checkbox").GetComponent<Toggle>();
-		
-		if (AssistanceToggle.isOn) 
-		{
-			useAssistance = true;
-		} 
-		else 
-		{
-			useAssistance = false;
-		}
 		isClickable = true;
 
 		int random = UnityEngine.Random.Range(1, 8);
@@ -79,7 +66,7 @@ public class GameCore : MonoBehaviour
         //boardReader.Output();
 
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
-		if (useAssistance) 
+		if (OptionsMenuTT.isAssitanceChecked) 
 		{
 			ShowValidMoves ();
 		}
@@ -116,7 +103,7 @@ public class GameCore : MonoBehaviour
 						chosenObject.renderer.material = solid;
 
 						if (turn == "red") {
-								if (useAssistance) {
+								if (OptionsMenuTT.isAssitanceChecked) {
 										chosenObject.renderer.material.color = new Color32 (102, 0, 0, 1);
 								} else {
 										chosenObject.renderer.material.color = Color.red;
@@ -128,7 +115,8 @@ public class GameCore : MonoBehaviour
 
 								CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
 						} else {
-								if (useAssistance) {
+                            if (OptionsMenuTT.isAssitanceChecked)
+                            {
 										chosenObject.renderer.material.color = new Color32 (51, 51, 51, 1);
 								} else {
 										chosenObject.renderer.material.color = Color.grey;
@@ -142,7 +130,8 @@ public class GameCore : MonoBehaviour
 						}
 
 						turnsLeft--;
-						if (turn == playerColor && useAssistance) {
+                        if (turn == playerColor && OptionsMenuTT.isAssitanceChecked)
+                        {
 								ShowValidMoves ();
 						}
 						if (isGameOver ()) {
