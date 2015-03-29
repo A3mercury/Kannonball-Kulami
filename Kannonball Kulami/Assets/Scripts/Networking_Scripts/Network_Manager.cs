@@ -35,7 +35,7 @@ public class Network_Manager : MonoBehaviour {
     private GameCore gameCore;
     public Vector2 scrollPosition;
 
-    public NetworkLoginInterface login;
+    //public NetworkLoginInterface login;
 
     void Start()
     {

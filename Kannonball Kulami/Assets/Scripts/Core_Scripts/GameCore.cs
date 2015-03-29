@@ -83,6 +83,9 @@ public class GameCore : MonoBehaviour
                 myJob = null;
             }
         }
+
+        if (turn == "red" && OptionsMenuTT.isAssitanceChecked)
+            ShowValidMoves();
     }
 
     public void PlacePiece(int row, int col)
