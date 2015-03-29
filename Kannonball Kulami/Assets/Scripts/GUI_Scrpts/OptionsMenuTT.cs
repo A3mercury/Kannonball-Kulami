@@ -298,4 +298,24 @@ public class OptionsMenuTT : MonoBehaviour
 	{
 		clickScript.ToggleClickablity();
 	}
+
+	void OnGUI () 
+	{
+		if (Application.loadedLevelName == "MainMenuScene" || Application.loadedLevelName == "GameScene") {
+			if (GUI.Button (new Rect (3, 570, 75, 50), "Options")) {
+				if (optionPanel.activeSelf == true)
+				{
+					resumeGame();
+				}
+				else
+				{
+					optionPanel.gameObject.SetActive (true);
+					if (Application.loadedLevelName == "MainMenuScene")
+						mainMenuClickScript.ToggleClickability();
+					if (Application.loadedLevelName == "GameScene")
+						ToggleClickScript();
+				}
+			}
+		}
+	}
 }
