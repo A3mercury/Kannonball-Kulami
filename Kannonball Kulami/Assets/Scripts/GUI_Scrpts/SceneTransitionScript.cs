@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SceneTransitionScript : MonoBehaviour {
 
-	static bool isClickable = true;
+	public static bool isClickable = true;
 	GameObject optionsPanel;
 	OptionsMenuTT optionsScript;
 
@@ -91,23 +91,23 @@ public class SceneTransitionScript : MonoBehaviour {
 		}
     }
 
-	void OnGUI () 
-	{
-		if (Application.loadedLevelName == "MainMenuScene" || Application.loadedLevelName == "GameScene") {
-			if (GUI.Button (new Rect (3, 570, 75, 50), "Options")) {
-				if (optionsPanel.activeSelf == true)
-				{
-					optionsPanel.SetActive (false);
-					isClickable = true;
-					optionsScript.ToggleClickScript();
-				}
-				else
-				{
-					optionsPanel.SetActive (true);
-					isClickable = false;
-					optionsScript.ToggleClickScript();
-				}
-			}
-		}
-	}
+	//void OnGUI () 
+	//{
+		//if (Application.loadedLevelName == "MainMenuScene" || Application.loadedLevelName == "GameScene") {
+			//if (GUI.Button (new Rect (3, 570, 75, 50), "Options")) {
+				//if (optionsPanel.activeSelf == true)
+				//{
+					//optionsPanel.SetActive (false);
+					//isClickable = true;
+					//optionsScript.ToggleClickScript();
+				//}
+				//else
+				//{
+					//optionsPanel.SetActive (true);
+					//isClickable = false;
+					//optionsScript.ToggleClickScript();
+				//}
+			//}
+		//}
+	//}
 }
