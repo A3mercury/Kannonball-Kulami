@@ -68,8 +68,12 @@ public class GameCore : MonoBehaviour
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
 		if (OptionsMenuTT.isAssitanceChecked) 
 		{
-			ShowValidMoves ();
+			ShowValidMoves (true);
 		}
+        else
+        {
+            ShowValidMoves(false);
+        }
         //networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
     }
 	
@@ -85,7 +89,9 @@ public class GameCore : MonoBehaviour
         }
 
         if (turn == "red" && OptionsMenuTT.isAssitanceChecked)
-            ShowValidMoves();
+            ShowValidMoves(true);
+        else if (turn == "red" && !OptionsMenuTT.isAssitanceChecked)
+            ShowValidMoves(false);
     }
 
     public void PlacePiece(int row, int col)
@@ -135,7 +141,7 @@ public class GameCore : MonoBehaviour
 						turnsLeft--;
                         if (turn == playerColor && OptionsMenuTT.isAssitanceChecked)
                         {
-								ShowValidMoves ();
+								ShowValidMoves (true);
 						}
 						if (isGameOver ()) {
 								GameIsOver = true;
@@ -278,7 +284,7 @@ public class GameCore : MonoBehaviour
     }
 
 
-    public void ShowValidMoves()
+    public void ShowValidMoves(bool valid)
     {
         for (var i = 0; i < 8; i++)
         {
@@ -288,9 +294,13 @@ public class GameCore : MonoBehaviour
                 {
                     string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
                     GameObject chosenObject = GameObject.Find(CannonBallObjectString);
-                    chosenObject.renderer.enabled = true;
-                    chosenObject.renderer.material = solid;
-                    chosenObject.renderer.material.color = Color.white;
+                    chosenObject.renderer.enabled = valid;
+
+                    if (valid)
+                    {
+                        chosenObject.renderer.material = solid;
+                        chosenObject.renderer.material.color = Color.white;
+                    }
                 }
             }
         }
