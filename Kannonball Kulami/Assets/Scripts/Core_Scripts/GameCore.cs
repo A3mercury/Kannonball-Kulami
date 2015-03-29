@@ -28,6 +28,7 @@ public class GameCore : MonoBehaviour
     public List<KeyValuePair<int, int>> Moves;
     public AIJob myJob;
 	private int currentBoard;
+	private List<KeyValuePair<int, int>> MovesBlockedByOptions;
 
     public ReadGameboard boardReader;
 
@@ -101,74 +102,83 @@ public class GameCore : MonoBehaviour
             ShowValidMoves(true);
         else if (turn == "red" && !OptionsMenuTT.isAssitanceChecked)
             ShowValidMoves(false);
+
+		if (MovesBlockedByOptions.Count > 0) 
+		{
+			PlacePiece(MovesBlockedByOptions[0].Key, MovesBlockedByOptions[0].Value);
+			MovesBlockedByOptions.Clear();
+		}
     }
 
     public void PlacePiece(int row, int col)
     {
 		if (isClickable) {
-						HideValidMoves ();
+			HideValidMoves ();
 
-						//audio.Play();
-						CannonFireSound.Instance.FireCannon ();
+			//audio.Play();
+			CannonFireSound.Instance.FireCannon ();
 
-						Moves.Add (new KeyValuePair<int, int> (row, col));
-						string CannonBallObjectString = "CannonBall" + row.ToString () + col.ToString ();
-						GameObject chosenObject = GameObject.Find (CannonBallObjectString);
-						gamePlaces [row, col].owner = turn;
-						//gamePlaces[row, col].isValid = false;
-						chosenObject.collider.enabled = false;
-						chosenObject.renderer.enabled = true;
-						chosenObject.renderer.material = solid;
+			Moves.Add (new KeyValuePair<int, int> (row, col));
+			string CannonBallObjectString = "CannonBall" + row.ToString () + col.ToString ();
+			GameObject chosenObject = GameObject.Find (CannonBallObjectString);
+			gamePlaces [row, col].owner = turn;
+			//gamePlaces[row, col].isValid = false;
+			chosenObject.collider.enabled = false;
+			chosenObject.renderer.enabled = true;
+			chosenObject.renderer.material = solid;
 
-						if (turn == "red") {
-								if (OptionsMenuTT.isAssitanceChecked) {
-										chosenObject.renderer.material.color = new Color32 (102, 0, 0, 1);
-								} else {
-										chosenObject.renderer.material.color = Color.red;
-								}
-								redLastRow = row;
-								redLastCol = col;
-								redLastPiece = gamePlaces [row, col].pieceNum;
-								turn = "black";
-
-								CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
-						} else {
-                            if (OptionsMenuTT.isAssitanceChecked)
-                            {
-										chosenObject.renderer.material.color = new Color32 (51, 51, 51, 1);
-								} else {
-										chosenObject.renderer.material.color = Color.grey;
-								}
-								blackLastRow = row;
-								blackLastCol = col;
-								blackLastPiece = gamePlaces [row, col].pieceNum;
-								turn = "red";
-
-								CannonParticleFire.Instance.CreateParticles ("OpponentParticleObject");
-						}
-
-						turnsLeft--;
-                        if (turn == playerColor && OptionsMenuTT.isAssitanceChecked)
-                        {
-								ShowValidMoves (true);
-						}
-						if (isGameOver ()) {
-								GameIsOver = true;
-								Debug.Log ("Game is over!");
-								KeyValuePair<int, int> score = GetScore ();
-								Debug.Log ("Red score: " + score.Key);
-								Debug.Log ("Black score: " + score.Value);
-								if ((playerColor == "red" && score.Key > score.Value) || (playerColor == "black" && score.Key < score.Value)) {
-										GameIsOver = false;
-										Application.LoadLevel ("VictoryScene");
-								} else {
-										GameIsOver = false;
-										Application.LoadLevel ("LoseScene");
-								}
-						}
-
-						chosenObject.rigidbody.AddForceAtPosition (new Vector3 (0f, -250f, 0f), chosenObject.rigidbody.worldCenterOfMass);
+			if (turn == "red") {
+				if (OptionsMenuTT.isAssitanceChecked) {
+					chosenObject.renderer.material.color = new Color32 (102, 0, 0, 1);
+				} else {
+					chosenObject.renderer.material.color = Color.red;
 				}
+				redLastRow = row;
+				redLastCol = col;
+				redLastPiece = gamePlaces [row, col].pieceNum;
+				turn = "black";
+
+				CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
+			} else {
+				if (OptionsMenuTT.isAssitanceChecked) {
+					chosenObject.renderer.material.color = new Color32 (51, 51, 51, 1);
+				} else {
+					chosenObject.renderer.material.color = Color.grey;
+				}
+				blackLastRow = row;
+				blackLastCol = col;
+				blackLastPiece = gamePlaces [row, col].pieceNum;
+				turn = "red";
+
+				CannonParticleFire.Instance.CreateParticles ("OpponentParticleObject");
+			}
+
+			turnsLeft--;
+			if (turn == playerColor && OptionsMenuTT.isAssitanceChecked) {
+				ShowValidMoves (true);
+			}
+			if (isGameOver ()) {
+				GameIsOver = true;
+				Debug.Log ("Game is over!");
+				KeyValuePair<int, int> score = GetScore ();
+				Debug.Log ("Red score: " + score.Key);
+				Debug.Log ("Black score: " + score.Value);
+				if ((playerColor == "red" && score.Key > score.Value) || (playerColor == "black" && score.Key < score.Value)) {
+					GameIsOver = false;
+					Application.LoadLevel ("VictoryScene");
+				} else {
+					GameIsOver = false;
+					Application.LoadLevel ("LoseScene");
+				}
+			}
+
+			chosenObject.rigidbody.AddForceAtPosition (new Vector3 (0f, -250f, 0f), chosenObject.rigidbody.worldCenterOfMass);
+		} 
+		else if (turn != playerColor) 
+		{
+			MovesBlockedByOptions.Add(new KeyValuePair<int, int>(row, col));
+		}
+	
     }
 
 	private struct GamePiece
