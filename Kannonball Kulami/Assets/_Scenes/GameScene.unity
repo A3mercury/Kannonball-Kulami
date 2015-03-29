@@ -3754,7 +3754,6 @@ MonoBehaviour:
   CameraLookat1: {fileID: 989183492}
   CameraLookat2: {fileID: 1296537131}
   serverCam: {fileID: 0}
-  AssistanceToggle: {fileID: 0}
 --- !u!148 &555267529
 NetworkView:
   m_ObjectHideFlags: 0
@@ -5965,8 +5964,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 962707942}
-  m_LocalRotation: {x: .211810067, y: .0644516349, z: .0140007632, w: -.975082815}
-  m_LocalPosition: {x: 353.401642, y: -244.198944, z: -.107055664}
+  m_LocalRotation: {x: .465083539, y: .0225726571, z: .0118641285, w: -.884899437}
+  m_LocalPosition: {x: 315.899933, y: -281.392395, z: 29.2525291}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1512727415}
