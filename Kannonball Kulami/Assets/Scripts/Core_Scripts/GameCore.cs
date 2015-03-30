@@ -39,7 +39,7 @@ public class GameCore : MonoBehaviour
     public Camera serverCam;
     private Network_Manager networkManager;
 
-	static bool isClickable;
+	public bool isClickable;
 
     public Canvas GameSceneCanvas;
     public GameObject ChatBoxPanel;
@@ -104,7 +104,7 @@ public class GameCore : MonoBehaviour
         else if (turn == "red" && !OptionsMenuTT.isAssitanceChecked)
             ShowValidMoves(false);
 
-		if (MovesBlockedByOptions.Count > 0) 
+		if (MovesBlockedByOptions.Count > 0 && isClickable) 
 		{
 			PlacePiece(MovesBlockedByOptions[0].Key, MovesBlockedByOptions[0].Value);
 			MovesBlockedByOptions.Clear();
@@ -354,7 +354,7 @@ public class GameCore : MonoBehaviour
 
     }
 
-	public void ToggleClickablity () 
+	public void ToggleClickability () 
 	{
 
 		if (isClickable == true) {
