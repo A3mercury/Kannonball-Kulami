@@ -55,16 +55,19 @@ public class Send_Request_Over_Network : MonoBehaviour {
         //GUILayout.EndScrollView();
         GUILayout.BeginHorizontal();
         //messageToSend = GUILayout.TextField(messageToSend, myOtherStyle);
-        if (GUILayout.Button("Accept", GUILayout.Width(75)))
+        if (Network.isServer)
         {
+            if (GUILayout.Button("Accept", GUILayout.Width(75)))
+            {
 
-            //networkView.RPC("SendMyMessage", RPCMode.All, get.userName + ": " + messageToSend + "\n");
-            //Debug.Log(messBox);
-            //messageToSend = "";
-        }
-        if(GUILayout.Button("Deny", GUILayout.Width(75)))
-        {
-        
+                //networkView.RPC("SendMyMessage", RPCMode.All, get.userName + ": " + messageToSend + "\n");
+                //Debug.Log(messBox);
+                //messageToSend = "";
+            }
+            if (GUILayout.Button("Deny", GUILayout.Width(75)))
+            {
+
+            }
         }
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
