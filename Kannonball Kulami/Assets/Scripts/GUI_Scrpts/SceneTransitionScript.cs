@@ -30,7 +30,7 @@ public class SceneTransitionScript : MonoBehaviour {
 	public void NetworkPlay () {
         Network_Manager.fromtransition = true;
 		//Application.LoadLevel("GameScene");
-        Application.LoadLevel("MultiplayerScene");
+        Application.LoadLevel("GameScene");
 	}
 
 	public void Credits () {

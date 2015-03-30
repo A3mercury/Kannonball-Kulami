@@ -2592,7 +2592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &391198536
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2701,18 +2701,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8609c598b41b97241934fd7bdd98365d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MPSceneCanvas: {fileID: 0}
-  UsernameField: {fileID: 0}
-  ConnectButton: {fileID: 0}
-  DisconnectButton: {fileID: 0}
-  RefreshListButton: {fileID: 0}
-  InviteTogameButton: {fileID: 0}
-  OpponentsListContent: {fileID: 0}
-  OpponentsListRect: {fileID: 0}
-  OpponentsListScrollbar: {fileID: 0}
-  network: {fileID: 0}
-  OpponentsPanel: {fileID: 0}
-  OpponentsName: {fileID: 0}
 --- !u!114 &391198543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4378,7 +4366,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967279
   m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4392,8 +4380,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 717712922}
-  m_LocalRotation: {x: -.212062255, y: -.569446743, z: -.168465003, w: .776131213}
-  m_LocalPosition: {x: 239.187256, y: -405.486572, z: 1.08587646}
+  m_LocalRotation: {x: .374362588, y: -.162860528, z: -.0559466518, w: -.911152601}
+  m_LocalPosition: {x: -149.027206, y: -269.817352, z: -304.3862}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5528,8 +5516,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 962707942}
-  m_LocalRotation: {x: -.327579796, y: .110958554, z: .0387716256, w: .937484145}
-  m_LocalPosition: {x: 301.372253, y: -282.57251, z: .890625}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 663.070129, y: -413.06665, z: -1259.81067}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1512727415}
@@ -6597,6 +6585,7 @@ MonoBehaviour:
   userwantingtoconnectfromserver: 
   myskin: {fileID: 0}
   scrollPosition: {x: 0, y: 0}
+  ServerBackground: {fileID: 11400000, guid: d28fe0a507961d04981d79715bfb47de, type: 2}
 --- !u!148 &1220275709
 NetworkView:
   m_ObjectHideFlags: 0

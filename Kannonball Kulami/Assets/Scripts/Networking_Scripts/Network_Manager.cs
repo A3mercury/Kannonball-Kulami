@@ -22,18 +22,29 @@ public class Network_Manager : MonoBehaviour {
     /// </summary>
 
     public static bool chat = false;
+    public bool isConnected = false;
     public bool isOnline;
     public bool isInGame = false;
     public static bool fromtransition;
     public string serverName;
     public string clientName;
     public static int networkplayer;
-    bool sendrequest = false, prompt = false, beingconnectedto = false, respondtorequest = false, waitingforresponse = false, isconnected = false;
+    bool sendrequest = false, prompt = false, beingconnectedto = false, respondtorequest = false, waitingforresponse = false;
     public string userName = "", maxPlayers = "10", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     public GUISkin myskin;
-    private Rect windowRect = new Rect(0, 43, 200, 200);
+    //private Rect windowRect = new Rect(0, 43, 200, 200);
     private GameCore gameCore;
-    public Vector2 scrollPosition;
+    public Vector2 scrollPosition = Vector2.zero;
+
+    // Austin's Gui crap
+    Rect ServerRect = new Rect((Screen.width - 700) / 2, (Screen.height - 650) / 2, 700, 650);
+    public GUISkin ServerBackground;
+    public GUIStyle connectButton;
+    public GUIStyle disconnectButton;
+    public GUIStyle inviteButton;
+    public GUIStyle OpponentRect;
+
+    
 
     //public NetworkLoginInterface login;
 
@@ -57,12 +68,15 @@ public class Network_Manager : MonoBehaviour {
     {
         //Network.InitializeSecurity();
         Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
+        //MasterServer.updateRate = 1;
         MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
+        
     }
 
     void OnServerInitialized()
     {
         Debug.Log(userName + " joined as Server.");
+        MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
     }
 
     void OnMasterServerEvent(MasterServerEvent masterServerEvent)
@@ -71,36 +85,52 @@ public class Network_Manager : MonoBehaviour {
             Debug.Log("Registration was successful.");
     }
 
-    /*
+    void Update()
+    {
+        if(Network.isServer)
+            MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
+    }
+    
     private void OnGUI()
     {
         if (isOnline)
         {
+            GUI.skin = ServerBackground;
+            ServerRect = GUI.Window(0, ServerRect, ServerWindow, "");
             if(Network.peerType == NetworkPeerType.Disconnected)
             {
-                GUILayout.Label("Please enter your User Name:");
-                userName = GUILayout.TextField(userName);
 
-                if(GUILayout.Button("Connect to Kannonball Kulami!"))
-                {
-                    try
-                    {
-                        StartServer();
-                    }
-                    catch (Exception)
-                    {
-                        print("Please type in numbers for port and max players");
 
-                    }
-                }
+
+
+                
+
+                //GUILayout.Label("Please enter your User Name:");
+                //userName = GUILayout.TextField(userName);
+
+                //if (GUILayout.Button("Connect", connectButton))
+                ////if(GUILayout.Button("Connect to Kannonball Kulami!"))
+                //{
+                //    try
+                //    {
+                //        StartServer();
+                //    }
+                //    catch (Exception)
+                //    {
+                //        print("Please type in numbers for port and max players");
+
+                //    }
+                //}
             }
             else
             {
-                if (GUILayout.Button("Disconnect"))
-                {
-                    Network.Disconnect();
-                }
-                windowRect = GUI.Window(0, windowRect, windowFunc, "Players");
+            //    if (GUILayout.Button("Disconnect"))
+            //    {
+            //        Network.Disconnect();
+            //    }
+
+                    ServerRect = GUI.Window(0, ServerRect, windowFunc, "");
+                
             }
 
             if(Network.isServer)
@@ -118,72 +148,147 @@ public class Network_Manager : MonoBehaviour {
         }
         else
             return;
+    } 
+
+    public void ServerWindow(int id)
+    {
+        GUI.skin = ServerBackground;
+        GUILayout.BeginHorizontal();
+
+        // Styles
+        connectButton = new GUIStyle(GUI.skin.button);
+        connectButton.margin = new RectOffset(50, 0, 45, 0);
+
+        disconnectButton = new GUIStyle(GUI.skin.button);
+        disconnectButton.margin = new RectOffset(50, 0, 45, 0);
+
+        userName = GUILayout.TextField(userName);
+
+        if (GUILayout.Button("Connect", connectButton))
+        {
+            try
+            {
+                StartServer();
+                isConnected = true;                
+            }
+            catch (Exception)
+            {
+                print("Please type in numbers for port and max players");
+            }
+        }
+
+        GUILayout.Button("Disconnect", disconnectButton);
+
+        GUILayout.EndHorizontal();
+    }
+       
+    public void GetHostList()
+    {
+        MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
     }
 
-    
-   public void windowFunc(int id)
+    public void windowFunc(int id)
     {
+        GUI.skin = ServerBackground;
+        GUILayout.BeginHorizontal();
+
+        // Styles
+        connectButton = new GUIStyle(GUI.skin.button);
+        connectButton.margin = new RectOffset(50, 0, 45, 0);
+
+        disconnectButton = new GUIStyle(GUI.skin.button);
+        disconnectButton.margin = new RectOffset(50, 0, 45, 0);
+
+        inviteButton = new GUIStyle(GUI.skin.button);
+        inviteButton.margin = new RectOffset(0, 45, 0, 45);
+
+        //OpponentRect = new GUIStyle(GUI.skin.box);
+        //OpponentRect.margin = new RectOffset(0, 0, 0, 50);
+        //GUI.skin.scrollView = OpponentRect;
+
+        GUILayout.TextField(userName);
+
+
+        GUILayout.Button("Connect", connectButton);
+
+        if (GUILayout.Button("Disconnect", disconnectButton))
+        {
+            Network.Disconnect();
+        }
+
+        GUILayout.EndHorizontal();
+
+        
+
+
         if (GUILayout.Button("Refresh"))
         {
             MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
         }
+        //else
+            //InvokeRepeating("GetHostList", 0, 60);
         
 
-        scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+       // scrollPosition = GUILayout.BeginScrollView(scrollPosition);
 
-        GUILayout.Box("Player Name");
+        //GUILayout.Box("", OpponentRect);
 
-        GUILayout.EndScrollView();
+        
 
         if (MasterServer.PollHostList().Length != 0)
         {
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+
             HostData[] data = MasterServer.PollHostList();
             foreach (HostData c in data)
+            //for (int i = 0; i < 20; i++)
             {
                 GUILayout.BeginHorizontal();
                 //if (c.gameName != userName)
                 //{
-                    GUILayout.Box(c.gameName);
-                    if (GUILayout.Button("Connect"))
-                    {
-                        Network.Connect(c);
-                        sendrequest = true;
-                        userwantingtoconnectfromserver = c.gameName;
-                        isconnected = true;
-                        networkView.RPC("OnChallenge", RPCMode.All);
-                        gameCore.playerColor = "red";
-                        
-                    }
+                GUILayout.Box(c.gameName);
+                if(c.gameName != userName)
+                if (GUILayout.Button("Invite", inviteButton))
+                {
+                    Network.Connect(c);
+                    sendrequest = true;
+                    userwantingtoconnectfromserver = c.gameName;
+                    isConnected = true;
+                    networkView.RPC("OnChallenge", RPCMode.All);
+                    gameCore.playerColor = "red";
+
+                }
                 //}
                 GUILayout.EndHorizontal();
-
             }
+
+            GUILayout.EndScrollView();
         }
-        GUI.DragWindow(new Rect(0, 0, Screen.width, Screen.height));
-    }*/
+        //GUI.DragWindow(new Rect(0, 0, Screen.width, Screen.height));
+    }
 	
-	[RPC]
+    [RPC]
     private void SendConnectionRequest(string userName, bool request, bool message)
     { }
 
     [RPC]
     private void RespondtoRequest(bool response)
     {
-        isconnected = response;
+        //isconnected = response;
     }
 
-   [RPC]
-   public void SendMove(int row, int col)
-   {
-       gameCore.PlacePiece(row, col);
-   }
+    [RPC]
+    public void SendMove(int row, int col)
+    {
+        gameCore.PlacePiece(row, col);
+    }
 
     [RPC]
     public void OnChallenge(string sName, string cName)
-   {
-       Debug.Log("OnChallenge");
-       serverName = sName;
-       clientName = cName;
-       isInGame = true;
-   }
+    {
+        Debug.Log("OnChallenge");
+        serverName = sName;
+        clientName = cName;
+        isInGame = true;
+    }
 }

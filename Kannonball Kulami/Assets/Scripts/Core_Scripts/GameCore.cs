@@ -109,6 +109,7 @@ public class GameCore : MonoBehaviour
 			PlacePiece(MovesBlockedByOptions[0].Key, MovesBlockedByOptions[0].Value);
 			MovesBlockedByOptions.Clear();
 		}
+        Debug.Log("Moves waiting to be played by AI " + MovesBlockedByOptions.Count);
     }
 
     public void PlacePiece(int row, int col)

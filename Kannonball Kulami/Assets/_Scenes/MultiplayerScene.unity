@@ -468,7 +468,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 273549387}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8609c598b41b97241934fd7bdd98365d, type: 3}
   m_Name: 
@@ -780,7 +780,6 @@ GameObject:
   - 222: {fileID: 412485662}
   - 114: {fileID: 412485661}
   - 114: {fileID: 412485660}
-  - 114: {fileID: 412485664}
   m_Layer: 0
   m_Name: opponent_list_rect
   m_TagString: Untagged
@@ -871,29 +870,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.ScrollRect+ScrollRectEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &412485664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 412485658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8609c598b41b97241934fd7bdd98365d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MPSceneCanvas: {fileID: 1360709526}
-  UsernameField: {fileID: 300312987}
-  ConnectButton: {fileID: 1970957554}
-  DisconnectButton: {fileID: 1305962615}
-  RefreshListButton: {fileID: 273549388}
-  InviteTogameButton: {fileID: 0}
-  OpponentsListContent: {fileID: 0}
-  OpponentsListRect: {fileID: 412485663}
-  OpponentsListScrollbar: {fileID: 847756280}
-  network: {fileID: 1041572355}
-  OpponentsPanel: {fileID: 133608, guid: f27c8f5ee41a27848b21bfe540bc6a0d, type: 2}
-  OpponentsName: {fileID: 0}
 --- !u!1 &460187582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,7 +1212,6 @@ GameObject:
   - 222: {fileID: 847756282}
   - 114: {fileID: 847756281}
   - 114: {fileID: 847756280}
-  - 114: {fileID: 847756284}
   m_Layer: 5
   m_Name: opponent_scrollbar
   m_TagString: Untagged
@@ -1335,29 +1310,6 @@ RectTransform:
   m_AnchoredPosition: {x: 1.39999998, y: 12.8000002}
   m_SizeDelta: {x: 20, y: 231.399994}
   m_Pivot: {x: .5, y: .5}
---- !u!114 &847756284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 847756279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8609c598b41b97241934fd7bdd98365d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MPSceneCanvas: {fileID: 1360709526}
-  UsernameField: {fileID: 300312987}
-  ConnectButton: {fileID: 1970957554}
-  DisconnectButton: {fileID: 1305962615}
-  RefreshListButton: {fileID: 273549388}
-  InviteTogameButton: {fileID: 0}
-  OpponentsListContent: {fileID: 0}
-  OpponentsListRect: {fileID: 412485663}
-  OpponentsListScrollbar: {fileID: 847756280}
-  network: {fileID: 1041572355}
-  OpponentsPanel: {fileID: 133608, guid: f27c8f5ee41a27848b21bfe540bc6a0d, type: 2}
-  OpponentsName: {fileID: 0}
 --- !u!1 &1041572354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1806,7 +1758,6 @@ GameObject:
   - 222: {fileID: 1305962617}
   - 114: {fileID: 1305962616}
   - 114: {fileID: 1305962615}
-  - 114: {fileID: 1305962618}
   m_Layer: 5
   m_Name: disconnect_button
   m_TagString: Untagged
@@ -1870,7 +1821,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1305962618}
+      - m_Target: {fileID: 0}
         m_MethodName: DisconnectFromServer
         m_Mode: 1
         m_Arguments:
@@ -1911,29 +1862,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1305962613}
---- !u!114 &1305962618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1305962613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8609c598b41b97241934fd7bdd98365d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MPSceneCanvas: {fileID: 1360709526}
-  UsernameField: {fileID: 300312987}
-  ConnectButton: {fileID: 1970957554}
-  DisconnectButton: {fileID: 1305962615}
-  RefreshListButton: {fileID: 273549388}
-  InviteTogameButton: {fileID: 0}
-  OpponentsListContent: {fileID: 0}
-  OpponentsListRect: {fileID: 412485663}
-  OpponentsListScrollbar: {fileID: 847756280}
-  network: {fileID: 1041572355}
-  OpponentsPanel: {fileID: 133608, guid: f27c8f5ee41a27848b21bfe540bc6a0d, type: 2}
-  OpponentsName: {fileID: 0}
 --- !u!1 &1307579145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2553,7 +2481,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1970957552}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8609c598b41b97241934fd7bdd98365d, type: 3}
   m_Name: 
