@@ -37,7 +37,8 @@ public class Network_Manager : MonoBehaviour {
     public Vector2 scrollPosition = Vector2.zero;
 
     // Austin's Gui crap
-    Rect ServerRect = new Rect(0,0, Screen.width - 70, Screen.height - 65);
+    Rect ServerRect = new Rect((Screen.width - 700) / 2, (Screen.height - 650) / 2, 700, 650);
+    Rect ConnectionRequestRect = new Rect((Screen.width - 100) / 2, (Screen.height - 100) / 2, 100, 100);
     public GUISkin ServerBackground;
     public GUIStyle connectButton;
     public GUIStyle disconnectButton;
@@ -99,28 +100,6 @@ public class Network_Manager : MonoBehaviour {
             ServerRect = GUI.Window(0, ServerRect, ServerWindow, "");
             if(Network.peerType == NetworkPeerType.Disconnected)
             {
-
-
-
-
-                
-
-                //GUILayout.Label("Please enter your User Name:");
-                //userName = GUILayout.TextField(userName);
-
-                //if (GUILayout.Button("Connect", connectButton))
-                ////if(GUILayout.Button("Connect to Kannonball Kulami!"))
-                //{
-                //    try
-                //    {
-                //        StartServer();
-                //    }
-                //    catch (Exception)
-                //    {
-                //        print("Please type in numbers for port and max players");
-
-                //    }
-                //}
             }
             else
             {
@@ -131,6 +110,11 @@ public class Network_Manager : MonoBehaviour {
 
                     ServerRect = GUI.Window(0, ServerRect, windowFunc, "");
                 
+            }
+
+            if(beingconnectedto)
+            {
+                ConnectionRequestRect = GUI.Window(0, ConnectionRequestRect, RequestPopup, "");
             }
 
             if(Network.isServer)
@@ -149,6 +133,11 @@ public class Network_Manager : MonoBehaviour {
         else
             return;
     } 
+
+    public void RequestPopup(int id)
+    {
+        GUILayout.TextField(userwantingtoconnect);
+    }
 
     public void ServerWindow(int id)
     {
@@ -254,7 +243,7 @@ public class Network_Manager : MonoBehaviour {
                     sendrequest = true;
                     userwantingtoconnectfromserver = c.gameName;
                     isConnected = true;
-                    networkView.RPC("OnChallenge", RPCMode.All);
+                    //networkView.RPC("SendConnectionRequest", RPCMode.Server, userName, true);
                     gameCore.playerColor = "red";
 
                 }
@@ -268,8 +257,11 @@ public class Network_Manager : MonoBehaviour {
     }
 	
     [RPC]
-    private void SendConnectionRequest(string userName, bool request, bool message)
-    { }
+    private void SendConnectionRequest(string userName, bool request)
+    {
+        userwantingtoconnect = userName;
+        beingconnectedto = request;
+    }
 
     [RPC]
     private void RespondtoRequest(bool response)
