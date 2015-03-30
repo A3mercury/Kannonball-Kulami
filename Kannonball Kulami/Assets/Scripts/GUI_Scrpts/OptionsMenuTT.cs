@@ -302,7 +302,7 @@ public class OptionsMenuTT : MonoBehaviour
 	void OnGUI () 
 	{
 		if (Application.loadedLevelName == "MainMenuScene" || Application.loadedLevelName == "GameScene") {
-			if (GUI.Button (new Rect (3, 570, 75, 50), "Options")) {
+			if (GUI.Button (new Rect(0, Screen.height - (50), 75, 50), "Options")) {
 				if (optionPanel.activeSelf == true)
 				{
 					resumeGame();
