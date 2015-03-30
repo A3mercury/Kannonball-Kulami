@@ -37,7 +37,7 @@ public class Network_Manager : MonoBehaviour {
     public Vector2 scrollPosition = Vector2.zero;
 
     // Austin's Gui crap
-    Rect ServerRect = new Rect((Screen.width - 700) / 2, (Screen.height - 650) / 2, 700, 650);
+    Rect ServerRect = new Rect(0,0, Screen.width - 70, Screen.height - 65);
     public GUISkin ServerBackground;
     public GUIStyle connectButton;
     public GUIStyle disconnectButton;
