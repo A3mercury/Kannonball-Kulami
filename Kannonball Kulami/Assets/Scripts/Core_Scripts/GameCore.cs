@@ -104,7 +104,7 @@ public class GameCore : MonoBehaviour
         else if (turn == "red" && !OptionsMenuTT.isAssitanceChecked)
             ShowValidMoves(false);
 
-		if (MovesBlockedByOptions.Count > 0) 
+		if (MovesBlockedByOptions.Count > 0 && isClickable) 
 		{
 			PlacePiece(MovesBlockedByOptions[0].Key, MovesBlockedByOptions[0].Value);
 			MovesBlockedByOptions.Clear();
