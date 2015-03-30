@@ -37,15 +37,16 @@ public class Network_Manager : MonoBehaviour {
     public Vector2 scrollPosition = Vector2.zero;
 
     // Austin's Gui crap
-    Rect ServerRect = new Rect((Screen.width - 700) / 2, (Screen.height - 650) / 2, 700, 650);
-    Rect ConnectionRequestRect = new Rect((Screen.width - 100) / 2, (Screen.height - 100) / 2, 100, 100);
+    float serverWindowWidth = 700f / 1440f;
+    float serverWindowHeight = 650f / 900f;
+    Rect ServerRect;
+    Rect UsernameRect;
+    Rect ConnectionRequestRect;
     public GUISkin ServerBackground;
     public GUIStyle connectButton;
     public GUIStyle disconnectButton;
     public GUIStyle inviteButton;
     public GUIStyle OpponentRect;
-
-    
 
     //public NetworkLoginInterface login;
 
@@ -54,9 +55,10 @@ public class Network_Manager : MonoBehaviour {
         if(Application.loadedLevelName == "GameScene")
             gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
         isOnline = fromtransition;
+
+        ConnectionRequestRect = new Rect((Screen.width - 100) / 2, (Screen.height - 100) / 2, 100, 100);
     }
 
-	
     /// <summary>
     /// ///////////////////////////////////////////////////Server initialization and connection////////////////////////////////////////////////
     /// StartServer() establishes Unity's security methods and creates the server using the maxPlayers, port number, and setting an address.
@@ -90,10 +92,29 @@ public class Network_Manager : MonoBehaviour {
     {
         if(Network.isServer)
             MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
+
+        // updates the window to the size of the screen on every update
+        
     }
     
     private void OnGUI()
     {
+        // putting this here keeps the aspect ratio the same for the window
+        // no matter what the screen size is
+        Debug.Log(serverWindowWidth);
+        ServerRect = new Rect();
+        ServerRect.x = (Screen.width * (1 - serverWindowWidth)) / 2;
+        ServerRect.y = (Screen.height * (1 - serverWindowHeight)) / 2;
+        ServerRect.width = Screen.width * serverWindowWidth;
+        ServerRect.height = Screen.height * serverWindowHeight;
+
+        UsernameRect = new Rect();
+        UsernameRect.x = ServerRect.width * (25f / ServerRect.width);
+        UsernameRect.y = ServerRect.height * (25f / ServerRect.height);
+        UsernameRect.width = ServerRect.width * (242f / ServerRect.width) - 100;
+        UsernameRect.height = ServerRect.height * (59f / ServerRect.height) - 15;
+        
+
         if (isOnline)
         {
             GUI.skin = ServerBackground;
@@ -142,7 +163,7 @@ public class Network_Manager : MonoBehaviour {
     public void ServerWindow(int id)
     {
         GUI.skin = ServerBackground;
-        GUILayout.BeginHorizontal();
+        GUILayout.BeginHorizontal(GUI.skin.box);
 
         // Styles
         connectButton = new GUIStyle(GUI.skin.button);
@@ -151,7 +172,10 @@ public class Network_Manager : MonoBehaviour {
         disconnectButton = new GUIStyle(GUI.skin.button);
         disconnectButton.margin = new RectOffset(50, 0, 45, 0);
 
-        userName = GUILayout.TextField(userName);
+        
+        GUILayout.BeginArea(UsernameRect, GUI.skin.box);
+        userName = GUILayout.TextField(userName, GUI.skin.textField);
+        GUILayout.EndArea();
 
         if (GUILayout.Button("Connect", connectButton))
         {
