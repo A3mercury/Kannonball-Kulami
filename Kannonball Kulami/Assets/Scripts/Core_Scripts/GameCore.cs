@@ -39,7 +39,7 @@ public class GameCore : MonoBehaviour
     public Camera serverCam;
     private Network_Manager networkManager;
 
-	static bool isClickable;
+	public bool isClickable;
 
     public Canvas GameSceneCanvas;
     public GameObject ChatBoxPanel;
@@ -353,7 +353,7 @@ public class GameCore : MonoBehaviour
 
     }
 
-	public void ToggleClickablity () 
+	public void ToggleClickability () 
 	{
 
 		if (isClickable == true) {

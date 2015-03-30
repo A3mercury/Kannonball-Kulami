@@ -35,7 +35,9 @@ public class ClickGameboard : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () { }
+	void Update () {
+		isClickable = gameCore.isClickable;
+	}
 
     void OnMouseDown()
     {
@@ -87,7 +89,7 @@ public class ClickGameboard : MonoBehaviour
 
     }
 
-	public void ToggleClickablity () 
+	public void ToggleClickability () 
 	{
 		if (isClickable == true) {
 			isClickable = false;
