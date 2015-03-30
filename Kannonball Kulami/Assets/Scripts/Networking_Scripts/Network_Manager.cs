@@ -174,7 +174,7 @@ public class Network_Manager : MonoBehaviour {
 
         
         GUILayout.BeginArea(UsernameRect, GUI.skin.box);
-        userName = GUILayout.TextField(userName, GUI.skin.textField);
+        userName = GUILayout.TextField(userName, 15, GUI.skin.textField);
         GUILayout.EndArea();
 
         if (GUILayout.Button("Connect", connectButton))

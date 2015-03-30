@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Send_Move_Over_Network : MonoBehaviour {
+public class Send_Request_Over_Network : MonoBehaviour {
 
     public Vector2 scrollPosition;
     private GUIStyle myStyle;
@@ -49,9 +49,10 @@ public class Send_Move_Over_Network : MonoBehaviour {
         myOtherStyle.wordWrap = false;
         myOtherStyle.fixedWidth = 200;
 
-        scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(280));
+       // scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(250));
+        GUILayout.Width(250);
         GUILayout.Box(messBox, myStyle);
-        GUILayout.EndScrollView();
+        //GUILayout.EndScrollView();
         GUILayout.BeginHorizontal();
         //messageToSend = GUILayout.TextField(messageToSend, myOtherStyle);
         if (GUILayout.Button("Accept", GUILayout.Width(75)))
