@@ -25,6 +25,7 @@ public class GameCore : MonoBehaviour
     private int turnsLeft;
     private int boardSize = 8;
     public bool GameIsOver;
+	private bool assistanceOn;
     public List<KeyValuePair<int, int>> Moves;
     public AIJob myJob;
 	private int currentBoard;
@@ -50,6 +51,7 @@ public class GameCore : MonoBehaviour
 		isClickable = true;
 
 		int random = UnityEngine.Random.Range(1, 8);
+		//random = 3;
 
 		GameObject variableForPrefab = (GameObject)Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + random.ToString()));
 		currentBoard = random;
@@ -73,11 +75,13 @@ public class GameCore : MonoBehaviour
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
 		if (OptionsMenuTT.isAssitanceChecked) 
 		{
-			ShowValidMoves (true);
+			assistanceOn = true;
+			ShowValidMoves ();
 		}
         else
         {
-            ShowValidMoves(false);
+			assistanceOn = false;
+            ShowValidMoves();
         }
         //networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
 
@@ -99,10 +103,17 @@ public class GameCore : MonoBehaviour
             }
         }
 
-        if (turn == "red" && OptionsMenuTT.isAssitanceChecked)
-            ShowValidMoves(true);
-        else if (turn == "red" && !OptionsMenuTT.isAssitanceChecked)
-            ShowValidMoves(false);
+        if (turn == "red" && OptionsMenuTT.isAssitanceChecked && !assistanceOn)
+		{
+			ShowValidMoves ();
+			assistanceOn = true;
+		} 
+		else if (turn == "red" && !OptionsMenuTT.isAssitanceChecked && assistanceOn) 
+		{
+			ShowValidMoves ();
+			HideValidMoves();
+			assistanceOn = false;
+		}
 
 		if (MovesBlockedByOptions.Count > 0 && isClickable) 
 		{
@@ -129,24 +140,19 @@ public class GameCore : MonoBehaviour
 			chosenObject.renderer.enabled = true;
 			chosenObject.renderer.material = solid;
 
-			if (turn == "red") {
-				if (OptionsMenuTT.isAssitanceChecked) {
-					chosenObject.renderer.material.color = new Color32 (102, 0, 0, 1);
-				} else {
-					chosenObject.renderer.material.color = Color.red;
-				}
+			if (turn == "red") 
+			{
+				chosenObject.renderer.material.color = Color.red;
 				redLastRow = row;
 				redLastCol = col;
 				redLastPiece = gamePlaces [row, col].pieceNum;
 				turn = "black";
 
 				CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
-			} else {
-				if (OptionsMenuTT.isAssitanceChecked) {
-					chosenObject.renderer.material.color = new Color32 (51, 51, 51, 1);
-				} else {
-					chosenObject.renderer.material.color = Color.grey;
-				}
+			} 
+			else 
+			{
+				chosenObject.renderer.material.color = Color.grey;
 				blackLastRow = row;
 				blackLastCol = col;
 				blackLastPiece = gamePlaces [row, col].pieceNum;
@@ -156,9 +162,8 @@ public class GameCore : MonoBehaviour
 			}
 
 			turnsLeft--;
-			if (turn == playerColor && OptionsMenuTT.isAssitanceChecked) {
-				ShowValidMoves (true);
-			}
+			ShowValidMoves ();
+
 			if (isGameOver ()) {
 				GameIsOver = true;
 				Debug.Log ("Game is over!");
@@ -262,15 +267,8 @@ public class GameCore : MonoBehaviour
 
     public bool isValidMove(int row, int col)
     {
-      //  bool result = true;
-        //Debug.Log(gamePlaces[x, y].pieceNum);
-        //Debug.Log("last red piece: " + redLastPiece);
-        //Debug.Log("last black piece: " + blackLastPiece);
-
 		if (turnsLeft == 56) 
-		{
 			return true;
-		}
 
 		if (gamePlaces[row, col].owner != "open")
 			return false;
@@ -284,9 +282,6 @@ public class GameCore : MonoBehaviour
 
 		if (turn == "black" && row != redLastRow && col != redLastCol)
             return false;
-
-
-        //Debug.Log("gamePlace[" + x + ", " + y + "]" + " | valid: " + gamePlaces[x, y].isValid);
 
         return true;
     }
@@ -305,7 +300,7 @@ public class GameCore : MonoBehaviour
     }
 
 
-    public void ShowValidMoves(bool valid)
+    public void ShowValidMoves()
     {
         for (var i = 0; i < 8; i++)
         {
@@ -315,9 +310,9 @@ public class GameCore : MonoBehaviour
                 {
                     string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
                     GameObject chosenObject = GameObject.Find(CannonBallObjectString);
-                    chosenObject.renderer.enabled = valid;
+					chosenObject.renderer.enabled = OptionsMenuTT.isAssitanceChecked;
 
-                    if (valid)
+					if (OptionsMenuTT.isAssitanceChecked)
                     {
                         chosenObject.renderer.material = solid;
                         chosenObject.renderer.material.color = Color.white;
@@ -325,6 +320,18 @@ public class GameCore : MonoBehaviour
                 }
             }
         }
+		if (turnsLeft < 56 && OptionsMenuTT.isAssitanceChecked)
+		{
+			string CannonBallObjectString2 = "CannonBall" + redLastRow.ToString () + redLastCol.ToString ();
+			GameObject chosenObject2 = GameObject.Find (CannonBallObjectString2);
+			chosenObject2.renderer.material.color = new Color32 (102, 0, 0, 1);
+			if(turnsLeft < 55)
+			{
+				CannonBallObjectString2 = "CannonBall" + blackLastRow.ToString () + blackLastCol.ToString ();
+				chosenObject2 = GameObject.Find (CannonBallObjectString2);
+				chosenObject2.renderer.material.color = new Color32 (51, 51, 51, 1);
+			}
+		}
     }
 
     public void HideValidMoves()
@@ -341,11 +348,11 @@ public class GameCore : MonoBehaviour
                     chosenObject.renderer.material = solid;
                     chosenObject.renderer.material.color = Color.white;
                 }
-                if (chosenObject.renderer.material.color == new Color32(102, 0, 0, 1) && turn == "red")
+                if (chosenObject.renderer.material.color == new Color32(102, 0, 0, 1))
                 {
                     chosenObject.renderer.material.color = Color.red;
                 }
-                else if (chosenObject.renderer.material.color == new Color32(51, 51, 51, 1) && turn == "black")
+                else if (chosenObject.renderer.material.color == new Color32(51, 51, 51, 1))
                 {
                     chosenObject.renderer.material.color = Color.grey;
                 }
