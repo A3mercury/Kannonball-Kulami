@@ -63,7 +63,7 @@ public class GameCore : MonoBehaviour
         turnsLeft = 56;
 
         turn = "red";
-        playerColor = "black";
+        playerColor = "red";
 
         gamePlaces = new GamePlace[boardSize, boardSize];
 
@@ -306,7 +306,7 @@ public class GameCore : MonoBehaviour
         {
             for (var j = 0; j < 8; j++)
             {
-                if (isValidMove(i, j))
+                if (isValidMove(i, j) && turn == playerColor)
                 {
                     string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
                     GameObject chosenObject = GameObject.Find(CannonBallObjectString);
