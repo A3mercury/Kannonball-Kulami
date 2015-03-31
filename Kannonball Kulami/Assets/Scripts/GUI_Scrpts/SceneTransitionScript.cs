@@ -24,12 +24,10 @@ public class SceneTransitionScript : MonoBehaviour {
 
 	public void SinglePlayer () {
         Network_Manager.fromtransition = false;
-		Application.LoadLevel("GameScene");
 	}
 	
 	public void NetworkPlay () {
         Network_Manager.fromtransition = true;
-		//Application.LoadLevel("GameScene");
         Application.LoadLevel("GameScene");
 	}
 
@@ -49,7 +47,7 @@ public class SceneTransitionScript : MonoBehaviour {
 	IEnumerator delayedSinglePlayer ()
 	{
 		yield return new WaitForSeconds(1);
-		SinglePlayer ();
+		Application.LoadLevel ("GameScene");
 	}
 
 	IEnumerator delayedNetworkPlay ()
@@ -69,17 +67,30 @@ public class SceneTransitionScript : MonoBehaviour {
         Debug.Log("isClickable " + isClickable);
 		if (isClickable) 
 		{
-				if (gameObject.name.ToString () == "singleplayer") {
-					StartCoroutine(delayedSinglePlayer());
-				}
+			if (gameObject.name.ToString () == "singleplayer") {
+				SinglePlayer();
+			}
 
-				if (gameObject.name.ToString () == "networkplay") {
-					StartCoroutine(delayedNetworkPlay());
-				}
+			if (gameObject.name.ToString () == "networkplay") {
+				StartCoroutine(delayedNetworkPlay());
+			}
 
-				if (gameObject.name.ToString () == "credits") {
-					StartCoroutine(delayedCredits());
-				}
+			if (gameObject.name.ToString () == "credits") {
+				StartCoroutine(delayedCredits());
+			}
+
+			if (gameObject.name.ToString () == "easyboard") {
+				StartCoroutine(delayedSinglePlayer());
+			}
+
+			if (gameObject.name.ToString () == "hardboard") {
+				StartCoroutine(delayedSinglePlayer());
+			}
+
+			if (gameObject.name.ToString () == "expertboard") {
+				StartCoroutine(delayedSinglePlayer());
+			}
+			
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			float depth;
 			RaycastHit hitInfo;
@@ -90,24 +101,4 @@ public class SceneTransitionScript : MonoBehaviour {
 
 		}
     }
-
-	//void OnGUI () 
-	//{
-		//if (Application.loadedLevelName == "MainMenuScene" || Application.loadedLevelName == "GameScene") {
-			//if (GUI.Button (new Rect (3, 570, 75, 50), "Options")) {
-				//if (optionsPanel.activeSelf == true)
-				//{
-					//optionsPanel.SetActive (false);
-					//isClickable = true;
-					//optionsScript.ToggleClickScript();
-				//}
-				//else
-				//{
-					//optionsPanel.SetActive (true);
-					//isClickable = false;
-					//optionsScript.ToggleClickScript();
-				//}
-			//}
-		//}
-	//}
 }
