@@ -75,6 +75,7 @@ public class Network_Manager : MonoBehaviour {
         Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
         //MasterServer.updateRate = 1;
         MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
+        Debug.Log("Restarted");
         invoked = true;
         disconnected = false;
         sentRequest = false;   
@@ -83,6 +84,7 @@ public class Network_Manager : MonoBehaviour {
     void OnServerInitialized()
     {
         Debug.Log(userName + " joined as Server.");
+        MasterServer.ClearHostList();
         MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
     }
 
@@ -94,8 +96,8 @@ public class Network_Manager : MonoBehaviour {
 
     void Update()
     {
-        if(Network.isServer)
-            MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");        
+        //if(Network.isServer)
+           // MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");        
     }
     
     private void OnGUI()
@@ -119,25 +121,28 @@ public class Network_Manager : MonoBehaviour {
         if (isOnline)
         {
             GUI.skin = ServerBackground;
-            ServerRect = GUI.Window(0, ServerRect, ServerWindow, "");
-            if(Network.peerType == NetworkPeerType.Disconnected)
+
+            if (Network.peerType == NetworkPeerType.Disconnected)
             {
+                Debug.Log("It has restarted.");
+                ServerRect = GUI.Window(0, ServerRect, ServerWindow, "");
             }
             else
             {
+                ServerRect = GUI.Window(0, ServerRect, ServerWindow, "");
                 ServerRect = GUI.Window(0, ServerRect, windowFunc, "");
-            }
 
-            if(Network.isServer)
-            {
-                gameCore.playerColor = "black";
-                networkplayer = 1;
-            }
-            if(Network.isClient && !sentRequest && !disconnected)
-            {
-               Debug.Log("It's here");
-               networkView.RPC("SendConnectionRequest", RPCMode.All, userName, true);
-            }
+
+                if (Network.isServer)
+                {
+                    gameCore.playerColor = "black";
+                    networkplayer = 1;
+                }
+                if (Network.isClient && !sentRequest && !disconnected)
+                {
+                    Debug.Log("It's here");
+                    networkView.RPC("SendConnectionRequest", RPCMode.All, userName, true);
+                }
                 if (sentRequest && !disconnected)
                 {
                     if (Network.isServer)
@@ -158,6 +163,7 @@ public class Network_Manager : MonoBehaviour {
                     Invoke("Restart", 4);
 
                 }
+            }
         }
         else
             return;
@@ -167,7 +173,8 @@ public class Network_Manager : MonoBehaviour {
     {
         invoked = false;
         Network.Disconnect();
-        //StartServer();
+        MasterServer.UnregisterHost();
+        MasterServer.ClearHostList();
     }
     public void Restart()
     {
@@ -214,6 +221,7 @@ public class Network_Manager : MonoBehaviour {
        
     public void GetHostList()
     {
+        MasterServer.ClearHostList();
         MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
     }
 
@@ -284,6 +292,7 @@ public class Network_Manager : MonoBehaviour {
 
         if (GUILayout.Button("Refresh"))
         {
+            MasterServer.ClearHostList();
             MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
         }
         //else
