@@ -302,7 +302,7 @@ Material:
       data:
         first:
           name: _InvFadeParemeter
-        second: {r: 2.22000003, g: 3, b: .043103449, a: .0399999991}
+        second: {r: .159999996, g: 1.07000005, b: .043103449, a: .0399999991}
       data:
         first:
           name: _AnimationTiling
@@ -338,7 +338,7 @@ Material:
       data:
         first:
           name: _Foam
-        second: {r: .363999993, g: .479000002, b: 0, a: 0}
+        second: {r: .0260000005, g: .175999999, b: 0, a: 0}
       data:
         first:
           name: _GAmplitude
@@ -350,11 +350,11 @@ Material:
       data:
         first:
           name: _GSteepness
-        second: {r: 7, g: 2, b: 6, a: 2}
+        second: {r: 4, g: 2, b: 6, a: 2}
       data:
         first:
           name: _GSpeed
-        second: {r: -3, g: 2, b: 1, a: 3}
+        second: {r: 0, g: 2, b: 1, a: 3}
       data:
         first:
           name: _GDirectionAB
