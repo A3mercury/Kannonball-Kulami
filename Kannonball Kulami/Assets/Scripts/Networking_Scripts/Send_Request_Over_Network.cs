@@ -11,6 +11,7 @@ public class Send_Request_Over_Network : MonoBehaviour {
     private Rect windowRect = new Rect((Screen.width - 250)/2, (Screen.height - 100) / 2, 250, 100);
     private string messBox = "", messageToSend = "", user = "";
     private bool firstConnection = true;
+    private bool resolveRequest = false;
     void Awake()
     {
         get = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
@@ -19,11 +20,12 @@ public class Send_Request_Over_Network : MonoBehaviour {
     private void OnGUI()
     {
         GUI.skin = myskin;
-        if(get.isInGame)
+        if (get.sentRequest)
         {
-            if(firstConnection)
+            Debug.Log(get.sentRequest);
+            if (firstConnection)
             {
-                if(Network.isServer)
+                if (Network.isServer)
                 {
                     messBox = get.clientName + " has challenged you to a game! Do you accept?\n";
                 }
@@ -35,6 +37,8 @@ public class Send_Request_Over_Network : MonoBehaviour {
             }
             windowRect = GUI.Window(1, windowRect, windowFunc, "");
         }
+        else
+            return;
     }
 
     private void windowFunc(int id)
@@ -49,24 +53,20 @@ public class Send_Request_Over_Network : MonoBehaviour {
         myOtherStyle.wordWrap = false;
         myOtherStyle.fixedWidth = 200;
 
-       // scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(250));
+   
         GUILayout.Width(250);
         GUILayout.Box(messBox, myStyle);
-        //GUILayout.EndScrollView();
         GUILayout.BeginHorizontal();
-        //messageToSend = GUILayout.TextField(messageToSend, myOtherStyle);
+ 
         if (Network.isServer)
         {
             if (GUILayout.Button("Accept", GUILayout.Width(75)))
             {
-
-                //networkView.RPC("SendMyMessage", RPCMode.All, get.userName + ": " + messageToSend + "\n");
-                //Debug.Log(messBox);
-                //messageToSend = "";
+                get.networkView.RPC("RespondtoRequest", RPCMode.All, true);
             }
             if (GUILayout.Button("Deny", GUILayout.Width(75)))
             {
-
+                get.networkView.RPC("RespondtoRequest", RPCMode.All, false);
             }
         }
         GUILayout.EndHorizontal();

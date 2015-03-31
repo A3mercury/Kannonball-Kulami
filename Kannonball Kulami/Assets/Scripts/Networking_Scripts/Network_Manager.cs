@@ -20,21 +20,25 @@ public class Network_Manager : MonoBehaviour {
     /// -myskin- is used for testing GUI at this point in development 2/24/2015
     /// -windowRect- defines a new window. 
     /// </summary>
-
+    /// 
+    public bool invoked, disconnected, sentRequest;
     public static bool chat = false;
-    public bool isConnected = false;
     public bool isOnline;
-    public bool isInGame = false;
     public static bool fromtransition;
     public string serverName;
     public string clientName;
     public static int networkplayer;
-    bool sendrequest = false, prompt = false, beingconnectedto = false, respondtorequest = false, waitingforresponse = false;
     public string userName = "", maxPlayers = "10", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
+    private string messBox = "", messageToSend = "", user = "";
     public GUISkin myskin;
-    //private Rect windowRect = new Rect(0, 43, 200, 200);
+ 
     private GameCore gameCore;
     public Vector2 scrollPosition = Vector2.zero;
+
+    //GUI for popup box
+    private Rect windowRect = new Rect((Screen.width - 250) / 2, (Screen.height - 100) / 2, 250, 100);
+    private GUIStyle myStyle;
+    private GUIStyle myOtherStyle;
 
     // Austin's Gui crap
     float serverWindowWidth = 700f / 1440f;
@@ -47,8 +51,6 @@ public class Network_Manager : MonoBehaviour {
     public GUIStyle disconnectButton;
     public GUIStyle inviteButton;
     public GUIStyle OpponentRect;
-
-    //public NetworkLoginInterface login;
 
     void Start()
     {
@@ -73,7 +75,9 @@ public class Network_Manager : MonoBehaviour {
         Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
         //MasterServer.updateRate = 1;
         MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
-        
+        invoked = true;
+        disconnected = false;
+        sentRequest = false;   
     }
 
     void OnServerInitialized()
@@ -91,10 +95,7 @@ public class Network_Manager : MonoBehaviour {
     void Update()
     {
         if(Network.isServer)
-            MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
-
-        // updates the window to the size of the screen on every update
-        
+            MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");        
     }
     
     private void OnGUI()
@@ -124,37 +125,54 @@ public class Network_Manager : MonoBehaviour {
             }
             else
             {
-            //    if (GUILayout.Button("Disconnect"))
-            //    {
-            //        Network.Disconnect();
-            //    }
-
-                    ServerRect = GUI.Window(0, ServerRect, windowFunc, "");
-                
-            }
-
-            if(beingconnectedto)
-            {
-                ConnectionRequestRect = GUI.Window(0, ConnectionRequestRect, RequestPopup, "");
+                ServerRect = GUI.Window(0, ServerRect, windowFunc, "");
             }
 
             if(Network.isServer)
             {
-                //if (isconnected)
-                    //chat = true;
                 gameCore.playerColor = "black";
                 networkplayer = 1;
             }
-            if(Network.isClient && !isInGame)
+            if(Network.isClient && !sentRequest && !disconnected)
             {
-                networkView.RPC("OnChallenge", RPCMode.All, userwantingtoconnectfromserver, userName);
-           }
+               Debug.Log("It's here");
+               networkView.RPC("SendConnectionRequest", RPCMode.All, userName, true);
+            }
+                if (sentRequest && !disconnected)
+                {
+                    if (Network.isServer)
+                    {
+                        messBox = clientName + " has challenged you to a game! Do you accept?\n";
+                    }
+                    else
+                    {
+                        messBox = "You have challenged " + serverName + " to a game. Awaiting response...\n";
+                    }
+                    windowRect = GUI.Window(1, windowRect, popUp, "");
+                }
+                if (disconnected && invoked)
+                {
+                    messBox = "Request has been denied.\n";
+                    windowRect = GUI.Window(1, windowRect, popUp, "");
+                    Invoke("Evoke", 3);
+                    Invoke("Restart", 4);
 
+                }
         }
         else
             return;
     } 
 
+    public void Evoke()
+    {
+        invoked = false;
+        Network.Disconnect();
+        //StartServer();
+    }
+    public void Restart()
+    {
+        StartServer();
+    }
     public void RequestPopup(int id)
     {
         GUILayout.TextField(userwantingtoconnect);
@@ -181,8 +199,7 @@ public class Network_Manager : MonoBehaviour {
         {
             try
             {
-                StartServer();
-                isConnected = true;                
+                StartServer();              
             }
             catch (Exception)
             {
@@ -198,6 +215,41 @@ public class Network_Manager : MonoBehaviour {
     public void GetHostList()
     {
         MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
+    }
+
+    private void popUp(int id)
+    {
+        myStyle = GUI.skin.box;
+        myStyle.alignment = TextAnchor.UpperLeft;
+        myStyle.wordWrap = true;
+        myStyle.stretchHeight = true;
+        myOtherStyle = GUI.skin.textField;
+        myOtherStyle.alignment = TextAnchor.MiddleLeft;
+        myOtherStyle.clipping = TextClipping.Clip;
+        myOtherStyle.wordWrap = false;
+        myOtherStyle.fixedWidth = 200;
+
+
+        GUILayout.Width(250);
+        GUILayout.Box(messBox, myStyle);
+        GUILayout.BeginHorizontal();
+
+        if (Network.isServer)
+        {
+            if (GUILayout.Button("Accept", GUILayout.Width(75)))
+            {
+                networkView.RPC("RespondtoRequest", RPCMode.All, true);
+            }
+            if (GUILayout.Button("Deny", GUILayout.Width(75)))
+            {
+                networkView.RPC("RespondtoRequest", RPCMode.All, false);
+            }
+        }
+
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+        GUILayout.EndHorizontal();
+
     }
 
     public void windowFunc(int id)
@@ -221,7 +273,6 @@ public class Network_Manager : MonoBehaviour {
 
         GUILayout.TextField(userName);
 
-
         GUILayout.Button("Connect", connectButton);
 
         if (GUILayout.Button("Disconnect", disconnectButton))
@@ -230,9 +281,6 @@ public class Network_Manager : MonoBehaviour {
         }
 
         GUILayout.EndHorizontal();
-
-        
-
 
         if (GUILayout.Button("Refresh"))
         {
@@ -245,8 +293,6 @@ public class Network_Manager : MonoBehaviour {
        // scrollPosition = GUILayout.BeginScrollView(scrollPosition);
 
         //GUILayout.Box("", OpponentRect);
-
-        
 
         if (MasterServer.PollHostList().Length != 0)
         {
@@ -264,10 +310,8 @@ public class Network_Manager : MonoBehaviour {
                 if (GUILayout.Button("Invite", inviteButton))
                 {
                     Network.Connect(c);
-                    sendrequest = true;
+                    serverName = c.gameName;
                     userwantingtoconnectfromserver = c.gameName;
-                    isConnected = true;
-                    //networkView.RPC("SendConnectionRequest", RPCMode.Server, userName, true);
                     gameCore.playerColor = "red";
 
                 }
@@ -283,28 +327,23 @@ public class Network_Manager : MonoBehaviour {
     [RPC]
     private void SendConnectionRequest(string userName, bool request)
     {
-        userwantingtoconnect = userName;
-        beingconnectedto = request;
+        sentRequest = request;
+        clientName = userName;
     }
 
     [RPC]
-    private void RespondtoRequest(bool response)
+    public void RespondtoRequest(bool response)
     {
-        //isconnected = response;
+        if(response)
+            sentRequest = response;
+        else
+            sentRequest = response;
+            disconnected = true;        
     }
 
     [RPC]
     public void SendMove(int row, int col)
     {
         gameCore.PlacePiece(row, col);
-    }
-
-    [RPC]
-    public void OnChallenge(string sName, string cName)
-    {
-        Debug.Log("OnChallenge");
-        serverName = sName;
-        clientName = cName;
-        isInGame = true;
     }
 }
