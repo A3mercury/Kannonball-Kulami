@@ -54,6 +54,7 @@ public class OptionsMenuTT : MonoBehaviour
             backgroundShipNoise = GameObject.Find("BackgroundShipNoise").GetComponent<AudioSource>();
             
 			clickScript = GameObject.FindObjectOfType (typeof(GameCore)) as GameCore;
+
 		}
 
         AssignSliders();
@@ -93,7 +94,9 @@ public class OptionsMenuTT : MonoBehaviour
                 optionPanel.gameObject.SetActive(true);
                 
             }
-			mainMenuClickScript.ToggleClickability();
+
+			if(Application.loadedLevelName == "MainMenuScene")
+				mainMenuClickScript.ToggleClickability();
 
 			if (Application.loadedLevelName != "MainMenuScene")
 				clickScript.ToggleClickability();
@@ -104,10 +107,12 @@ public class OptionsMenuTT : MonoBehaviour
         {
             soundSlider.interactable = false;
             soundSlider.value = 0.0f;
+			soundSliderChange();
         }
         else
         {
             soundSlider.interactable = true;
+			soundSliderChange();
         }
         if (areMusicMuted)
         {
@@ -285,7 +290,6 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void concedeGame()
     {
-		mainMenuClickScript.ToggleClickability();
 		Application.LoadLevel("MainMenuScene");
     }
 
