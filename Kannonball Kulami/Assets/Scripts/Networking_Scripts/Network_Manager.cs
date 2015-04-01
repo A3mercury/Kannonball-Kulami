@@ -160,15 +160,15 @@ public class Network_Manager : MonoBehaviour {
                     if (Network.isServer)
                     {
                         //messBox = clientName + " has challenged you to a game! Do you accept?\n";
-
+                        InviteWrapperRect = GUI.Window(200, InviteWrapperRect, InvitationPopupWindow, "");
                         
                     }
                     else // if we are sending an invite
                     {
                         messBox = "You have challenged " + serverName + " to a game. Awaiting response...\n";
                     }
-                    GUI.skin = PopupSkin;
-                    InviteWrapperRect = GUI.Window(1, InviteWrapperRect, InvitationPopupWindow, "");
+                    //GUI.skin = PopupSkin;
+                    //InviteWrapperRect = GUI.Window(1, InviteWrapperRect, InvitationPopupWindow, "");
                     //windowRect = GUI.Window(1, windowRect, popUp, "");
                 }
                 // if game was denied
@@ -228,7 +228,7 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.BeginArea(HoldVertical);
         GUILayout.BeginVertical(GUI.skin.customStyles[1]);
 
-        GUILayout.Label("Opponent Name", GUI.skin.customStyles[2]);
+        GUILayout.Label(clientName, GUI.skin.customStyles[2]);
         GUILayout.Label("wants to battle!", GUI.skin.customStyles[3]);
 
         GUILayout.EndVertical();
@@ -256,16 +256,26 @@ public class Network_Manager : MonoBehaviour {
             );
 
         GUILayout.BeginArea(HoldHorizontal);
-            GUILayout.BeginHorizontal(GUI.skin.customStyles[4]);
+        GUILayout.BeginHorizontal(GUI.skin.customStyles[4]);
+
+        if (Network.isServer)
+        {
             GUILayout.BeginArea(AcceptButton);
-                GUILayout.Button("", GUI.skin.customStyles[5]);
+            if(GUILayout.Button("", GUI.skin.customStyles[5]))
+            {
+                networkView.RPC("RespondtoRequest", RPCMode.All, true);
+            }
             GUILayout.EndArea();
             GUILayout.BeginArea(DenyButton);
-                GUILayout.Button("", GUI.skin.customStyles[6]);
+            if(GUILayout.Button("", GUI.skin.customStyles[6]))
+            {
+                networkView.RPC("RespondtoRequest", RPCMode.All, false);
+            }
             GUILayout.EndArea();
-            GUILayout.EndHorizontal();
-        GUILayout.EndArea();
+        }
 
+        GUILayout.EndHorizontal();
+        GUILayout.EndArea();
         GUILayout.EndArea();
     }
 
