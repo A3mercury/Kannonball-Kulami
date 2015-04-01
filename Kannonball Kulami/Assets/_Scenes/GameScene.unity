@@ -3455,7 +3455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &391198536
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5717,7 +5717,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 717712922}
   m_LocalRotation: {x: -.356366277, y: .218766868, z: .0862140581, w: .904273927}
-  m_LocalPosition: {x: -24.7000008, y: -115.485008, z: -60.7000008}
+  m_LocalPosition: {x: -68, y: -207.085007, z: -144}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9175,7 +9175,7 @@ MonoBehaviour:
   userwantingtoconnectfromserver: 
   myskin: {fileID: 0}
   scrollPosition: {x: 0, y: 0}
-  ServerBackground: {fileID: 11400000, guid: d28fe0a507961d04981d79715bfb47de, type: 2}
+  ServerSkin: {fileID: 11400000, guid: 136ab4c65c728e94db8dca3948ba3de1, type: 2}
   connectButton:
     m_Name: 
     m_Normal:

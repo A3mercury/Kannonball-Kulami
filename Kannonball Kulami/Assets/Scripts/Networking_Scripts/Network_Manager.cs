@@ -43,10 +43,11 @@ public class Network_Manager : MonoBehaviour {
     // Austin's Gui crap
     float serverWindowWidth = 700f / 1440f;
     float serverWindowHeight = 650f / 900f;
-    Rect ServerRect;
+    Rect ServerWrapperRect;
+    Rect ServerBackground;
     Rect UsernameRect;
     Rect ConnectionRequestRect;
-    public GUISkin ServerBackground;
+    public GUISkin ServerSkin;
     public GUIStyle connectButton;
     public GUIStyle disconnectButton;
     public GUIStyle inviteButton;
@@ -102,35 +103,19 @@ public class Network_Manager : MonoBehaviour {
     
     private void OnGUI()
     {
-        // putting this here keeps the aspect ratio the same for the window
-        // no matter what the screen size is
-        Debug.Log(serverWindowWidth);
-        ServerRect = new Rect();
-        ServerRect.x = (Screen.width * (1 - serverWindowWidth)) / 2;
-        ServerRect.y = (Screen.height * (1 - serverWindowHeight)) / 2;
-        ServerRect.width = Screen.width * serverWindowWidth;
-        ServerRect.height = Screen.height * serverWindowHeight;
-
-        UsernameRect = new Rect();
-        UsernameRect.x = ServerRect.width * (25f / ServerRect.width);
-        UsernameRect.y = ServerRect.height * (25f / ServerRect.height);
-        UsernameRect.width = ServerRect.width * (242f / ServerRect.width) - 100;
-        UsernameRect.height = ServerRect.height * (59f / ServerRect.height) - 15;
-        
-
         if (isOnline)
         {
-            GUI.skin = ServerBackground;
+            GUI.skin = ServerSkin;
 
             if (Network.peerType == NetworkPeerType.Disconnected)
             {
                 Debug.Log("It has restarted.");
-                ServerRect = GUI.Window(0, ServerRect, ServerWindow, "");
+                ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowBeforeConnection, "");
             }
             else
             {
-                ServerRect = GUI.Window(0, ServerRect, ServerWindow, "");
-                ServerRect = GUI.Window(0, ServerRect, windowFunc, "");
+                ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowBeforeConnection, "");
+                ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowAfterConnection, "");
 
 
                 if (Network.isServer)
@@ -185,40 +170,173 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.TextField(userwantingtoconnect);
     }
 
-    public void ServerWindow(int id)
+    public void ServerWindowBeforeConnection(int id)
     {
-        GUI.skin = ServerBackground;
-        GUILayout.BeginHorizontal(GUI.skin.box);
+        // Assign the GUI skin
+        GUI.skin = ServerSkin;
 
-        // Styles
-        connectButton = new GUIStyle(GUI.skin.button);
-        connectButton.margin = new RectOffset(50, 0, 45, 0);
+        // Window Wrapper
+        ServerWrapperRect = new Rect(
+            (Screen.width * (1 - serverWindowWidth)) / 2,
+            (Screen.height * (1 - serverWindowHeight)) / 2,
+            Screen.width * serverWindowWidth,
+            Screen.height * serverWindowHeight
+            );
 
-        disconnectButton = new GUIStyle(GUI.skin.button);
-        disconnectButton.margin = new RectOffset(50, 0, 45, 0);
+        // Background image stretched to the wrapper
+        ServerBackground = new Rect(0, 0, ServerWrapperRect.width, ServerWrapperRect.height);        
 
-        
-        GUILayout.BeginArea(UsernameRect, GUI.skin.box);
-        userName = GUILayout.TextField(userName, 15, GUI.skin.textField);
+        // background image in customSyles[0]
+        GUILayout.BeginArea(ServerBackground, GUI.skin.customStyles[0]);
+
+        InsertHeader(false);
+
+        GUILayout.EndArea();
+    }
+
+    public void ServerWindowAfterConnection(int id)
+    {
+        // Assign the GUI skin
+        GUI.skin = ServerSkin;
+
+        /////////////////////////////////////// Window Wrapper
+        ServerWrapperRect = new Rect(
+            (Screen.width * (1 - serverWindowWidth)) / 2,
+            (Screen.height * (1 - serverWindowHeight)) / 2,
+            Screen.width * serverWindowWidth,
+            Screen.height * serverWindowHeight
+            );
+
+        // Background image stretched to the wrapper
+        ServerBackground = new Rect(0, 0, ServerWrapperRect.width, ServerWrapperRect.height);
+
+        // background image in customSyles[0]
+        GUILayout.BeginArea(ServerBackground, GUI.skin.customStyles[0]);
+
+        InsertHeader(true);
+
+        if (GUILayout.Button("Refresh"))
+        {
+            MasterServer.ClearHostList();
+            MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
+        }
+        //else
+        //InvokeRepeating("GetHostList", 0, 60);
+
+        if (MasterServer.PollHostList().Length != 0)
+        {
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+
+            HostData[] data = MasterServer.PollHostList();
+            foreach (HostData c in data)
+            //for (int i = 0; i < 20; i++)
+            {
+                GUILayout.BeginHorizontal();
+                //if (c.gameName != userName)
+                //{
+                GUILayout.Box(c.gameName);
+                if (c.gameName != userName)
+                    if (GUILayout.Button("Invite", inviteButton))
+                    {
+                        Network.Connect(c);
+                        serverName = c.gameName;
+                        userwantingtoconnectfromserver = c.gameName;
+                        gameCore.playerColor = "red";
+
+                    }
+                //}
+                GUILayout.EndHorizontal();
+            }
+
+            GUILayout.EndScrollView();
+        }
+        //GUI.DragWindow(new Rect(0, 0, Screen.width, Screen.height));
+
+        GUILayout.EndArea();
+    }
+
+    void InsertHeader(bool hitConnected)
+    {
+        /////////////////////////////////////// Header of the server window
+        Rect HeaderRect = new Rect(
+            (ServerBackground.width * 6f) / 100f, // 5% from the left
+            (ServerBackground.height * 7f) / 100f, // 5% from the top
+            (ServerBackground.width * 88f) / 100f, // 90% from the left as width
+            (ServerBackground.height * 10f) / 100f // 13% of the background as height
+            );
+        GUILayout.BeginArea(HeaderRect, GUI.skin.customStyles[1]);
+        UsernameRect = new Rect(
+            0,
+            0,
+            (HeaderRect.width * 40f) / 100,
+            HeaderRect.height
+            );
+
+        // Actual username
+        GUILayout.BeginArea(UsernameRect);
+        userName = GUILayout.TextField(userName, 15, GUI.skin.customStyles[2]);
         GUILayout.EndArea();
 
-        if (GUILayout.Button("Connect", connectButton))
+
+
+        // connect button
+        Rect ConnectButtonRect = new Rect(
+            (HeaderRect.width * 48f) / 100,
+            0,
+            (HeaderRect.width * 25f) / 100,
+            HeaderRect.height
+            );
+        // disconnect button
+        Rect DisconnectButtonRect = new Rect(
+            (HeaderRect.width * 75f) / 100,
+            0,
+            ConnectButtonRect.width,
+            ConnectButtonRect.height
+            );
+        
+        // dependent on if the user has clicked to start the server
+        if (!hitConnected)
         {
-            try
+            GUILayout.BeginArea(ConnectButtonRect);
+            if (GUILayout.Button("", GUI.skin.customStyles[4]))
             {
-                StartServer();              
+                if (userName != "")
+                {
+                    try
+                    {
+                        StartServer();
+                    }
+                    catch (Exception)
+                    {
+                        print("Server could not be started");
+                    }
+                }
             }
-            catch (Exception)
-            {
-                print("Please type in numbers for port and max players");
-            }
+            GUILayout.EndArea();
+
+            GUILayout.BeginArea(DisconnectButtonRect);
+            GUILayout.Button("", GUI.skin.customStyles[7]);
+            GUILayout.EndArea();
         }
+        else
+        {
+            // Disabled connect button
+            GUILayout.BeginArea(ConnectButtonRect);
+            GUILayout.Button("", GUI.skin.customStyles[6]);
+            GUILayout.EndArea();
 
-        GUILayout.Button("Disconnect", disconnectButton);
-
-        GUILayout.EndHorizontal();
+            GUILayout.BeginArea(DisconnectButtonRect);
+            if (GUILayout.Button("", GUI.skin.customStyles[5]))
+            {
+                Network.Disconnect();
+            }
+            GUILayout.EndArea();
+        }
+               
+        GUILayout.EndArea();
+        /////////////////////////////////////// End of Header
     }
-       
+
     public void GetHostList()
     {
         MasterServer.ClearHostList();
@@ -260,78 +378,7 @@ public class Network_Manager : MonoBehaviour {
 
     }
 
-    public void windowFunc(int id)
-    {
-        GUI.skin = ServerBackground;
-        GUILayout.BeginHorizontal();
-
-        // Styles
-        connectButton = new GUIStyle(GUI.skin.button);
-        connectButton.margin = new RectOffset(50, 0, 45, 0);
-
-        disconnectButton = new GUIStyle(GUI.skin.button);
-        disconnectButton.margin = new RectOffset(50, 0, 45, 0);
-
-        inviteButton = new GUIStyle(GUI.skin.button);
-        inviteButton.margin = new RectOffset(0, 45, 0, 45);
-
-        //OpponentRect = new GUIStyle(GUI.skin.box);
-        //OpponentRect.margin = new RectOffset(0, 0, 0, 50);
-        //GUI.skin.scrollView = OpponentRect;
-
-        GUILayout.TextField(userName);
-
-        GUILayout.Button("Connect", connectButton);
-
-        if (GUILayout.Button("Disconnect", disconnectButton))
-        {
-            Network.Disconnect();
-        }
-
-        GUILayout.EndHorizontal();
-
-        if (GUILayout.Button("Refresh"))
-        {
-            MasterServer.ClearHostList();
-            MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
-        }
-        //else
-            //InvokeRepeating("GetHostList", 0, 60);
-        
-
-       // scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-
-        //GUILayout.Box("", OpponentRect);
-
-        if (MasterServer.PollHostList().Length != 0)
-        {
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-
-            HostData[] data = MasterServer.PollHostList();
-            foreach (HostData c in data)
-            //for (int i = 0; i < 20; i++)
-            {
-                GUILayout.BeginHorizontal();
-                //if (c.gameName != userName)
-                //{
-                GUILayout.Box(c.gameName);
-                if(c.gameName != userName)
-                if (GUILayout.Button("Invite", inviteButton))
-                {
-                    Network.Connect(c);
-                    serverName = c.gameName;
-                    userwantingtoconnectfromserver = c.gameName;
-                    gameCore.playerColor = "red";
-
-                }
-                //}
-                GUILayout.EndHorizontal();
-            }
-
-            GUILayout.EndScrollView();
-        }
-        //GUI.DragWindow(new Rect(0, 0, Screen.width, Screen.height));
-    }
+   
 	
     [RPC]
     private void SendConnectionRequest(string userName, bool request)
