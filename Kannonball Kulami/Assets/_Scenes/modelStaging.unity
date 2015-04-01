@@ -1857,6 +1857,9 @@ MonoBehaviour:
   CameraLookat1: {fileID: 0}
   CameraLookat2: {fileID: 0}
   serverCam: {fileID: 0}
+  isClickable: 0
+  GameSceneCanvas: {fileID: 0}
+  ChatBoxPanel: {fileID: 0}
 --- !u!4 &485770240
 Transform:
   m_ObjectHideFlags: 0
@@ -4110,7 +4113,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 446642, guid: a0fedd40ffa3f9f468a3b0ed770bc7b1, type: 2}
       propertyPath: m_RootOrder
-      value: 27
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 146642, guid: a0fedd40ffa3f9f468a3b0ed770bc7b1, type: 2}
       propertyPath: m_IsActive
