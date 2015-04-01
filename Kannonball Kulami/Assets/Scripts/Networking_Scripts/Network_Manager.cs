@@ -110,24 +110,26 @@ public class Network_Manager : MonoBehaviour {
     
     private void OnGUI()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            popuptrue = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    popuptrue = true;
+        //}
 
-        // FOR TESTING THE POPUP 
-        if(popuptrue)
-        {
-            GUI.skin = PopupSkin;
+        //// FOR TESTING THE POPUP 
+        //if(popuptrue)
+        //{
+        //    GUI.skin = PopupSkin;
 
-            InviteWrapperRect = GUI.Window(1, InviteWrapperRect, InvitationPopupWindow, "");
+        //    InviteWrapperRect = GUI.Window(1, InviteWrapperRect, InvitationPopupWindow, "");
 
-        }
+        //}
 
+        // If we are in an online game
         if (isOnline)
         {
             GUI.skin = ServerSkin;
 
+            // If we are not currently connected
             if (Network.peerType == NetworkPeerType.Disconnected)
             {
                 Debug.Log("It has restarted.");
@@ -135,32 +137,41 @@ public class Network_Manager : MonoBehaviour {
             }
             else
             {
+                // open the server window
                 ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowBeforeConnection, "");
                 ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowAfterConnection, "");
 
-
+                // if we are the server
                 if (Network.isServer)
                 {
                     gameCore.playerColor = "black";
                     networkplayer = 1;
                 }
+                // if we are the client
                 if (Network.isClient && !sentRequest && !disconnected)
                 {
                     Debug.Log("It's here");
                     networkView.RPC("SendConnectionRequest", RPCMode.All, userName, true);
                 }
+                // sent or recieving a invite
                 if (sentRequest && !disconnected)
                 {
+                    // if we have been sent an invite
                     if (Network.isServer)
                     {
-                        messBox = clientName + " has challenged you to a game! Do you accept?\n";
+                        //messBox = clientName + " has challenged you to a game! Do you accept?\n";
+
+                        
                     }
-                    else
+                    else // if we are sending an invite
                     {
                         messBox = "You have challenged " + serverName + " to a game. Awaiting response...\n";
                     }
-                    windowRect = GUI.Window(1, windowRect, popUp, "");
+                    GUI.skin = PopupSkin;
+                    InviteWrapperRect = GUI.Window(1, InviteWrapperRect, InvitationPopupWindow, "");
+                    //windowRect = GUI.Window(1, windowRect, popUp, "");
                 }
+                // if game was denied
                 if (disconnected && invoked)
                 {
                     messBox = "Request has been denied.\n";
@@ -207,13 +218,53 @@ public class Network_Manager : MonoBehaviour {
             (InviteBackgroundRect.height * 22f) / 100
             );
 
-        GUILayout.BeginHorizontal(GUI.skin.customStyles[1]);
-        //GUILayout.BeginArea(OpponentNameRect, GUI.skin.customStyles[1]);
-        GUILayout.Label("Opponent Name");
-        //GUILayout.EndArea();
-        GUILayout.EndHorizontal();
+        Rect HoldVertical = new Rect(
+            0,
+            0,
+            InviteBackgroundRect.width,
+            (InviteBackgroundRect.height * 50f) / 100
+            );
 
-        
+        GUILayout.BeginArea(HoldVertical);
+        GUILayout.BeginVertical(GUI.skin.customStyles[1]);
+
+        GUILayout.Label("Opponent Name", GUI.skin.customStyles[2]);
+        GUILayout.Label("wants to battle!", GUI.skin.customStyles[3]);
+
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+
+        Rect HoldHorizontal = new Rect(
+            (InviteBackgroundRect.width * 10f) / 100,
+            (InviteBackgroundRect.height * 60f) / 100,
+            (InviteBackgroundRect.width * 80f) / 100,
+            (InviteBackgroundRect.height * 25f) / 100
+            );
+
+        Rect AcceptButton = new Rect(
+            (HoldHorizontal.width * 2F) / 100,
+            0,
+            (HoldHorizontal.width * 45F) / 100,
+            (HoldHorizontal.height)
+            );
+
+        Rect DenyButton = new Rect(
+            (HoldHorizontal.width * 52f) / 100,
+            0,
+            (HoldHorizontal.width * 45F) / 100,
+            (HoldHorizontal.height)
+            );
+
+        GUILayout.BeginArea(HoldHorizontal);
+            GUILayout.BeginHorizontal(GUI.skin.customStyles[4]);
+            GUILayout.BeginArea(AcceptButton);
+                GUILayout.Button("", GUI.skin.customStyles[5]);
+            GUILayout.EndArea();
+            GUILayout.BeginArea(DenyButton);
+                GUILayout.Button("", GUI.skin.customStyles[6]);
+            GUILayout.EndArea();
+            GUILayout.EndHorizontal();
+        GUILayout.EndArea();
 
         GUILayout.EndArea();
     }
@@ -357,7 +408,7 @@ public class Network_Manager : MonoBehaviour {
 
         // Actual username
         GUILayout.BeginArea(UsernameRect);
-        userName = GUILayout.TextField(userName, 15, GUI.skin.customStyles[2]);
+        userName = GUILayout.TextField(userName, 15, GUI.skin.customStyles[2]).Replace("\n", "");
         GUILayout.EndArea();
 
 
