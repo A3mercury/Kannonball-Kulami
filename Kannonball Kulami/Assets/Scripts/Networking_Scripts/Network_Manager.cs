@@ -44,14 +44,21 @@ public class Network_Manager : MonoBehaviour {
     float serverWindowWidth = 700f / 1440f;
     float serverWindowHeight = 650f / 900f;
     Rect ServerWrapperRect;
+
     Rect ServerBackground;
     Rect UsernameRect;
     Rect ConnectionRequestRect;
+    
     public GUISkin ServerSkin;
-    public GUIStyle connectButton;
-    public GUIStyle disconnectButton;
-    public GUIStyle inviteButton;
+    public GUISkin PopupSkin;
+
     public GUIStyle OpponentRect;
+
+    // Invitation GUI stuff
+    Rect InviteWrapperRect;
+    Rect InviteBackgroundRect;
+
+    bool popuptrue = false;
 
     void Start()
     {
@@ -103,6 +110,20 @@ public class Network_Manager : MonoBehaviour {
     
     private void OnGUI()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            popuptrue = true;
+        }
+
+        // FOR TESTING THE POPUP 
+        if(popuptrue)
+        {
+            GUI.skin = PopupSkin;
+
+            InviteWrapperRect = GUI.Window(1, InviteWrapperRect, InvitationPopupWindow, "");
+
+        }
+
         if (isOnline)
         {
             GUI.skin = ServerSkin;
@@ -154,6 +175,49 @@ public class Network_Manager : MonoBehaviour {
             return;
     } 
 
+    public void InvitationPopupWindow(int id)
+    {
+        GUI.skin = PopupSkin;
+
+        // Wrapper
+        InviteWrapperRect = new Rect(
+            (Screen.width * (1 - (432f / 1440f))) / 2,
+            (Screen.height * (1 - (241f / 900f))) / 2,
+            Screen.width * (432f / 1440f), 
+            Screen.height * (241f / 900f)
+            );
+
+        InviteBackgroundRect = new Rect(0, 0, InviteWrapperRect.width, InviteWrapperRect.height);
+
+        GUILayout.BeginArea(InviteBackgroundRect, GUI.skin.customStyles[0]);
+
+        // Opponent's Name
+        Rect OpponentNameRect = new Rect(
+            0, 
+            (InviteBackgroundRect.height * 5f) / 100, 
+            InviteBackgroundRect.width, 
+            (InviteBackgroundRect.height * 22f) / 100
+            );
+
+        // Wants to battle
+        Rect InviteLabel = new Rect(
+            0,
+            0,
+            InviteBackgroundRect.width,
+            (InviteBackgroundRect.height * 22f) / 100
+            );
+
+        GUILayout.BeginHorizontal(GUI.skin.customStyles[1]);
+        //GUILayout.BeginArea(OpponentNameRect, GUI.skin.customStyles[1]);
+        GUILayout.Label("Opponent Name");
+        //GUILayout.EndArea();
+        GUILayout.EndHorizontal();
+
+        
+
+        GUILayout.EndArea();
+    }
+
     public void Evoke()
     {
         invoked = false;
@@ -169,6 +233,8 @@ public class Network_Manager : MonoBehaviour {
     {
         GUILayout.TextField(userwantingtoconnect);
     }
+
+    #region server list 
 
     public void ServerWindowBeforeConnection(int id)
     {
@@ -202,7 +268,6 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.EndArea();
         GUILayout.EndArea();
     }
-
     public void ServerWindowAfterConnection(int id)
     {
         // Assign the GUI skin
@@ -273,7 +338,6 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.EndArea();
         GUILayout.EndArea();
     }
-
     void InsertHeader(bool hitConnected)
     {
         /////////////////////////////////////// Header of the server window
@@ -355,6 +419,8 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.EndArea();
         /////////////////////////////////////// End of Header
     }
+
+    #endregion
 
     public void GetHostList()
     {
