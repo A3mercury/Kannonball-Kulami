@@ -191,6 +191,15 @@ public class Network_Manager : MonoBehaviour {
 
         InsertHeader(false);
 
+        Rect OpponentListRect = new Rect(
+            (ServerBackground.width * 6f) / 100f,
+            (ServerBackground.height * 25f) / 100f,
+            (ServerBackground.width * 88f) / 100f,
+            (ServerBackground.height * 68f) / 100f
+            );
+
+        GUILayout.BeginArea(OpponentListRect, GUI.skin.customStyles[9]);
+        GUILayout.EndArea();
         GUILayout.EndArea();
     }
 
@@ -215,7 +224,17 @@ public class Network_Manager : MonoBehaviour {
 
         InsertHeader(true);
 
-        if (GUILayout.Button("Refresh"))
+        /////////////////////////////////////// Opponent's list
+
+        Rect OpponentListRect = new Rect(
+            (ServerBackground.width * 6f) / 100f,
+            (ServerBackground.height * 25f) / 100f,
+            (ServerBackground.width * 88f) / 100f,
+            (ServerBackground.height * 68f) / 100f
+            );
+
+        GUILayout.BeginArea(OpponentListRect, GUI.skin.customStyles[8]);
+        if (GUILayout.Button("Refresh")) // temp button placement
         {
             MasterServer.ClearHostList();
             MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
@@ -229,14 +248,14 @@ public class Network_Manager : MonoBehaviour {
 
             HostData[] data = MasterServer.PollHostList();
             foreach (HostData c in data)
-            //for (int i = 0; i < 20; i++)
+            //for (int i = 0; i < 5; i++)
             {
-                GUILayout.BeginHorizontal();
+                GUILayout.BeginHorizontal(GUI.skin.customStyles[10]);
+                GUILayout.Box(c.gameName, GUI.skin.customStyles[10]);
                 //if (c.gameName != userName)
                 //{
-                GUILayout.Box(c.gameName);
-                if (c.gameName != userName)
-                    if (GUILayout.Button("Invite", inviteButton))
+
+                    if (GUILayout.Button("", GUI.skin.customStyles[11]))
                     {
                         Network.Connect(c);
                         serverName = c.gameName;
@@ -250,8 +269,8 @@ public class Network_Manager : MonoBehaviour {
 
             GUILayout.EndScrollView();
         }
-        //GUI.DragWindow(new Rect(0, 0, Screen.width, Screen.height));
 
+        GUILayout.EndArea();
         GUILayout.EndArea();
     }
 
@@ -259,10 +278,10 @@ public class Network_Manager : MonoBehaviour {
     {
         /////////////////////////////////////// Header of the server window
         Rect HeaderRect = new Rect(
-            (ServerBackground.width * 6f) / 100f, // 5% from the left
-            (ServerBackground.height * 7f) / 100f, // 5% from the top
-            (ServerBackground.width * 88f) / 100f, // 90% from the left as width
-            (ServerBackground.height * 10f) / 100f // 13% of the background as height
+            (ServerBackground.width * 6f) / 100f,
+            (ServerBackground.height * 7f) / 100f,
+            (ServerBackground.width * 88f) / 100f,
+            (ServerBackground.height * 10f) / 100f
             );
         GUILayout.BeginArea(HeaderRect, GUI.skin.customStyles[1]);
         UsernameRect = new Rect(
