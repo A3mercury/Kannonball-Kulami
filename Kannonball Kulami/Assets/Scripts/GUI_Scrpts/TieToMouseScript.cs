@@ -47,8 +47,8 @@ public class TieToMouseScript : MonoBehaviour {
                 // move this obj to the position we hit
                 this.transform.position = new Vector3(hitInfo.point.x, hitInfo.point.y, hitInfo.point.z);
 				//Debug.Log("Mouse x = " + hitInfo.point.x + ", y = " +hitInfo.point.y + ", z = " + hitInfo.point.z);
-				if (hitInfo.point.x > -16 && hitInfo.point.x < 15 && hitInfo.point.y > 3.8 && hitInfo.point.y < 4.3)
-                	MoveCannon(this.transform.position);
+				//if (hitInfo.point.x > -16 && hitInfo.point.x < 15 && hitInfo.point.y > 3.8 && hitInfo.point.y < 4.3)
+                MoveCannon(this.transform.position);
             }
             else // didn't hit anything
             {
