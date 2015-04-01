@@ -88,6 +88,7 @@ public class SceneTransitionScript : MonoBehaviour {
 			}
 
 			if (gameObject.name.ToString () == "expertboard") {
+				optionsScript.AssistanceToggle.isOn = false;
 				StartCoroutine(delayedSinglePlayer());
 			}
 			
