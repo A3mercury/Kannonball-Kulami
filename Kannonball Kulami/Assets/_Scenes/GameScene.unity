@@ -73,6 +73,7 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
+    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &19148504
 GameObject:
@@ -3510,8 +3511,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 0
@@ -7325,8 +7326,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 962707942}
-  m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 307.548431, y: -491.317993, z: 119.92688}
+  m_LocalRotation: {x: .415275842, y: .062147025, z: .0284496117, w: -.907124281}
+  m_LocalPosition: {x: 406.884766, y: -546.114868, z: -217.327026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1512727415}
@@ -9176,6 +9177,7 @@ MonoBehaviour:
   myskin: {fileID: 0}
   scrollPosition: {x: 0, y: 0}
   ServerSkin: {fileID: 11400000, guid: 136ab4c65c728e94db8dca3948ba3de1, type: 2}
+  PopupSkin: {fileID: 11400000, guid: 848fbcab49dae5240815ee89bb1c0b37, type: 2}
   connectButton:
     m_Name: 
     m_Normal:
@@ -14942,7 +14944,7 @@ Transform:
   m_PrefabParentObject: {fileID: 464198, guid: 78166fe1c336b084190b0d870f0ad569, type: 2}
   m_PrefabInternal: {fileID: 1509239204}
   m_GameObject: {fileID: 1811920108}
-  m_LocalRotation: {x: .0200318266, y: -.96771729, z: -.00519959442, w: -.251187176}
+  m_LocalRotation: {x: .0200318266, y: -.96771735, z: -.00519959442, w: -.251187176}
   m_LocalPosition: {x: -.986000001, y: -.354000002, z: .204999998}
   m_LocalScale: {x: .0454545133, y: .0454545505, z: .0454545133}
   m_Children:

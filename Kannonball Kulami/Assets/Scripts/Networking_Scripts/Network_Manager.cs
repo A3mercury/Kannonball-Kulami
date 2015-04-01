@@ -28,7 +28,7 @@ public class Network_Manager : MonoBehaviour {
     public string serverName;
     public string clientName;
     public static int networkplayer;
-    public string userName = "", maxPlayers = "1", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
+    public string userName = "", maxPlayers = "10", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     private string messBox = "", messageToSend = "", user = "";
     public GUISkin myskin;
  
@@ -36,7 +36,7 @@ public class Network_Manager : MonoBehaviour {
     public Vector2 scrollPosition = Vector2.zero;
 
     //GUI for popup box
-    private Rect InvitationRect = new Rect(0,0,100,100);
+    private Rect windowRect = new Rect((Screen.width - 250) / 2, (Screen.height - 100) / 2, 250, 100);
     private GUIStyle myStyle;
     private GUIStyle myOtherStyle;
 
@@ -44,16 +44,21 @@ public class Network_Manager : MonoBehaviour {
     float serverWindowWidth = 700f / 1440f;
     float serverWindowHeight = 650f / 900f;
     Rect ServerWrapperRect;
+
     Rect ServerBackground;
     Rect UsernameRect;
     Rect ConnectionRequestRect;
-    Rect InvitationBackground;
-    Rect InvitationWrapperRect;
+    
     public GUISkin ServerSkin;
-    public GUIStyle connectButton;
-    public GUIStyle disconnectButton;
-    public GUIStyle inviteButton;
+    public GUISkin PopupSkin;
+
     public GUIStyle OpponentRect;
+
+    // Invitation GUI stuff
+    Rect InviteWrapperRect;
+    Rect InviteBackgroundRect;
+
+    bool popuptrue = false;
 
     void Start()
     {
@@ -61,7 +66,7 @@ public class Network_Manager : MonoBehaviour {
             gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
         isOnline = fromtransition;
 
-        ConnectionRequestRect = new Rect((Screen.width - 100) / 2, (Screen.height - 100) / 2, 500, 500);
+        ConnectionRequestRect = new Rect((Screen.width - 100) / 2, (Screen.height - 100) / 2, 100, 100);
     }
 
     /// <summary>
@@ -99,12 +104,26 @@ public class Network_Manager : MonoBehaviour {
 
     void Update()
     {
-        
-           MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");        
+        //if(Network.isServer)
+           // MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");        
     }
     
     private void OnGUI()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            popuptrue = true;
+        }
+
+        // FOR TESTING THE POPUP 
+        if(popuptrue)
+        {
+            GUI.skin = PopupSkin;
+
+            InviteWrapperRect = GUI.Window(1, InviteWrapperRect, InvitationPopupWindow, "");
+
+        }
+
         if (isOnline)
         {
             GUI.skin = ServerSkin;
@@ -134,34 +153,18 @@ public class Network_Manager : MonoBehaviour {
                 {
                     if (Network.isServer)
                     {
-                        // GUI for the game invitation box 
-                        //Rect InvitationRect = new Rect(0, 0, 100, 100);
-                        
-
                         messBox = clientName + " has challenged you to a game! Do you accept?\n";
                     }
                     else
                     {
-                        // GUI for the waiting for response box
-                        // TODO: Create this box
                         messBox = "You have challenged " + serverName + " to a game. Awaiting response...\n";
                     }
-                    InvitationRect = GUI.Window(1, InvitationRect, popUp, "");
+                    windowRect = GUI.Window(1, windowRect, popUp, "");
                 }
                 if (disconnected && invoked)
                 {
-                    if(Network.isClient)
-                    {
-                        Network.CloseConnection(Network.connections[0], true);
-                        Debug.Log("Disconnected Client from server");
-                    }
-                    else
-                    {
-                        Network.CloseConnection(Network.connections[0], true);
-                        Debug.Log("Disconnected Server from Client");
-                    }
                     messBox = "Request has been denied.\n";
-                    InvitationRect = GUI.Window(1, InvitationRect, popUp, "");
+                    windowRect = GUI.Window(1, windowRect, popUp, "");
                     Invoke("Evoke", 3);
                     Invoke("Restart", 4);
 
@@ -171,6 +174,49 @@ public class Network_Manager : MonoBehaviour {
         else
             return;
     } 
+
+    public void InvitationPopupWindow(int id)
+    {
+        GUI.skin = PopupSkin;
+
+        // Wrapper
+        InviteWrapperRect = new Rect(
+            (Screen.width * (1 - (432f / 1440f))) / 2,
+            (Screen.height * (1 - (241f / 900f))) / 2,
+            Screen.width * (432f / 1440f), 
+            Screen.height * (241f / 900f)
+            );
+
+        InviteBackgroundRect = new Rect(0, 0, InviteWrapperRect.width, InviteWrapperRect.height);
+
+        GUILayout.BeginArea(InviteBackgroundRect, GUI.skin.customStyles[0]);
+
+        // Opponent's Name
+        Rect OpponentNameRect = new Rect(
+            0, 
+            (InviteBackgroundRect.height * 5f) / 100, 
+            InviteBackgroundRect.width, 
+            (InviteBackgroundRect.height * 22f) / 100
+            );
+
+        // Wants to battle
+        Rect InviteLabel = new Rect(
+            0,
+            0,
+            InviteBackgroundRect.width,
+            (InviteBackgroundRect.height * 22f) / 100
+            );
+
+        GUILayout.BeginHorizontal(GUI.skin.customStyles[1]);
+        //GUILayout.BeginArea(OpponentNameRect, GUI.skin.customStyles[1]);
+        GUILayout.Label("Opponent Name");
+        //GUILayout.EndArea();
+        GUILayout.EndHorizontal();
+
+        
+
+        GUILayout.EndArea();
+    }
 
     public void Evoke()
     {
@@ -185,11 +231,11 @@ public class Network_Manager : MonoBehaviour {
     }
     public void RequestPopup(int id)
     {
-
         GUILayout.TextField(userwantingtoconnect);
     }
 
-    #region main server list
+    #region server list 
+
     public void ServerWindowBeforeConnection(int id)
     {
         // Assign the GUI skin
@@ -222,7 +268,6 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.EndArea();
         GUILayout.EndArea();
     }
-
     public void ServerWindowAfterConnection(int id)
     {
         // Assign the GUI skin
@@ -272,8 +317,8 @@ public class Network_Manager : MonoBehaviour {
             {
                 GUILayout.BeginHorizontal(GUI.skin.customStyles[10]);
                 GUILayout.Box(c.gameName, GUI.skin.customStyles[10]);
-                if (c.gameName != userName)
-                {
+                //if (c.gameName != userName)
+                //{
 
                     if (GUILayout.Button("", GUI.skin.customStyles[11]))
                     {
@@ -281,8 +326,9 @@ public class Network_Manager : MonoBehaviour {
                         serverName = c.gameName;
                         userwantingtoconnectfromserver = c.gameName;
                         gameCore.playerColor = "red";
+
                     }
-                }
+                //}
                 GUILayout.EndHorizontal();
             }
 
@@ -292,7 +338,6 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.EndArea();
         GUILayout.EndArea();
     }
-
     void InsertHeader(bool hitConnected)
     {
         /////////////////////////////////////// Header of the server window
@@ -385,23 +430,6 @@ public class Network_Manager : MonoBehaviour {
 
     private void popUp(int id)
     {
-        GUI.skin = ServerSkin;
-
-        //// Invitation Wrapper
-        //InvitationWrapperRect = new Rect(
-        //    500,//(Screen.width * (1 - (432f / 1440f))) / 2,
-        //    500,//(Screen.height * (1 - (241f / 900f))) / 2,
-        //    Screen.width * (424f / 1440f),
-        //    Screen.height * (241f / 900f)
-        //    );
-
-        // Background image stretched to the wrapper
-        //InvitationBackground = new Rect(0, 0, InvitationWrapperRect.width, InvitationWrapperRect.height);
-
-        // background image in customStyles[12]
-        //GUILayout.BeginArea(InvitationBackground, GUI.skin.customStyles[12]);
-        //GUILayout.EndArea();
-
         myStyle = GUI.skin.box;
         myStyle.alignment = TextAnchor.UpperLeft;
         myStyle.wordWrap = true;
