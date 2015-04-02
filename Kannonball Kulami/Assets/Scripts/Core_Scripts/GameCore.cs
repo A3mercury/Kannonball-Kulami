@@ -30,6 +30,7 @@ public class GameCore : MonoBehaviour
     public AIJob myJob;
 	private int currentBoard;
 	private List<KeyValuePair<int, int>> MovesBlockedByOptions;
+	private bool EasyAI;
 
     public ReadGameboard boardReader;
 
@@ -50,15 +51,25 @@ public class GameCore : MonoBehaviour
     {
 		isClickable = true;
 
-		int random = UnityEngine.Random.Range(1, 8);
+		int random = UnityEngine.Random.Range (1, 8);
 		//random = 3;
 
-		GameObject variableForPrefab = (GameObject)Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + random.ToString()));
+		Instantiate (Resources.Load ("GameScene Prefabs/Gameboards/Gameboard " + random.ToString ()));
 		currentBoard = random;
 
-        GameIsOver = false;
-        Moves = new List<KeyValuePair<int, int>>();
-        MovesBlockedByOptions = new List<KeyValuePair<int, int>>();
+		GameIsOver = false;
+		Moves = new List<KeyValuePair<int, int>> ();
+		MovesBlockedByOptions = new List<KeyValuePair<int, int>> ();
+
+		if (OptionsMenuTT.AIDifficulty == "Easy") 
+		{
+			EasyAI = true;
+		} 
+		else 
+		{
+			EasyAI = false;
+		}
+	
 
         turnsLeft = 56;
 
@@ -110,7 +121,7 @@ public class GameCore : MonoBehaviour
 		} 
 		else if (turn == "red" && !OptionsMenuTT.isAssitanceChecked && assistanceOn) 
 		{
-			ShowValidMoves ();
+			ShowValidMoves();
 			HideValidMoves();
 			assistanceOn = false;
 		}
@@ -291,6 +302,7 @@ public class GameCore : MonoBehaviour
 		myJob = new AIJob();
         myJob.AIMoveArray = new KeyValuePair<int, int>[Moves.Count];
 		myJob.AIBoard = currentBoard;
+		myJob.UseEasyAI = EasyAI;
         for (var i = 0; i < Moves.Count; i++)
         {
             myJob.AIMoveArray[i] = Moves[i];
