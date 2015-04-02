@@ -19,7 +19,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 
 	void OnLevelWasLoaded ()
 	{
-		//StartCoroutine (gameStartInfo ());
+		StartCoroutine (gameStartInfo ());
 	}
 
 	IEnumerator gameStartInfo ()
