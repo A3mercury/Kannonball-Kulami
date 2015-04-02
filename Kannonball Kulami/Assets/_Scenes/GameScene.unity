@@ -73,7 +73,6 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
-    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &19148504
 GameObject:
@@ -3456,7 +3455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &391198536
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3511,8 +3510,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  ignoreReversedGraphics: 1
+  blockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 0
@@ -5717,8 +5716,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 717712922}
-  m_LocalRotation: {x: -.356366247, y: .218766853, z: .0862140507, w: .904273927}
-  m_LocalPosition: {x: -68, y: -207.085007, z: -144}
+  m_LocalRotation: {x: .312511921, y: -.118738964, z: -.0287832655, w: -.942023873}
+  m_LocalPosition: {x: -183.309021, y: -398.189362, z: -460.150635}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7326,8 +7325,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 962707942}
-  m_LocalRotation: {x: .135561749, y: -.327510029, z: -.0368225425, w: -.934347034}
-  m_LocalPosition: {x: 124.102783, y: -309.916748, z: -148.852051}
+  m_LocalRotation: {x: .294795722, y: -.141550988, z: -.0336034261, w: -.944420278}
+  m_LocalPosition: {x: 257.203979, y: -402.608765, z: -154.046661}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1512727415}
@@ -9132,7 +9131,6 @@ GameObject:
   - 114: {fileID: 1220275708}
   - 148: {fileID: 1220275709}
   - 114: {fileID: 1220275710}
-  - 114: {fileID: 1220275711}
   m_Layer: 0
   m_Name: Network_Manager
   m_TagString: Untagged
@@ -9166,6 +9164,8 @@ MonoBehaviour:
   invoked: 0
   disconnected: 0
   sentRequest: 0
+  ingame: 0
+  calledgamescene: 0
   isOnline: 0
   serverName: 
   clientName: 
@@ -9258,19 +9258,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9731f349ae016f4d95c1425810cead7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrollPosition: {x: 0, y: 0}
-  myskin: {fileID: 0}
---- !u!114 &1220275711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1220275706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db0c858a842ed64f8fe7e73d6eea1f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scrollPosition: {x: 0, y: 0}
@@ -10241,7 +10228,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 477632, guid: 4aa417a381dd579449cfe49cb7838d98, type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2377624, guid: 4aa417a381dd579449cfe49cb7838d98, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -11727,6 +11714,7 @@ MonoBehaviour:
   currentRow: 0
   currentCol: 0
   GameIsOver: 0
+  AIMove: {fileID: 0}
   mainCam: {fileID: 2039564454}
   CameraLookat1: {fileID: 989183492}
   CameraLookat2: {fileID: 1296537131}
@@ -11795,7 +11783,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 464076, guid: 78166fe1c336b084190b0d870f0ad569, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 464076, guid: 78166fe1c336b084190b0d870f0ad569, type: 2}
       propertyPath: m_LocalScale.y
@@ -12920,7 +12908,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 418194, guid: 6de4641b4410f5c41ae3f196026af2f4, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11418192, guid: 6de4641b4410f5c41ae3f196026af2f4, type: 2}
       propertyPath: mainCam
@@ -14754,6 +14742,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1811920109}
+  - 114: {fileID: 1811920110}
   m_Layer: 0
   m_Name: OpponentCannon
   m_TagString: Untagged
@@ -14775,6 +14764,17 @@ Transform:
   - {fileID: 587222516}
   m_Father: {fileID: 1572179719}
   m_RootOrder: 11
+--- !u!114 &1811920110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1811920108}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fd5f36ac9dc4952bc28702a93214af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1826863016
 GameObject:
   m_ObjectHideFlags: 0
@@ -15679,7 +15679,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 56e3ea2ec1216f847bdb2e59ffbfcb0c, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 56e3ea2ec1216f847bdb2e59ffbfcb0c, type: 3}
       propertyPath: m_LocalScale.x
