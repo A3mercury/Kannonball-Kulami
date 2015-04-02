@@ -300,7 +300,7 @@ public class Network_Manager : MonoBehaviour {
             GUILayout.BeginArea(DenyButton);
             if(GUILayout.Button("", GUI.skin.customStyles[6]))
             {
-                networkView.RPC("RespondtoRequest", RPCMode.All, false);
+                networkView.RPC("RespondtoRequest", RPCMode.All, false, 0);
             }
             GUILayout.EndArea();
         }
