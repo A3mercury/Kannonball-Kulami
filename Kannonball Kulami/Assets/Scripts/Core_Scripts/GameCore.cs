@@ -32,6 +32,8 @@ public class GameCore : MonoBehaviour
 	private List<KeyValuePair<int, int>> MovesBlockedByOptions;
 	private bool EasyAI;
 
+	public GameObject AIMove;
+
     public ReadGameboard boardReader;
 
     public Camera mainCam;
@@ -109,6 +111,7 @@ public class GameCore : MonoBehaviour
         {
             if (myJob.Update())
             {
+				AIMove = GameObject.Find("Cannonball" + myJob.AIChosenMove.Key + myJob.AIChosenMove.Value);
                 PlacePiece(myJob.AIChosenMove.Key, myJob.AIChosenMove.Value);
                 myJob = null;
             }
