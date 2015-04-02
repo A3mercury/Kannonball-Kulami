@@ -27,6 +27,7 @@ public class Network_Manager : MonoBehaviour {
     public static bool fromtransition;
     public string serverName;
     public string clientName;
+    private int randomBoard = 0;
     public static int networkplayer;
     public string userName = "", maxPlayers = "10", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     private string messBox = "", messageToSend = "", user = "";
@@ -67,6 +68,7 @@ public class Network_Manager : MonoBehaviour {
         isOnline = fromtransition;
 
         ConnectionRequestRect = new Rect((Screen.width - 100) / 2, (Screen.height - 100) / 2, 100, 100);
+        randomBoard = UnityEngine.Random.Range(1, 8);
     }
 
     /// <summary>
@@ -292,7 +294,7 @@ public class Network_Manager : MonoBehaviour {
             GUILayout.BeginArea(AcceptButton);
             if(GUILayout.Button("", GUI.skin.customStyles[5]))
             {
-                networkView.RPC("RespondtoRequest", RPCMode.All, true);
+                networkView.RPC("RespondtoRequest", RPCMode.All, true, randomBoard);
             }
             GUILayout.EndArea();
             GUILayout.BeginArea(DenyButton);
@@ -592,12 +594,13 @@ public class Network_Manager : MonoBehaviour {
     }
 
     [RPC]
-    public void RespondtoRequest(bool response)
+    public void RespondtoRequest(bool response, int board)
     {
         if (response)
         {
             sentRequest = response;
             ingame = true;
+            gameCore.MakeGameboard(board);
         }
         else
         {
