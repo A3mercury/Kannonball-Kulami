@@ -22,7 +22,7 @@ public class ReadGameboard
         //gamePlaces = new GamePlace[boardSize, boardSize];
         this.gamePlaces = gamePlaces;
 
-        //readFromFile();
+        readFromFile();
 
         gamePlaces = this.gamePlaces;
     }
