@@ -5,11 +5,16 @@ using System.Collections;
 public class GameScenePopUpInfo : MonoBehaviour {
 
 	public Toggle assistanceToggle;
+	public Texture2D onHoverImage;
+	public GUISkin onHoverSkin;
 
-	private bool doGameStartInfo = false;
+	private GameCore gameCore;
+
+	private bool doGameStartInfoRed = false;
 	// Use this for initialization
 	void Start () {
 		OnLevelWasLoaded ();
+		gameCore = FindObjectOfType (typeof(GameCore)) as GameCore;
 	}
 	
 	// Update is called once per frame
@@ -19,21 +24,21 @@ public class GameScenePopUpInfo : MonoBehaviour {
 
 	void OnLevelWasLoaded ()
 	{
-		//StartCoroutine (gameStartInfo ());
+		StartCoroutine (gameStartInfo ());
 	}
 
 	IEnumerator gameStartInfo ()
 	{
 		yield return new WaitForSeconds(2);
 
-		doGameStartInfo = true;
+		doGameStartInfoRed = true;
 	}
 
 	IEnumerator endGameStartInfo ()
 	{
 		yield return new WaitForSeconds (10);
 
-		doGameStartInfo = false;
+		doGameStartInfoRed = false;
 	}
 
 	void DoWindow0(int windowID) {
@@ -42,12 +47,12 @@ public class GameScenePopUpInfo : MonoBehaviour {
 
 	void OnGUI ()
 	{
-		GUI.skin.window.wordWrap = true;
-		GUI.skin.window.alignment = TextAnchor.MiddleCenter;
+		GUI.skin = onHoverSkin;
+		GUI.skin.window.normal.background = onHoverImage;
 
-		if (assistanceToggle.isOn) 
+		if (assistanceToggle.isOn && gameCore.turn == "red") 
 		{
-			if (doGameStartInfo)
+			if (doGameStartInfoRed)
 				GUI.Window (0, new Rect (760, 10, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");	
 		}
 

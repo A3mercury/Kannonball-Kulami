@@ -52,12 +52,12 @@ public class GameCore : MonoBehaviour
 	void Start () 
     {
 		isClickable = true;
-
-		int random = UnityEngine.Random.Range (1, 8);
-		//random = 3;
-
-		Instantiate (Resources.Load ("GameScene Prefabs/Gameboards/Gameboard " + random.ToString ()));
-		currentBoard = random;
+        networkManager = GameObject.FindObjectOfType<Network_Manager>();
+        if (!networkManager.isOnline)
+        {
+            int rand = Random.Range(1, 8);
+            MakeGameboard(rand);
+        }
 
 		GameIsOver = false;
 		Moves = new List<KeyValuePair<int, int>> ();
@@ -135,6 +135,12 @@ public class GameCore : MonoBehaviour
 			MovesBlockedByOptions.Clear();
 		}
         Debug.Log("Moves waiting to be played by AI " + MovesBlockedByOptions.Count);
+    }
+
+    public void MakeGameboard(int boardNum)
+    {
+        Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + boardNum.ToString()));
+        currentBoard = boardNum;
     }
 
     public void PlacePiece(int row, int col)

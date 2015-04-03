@@ -15,7 +15,7 @@ public class AICannonScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(coreScript.myJob != null)
+		if(coreScript.AIMove != null)
 			MoveCannon (coreScript.AIMove.transform.position);
 	}
 

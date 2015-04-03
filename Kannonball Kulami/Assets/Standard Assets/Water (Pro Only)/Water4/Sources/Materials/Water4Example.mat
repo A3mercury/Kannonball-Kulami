@@ -173,11 +173,11 @@ Material:
       data:
         first:
           name: _FresnelScale
-        second: .529999971
+        second: 3.3599999
       data:
         first:
           name: _GerstnerIntensity
-        second: 1.37
+        second: 2.24000001
       data:
         first:
           name: _InvFade
@@ -249,16 +249,16 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _MainTex_ST
-        second: {r: 1, g: 1, b: 0, a: 0}
-      data:
-        first:
           name: _Displacement
         second: {r: 6.6371665, g: 20.3539829, b: -1, a: -.681415975}
       data:
         first:
           name: _ShoreTiling
         second: {r: 1, g: 1, b: .100000001, a: .100000001}
+      data:
+        first:
+          name: _MainTex_ST
+        second: {r: 1, g: 1, b: 0, a: 0}
       data:
         first:
           name: _BumpMap_ST
@@ -298,11 +298,11 @@ Material:
       data:
         first:
           name: _DistortParams
-        second: {r: 1.43999994, g: .242857143, b: 1.85306406, a: -1.01999998}
+        second: {r: 2.80999994, g: .242857143, b: 4.53000021, a: .150000006}
       data:
         first:
           name: _InvFadeParemeter
-        second: {r: .159999996, g: 1.07000005, b: .043103449, a: .0399999991}
+        second: {r: .280000001, g: .189999998, b: .043103449, a: .0399999991}
       data:
         first:
           name: _AnimationTiling
@@ -338,27 +338,27 @@ Material:
       data:
         first:
           name: _Foam
-        second: {r: .0260000005, g: .175999999, b: 0, a: 0}
+        second: {r: 1, g: 1, b: 0, a: 0}
       data:
         first:
           name: _GAmplitude
-        second: {r: .140000001, g: .75999999, b: .174999997, a: .224999994}
+        second: {r: 2.1400001, g: .140000001, b: .129999995, a: .109999999}
       data:
         first:
           name: _GFrequency
-        second: {r: .5, g: .379999995, b: .589999974, a: .600000024}
+        second: {r: .0500000007, g: .379999995, b: .589999974, a: .600000024}
       data:
         first:
           name: _GSteepness
-        second: {r: 4, g: 2, b: 6, a: 2}
+        second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
           name: _GSpeed
-        second: {r: 0, g: 2, b: 1, a: 3}
+        second: {r: -.819999993, g: 1.44000006, b: 1, a: 3}
       data:
         first:
           name: _GDirectionAB
-        second: {r: .469143569, g: .354051262, b: -.200000003, a: .100000001}
+        second: {r: .219999999, g: .354051262, b: -.200000003, a: .100000001}
       data:
         first:
           name: _GDirectionCD
