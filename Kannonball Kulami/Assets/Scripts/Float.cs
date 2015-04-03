@@ -82,12 +82,12 @@ public class Float : MonoBehaviour {
 			
 			if (forceFactor > 0f) {
 
-				if (forceFactor < 1f) {
-					forceFactor *= forceFactor;
-				}
+				//if (forceFactor < 1f) {
+				//	forceFactor *= forceFactor;
+				//}
 				liftForce = bouyancyForce * (forceFactor - rigidbody.velocity.y * bounceDamp);
 
-				liftForce *= Random.Range(.1f, 1f); //System.Convert.ToSingle(rand.NextDouble());
+				liftForce *= Random.Range(1f, 1f); //System.Convert.ToSingle(rand.NextDouble());
 				//if (liftForce.y > previousForces[i].y * 2) {
 				//	Debug.Log(liftForce);
 				//	liftForce.y = liftForce.y / 2;
@@ -98,7 +98,7 @@ public class Float : MonoBehaviour {
 				//}
 				//previousForces[i] = liftForce;
 				//Debug.Log(liftForce);
-				rigidbody.AddForceAtPosition(liftForce, actionPoint);
+				rigidbody.AddForceAtPosition(liftForce, rigidbody.ClosestPointOnBounds(actionPoint));
 			}
 		}
 	}
