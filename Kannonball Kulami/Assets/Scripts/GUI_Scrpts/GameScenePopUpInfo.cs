@@ -61,7 +61,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 			}
 		}
 
-		if (assistanceToggle.isOn && network.isOnline && network.ingame) 
+		if (assistanceToggle.isOn && network.isOnline && network.ingame && gameCore.playerColor == "red") 
 		{
 			if (doGameStartInfoRed)
 			{
