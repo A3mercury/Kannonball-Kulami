@@ -61,7 +61,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 			}
 		}
 
-		if (assistanceToggle.isOn && network.isOnline && network.ingame && gameCore.playerColor == "red") 
+		if (assistanceToggle.isOn && network.isOnline && network.ingame && Network.isServer) 
 		{
 			if (doGameStartInfoRed)
 			{
@@ -70,7 +70,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 			}
 		}
 
-		if (assistanceToggle.isOn && network.isOnline && network.ingame && gameCore.playerColor == "black") 
+		if (assistanceToggle.isOn && network.isOnline && network.ingame && Network.isClient) 
 		{
 			if (doGameStartInfoRed)
 			{
