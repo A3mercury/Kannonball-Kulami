@@ -69,5 +69,14 @@ public class GameScenePopUpInfo : MonoBehaviour {
 				StartCoroutine (endGameStartInfo ());
 			}
 		}
+
+		if (assistanceToggle.isOn && network.isOnline && network.ingame && gameCore.playerColor == "black") 
+		{
+			if (doGameStartInfoRed)
+			{
+				GUI.Window (0, new Rect (760, 10, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
+				StartCoroutine (endGameStartInfo ());
+			}
+		}
 	}
 }
