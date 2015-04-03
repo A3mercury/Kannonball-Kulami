@@ -5,11 +5,31 @@ ModelImporter:
   fileIDToRecycleName:
     100000: Group10197
     100002: //RootNode
+    100004: Group10197_MeshPart0
+    100006: Group10197_MeshPart1
+    100008: Group10197_MeshPart2
+    100010: Group10197_MeshPart3
     400000: Group10197
     400002: //RootNode
+    400004: Group10197_MeshPart0
+    400006: Group10197_MeshPart1
+    400008: Group10197_MeshPart2
+    400010: Group10197_MeshPart3
     2300000: Group10197
+    2300002: Group10197_MeshPart0
+    2300004: Group10197_MeshPart1
+    2300006: Group10197_MeshPart2
+    2300008: Group10197_MeshPart3
     3300000: Group10197
+    3300002: Group10197_MeshPart0
+    3300004: Group10197_MeshPart1
+    3300006: Group10197_MeshPart2
+    3300008: Group10197_MeshPart3
     4300000: Group10197
+    4300002: Group10197_MeshPart0
+    4300004: Group10197_MeshPart1
+    4300006: Group10197_MeshPart2
+    4300008: Group10197_MeshPart3
     9500000: //RootNode
   materials:
     importMaterials: 1

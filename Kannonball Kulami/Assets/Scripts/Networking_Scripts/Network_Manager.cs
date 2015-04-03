@@ -21,12 +21,13 @@ public class Network_Manager : MonoBehaviour {
     /// -windowRect- defines a new window. 
     /// </summary>
     /// 
-    public bool invoked, disconnected, sentRequest;
+    public bool invoked, disconnected, sentRequest, ingame = false, calledgamescene;
     public static bool chat = false;
     public bool isOnline;
     public static bool fromtransition;
     public string serverName;
     public string clientName;
+    private int randomBoard = 0;
     public static int networkplayer;
     public string userName = "", maxPlayers = "10", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     private string messBox = "", messageToSend = "", user = "";
@@ -43,14 +44,22 @@ public class Network_Manager : MonoBehaviour {
     // Austin's Gui crap
     float serverWindowWidth = 700f / 1440f;
     float serverWindowHeight = 650f / 900f;
-    Rect ServerRect;
+    Rect ServerWrapperRect;
+
+    Rect ServerBackground;
     Rect UsernameRect;
     Rect ConnectionRequestRect;
-    public GUISkin ServerBackground;
-    public GUIStyle connectButton;
-    public GUIStyle disconnectButton;
-    public GUIStyle inviteButton;
+    
+    public GUISkin ServerSkin;
+    public GUISkin PopupSkin;
+
     public GUIStyle OpponentRect;
+
+    // Invitation GUI stuff
+    Rect InviteWrapperRect;
+    Rect InviteBackgroundRect;
+
+    bool popuptrue = false;
 
     void Start()
     {
@@ -59,6 +68,7 @@ public class Network_Manager : MonoBehaviour {
         isOnline = fromtransition;
 
         ConnectionRequestRect = new Rect((Screen.width - 100) / 2, (Screen.height - 100) / 2, 100, 100);
+        randomBoard = UnityEngine.Random.Range(1, 8);
     }
 
     /// <summary>
@@ -76,9 +86,11 @@ public class Network_Manager : MonoBehaviour {
         //MasterServer.updateRate = 1;
         MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
         Debug.Log("Restarted");
+        ingame = false;
         invoked = true;
         disconnected = false;
-        sentRequest = false;   
+        sentRequest = false;
+        calledgamescene = false;
     }
 
     void OnServerInitialized()
@@ -92,76 +104,106 @@ public class Network_Manager : MonoBehaviour {
     {
         if (masterServerEvent == MasterServerEvent.RegistrationSucceeded)
             Debug.Log("Registration was successful.");
+        else if (masterServerEvent == MasterServerEvent.RegistrationFailedNoServer)
+            Debug.Log("Rgistration failed because no server is running");
+        else if (masterServerEvent == MasterServerEvent.RegistrationFailedGameType)
+            Debug.Log("Registration failed because an empty game type was given");
+        else if (masterServerEvent == MasterServerEvent.RegistrationFailedGameName)
+            Debug.Log("Registration failed because an empty game name was given.");
+        else
+            Debug.Log("Registration failed");
     }
 
     void Update()
     {
-        //if(Network.isServer)
-           // MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");        
+        if(Network.isServer)
+           MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");        
     }
     
     private void OnGUI()
     {
-        // putting this here keeps the aspect ratio the same for the window
-        // no matter what the screen size is
-        Debug.Log(serverWindowWidth);
-        ServerRect = new Rect();
-        ServerRect.x = (Screen.width * (1 - serverWindowWidth)) / 2;
-        ServerRect.y = (Screen.height * (1 - serverWindowHeight)) / 2;
-        ServerRect.width = Screen.width * serverWindowWidth;
-        ServerRect.height = Screen.height * serverWindowHeight;
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    popuptrue = true;
+        //}
 
-        UsernameRect = new Rect();
-        UsernameRect.x = ServerRect.width * (25f / ServerRect.width);
-        UsernameRect.y = ServerRect.height * (25f / ServerRect.height);
-        UsernameRect.width = ServerRect.width * (242f / ServerRect.width) - 100;
-        UsernameRect.height = ServerRect.height * (59f / ServerRect.height) - 15;
-        
+        //// FOR TESTING THE POPUP 
+        //if (popuptrue)
+        //{
+        //    GUI.skin = PopupSkin;
 
+        //    InviteWrapperRect = GUI.Window(1, InviteWrapperRect, InvitationPopupWindow, "");
+
+        //}
+
+        // If we are in an online game
         if (isOnline)
         {
-            GUI.skin = ServerBackground;
-
-            if (Network.peerType == NetworkPeerType.Disconnected)
+            if (!ingame)
             {
-                Debug.Log("It has restarted.");
-                ServerRect = GUI.Window(0, ServerRect, ServerWindow, "");
+                GUI.skin = ServerSkin;
+
+                // If we are not currently connected
+                if (Network.peerType == NetworkPeerType.Disconnected)
+                {
+                    Debug.Log("It has restarted.");
+                    ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowBeforeConnection, "");
+                }
+                else
+                {
+                    // open the server window
+                    ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowBeforeConnection, "");
+                    ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowAfterConnection, "");
+
+                    // if we are the server
+                    if (Network.isServer)
+                    {
+                        gameCore.playerColor = "black";
+                        networkplayer = 1;
+                    }
+                    // if we are the client
+                    if (Network.isClient && !sentRequest && !disconnected)
+                    {
+                        Debug.Log("It's here");
+                        networkView.RPC("SendConnectionRequest", RPCMode.All, userName, true);
+                    }
+                    // sent or recieving a invite
+                    if (sentRequest && !disconnected)
+                    {
+                        // if we have been sent an invite
+                        if (Network.isServer)
+                        {
+                            //messBox = clientName + " has challenged you to a game! Do you accept?\n";
+                            InviteWrapperRect = GUI.Window(200, InviteWrapperRect, InvitationPopupWindow, "");
+
+                        }
+                        else // if we are sending an invite
+                        {
+                            messBox = "You have challenged " + serverName + " to a game. Awaiting response...\n";
+                            windowRect = GUI.Window(1, windowRect, AwaitingResponse, "");
+                        }
+                        //GUI.skin = PopupSkin;
+                        //InviteWrapperRect = GUI.Window(1, InviteWrapperRect, InvitationPopupWindow, "");
+                        //windowRect = GUI.Window(1, windowRect, popUp, "");
+                    }
+                }
+
+                // if game was denied
+                if (disconnected && invoked)
+                {
+                    //Evoke();
+                    messBox = "Request has been denied.\n";
+                    windowRect = GUI.Window(1, windowRect, popUp, "");
+                   // Invoke("Evoke", 3);
+                    //Invoke("Disconnect", 3);
+                }
             }
             else
             {
-                ServerRect = GUI.Window(0, ServerRect, ServerWindow, "");
-                ServerRect = GUI.Window(0, ServerRect, windowFunc, "");
-
-
-                if (Network.isServer)
+                if(!calledgamescene)
                 {
-                    gameCore.playerColor = "black";
-                    networkplayer = 1;
-                }
-                if (Network.isClient && !sentRequest && !disconnected)
-                {
-                    Debug.Log("It's here");
-                    networkView.RPC("SendConnectionRequest", RPCMode.All, userName, true);
-                }
-                if (sentRequest && !disconnected)
-                {
-                    if (Network.isServer)
-                    {
-                        messBox = clientName + " has challenged you to a game! Do you accept?\n";
-                    }
-                    else
-                    {
-                        messBox = "You have challenged " + serverName + " to a game. Awaiting response...\n";
-                    }
-                    windowRect = GUI.Window(1, windowRect, popUp, "");
-                }
-                if (disconnected && invoked)
-                {
-                    messBox = "Request has been denied.\n";
-                    windowRect = GUI.Window(1, windowRect, popUp, "");
-                    Invoke("Evoke", 3);
-                    Invoke("Restart", 4);
-
+                    GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();
+                    calledgamescene = true;
                 }
             }
         }
@@ -169,56 +211,323 @@ public class Network_Manager : MonoBehaviour {
             return;
     } 
 
+    void OnPlayerConnected(NetworkPlayer player)
+    {
+        Debug.Log(player.ipAddress + " has connected.");
+        //InviteWrapperRect = GUI.Window(200, InviteWrapperRect, InvitationPopupWindow, "");
+    }
+
+    public void InvitationPopupWindow(int id)
+    {
+        GUI.skin = PopupSkin;
+
+        // Wrapper
+        InviteWrapperRect = new Rect(
+            (Screen.width * (1 - (432f / 1440f))) / 2,
+            (Screen.height * (1 - (241f / 900f))) / 2,
+            Screen.width * (432f / 1440f), 
+            Screen.height * (241f / 900f)
+            );
+
+        InviteBackgroundRect = new Rect(0, 0, InviteWrapperRect.width, InviteWrapperRect.height);
+
+        GUILayout.BeginArea(InviteBackgroundRect, GUI.skin.customStyles[0]);
+
+        // Opponent's Name
+        Rect OpponentNameRect = new Rect(
+            0, 
+            (InviteBackgroundRect.height * 5f) / 100, 
+            InviteBackgroundRect.width, 
+            (InviteBackgroundRect.height * 22f) / 100
+            );
+
+        // Wants to battle
+        Rect InviteLabel = new Rect(
+            0,
+            0,
+            InviteBackgroundRect.width,
+            (InviteBackgroundRect.height * 22f) / 100
+            );
+
+        Rect HoldVertical = new Rect(
+            0,
+            0,
+            InviteBackgroundRect.width,
+            (InviteBackgroundRect.height * 50f) / 100
+            );
+
+        GUILayout.BeginArea(HoldVertical);
+        GUILayout.BeginVertical(GUI.skin.customStyles[1]);
+
+        GUILayout.Label(clientName, GUI.skin.customStyles[2]);
+        GUILayout.Label("wants to battle!", GUI.skin.customStyles[3]);
+
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+
+        Rect HoldHorizontal = new Rect(
+            (InviteBackgroundRect.width * 10f) / 100,
+            (InviteBackgroundRect.height * 60f) / 100,
+            (InviteBackgroundRect.width * 80f) / 100,
+            (InviteBackgroundRect.height * 25f) / 100
+            );
+
+        Rect AcceptButton = new Rect(
+            (HoldHorizontal.width * 2F) / 100,
+            0,
+            (HoldHorizontal.width * 45F) / 100,
+            (HoldHorizontal.height)
+            );
+
+        Rect DenyButton = new Rect(
+            (HoldHorizontal.width * 52f) / 100,
+            0,
+            (HoldHorizontal.width * 45F) / 100,
+            (HoldHorizontal.height)
+            );
+
+        GUILayout.BeginArea(HoldHorizontal);
+        GUILayout.BeginHorizontal(GUI.skin.customStyles[4]);
+
+        if (Network.isServer)
+        {
+            GUILayout.BeginArea(AcceptButton);
+            if(GUILayout.Button("", GUI.skin.customStyles[5]))
+            {
+                networkView.RPC("RespondtoRequest", RPCMode.All, true, randomBoard);
+            }
+            GUILayout.EndArea();
+            GUILayout.BeginArea(DenyButton);
+            if(GUILayout.Button("", GUI.skin.customStyles[6]))
+            {
+                networkView.RPC("RespondtoRequest", RPCMode.All, false, 0);
+            }
+            GUILayout.EndArea();
+        }
+
+        GUILayout.EndHorizontal();
+        GUILayout.EndArea();
+        GUILayout.EndArea();
+    }
+
     public void Evoke()
     {
-        invoked = false;
+        //invoked = false;
         Network.Disconnect();
         MasterServer.UnregisterHost();
         MasterServer.ClearHostList();
     }
+    public void Disconnect()
+    {
+        Network.Disconnect();
+        MasterServer.UnregisterHost();
+        ingame = false;
+        invoked = true;
+        disconnected = false;
+        sentRequest = false;
+        Debug.Log("Disconnected from masterserver");
+        Invoke("Restart", 4);
+    }
     public void Restart()
     {
-        StartServer();
+        Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
+        MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
     }
-    public void RequestPopup(int id)
+    //public void RequestPopup(int id)
+    //{
+    //    GUILayout.TextField(userwantingtoconnect);
+    //}
+
+    #region server list 
+
+    public void ServerWindowBeforeConnection(int id)
     {
-        GUILayout.TextField(userwantingtoconnect);
-    }
+        // Assign the GUI skin
+        GUI.skin = ServerSkin;
 
-    public void ServerWindow(int id)
-    {
-        GUI.skin = ServerBackground;
-        GUILayout.BeginHorizontal(GUI.skin.box);
+        // Window Wrapper
+        ServerWrapperRect = new Rect(
+            (Screen.width * (1 - serverWindowWidth)) / 2,
+            (Screen.height * (1 - serverWindowHeight)) / 2,
+            Screen.width * serverWindowWidth,
+            Screen.height * serverWindowHeight
+            );
 
-        // Styles
-        connectButton = new GUIStyle(GUI.skin.button);
-        connectButton.margin = new RectOffset(50, 0, 45, 0);
+        // Background image stretched to the wrapper
+        ServerBackground = new Rect(0, 0, ServerWrapperRect.width, ServerWrapperRect.height);        
 
-        disconnectButton = new GUIStyle(GUI.skin.button);
-        disconnectButton.margin = new RectOffset(50, 0, 45, 0);
+        // background image in customSyles[0]
+        GUILayout.BeginArea(ServerBackground, GUI.skin.customStyles[0]);
 
-        
-        GUILayout.BeginArea(UsernameRect, GUI.skin.box);
-        userName = GUILayout.TextField(userName, 15, GUI.skin.textField);
+        InsertHeader(false);
+
+        Rect OpponentListRect = new Rect(
+            (ServerBackground.width * 6f) / 100f,
+            (ServerBackground.height * 25f) / 100f,
+            (ServerBackground.width * 88f) / 100f,
+            (ServerBackground.height * 68f) / 100f
+            );
+
+        GUILayout.BeginArea(OpponentListRect, GUI.skin.customStyles[9]);
         GUILayout.EndArea();
+        GUILayout.EndArea();
+    }
+    public void ServerWindowAfterConnection(int id)
+    {
+        // Assign the GUI skin
+        GUI.skin = ServerSkin;
 
-        if (GUILayout.Button("Connect", connectButton))
+        /////////////////////////////////////// Window Wrapper
+        ServerWrapperRect = new Rect(
+            (Screen.width * (1 - serverWindowWidth)) / 2,
+            (Screen.height * (1 - serverWindowHeight)) / 2,
+            Screen.width * serverWindowWidth,
+            Screen.height * serverWindowHeight
+            );
+
+        // Background image stretched to the wrapper
+        ServerBackground = new Rect(0, 0, ServerWrapperRect.width, ServerWrapperRect.height);
+
+        // background image in customSyles[0]
+        GUILayout.BeginArea(ServerBackground, GUI.skin.customStyles[0]);
+
+        InsertHeader(true);
+
+        /////////////////////////////////////// Opponent's list
+
+        Rect OpponentListRect = new Rect(
+            (ServerBackground.width * 6f) / 100f,
+            (ServerBackground.height * 25f) / 100f,
+            (ServerBackground.width * 88f) / 100f,
+            (ServerBackground.height * 68f) / 100f
+            );
+
+        GUILayout.BeginArea(OpponentListRect, GUI.skin.customStyles[8]);
+        if (GUILayout.Button("Refresh")) // temp button placement
         {
-            try
+            MasterServer.ClearHostList();
+            MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
+        }
+        //else
+        //InvokeRepeating("GetHostList", 0, 60);
+
+        if (MasterServer.PollHostList().Length != 0)
+        {
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+
+            HostData[] data = MasterServer.PollHostList();
+            foreach (HostData c in data)
+            //for (int i = 0; i < 5; i++)
             {
-                StartServer();              
+                GUILayout.BeginHorizontal(GUI.skin.customStyles[10]);
+                GUILayout.Box(c.gameName, GUI.skin.customStyles[10]);
+                if (c.gameName != userName)
+                {
+
+                    if (GUILayout.Button("", GUI.skin.customStyles[11]))
+                    {
+                        Network.Connect(c);
+                        serverName = c.gameName;
+                        userwantingtoconnectfromserver = c.gameName;
+                        gameCore.playerColor = "red";
+
+                    }
+                }
+                GUILayout.EndHorizontal();
             }
-            catch (Exception)
-            {
-                print("Please type in numbers for port and max players");
-            }
+
+            GUILayout.EndScrollView();
         }
 
-        GUILayout.Button("Disconnect", disconnectButton);
-
-        GUILayout.EndHorizontal();
+        GUILayout.EndArea();
+        GUILayout.EndArea();
     }
-       
+    void InsertHeader(bool hitConnected)
+    {
+        /////////////////////////////////////// Header of the server window
+        Rect HeaderRect = new Rect(
+            (ServerBackground.width * 6f) / 100f,
+            (ServerBackground.height * 7f) / 100f,
+            (ServerBackground.width * 88f) / 100f,
+            (ServerBackground.height * 10f) / 100f
+            );
+        GUILayout.BeginArea(HeaderRect, GUI.skin.customStyles[1]);
+        UsernameRect = new Rect(
+            0,
+            0,
+            (HeaderRect.width * 40f) / 100,
+            HeaderRect.height
+            );
+
+        // Actual username
+        GUILayout.BeginArea(UsernameRect);
+        userName = GUILayout.TextField(userName, 15, GUI.skin.customStyles[2]).Replace("\n", "");
+        GUILayout.EndArea();
+
+
+
+        // connect button
+        Rect ConnectButtonRect = new Rect(
+            (HeaderRect.width * 48f) / 100,
+            0,
+            (HeaderRect.width * 25f) / 100,
+            HeaderRect.height
+            );
+        // disconnect button
+        Rect DisconnectButtonRect = new Rect(
+            (HeaderRect.width * 75f) / 100,
+            0,
+            ConnectButtonRect.width,
+            ConnectButtonRect.height
+            );
+        
+        // dependent on if the user has clicked to start the server
+        if (!hitConnected)
+        {
+            GUILayout.BeginArea(ConnectButtonRect);
+            if (GUILayout.Button("", GUI.skin.customStyles[4]))
+            {
+                if (userName != "")
+                {
+                    try
+                    {
+                        StartServer();
+                    }
+                    catch (Exception)
+                    {
+                        print("Server could not be started");
+                    }
+                }
+            }
+            GUILayout.EndArea();
+
+            GUILayout.BeginArea(DisconnectButtonRect);
+            GUILayout.Button("", GUI.skin.customStyles[7]);
+            GUILayout.EndArea();
+        }
+        else
+        {
+            // Disabled connect button
+            GUILayout.BeginArea(ConnectButtonRect);
+            GUILayout.Button("", GUI.skin.customStyles[6]);
+            GUILayout.EndArea();
+
+            GUILayout.BeginArea(DisconnectButtonRect);
+            if (GUILayout.Button("", GUI.skin.customStyles[5]))
+            {
+                Network.Disconnect();
+                MasterServer.UnregisterHost();
+                Debug.Log("You have been disconnected");
+            }
+            GUILayout.EndArea();
+        }
+               
+        GUILayout.EndArea();
+        /////////////////////////////////////// End of Header
+    }
+
+    #endregion
+
     public void GetHostList()
     {
         MasterServer.ClearHostList();
@@ -242,16 +551,11 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.Box(messBox, myStyle);
         GUILayout.BeginHorizontal();
 
-        if (Network.isServer)
+
+        if (GUILayout.Button("Ok", GUILayout.Width(75)))
         {
-            if (GUILayout.Button("Accept", GUILayout.Width(75)))
-            {
-                networkView.RPC("RespondtoRequest", RPCMode.All, true);
-            }
-            if (GUILayout.Button("Deny", GUILayout.Width(75)))
-            {
-                networkView.RPC("RespondtoRequest", RPCMode.All, false);
-            }
+            invoked = false;
+            StartServer();
         }
 
         GUILayout.EndHorizontal();
@@ -260,78 +564,27 @@ public class Network_Manager : MonoBehaviour {
 
     }
 
-    public void windowFunc(int id)
+    private void AwaitingResponse(int id)
     {
-        GUI.skin = ServerBackground;
+        myStyle = GUI.skin.box;
+        myStyle.alignment = TextAnchor.UpperLeft;
+        myStyle.wordWrap = true;
+        myStyle.stretchHeight = true;
+        myOtherStyle = GUI.skin.textField;
+        myOtherStyle.alignment = TextAnchor.MiddleLeft;
+        myOtherStyle.clipping = TextClipping.Clip;
+        myOtherStyle.wordWrap = false;
+        myOtherStyle.fixedWidth = 200;
+
+
+        GUILayout.Width(250);
+        GUILayout.Box(messBox, myStyle);
         GUILayout.BeginHorizontal();
-
-        // Styles
-        connectButton = new GUIStyle(GUI.skin.button);
-        connectButton.margin = new RectOffset(50, 0, 45, 0);
-
-        disconnectButton = new GUIStyle(GUI.skin.button);
-        disconnectButton.margin = new RectOffset(50, 0, 45, 0);
-
-        inviteButton = new GUIStyle(GUI.skin.button);
-        inviteButton.margin = new RectOffset(0, 45, 0, 45);
-
-        //OpponentRect = new GUIStyle(GUI.skin.box);
-        //OpponentRect.margin = new RectOffset(0, 0, 0, 50);
-        //GUI.skin.scrollView = OpponentRect;
-
-        GUILayout.TextField(userName);
-
-        GUILayout.Button("Connect", connectButton);
-
-        if (GUILayout.Button("Disconnect", disconnectButton))
-        {
-            Network.Disconnect();
-        }
-
         GUILayout.EndHorizontal();
-
-        if (GUILayout.Button("Refresh"))
-        {
-            MasterServer.ClearHostList();
-            MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
-        }
-        //else
-            //InvokeRepeating("GetHostList", 0, 60);
-        
-
-       // scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-
-        //GUILayout.Box("", OpponentRect);
-
-        if (MasterServer.PollHostList().Length != 0)
-        {
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-
-            HostData[] data = MasterServer.PollHostList();
-            foreach (HostData c in data)
-            //for (int i = 0; i < 20; i++)
-            {
-                GUILayout.BeginHorizontal();
-                //if (c.gameName != userName)
-                //{
-                GUILayout.Box(c.gameName);
-                if(c.gameName != userName)
-                if (GUILayout.Button("Invite", inviteButton))
-                {
-                    Network.Connect(c);
-                    serverName = c.gameName;
-                    userwantingtoconnectfromserver = c.gameName;
-                    gameCore.playerColor = "red";
-
-                }
-                //}
-                GUILayout.EndHorizontal();
-            }
-
-            GUILayout.EndScrollView();
-        }
-        //GUI.DragWindow(new Rect(0, 0, Screen.width, Screen.height));
+        GUILayout.BeginHorizontal();
+        GUILayout.EndHorizontal();
     }
+   
 	
     [RPC]
     private void SendConnectionRequest(string userName, bool request)
@@ -341,13 +594,19 @@ public class Network_Manager : MonoBehaviour {
     }
 
     [RPC]
-    public void RespondtoRequest(bool response)
+    public void RespondtoRequest(bool response, int board)
     {
-        if(response)
+        if (response)
+        {
             sentRequest = response;
+            ingame = true;
+            gameCore.MakeGameboard(board);
+        }
         else
+        {
             sentRequest = response;
-            disconnected = true;        
+            disconnected = true;
+        }
     }
 
     [RPC]

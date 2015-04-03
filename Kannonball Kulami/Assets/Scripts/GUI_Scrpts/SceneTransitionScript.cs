@@ -79,15 +79,21 @@ public class SceneTransitionScript : MonoBehaviour {
 				StartCoroutine(delayedCredits());
 			}
 
-			if (gameObject.name.ToString () == "easyboard") {
+			if (gameObject.name.ToString () == "easyboard") {	
+				OptionsMenuTT.AIDifficulty = "Easy";
+				optionsScript.AssistanceToggle.isOn = true;
 				StartCoroutine(delayedSinglePlayer());
 			}
 
 			if (gameObject.name.ToString () == "hardboard") {
+				OptionsMenuTT.AIDifficulty = "Hard";
+				optionsScript.AssistanceToggle.isOn = false;
 				StartCoroutine(delayedSinglePlayer());
 			}
 
 			if (gameObject.name.ToString () == "expertboard") {
+				OptionsMenuTT.AIDifficulty = "Expert";
+				optionsScript.AssistanceToggle.isOn = false;
 				StartCoroutine(delayedSinglePlayer());
 			}
 			

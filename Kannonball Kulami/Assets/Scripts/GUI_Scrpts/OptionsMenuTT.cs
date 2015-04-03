@@ -41,7 +41,8 @@ public class OptionsMenuTT : MonoBehaviour
 
     public static bool areSoundsMuted = false;
     public static bool areMusicMuted = false;
-	public static bool isAssitanceChecked = true;
+	public static bool isAssitanceChecked = true;	
+	public static string AIDifficulty = "Easy";
 
 
 	// Use this for initialization

@@ -30,6 +30,9 @@ public class GameCore : MonoBehaviour
     public AIJob myJob;
 	private int currentBoard;
 	private List<KeyValuePair<int, int>> MovesBlockedByOptions;
+	private bool EasyAI;
+
+	public GameObject AIMove;
 
     public ReadGameboard boardReader;
 
@@ -49,16 +52,26 @@ public class GameCore : MonoBehaviour
 	void Start () 
     {
 		isClickable = true;
+        networkManager = GameObject.FindObjectOfType<Network_Manager>();
+        if (!networkManager.isOnline)
+        {
+            int rand = Random.Range(1, 8);
+            MakeGameboard(rand);
+        }
 
-		int random = UnityEngine.Random.Range(1, 8);
-		//random = 3;
+		GameIsOver = false;
+		Moves = new List<KeyValuePair<int, int>> ();
+		MovesBlockedByOptions = new List<KeyValuePair<int, int>> ();
 
-		GameObject variableForPrefab = (GameObject)Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + random.ToString()));
-		currentBoard = random;
-
-        GameIsOver = false;
-        Moves = new List<KeyValuePair<int, int>>();
-        MovesBlockedByOptions = new List<KeyValuePair<int, int>>();
+		if (OptionsMenuTT.AIDifficulty == "Easy") 
+		{
+			EasyAI = true;
+		} 
+		else 
+		{
+			EasyAI = false;
+		}
+	
 
         turnsLeft = 56;
 
@@ -98,6 +111,7 @@ public class GameCore : MonoBehaviour
         {
             if (myJob.Update())
             {
+				AIMove = GameObject.Find("Cannonball" + myJob.AIChosenMove.Key + myJob.AIChosenMove.Value);
                 PlacePiece(myJob.AIChosenMove.Key, myJob.AIChosenMove.Value);
                 myJob = null;
             }
@@ -110,7 +124,7 @@ public class GameCore : MonoBehaviour
 		} 
 		else if (turn == "red" && !OptionsMenuTT.isAssitanceChecked && assistanceOn) 
 		{
-			ShowValidMoves ();
+			ShowValidMoves();
 			HideValidMoves();
 			assistanceOn = false;
 		}
@@ -121,6 +135,12 @@ public class GameCore : MonoBehaviour
 			MovesBlockedByOptions.Clear();
 		}
         Debug.Log("Moves waiting to be played by AI " + MovesBlockedByOptions.Count);
+    }
+
+    public void MakeGameboard(int boardNum)
+    {
+        Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + boardNum.ToString()));
+        currentBoard = boardNum;
     }
 
     public void PlacePiece(int row, int col)
@@ -291,6 +311,7 @@ public class GameCore : MonoBehaviour
 		myJob = new AIJob();
         myJob.AIMoveArray = new KeyValuePair<int, int>[Moves.Count];
 		myJob.AIBoard = currentBoard;
+		myJob.UseEasyAI = EasyAI;
         for (var i = 0; i < Moves.Count; i++)
         {
             myJob.AIMoveArray[i] = Moves[i];

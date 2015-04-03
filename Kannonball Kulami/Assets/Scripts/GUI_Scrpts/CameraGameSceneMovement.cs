@@ -26,7 +26,7 @@ public class CameraGameSceneMovement : MonoBehaviour
     public void SelectCameraPosition()
     {
 
-        if (network.isOnline)
+        if (network.isOnline && !network.ingame)
         {
             transform.LookAt(CameraLookat1.transform.position);
             //ServerPanel.SetActive(true);
