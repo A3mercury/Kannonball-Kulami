@@ -86,7 +86,7 @@ public class GameCore : MonoBehaviour
         //boardReader.Output();
 
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
-		if (OptionsMenuTT.isAssitanceChecked) 
+		if (OptionsMenuTT.isAssistanceChecked) 
 		{
 			assistanceOn = true;
 			ShowValidMoves ();
@@ -117,12 +117,12 @@ public class GameCore : MonoBehaviour
             }
         }
 
-        if (turn == "red" && OptionsMenuTT.isAssitanceChecked && !assistanceOn)
+        if (turn == "red" && OptionsMenuTT.isAssistanceChecked && !assistanceOn)
 		{
 			ShowValidMoves ();
 			assistanceOn = true;
 		} 
-		else if (turn == "red" && !OptionsMenuTT.isAssitanceChecked && assistanceOn) 
+		else if (turn == "red" && !OptionsMenuTT.isAssistanceChecked && assistanceOn) 
 		{
 			ShowValidMoves();
 			HideValidMoves();
@@ -331,9 +331,9 @@ public class GameCore : MonoBehaviour
                 {
                     string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
                     GameObject chosenObject = GameObject.Find(CannonBallObjectString);
-					chosenObject.renderer.enabled = OptionsMenuTT.isAssitanceChecked;
+					chosenObject.renderer.enabled = OptionsMenuTT.isAssistanceChecked;
 
-					if (OptionsMenuTT.isAssitanceChecked)
+					if (OptionsMenuTT.isAssistanceChecked)
                     {
                         chosenObject.renderer.material = solid;
                         chosenObject.renderer.material.color = Color.white;
@@ -341,7 +341,7 @@ public class GameCore : MonoBehaviour
                 }
             }
         }
-		if (turnsLeft < 56 && OptionsMenuTT.isAssitanceChecked)
+		if (turnsLeft < 56 && OptionsMenuTT.isAssistanceChecked)
 		{
 			string CannonBallObjectString2 = "CannonBall" + redLastRow.ToString () + redLastCol.ToString ();
 			GameObject chosenObject2 = GameObject.Find (CannonBallObjectString2);

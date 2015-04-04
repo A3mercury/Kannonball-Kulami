@@ -24,8 +24,11 @@ public class SinglePlayerOptions : MonoBehaviour {
 
 	public void OnMouseDown()
 	{
-		easyboard.SetActive (true);
-		hardboard.SetActive (true);
-		expertboard.SetActive (true);
+		if (SceneTransitionScript.isClickable)
+		{
+			easyboard.SetActive (true);
+			hardboard.SetActive (true);
+			expertboard.SetActive (true);
+		}
 	}
 }
