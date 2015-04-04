@@ -23,17 +23,17 @@ class CannonParticleFire : MonoBehaviour
             Quaternion.identity
             ) as ParticleSystem;
 
-        if (parent == "PlayerParticleObject")
-            newPS.transform.parent = GameObject.Find("PlayerParticleObject").transform;
-        else if (parent == "OpponentParticleObject")
-            newPS.transform.parent = GameObject.Find("OpponentParticleObject").transform;
+        //if (parent == "PlayerParticleObject")
+        //    newPS.transform.parent = GameObject.Find("PlayerParticleObject").transform;
+        //else if (parent == "OpponentParticleObject")
+        //    newPS.transform.parent = GameObject.Find("OpponentParticleObject").transform;
 
-        newPS.transform.position = newPS.transform.parent.transform.position;
+        //newPS.transform.position = newPS.transform.parent.transform.position;
 
-        Destroy(
-            newPS.gameObject,
-            newPS.startLifetime
-            );
+        //Destroy(
+        //    newPS.gameObject,
+        //    newPS.startLifetime
+        //    );
 
         return newPS;
     }
