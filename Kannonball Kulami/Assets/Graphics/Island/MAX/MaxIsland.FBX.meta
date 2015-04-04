@@ -1,0 +1,116 @@
+fileFormatVersion: 2
+guid: d958dc2d7c6e63e45b0883f52a87cc47
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: HighPoly
+    100002: HighPoly_MeshPart0
+    100004: HighPoly_MeshPart1
+    100006: HighPoly_MeshPart2
+    100008: HighPoly_MeshPart3
+    100010: HighPoly_MeshPart4
+    100012: HighPoly_MeshPart5
+    100014: HighPoly_MeshPart6
+    100016: HighPoly_MeshPart7
+    100018: HighPoly_MeshPart8
+    100020: LowPoly
+    100022: //RootNode
+    100024: Sky001
+    400000: HighPoly
+    400002: HighPoly_MeshPart0
+    400004: HighPoly_MeshPart1
+    400006: HighPoly_MeshPart2
+    400008: HighPoly_MeshPart3
+    400010: HighPoly_MeshPart4
+    400012: HighPoly_MeshPart5
+    400014: HighPoly_MeshPart6
+    400016: HighPoly_MeshPart7
+    400018: HighPoly_MeshPart8
+    400020: LowPoly
+    400022: //RootNode
+    400024: Sky001
+    2300000: HighPoly_MeshPart0
+    2300002: HighPoly_MeshPart1
+    2300004: HighPoly_MeshPart2
+    2300006: HighPoly_MeshPart3
+    2300008: HighPoly_MeshPart4
+    2300010: HighPoly_MeshPart5
+    2300012: HighPoly_MeshPart6
+    2300014: HighPoly_MeshPart7
+    2300016: HighPoly_MeshPart8
+    2300018: LowPoly
+    3300000: HighPoly_MeshPart0
+    3300002: HighPoly_MeshPart1
+    3300004: HighPoly_MeshPart2
+    3300006: HighPoly_MeshPart3
+    3300008: HighPoly_MeshPart4
+    3300010: HighPoly_MeshPart5
+    3300012: HighPoly_MeshPart6
+    3300014: HighPoly_MeshPart7
+    3300016: HighPoly_MeshPart8
+    3300018: LowPoly
+    4300000: HighPoly_MeshPart0
+    4300002: HighPoly_MeshPart1
+    4300004: HighPoly_MeshPart2
+    4300006: HighPoly_MeshPart3
+    4300008: HighPoly_MeshPart4
+    4300010: HighPoly_MeshPart5
+    4300012: HighPoly_MeshPart6
+    4300014: HighPoly_MeshPart7
+    4300016: HighPoly_MeshPart8
+    4300018: LowPoly
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
