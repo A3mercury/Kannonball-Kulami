@@ -24,6 +24,7 @@ public class Network_Manager : MonoBehaviour {
     public bool invoked, disconnected, sentRequest, ingame = false, calledgamescene;
     public static bool chat = false;
     public bool isOnline;
+    public bool detecteddisconnect;
     public static bool fromtransition;
     public string serverName;
     public string clientName;
@@ -91,6 +92,7 @@ public class Network_Manager : MonoBehaviour {
         disconnected = false;
         sentRequest = false;
         calledgamescene = false;
+        detecteddisconnect = false;
     }
 
     void OnServerInitialized()
@@ -117,7 +119,14 @@ public class Network_Manager : MonoBehaviour {
     void Update()
     {
         if(Network.isServer)
-           MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");        
+           MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
+
+        //if (detecteddisconnect)
+        //{
+        //    Debug.Log("Made it to disconnect.");
+        //    messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
+        //    windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
+        //}
     }
     
     private void OnGUI()
@@ -198,23 +207,66 @@ public class Network_Manager : MonoBehaviour {
                     //Invoke("Disconnect", 3);
                 }
             }
-            else
+            else if(!detecteddisconnect)
             {
+                Debug.Log("detecteddisconnect = " + detecteddisconnect);
                 if(!calledgamescene)
                 {
                     GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();
                     calledgamescene = true;
                 }
+
+                //if (detecteddisconnect)
+                //{
+                //    Debug.Log("Made it to disconnect.");
+                //    messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
+                //    windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
+                //}
+                //if(!Network.isClient && !Network.isServer)
+                //{
+                //    messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
+                //    windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
+                //}
+            }
+            else
+            {
+                Debug.Log("Made it to disconnect.");
+                messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
+                windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
             }
         }
         else
             return;
     } 
 
-    void OnPlayerConnected(NetworkPlayer player)
+    void OnPlayerDisconnected(NetworkPlayer player)
     {
-        Debug.Log(player.ipAddress + " has connected.");
-        //InviteWrapperRect = GUI.Window(200, InviteWrapperRect, InvitationPopupWindow, "");
+        detecteddisconnect = true;
+        Debug.Log(player.ipAddress + " has disconnected.");
+        //messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
+        //windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
+    }
+
+    void OnDisconnectedFromServer(NetworkDisconnection info)
+    {
+        Debug.Log("Disconnected from server");
+
+        if (Network.isServer)
+        { }
+        else
+        {
+            Debug.Log("Made it to nested if");
+            Debug.Log(ingame);
+            if (ingame)
+            {
+                detecteddisconnect = true;
+                //messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
+                //windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
+            }
+        }
+            
+        
+
     }
 
     public void InvitationPopupWindow(int id)
@@ -461,7 +513,13 @@ public class Network_Manager : MonoBehaviour {
 
         // Actual username
         GUILayout.BeginArea(UsernameRect);
-        userName = GUILayout.TextField(userName, 15, GUI.skin.customStyles[2]).Replace("\n", "");
+        if (!hitConnected)
+            userName = GUILayout.TextField(userName, 15, GUI.skin.customStyles[2]).Replace("\n", "");
+        else
+        {
+            GUILayout.TextField(userName, 15, GUI.skin.customStyles[2]).Replace("\n", "");
+            
+        }
         GUILayout.EndArea();
 
 
@@ -547,7 +605,7 @@ public class Network_Manager : MonoBehaviour {
         myOtherStyle.fixedWidth = 200;
 
 
-        GUILayout.Width(250);
+        GUILayout.Width(300);
         GUILayout.Box(messBox, myStyle);
         GUILayout.BeginHorizontal();
 
@@ -555,6 +613,37 @@ public class Network_Manager : MonoBehaviour {
         if (GUILayout.Button("Ok", GUILayout.Width(75)))
         {
             invoked = false;
+            StartServer();
+            GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();
+        }
+
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+        GUILayout.EndHorizontal();
+
+    }
+
+    private void DisconnectpopUp(int id)
+    {
+        myStyle = GUI.skin.box;
+        myStyle.alignment = TextAnchor.UpperLeft;
+        myStyle.wordWrap = true;
+        myStyle.stretchHeight = true;
+        myOtherStyle = GUI.skin.textField;
+        myOtherStyle.alignment = TextAnchor.MiddleLeft;
+        myOtherStyle.clipping = TextClipping.Clip;
+        myOtherStyle.wordWrap = false;
+        myOtherStyle.fixedWidth = 200;
+
+
+        GUILayout.Width(250);
+        GUILayout.Box(messBox, myStyle);
+        GUILayout.BeginHorizontal();
+
+        Debug.Log("disconnection popup is up");
+        if (GUILayout.Button("Ok", GUILayout.Width(75)))
+        {
+            //invoked = false;
             StartServer();
         }
 

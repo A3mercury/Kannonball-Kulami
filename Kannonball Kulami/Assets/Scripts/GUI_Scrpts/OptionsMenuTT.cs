@@ -41,7 +41,7 @@ public class OptionsMenuTT : MonoBehaviour
 
     public static bool areSoundsMuted = false;
     public static bool areMusicMuted = false;
-	public static bool isAssitanceChecked = true;	
+	public static bool isAssistanceChecked = true;	
 	public static string AIDifficulty = "Easy";
 
 
@@ -64,7 +64,7 @@ public class OptionsMenuTT : MonoBehaviour
 
 		AssistanceToggle = GameObject.Find ("assistance_checkbox").GetComponent<Toggle>();
 
-		if (isAssitanceChecked) 
+		if (isAssistanceChecked) 
 		{
 			AssistanceToggle.isOn = true;
 		} 
@@ -126,11 +126,11 @@ public class OptionsMenuTT : MonoBehaviour
         }
 		if (AssistanceToggle.isOn) 
 		{
-			isAssitanceChecked = true;
+			isAssistanceChecked = true;
 		} 
 		else 
 		{
-			isAssitanceChecked = false;
+			isAssistanceChecked = false;
 		}
 
         // if the options menu is open, call soundSliderChange()
