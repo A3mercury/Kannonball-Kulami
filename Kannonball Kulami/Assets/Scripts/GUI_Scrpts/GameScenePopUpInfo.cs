@@ -61,11 +61,20 @@ public class GameScenePopUpInfo : MonoBehaviour {
 			}
 		}
 
-		if (assistanceToggle.isOn && network.isOnline && network.ingame) 
+		if (assistanceToggle.isOn && network.isOnline && network.ingame && gameCore.turn == gameCore.playerColor) 
 		{
 			if (doGameStartInfoRed)
 			{
 				GUI.Window (0, new Rect (760, 10, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");
+				StartCoroutine (endGameStartInfo ());
+			}
+		}
+
+		if (assistanceToggle.isOn && network.isOnline && network.ingame && gameCore.turn != gameCore.playerColor) 
+		{
+			if (doGameStartInfoRed)
+			{
+				GUI.Window (0, new Rect (760, 10, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
 				StartCoroutine (endGameStartInfo ());
 			}
 		}
