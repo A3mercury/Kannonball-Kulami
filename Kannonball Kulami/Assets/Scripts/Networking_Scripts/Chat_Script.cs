@@ -95,7 +95,7 @@ public class Chat_Script : MonoBehaviour
     }
 
    [RPC]
-   private void SendMyMessage(string mess)
+   public void SendMyMessage(string mess)
    {
        Debug.Log(mess);
        messBox += mess;

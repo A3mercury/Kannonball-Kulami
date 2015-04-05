@@ -10,11 +10,14 @@ public class ChatBoxUI : MonoBehaviour
     Animator ChatOpenCloseAnimator;
     Animator SendButtonAnimator;
 
+    InputField messageField;
+
     Button[] chatboxButtons;
     Button sendChatButton;
     Button pulloutTab;
 
     Network_Manager networkManager;
+    Chat_Script chatManager;
 
 	// Use this for initialization
 	void Start () 
@@ -35,6 +38,13 @@ public class ChatBoxUI : MonoBehaviour
             }
         }
 
+        
+        // only shows the chatbox in online play
+        networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
+
+        messageField = GameObject.Find("chatbox_input").GetComponent<InputField>() as InputField;
+        chatManager = networkManager
+
         // assigning the buttons
         chatboxButtons = GetComponentsInChildren<Button>();
         foreach(Button button in chatboxButtons)
@@ -52,13 +62,6 @@ public class ChatBoxUI : MonoBehaviour
         pulloutTab.onClick.AddListener(OpenCloseChat);
 
         ChatPanel = GameObject.Find("ChatBoxPanel");
-
-        // only shows the chatbox in online play
-        networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
-        if (networkManager.isOnline)
-            ChatPanel.gameObject.SetActive(true);
-        else
-            ChatPanel.gameObject.SetActive(false);
 	}
 
     // Called when the pulloutTab is clicked
@@ -73,9 +76,13 @@ public class ChatBoxUI : MonoBehaviour
 
     public void SendMessage()
     {
-        // access the animator to change the button when pressed
-        SendButtonAnimator.SetBool("isSend", true);
-        
-        // will send message to chat
+        if (messageField.text != "")
+        {
+            // access the animator to change the button when pressed
+            SendButtonAnimator.SetBool("isSend", true);
+
+            // will send message to chat
+            .SendMyMesssage(messageField.text);
+        }
     }
 }
