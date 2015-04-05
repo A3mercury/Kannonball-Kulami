@@ -28,7 +28,7 @@ public class GameCore : MonoBehaviour
 	private bool assistanceOn;
     public List<KeyValuePair<int, int>> Moves;
     public AIJob myJob;
-	private int currentBoard;
+	public int currentBoard;
 	private List<KeyValuePair<int, int>> MovesBlockedByOptions;
 	private bool EasyAI;
 
@@ -59,11 +59,17 @@ public class GameCore : MonoBehaviour
     {
 		isClickable = true;
         networkManager = GameObject.FindObjectOfType<Network_Manager>();
-        if (!networkManager.isOnline)
-        {
+        Debug.Log("Gamecore here");
+        Debug.Log("Gamecore isOnline " + networkManager.isOnline);
+        //if (!networkManager.isOnline )
+        //{
             int rand = Random.Range(1, 8);
+
+        if(!networkManager.isOnline)
             MakeGameboard(rand);
-        }
+
+            networkManager.randomBoard = rand;
+        //}
 
 		GameIsOver = false;
 		Moves = new List<KeyValuePair<int, int>> ();
@@ -87,7 +93,8 @@ public class GameCore : MonoBehaviour
         gamePlaces = new GamePlace[boardSize, boardSize];
 
         // Gameboard number is sent as second parameter
-        boardReader = new ReadGameboard(gamePlaces, currentBoard);
+        if(!networkManager.isOnline)
+            boardReader = new ReadGameboard(gamePlaces, currentBoard);
 
         //boardReader.Output();
 

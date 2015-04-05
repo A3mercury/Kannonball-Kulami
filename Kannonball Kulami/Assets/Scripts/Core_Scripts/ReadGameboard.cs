@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.IO;
 using System.Text;
@@ -18,7 +19,12 @@ public class ReadGameboard
 
         //StreamReader reader = new StreamReader("gameBoard"+gbNum+".txt");
         //pieceNumbers = reader.ReadToEnd().Split(',');
+        Debug.Log("gbnum = " + gbNum);
 		pieceNumbers = GetGameBoardPieces (gbNum).Split (',');
+
+        foreach (string s in pieceNumbers)
+            Debug.Log("pieceNumbers: " + s);
+
         //gamePlaces = new GamePlace[boardSize, boardSize];
         this.gamePlaces = gamePlaces;
 
@@ -35,7 +41,7 @@ public class ReadGameboard
             {
                 GamePlace gp = new GamePlace();
 
-                gp.pieceNum = int.Parse(pieceNumbers[(boardSize * i) + j]);
+                gp.pieceNum = Convert.ToInt32(pieceNumbers[(boardSize * i) + j]);
                 gp.owner = "open";
 
                 gamePlaces[i, j] = gp;

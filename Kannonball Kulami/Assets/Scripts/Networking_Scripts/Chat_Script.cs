@@ -22,8 +22,16 @@ public class Chat_Script : MonoBehaviour
     public Canvas GameSceneCanvas;
     public GameObject ChatBoxPanel;
     public Button sendButton;
-    public Input messageField;
+    public InputField messageField;
     public Image pulloutTab;
+
+    public Animator ChatBoxShowHide;
+    public Animator SendMessageButton;
+
+    void Start()
+    {
+        //sendButton.onClick.AddListener(SendButtonClick);
+    }
 
     //private void OnGUI()
     //{
@@ -47,6 +55,12 @@ public class Chat_Script : MonoBehaviour
             //}
             
     //}
+
+    void SendButtonClick()
+    {
+        if(messageField.text != "")
+            SendMyMessage(messageField.text);
+    }
 
     private void windowFunc(int id)
     {
