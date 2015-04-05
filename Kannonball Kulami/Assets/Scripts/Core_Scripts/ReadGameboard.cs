@@ -22,12 +22,12 @@ public class ReadGameboard
         //gamePlaces = new GamePlace[boardSize, boardSize];
         this.gamePlaces = gamePlaces;
 
-        readFromFile();
+        PrepGameboard();
 
         gamePlaces = this.gamePlaces;
     }
 
-    public void readFromFile()
+    public void PrepGameboard()
     {
         for (int i = 0; i < boardSize; i++)
         {
