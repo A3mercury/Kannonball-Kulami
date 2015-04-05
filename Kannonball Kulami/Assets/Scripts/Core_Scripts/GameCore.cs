@@ -48,6 +48,12 @@ public class GameCore : MonoBehaviour
     public Canvas GameSceneCanvas;
     public GameObject ChatBoxPanel;
 
+    // materials for pieces
+    public Material PlayerPiece;
+    public Material PlayerLastPiece;
+    public Material OpponentPiece;
+    public Material OpponentLastPiece;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -162,23 +168,28 @@ public class GameCore : MonoBehaviour
 
 			if (turn == "red") 
 			{
+                // get textures for cannonballs
+                //chosenObject.renderer.material = PlayerPiece;
+                //chosenObject.renderer.enabled = true;
 				chosenObject.renderer.material.color = Color.red;
 				redLastRow = row;
 				redLastCol = col;
 				redLastPiece = gamePlaces [row, col].pieceNum;
 				turn = "black";
 
-				CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
+				//CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
 			} 
 			else 
 			{
+                //chosenObject.renderer.material = OpponentPiece;
+                //chosenObject.renderer.enabled = true;
 				chosenObject.renderer.material.color = Color.grey;
 				blackLastRow = row;
 				blackLastCol = col;
 				blackLastPiece = gamePlaces [row, col].pieceNum;
 				turn = "red";
 
-				CannonParticleFire.Instance.CreateParticles ("OpponentParticleObject");
+				//CannonParticleFire.Instance.CreateParticles ("OpponentParticleObject");
 			}
 
 			turnsLeft--;
@@ -345,11 +356,13 @@ public class GameCore : MonoBehaviour
 		{
 			string CannonBallObjectString2 = "CannonBall" + redLastRow.ToString () + redLastCol.ToString ();
 			GameObject chosenObject2 = GameObject.Find (CannonBallObjectString2);
+            //chosenObject2.renderer.material = PlayerLastPiece;
 			chosenObject2.renderer.material.color = new Color32 (102, 0, 0, 1);
 			if(turnsLeft < 55)
 			{
 				CannonBallObjectString2 = "CannonBall" + blackLastRow.ToString () + blackLastCol.ToString ();
 				chosenObject2 = GameObject.Find (CannonBallObjectString2);
+                //chosenObject2.renderer.material = OpponentLastPiece;
 				chosenObject2.renderer.material.color = new Color32 (51, 51, 51, 1);
 			}
 		}
