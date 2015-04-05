@@ -54,6 +54,8 @@ public class GameCore : MonoBehaviour
     public Material OpponentPiece;
     public Material OpponentLastPiece;
 
+	public GameObject[][] Cannonballs;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -92,6 +94,19 @@ public class GameCore : MonoBehaviour
         //boardReader.Output();
 
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
+
+		Cannonballs = new GameObject[8][];
+		for (int i=0; i<8; i++) 
+		{
+			Cannonballs[i] = new GameObject[8];
+			for(int j= 0; j<8; j++)
+			{
+				string CannonBallObjectString = "CannonBall" + i.ToString () + j.ToString ();
+				GameObject chosenObject = GameObject.Find (CannonBallObjectString);
+				Cannonballs[i][j] = chosenObject;
+			}
+		}
+
 		if (OptionsMenuTT.isAssistanceChecked) 
 		{
 			assistanceOn = true;
@@ -109,6 +124,8 @@ public class GameCore : MonoBehaviour
         bool testOnlineBool = false;
         if(testOnlineBool)
             ChatBoxPanel.SetActive(true);
+	
+
     }
 	
 	// Update is called once per frame
@@ -117,7 +134,7 @@ public class GameCore : MonoBehaviour
         {
             if (myJob.Update())
             {
-				AIMove = GameObject.Find("Cannonball" + myJob.AIChosenMove.Key + myJob.AIChosenMove.Value);
+				AIMove = Cannonballs[myJob.AIChosenMove.Key][myJob.AIChosenMove.Value];
                 PlacePiece(myJob.AIChosenMove.Key, myJob.AIChosenMove.Value);
                 myJob = null;
             }
@@ -140,7 +157,6 @@ public class GameCore : MonoBehaviour
 			PlacePiece(MovesBlockedByOptions[0].Key, MovesBlockedByOptions[0].Value);
 			MovesBlockedByOptions.Clear();
 		}
-        Debug.Log("Moves waiting to be played by AI " + MovesBlockedByOptions.Count);
     }
 
     public void MakeGameboard(int boardNum)
@@ -158,32 +174,26 @@ public class GameCore : MonoBehaviour
 			CannonFireSound.Instance.FireCannon ();
 
 			Moves.Add (new KeyValuePair<int, int> (row, col));
-			string CannonBallObjectString = "CannonBall" + row.ToString () + col.ToString ();
-			GameObject chosenObject = GameObject.Find (CannonBallObjectString);
 			gamePlaces [row, col].owner = turn;
 			//gamePlaces[row, col].isValid = false;
-			chosenObject.collider.enabled = false;
-			chosenObject.renderer.enabled = true;
-			chosenObject.renderer.material = solid;
+			Cannonballs[row][col].collider.enabled = false;
+			Cannonballs[row][col].renderer.enabled = true;
 
 			if (turn == "red") 
 			{
                 // get textures for cannonballs
-                //chosenObject.renderer.material = PlayerPiece;
-                //chosenObject.renderer.enabled = true;
-				chosenObject.renderer.material.color = Color.red;
+				Cannonballs[row][col].renderer.material = PlayerPiece;
+				Cannonballs[row][col].tag = "Player";
 				redLastRow = row;
 				redLastCol = col;
 				redLastPiece = gamePlaces [row, col].pieceNum;
 				turn = "black";
-
 				//CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
 			} 
 			else 
 			{
-                //chosenObject.renderer.material = OpponentPiece;
-                //chosenObject.renderer.enabled = true;
-				chosenObject.renderer.material.color = Color.grey;
+				Cannonballs[row][col].renderer.material = OpponentPiece;	
+				Cannonballs[row][col].tag = "Opponent";
 				blackLastRow = row;
 				blackLastCol = col;
 				blackLastPiece = gamePlaces [row, col].pieceNum;
@@ -210,7 +220,7 @@ public class GameCore : MonoBehaviour
 				}
 			}
 
-			chosenObject.rigidbody.AddForceAtPosition (new Vector3 (0f, -250f, 0f), chosenObject.rigidbody.worldCenterOfMass);
+			Cannonballs[row][col].rigidbody.AddForceAtPosition (new Vector3 (0f, -250f, 0f), Cannonballs[row][col].rigidbody.worldCenterOfMass);
 		} 
 		else if (turn != playerColor) 
 		{
@@ -340,30 +350,23 @@ public class GameCore : MonoBehaviour
             {
                 if (isValidMove(i, j) && turn == playerColor)
                 {
-                    string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
-                    GameObject chosenObject = GameObject.Find(CannonBallObjectString);
-					chosenObject.renderer.enabled = OptionsMenuTT.isAssistanceChecked;
-
+					Cannonballs[i][j].renderer.enabled = OptionsMenuTT.isAssistanceChecked;
 					if (OptionsMenuTT.isAssistanceChecked)
                     {
-                        chosenObject.renderer.material = solid;
-                        chosenObject.renderer.material.color = Color.white;
+						Cannonballs[i][j].renderer.material = solid;
+						Cannonballs[i][j].renderer.material.color = Color.white;
                     }
                 }
             }
         }
 		if (turnsLeft < 56 && OptionsMenuTT.isAssistanceChecked)
 		{
-			string CannonBallObjectString2 = "CannonBall" + redLastRow.ToString () + redLastCol.ToString ();
-			GameObject chosenObject2 = GameObject.Find (CannonBallObjectString2);
-            //chosenObject2.renderer.material = PlayerLastPiece;
-			chosenObject2.renderer.material.color = new Color32 (102, 0, 0, 1);
+			Cannonballs[redLastRow][redLastCol].renderer.material = PlayerLastPiece;
+			Cannonballs[redLastRow][redLastCol].renderer.enabled = true;
 			if(turnsLeft < 55)
-			{
-				CannonBallObjectString2 = "CannonBall" + blackLastRow.ToString () + blackLastCol.ToString ();
-				chosenObject2 = GameObject.Find (CannonBallObjectString2);
-                //chosenObject2.renderer.material = OpponentLastPiece;
-				chosenObject2.renderer.material.color = new Color32 (51, 51, 51, 1);
+			{				
+				Cannonballs[blackLastRow][blackLastCol].renderer.material = OpponentLastPiece;
+				Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;			
 			}
 		}
     }
@@ -374,24 +377,24 @@ public class GameCore : MonoBehaviour
         {
             for (var j = 0; j < 8; j++)
             {
-                string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
-                GameObject chosenObject = GameObject.Find(CannonBallObjectString);
-                if (chosenObject.renderer.material.color == Color.white)
+				if (Cannonballs[i][j].tag == "Untagged")
                 {
-                    chosenObject.renderer.enabled = false;
-                    chosenObject.renderer.material = solid;
-                    chosenObject.renderer.material.color = Color.white;
-                }
-                if (chosenObject.renderer.material.color == new Color32(102, 0, 0, 1))
-                {
-                    chosenObject.renderer.material.color = Color.red;
-                }
-                else if (chosenObject.renderer.material.color == new Color32(51, 51, 51, 1))
-                {
-                    chosenObject.renderer.material.color = Color.grey;
+					Cannonballs[i][j].renderer.enabled = false;
+					Cannonballs[i][j].renderer.material = solid;
+					Cannonballs[i][j].renderer.material.color = Color.white;
                 }
             }
         }
+		if (turnsLeft < 56) 
+		{
+			Cannonballs[redLastRow][redLastCol].renderer.material = PlayerPiece;
+			Cannonballs[redLastRow][redLastCol].renderer.enabled = true;			
+			if (turnsLeft < 55) 
+			{
+				Cannonballs[blackLastRow][blackLastCol].renderer.material = OpponentPiece;
+				Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;				
+			}
+		}
 
     }
 
