@@ -31,7 +31,7 @@ public class FireAt : MonoBehaviour {
 		Vector3 heading = theTarget.transform.position - transform.position;
 		float distance = heading.magnitude;
 		Vector3 direction = heading / distance;
-		if(distance < direction.magnitude * speed * 3)
+		if(distance < direction.magnitude * speed)
 		{
 			gameCore.PlacePhysical(row, col, turn);
 			Destroy(gameObject);

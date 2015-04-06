@@ -247,7 +247,7 @@ public class GameCore : MonoBehaviour
 			{
 				GameObject shot = Instantiate(cannonBallToFire, playerCannonSmoke.transform.position, Quaternion.identity) as GameObject;
 				shot.renderer.material = BlackLastPiece;
-				shot.rigidbody.velocity = ((Cannonballs[row][col].transform.position - shot.transform.position).normalized * 500);
+				//shot.rigidbody.velocity = ((Cannonballs[row][col].transform.position - shot.transform.position).normalized * 500);
 				shot.GetComponent<FireAt>().set(row, col, turn, Cannonballs[row][col], fireSpeed, this);
 				Cannonballs[row][col].renderer.enabled = false;
 				Cannonballs[row][col].tag = "Player";
@@ -260,7 +260,11 @@ public class GameCore : MonoBehaviour
 			} 
 			else 
 			{
-					
+				GameObject shot = Instantiate(cannonBallToFire, opponentCannonSmoke.transform.position, Quaternion.identity) as GameObject;
+				shot.renderer.material = RedLastPiece;
+				//shot.rigidbody.velocity = ((Cannonballs[row][col].transform.position - shot.transform.position).normalized * 500);
+				shot.GetComponent<FireAt>().set(row, col, turn, Cannonballs[row][col], fireSpeed, this);
+				Cannonballs[row][col].renderer.enabled = false;	
 				Cannonballs[row][col].tag = "Opponent";
 				redLastRow = row;
 				redLastCol = col;
@@ -435,7 +439,7 @@ public class GameCore : MonoBehaviour
 			if(turnsLeft < 55)
 			{				
 				Cannonballs[redLastRow][redLastCol].renderer.material = RedLastPiece;
-				Cannonballs[redLastRow][redLastCol].renderer.enabled = true;			
+				//Cannonballs[redLastRow][redLastCol].renderer.enabled = true;			
 			}
 		}
     }
@@ -461,7 +465,7 @@ public class GameCore : MonoBehaviour
 			if (turnsLeft < 55) 
 			{
 				Cannonballs[redLastRow][redLastCol].renderer.material = RedPiece;
-				Cannonballs[redLastRow][redLastCol].renderer.enabled = true;				
+				//Cannonballs[redLastRow][redLastCol].renderer.enabled = true;				
 			}
 		}
 
