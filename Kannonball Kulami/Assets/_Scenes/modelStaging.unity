@@ -657,6 +657,8 @@ MonoBehaviour:
   meshRenderer: {fileID: 0}
   playerCannonSmoke: {fileID: 0}
   opponentCannonSmoke: {fileID: 0}
+  cannonBallToFire: {fileID: 0}
+  fireSpeed: 0
   turn: 
   playerColor: 
   currentRow: 0
