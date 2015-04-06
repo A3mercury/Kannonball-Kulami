@@ -79,6 +79,7 @@ public class Network_Manager : MonoBehaviour {
         //randomBoard = UnityEngine.Random.Range(1, 8);
 
         ChatPanel = GameObject.Find("ChatBoxPanel") as GameObject;
+        ChatPanel.SetActive(false);
     }
 
     /// <summary>
