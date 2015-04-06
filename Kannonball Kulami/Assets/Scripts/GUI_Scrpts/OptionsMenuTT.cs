@@ -42,6 +42,7 @@ public class OptionsMenuTT : MonoBehaviour
     public static bool areSoundsMuted = false;
     public static bool areMusicMuted = false;
 	public static bool isAssistanceChecked = true;	
+	public static bool PlayerGoesFirst = true;
 	public static string AIDifficulty = "Easy";
 
 
@@ -102,7 +103,10 @@ public class OptionsMenuTT : MonoBehaviour
 			if (Application.loadedLevelName != "MainMenuScene")
 				clickScript.ToggleClickability();
         }
-
+		if(Input.GetKeyDown(KeyCode.Alpha2))
+		{
+			PlayerGoesFirst = false;
+		}
 
         if (areSoundsMuted)
         {

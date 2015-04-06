@@ -28,7 +28,14 @@ public class ClickGameboard : MonoBehaviour
         
 		if(!network.isOnline)
 		{
-			gameCore.playerColor = "red";
+			if(OptionsMenuTT.PlayerGoesFirst)
+			{
+				gameCore.playerColor = "black";
+			}
+			else
+			{
+				gameCore.playerColor = "red";
+			}
 		}
 
 		isClickable = true;
@@ -46,7 +53,7 @@ public class ClickGameboard : MonoBehaviour
 			gameCore.currentCol = col;
 			//Debug.Log(gameCore.playerColor);
 			if (!gameCore.GameIsOver && (gameCore.playerColor == gameCore.turn)) {
-				if (firstMove && (gameCore.playerColor == "red")) {
+				if (firstMove && (gameCore.playerColor == "black")) {
 					if (network.isOnline) {
 						network.networkView.RPC ("SendMove", RPCMode.All, row, col);
 						firstMove = false;
@@ -55,7 +62,7 @@ public class ClickGameboard : MonoBehaviour
 						firstMove = false;
 						gameCore.MakeAIMove ();
 					}
-				} else { //if (gameCore.isValidMove(boardX, boardY))
+				} else {
 					if (gameCore.isValidMove (row, col)) {
 						if (network.isOnline) {
 							network.networkView.RPC ("SendMove", RPCMode.All, row, col);
@@ -83,15 +90,12 @@ public class ClickGameboard : MonoBehaviour
 
 			//Debug.Log("gameOver: " + gameOver);
 		} 
-		else {
-			var x = 3;
-		}
-
     }
 
 	public void ToggleClickability () 
 	{
-		if (isClickable == true) {
+		if (isClickable == true) 
+		{
 			isClickable = false;
 			Debug.Log("Board not clickable.");
 		} 
@@ -100,6 +104,5 @@ public class ClickGameboard : MonoBehaviour
 			isClickable = true;
 			Debug.Log("Board is clickable");
 		}
-
 	}
 }

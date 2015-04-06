@@ -49,10 +49,10 @@ public class GameCore : MonoBehaviour
     public GameObject ChatBoxPanel;
 
     // materials for pieces
-    public Material PlayerPiece;
-    public Material PlayerLastPiece;
-    public Material OpponentPiece;
-    public Material OpponentLastPiece;
+    public Material BlackPiece;
+    public Material BlackLastPiece;
+    public Material RedPiece;
+    public Material RedLastPiece;
 
 	public GameObject[][] Cannonballs;
 
@@ -65,7 +65,7 @@ public class GameCore : MonoBehaviour
         Debug.Log("Gamecore isOnline " + networkManager.isOnline);
         //if (!networkManager.isOnline )
         //{
-            int rand = Random.Range(1, 8);
+           int rand = Random.Range(1, 8);
 
         if(!networkManager.isOnline)
             MakeGameboard(rand);
@@ -89,8 +89,7 @@ public class GameCore : MonoBehaviour
 
         turnsLeft = 56;
 
-        turn = "red";
-        playerColor = "red";
+        turn = "black";
 
         gamePlaces = new GamePlace[boardSize, boardSize];
 
@@ -113,26 +112,18 @@ public class GameCore : MonoBehaviour
 				Cannonballs[i][j] = chosenObject;
 			}
 		}
-
-		if (OptionsMenuTT.isAssistanceChecked) 
+		assistanceOn = OptionsMenuTT.isAssistanceChecked;
+		if (turn == playerColor) 
 		{
-			assistanceOn = true;
-			ShowValidMoves ();
+			if(assistanceOn)
+			{
+				ShowValidMoves();
+			}
+		} 
+		else if(!networkManager.isOnline)
+		{
+			MakeAIMove();
 		}
-        else
-        {
-			assistanceOn = false;
-            ShowValidMoves();
-        }
-        //networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
-
-        // this will make the ChatBoxPanel active whenever the game is being played over the network
-        //if (networkManager.isOnline)
-        bool testOnlineBool = false;
-        if(testOnlineBool)
-            ChatBoxPanel.SetActive(true);
-	
-
     }
 	
 	// Update is called once per frame
@@ -147,12 +138,12 @@ public class GameCore : MonoBehaviour
             }
         }
 
-        if (turn == "red" && OptionsMenuTT.isAssistanceChecked && !assistanceOn)
+        if (turn == playerColor && OptionsMenuTT.isAssistanceChecked && !assistanceOn)
 		{
 			ShowValidMoves ();
 			assistanceOn = true;
 		} 
-		else if (turn == "red" && !OptionsMenuTT.isAssistanceChecked && assistanceOn) 
+		else if (turn == playerColor && !OptionsMenuTT.isAssistanceChecked && assistanceOn) 
 		{
 			ShowValidMoves();
 			HideValidMoves();
@@ -169,7 +160,7 @@ public class GameCore : MonoBehaviour
     public void MakeGameboard(int boardNum)
     {
         Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + boardNum.ToString()));
-        currentBoard = boardNum;
+		currentBoard = boardNum;
     }
 
     public void PlacePiece(int row, int col)
@@ -186,25 +177,25 @@ public class GameCore : MonoBehaviour
 			Cannonballs[row][col].collider.enabled = false;
 			Cannonballs[row][col].renderer.enabled = true;
 
-			if (turn == "red") 
+			if (turn == "black") 
 			{
                 // get textures for cannonballs
-				Cannonballs[row][col].renderer.material = PlayerPiece;
+				Cannonballs[row][col].renderer.material = BlackPiece;
 				Cannonballs[row][col].tag = "Player";
-				redLastRow = row;
-				redLastCol = col;
-				redLastPiece = gamePlaces [row, col].pieceNum;
-				turn = "black";
-				//CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
-			} 
-			else 
-			{
-				Cannonballs[row][col].renderer.material = OpponentPiece;	
-				Cannonballs[row][col].tag = "Opponent";
 				blackLastRow = row;
 				blackLastCol = col;
 				blackLastPiece = gamePlaces [row, col].pieceNum;
 				turn = "red";
+				//CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
+			} 
+			else 
+			{
+				Cannonballs[row][col].renderer.material = RedPiece;	
+				Cannonballs[row][col].tag = "Opponent";
+				redLastRow = row;
+				redLastCol = col;
+				redLastPiece = gamePlaces [row, col].pieceNum;
+				turn = "black";
 
 				//CannonParticleFire.Instance.CreateParticles ("OpponentParticleObject");
 			}
@@ -368,12 +359,12 @@ public class GameCore : MonoBehaviour
         }
 		if (turnsLeft < 56 && OptionsMenuTT.isAssistanceChecked)
 		{
-			Cannonballs[redLastRow][redLastCol].renderer.material = PlayerLastPiece;
-			Cannonballs[redLastRow][redLastCol].renderer.enabled = true;
+			Cannonballs[blackLastRow][blackLastCol].renderer.material = BlackLastPiece;
+			Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;
 			if(turnsLeft < 55)
 			{				
-				Cannonballs[blackLastRow][blackLastCol].renderer.material = OpponentLastPiece;
-				Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;			
+				Cannonballs[redLastRow][redLastCol].renderer.material = RedLastPiece;
+				Cannonballs[redLastRow][redLastCol].renderer.enabled = true;			
 			}
 		}
     }
@@ -394,12 +385,12 @@ public class GameCore : MonoBehaviour
         }
 		if (turnsLeft < 56) 
 		{
-			Cannonballs[redLastRow][redLastCol].renderer.material = PlayerPiece;
-			Cannonballs[redLastRow][redLastCol].renderer.enabled = true;			
+			Cannonballs[blackLastRow][blackLastCol].renderer.material = BlackPiece;
+			Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;			
 			if (turnsLeft < 55) 
 			{
-				Cannonballs[blackLastRow][blackLastCol].renderer.material = OpponentPiece;
-				Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;				
+				Cannonballs[redLastRow][redLastCol].renderer.material = RedPiece;
+				Cannonballs[redLastRow][redLastCol].renderer.enabled = true;				
 			}
 		}
 
