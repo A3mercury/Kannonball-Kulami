@@ -5771,6 +5771,14 @@ Prefab:
       propertyPath: playerCannonSmoke
       value: 
       objectReference: {fileID: 1136944088}
+    - target: {fileID: 11418192, guid: 6de4641b4410f5c41ae3f196026af2f4, type: 2}
+      propertyPath: cannonBallToFire
+      value: 
+      objectReference: {fileID: 128998, guid: b7b9e23dd1295304e95e2e498a05b4f7, type: 2}
+    - target: {fileID: 11418192, guid: 6de4641b4410f5c41ae3f196026af2f4, type: 2}
+      propertyPath: fireSpeed
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6de4641b4410f5c41ae3f196026af2f4, type: 2}
   m_RootGameObject: {fileID: 1507640950}
@@ -5979,8 +5987,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678455468}
-  m_LocalRotation: {x: -.190531746, y: .460715383, z: .101972848, w: .860837102}
-  m_LocalPosition: {x: -110.073364, y: -57.8795967, z: -45.8383942}
+  m_LocalRotation: {x: -.164532691, y: .0207083281, z: .00345575484, w: .986148179}
+  m_LocalPosition: {x: -102.24131, y: -71.7489777, z: -135.707031}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -13882,6 +13890,8 @@ MonoBehaviour:
   meshRenderer: {fileID: 0}
   playerCannonSmoke: {fileID: 1136944088}
   opponentCannonSmoke: {fileID: 1260383284}
+  cannonBallToFire: {fileID: 128998, guid: b7b9e23dd1295304e95e2e498a05b4f7, type: 2}
+  fireSpeed: 2
   turn: 
   playerColor: 
   currentRow: 0
