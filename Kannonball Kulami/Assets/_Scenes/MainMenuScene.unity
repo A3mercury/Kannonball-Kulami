@@ -73,7 +73,6 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
-    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &15441821
 GameObject:
@@ -1715,6 +1714,18 @@ Prefab:
       value: 
       objectReference: {fileID: 11400000, guid: 6d7b6d3fe1d87482dac941ada83c1ed8,
         type: 2}
+    - target: {fileID: 11457420, guid: f788e8b6f0d0a484aa6b8419f586f192, type: 2}
+      propertyPath: GameSceneCanvas
+      value: 
+      objectReference: {fileID: 1321017960}
+    - target: {fileID: 11457420, guid: f788e8b6f0d0a484aa6b8419f586f192, type: 2}
+      propertyPath: PopupWindow
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11457420, guid: f788e8b6f0d0a484aa6b8419f586f192, type: 2}
+      propertyPath: PopupText
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f788e8b6f0d0a484aa6b8419f586f192, type: 2}
   m_RootGameObject: {fileID: 1338274394}
@@ -5470,8 +5481,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1094647778}
-  m_LocalRotation: {x: .274297506, y: -.296342552, z: -.078215614, w: -.911495626}
-  m_LocalPosition: {x: -552.18103, y: -409.978149, z: -202.72049}
+  m_LocalRotation: {x: .0491402261, y: -.00701272022, z: .00966035388, w: -.998720586}
+  m_LocalPosition: {x: -315.867828, y: -624.962646, z: -568.012573}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 663912114}
@@ -6732,8 +6743,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  ignoreReversedGraphics: 1
+  blockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 0

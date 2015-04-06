@@ -79,6 +79,7 @@ public class Network_Manager : MonoBehaviour {
         //randomBoard = UnityEngine.Random.Range(1, 8);
 
         ChatPanel = GameObject.Find("ChatBoxPanel") as GameObject;
+        ChatPanel.SetActive(false);
     }
 
     /// <summary>
@@ -700,6 +701,7 @@ public class Network_Manager : MonoBehaviour {
             ingame = true;
             gameCore.MakeGameboard(board);
             boardReader = new ReadGameboard(gameCore.gamePlaces, gameCore.currentBoard);
+            gameCore.InitializeCannonballs();
 
             ChatPanel.SetActive(true);
         }
