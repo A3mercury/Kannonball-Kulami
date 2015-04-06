@@ -11,6 +11,9 @@ public class GameCore : MonoBehaviour
     public Material solid;
     public MeshRenderer meshRenderer;
 
+	public ParticleSystem playerCannonSmoke;
+	public ParticleSystem opponentCannonSmoke;
+
     public GamePlace[,] gamePlaces;
     public string turn;
     public string playerColor;
@@ -197,6 +200,7 @@ public class GameCore : MonoBehaviour
 				blackLastPiece = gamePlaces [row, col].pieceNum;
 				turn = "red";
 				//CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
+				playerCannonSmoke.Play();
 			} 
 			else 
 			{
@@ -208,6 +212,7 @@ public class GameCore : MonoBehaviour
 				turn = "black";
 
 				//CannonParticleFire.Instance.CreateParticles ("OpponentParticleObject");
+				opponentCannonSmoke.Play();
 			}
 
 			turnsLeft--;
