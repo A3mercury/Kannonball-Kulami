@@ -535,9 +535,9 @@ public class Network_Manager : MonoBehaviour {
         // Refresh button
         Rect RefreshRect = new Rect(
             (HeaderRect.width * 41f) / 100,
-            (HeaderRect.height * 1f) / 100,
+            (HeaderRect.height * 10f) / 100,
             (HeaderRect.width * 6f) / 100,
-            HeaderRect.height
+            (HeaderRect.height * 78f) / 100
             );
         GUILayout.BeginArea(RefreshRect);
         {
