@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Chat_Script : MonoBehaviour
 {
@@ -17,8 +18,23 @@ public class Chat_Script : MonoBehaviour
     private Rect windowRect = new Rect(0, 275, 300, 200);
     private string messBox = "", messageToSend = "", user = "";
 
-    private void OnGUI()
+    // Chat canvas stuff
+    public Canvas GameSceneCanvas;
+    public GameObject ChatBoxPanel;
+    public Button sendButton;
+    public InputField messageField;
+    public Image pulloutTab;
+
+    public Animator ChatBoxShowHide;
+    public Animator SendMessageButton;
+
+    void Start()
     {
+        //sendButton.onClick.AddListener(SendButtonClick);
+    }
+
+    //private void OnGUI()
+    //{
             //GUI.skin = myskin;
             //if (get.isInGame)
             //{
@@ -38,6 +54,12 @@ public class Chat_Script : MonoBehaviour
             //    windowRect = GUI.Window(1, windowRect, windowFunc, "Chat");
             //}
             
+    //}
+
+    void SendButtonClick()
+    {
+        if(messageField.text != "")
+            SendMyMessage(messageField.text);
     }
 
     private void windowFunc(int id)
@@ -73,7 +95,7 @@ public class Chat_Script : MonoBehaviour
     }
 
    [RPC]
-   private void SendMyMessage(string mess)
+   public void SendMyMessage(string mess)
    {
        Debug.Log(mess);
        messBox += mess;

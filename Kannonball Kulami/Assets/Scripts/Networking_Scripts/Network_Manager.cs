@@ -28,7 +28,7 @@ public class Network_Manager : MonoBehaviour {
     public static bool fromtransition;
     public string serverName;
     public string clientName;
-    private int randomBoard = 0;
+    public int randomBoard = 0;
     public static int networkplayer;
     public string userName = "", maxPlayers = "10", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     private string messBox = "", messageToSend = "", user = "";
@@ -36,6 +36,8 @@ public class Network_Manager : MonoBehaviour {
  
     private GameCore gameCore;
     public Vector2 scrollPosition = Vector2.zero;
+
+    public ReadGameboard boardReader;
 
     //GUI for popup box
     private Rect windowRect = new Rect((Screen.width - 250) / 2, (Screen.height - 100) / 2, 250, 100);
@@ -60,16 +62,23 @@ public class Network_Manager : MonoBehaviour {
     Rect InviteWrapperRect;
     Rect InviteBackgroundRect;
 
+    // Show chatbox
+    GameObject ChatPanel;
+
     bool popuptrue = false;
 
-    void Start()
+    void Awake()
     {
+        Debug.Log("NetworkManager here");
+
         if(Application.loadedLevelName == "GameScene")
             gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
         isOnline = fromtransition;
 
         ConnectionRequestRect = new Rect((Screen.width - 100) / 2, (Screen.height - 100) / 2, 100, 100);
-        randomBoard = UnityEngine.Random.Range(1, 8);
+        //randomBoard = UnityEngine.Random.Range(1, 8);
+
+        ChatPanel = GameObject.Find("ChatBoxPanel") as GameObject;
     }
 
     /// <summary>
@@ -690,6 +699,9 @@ public class Network_Manager : MonoBehaviour {
             sentRequest = response;
             ingame = true;
             gameCore.MakeGameboard(board);
+            boardReader = new ReadGameboard(gameCore.gamePlaces, gameCore.currentBoard);
+
+            ChatPanel.SetActive(true);
         }
         else
         {
