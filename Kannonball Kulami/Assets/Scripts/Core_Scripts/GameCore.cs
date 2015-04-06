@@ -194,7 +194,7 @@ public class GameCore : MonoBehaviour
 		else if (turn == playerColor && !OptionsMenuTT.isAssistanceChecked && assistanceOn) 
 		{
 			ShowValidMoves();
-			//HideValidMoves();
+			HideValidMoves();
 			assistanceOn = false;
 		}
 
@@ -214,7 +214,7 @@ public class GameCore : MonoBehaviour
     public void PlacePiece(int row, int col)
     {
 		if (isClickable) {
-			//HideValidMoves ();
+			HideValidMoves ();
 
 			//audio.Play();
 			CannonFireSound.Instance.FireCannon ();
