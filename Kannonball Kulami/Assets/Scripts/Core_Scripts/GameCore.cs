@@ -14,6 +14,9 @@ public class GameCore : MonoBehaviour
 	public ParticleSystem playerCannonSmoke;
 	public ParticleSystem opponentCannonSmoke;
 
+	public GameObject cannonBallToFire;
+	public float fireSpeed;
+
     public GamePlace[,] gamePlaces;
     public string turn;
     public string playerColor;
@@ -211,6 +214,21 @@ public class GameCore : MonoBehaviour
 		currentBoard = boardNum;
     }
 
+	public void PlacePhysical(int row, int col, string turn)
+	{
+		Cannonballs[row][col].renderer.enabled = true;
+		if (turn == "black")
+		{
+			// get textures for cannonballs
+			Cannonballs[row][col].renderer.material = BlackLastPiece;
+		}
+		else
+		{
+			Cannonballs[row][col].renderer.material = RedLastPiece;
+		}
+		Cannonballs[row][col].rigidbody.AddForceAtPosition (new Vector3 (0f, -250f, 0f), Cannonballs[row][col].rigidbody.worldCenterOfMass);
+	}
+
     public void PlacePiece(int row, int col)
     {
 		if (isClickable) {
@@ -223,12 +241,15 @@ public class GameCore : MonoBehaviour
 			gamePlaces [row, col].owner = turn;
 			//gamePlaces[row, col].isValid = false;
 			Cannonballs[row][col].collider.enabled = false;
-			Cannonballs[row][col].renderer.enabled = true;
+
 
 			if (turn == "black") 
 			{
-                // get textures for cannonballs
-				Cannonballs[row][col].renderer.material = BlackPiece;
+				GameObject shot = Instantiate(cannonBallToFire, playerCannonSmoke.transform.position, Quaternion.identity) as GameObject;
+				shot.renderer.material = BlackLastPiece;
+				//shot.rigidbody.velocity = ((Cannonballs[row][col].transform.position - shot.transform.position).normalized * 500);
+				shot.GetComponent<FireAt>().set(row, col, turn, Cannonballs[row][col], fireSpeed, this);
+				Cannonballs[row][col].renderer.enabled = false;
 				Cannonballs[row][col].tag = "Player";
 				blackLastRow = row;
 				blackLastCol = col;
@@ -239,7 +260,11 @@ public class GameCore : MonoBehaviour
 			} 
 			else 
 			{
-				Cannonballs[row][col].renderer.material = RedPiece;	
+				GameObject shot = Instantiate(cannonBallToFire, opponentCannonSmoke.transform.position, Quaternion.identity) as GameObject;
+				shot.renderer.material = RedLastPiece;
+				//shot.rigidbody.velocity = ((Cannonballs[row][col].transform.position - shot.transform.position).normalized * 500);
+				shot.GetComponent<FireAt>().set(row, col, turn, Cannonballs[row][col], fireSpeed, this);
+				Cannonballs[row][col].renderer.enabled = false;	
 				Cannonballs[row][col].tag = "Opponent";
 				redLastRow = row;
 				redLastCol = col;
@@ -268,7 +293,7 @@ public class GameCore : MonoBehaviour
 				}
 			}
 
-			Cannonballs[row][col].rigidbody.AddForceAtPosition (new Vector3 (0f, -250f, 0f), Cannonballs[row][col].rigidbody.worldCenterOfMass);
+
 		} 
 		else if (turn != playerColor) 
 		{
@@ -410,11 +435,11 @@ public class GameCore : MonoBehaviour
 		if (turnsLeft < 56 && OptionsMenuTT.isAssistanceChecked)
 		{
 			Cannonballs[blackLastRow][blackLastCol].renderer.material = BlackLastPiece;
-			Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;
+			//Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;
 			if(turnsLeft < 55)
 			{				
 				Cannonballs[redLastRow][redLastCol].renderer.material = RedLastPiece;
-				Cannonballs[redLastRow][redLastCol].renderer.enabled = true;			
+				//Cannonballs[redLastRow][redLastCol].renderer.enabled = true;			
 			}
 		}
     }
@@ -436,11 +461,11 @@ public class GameCore : MonoBehaviour
 		if (turnsLeft < 56) 
 		{
 			Cannonballs[blackLastRow][blackLastCol].renderer.material = BlackPiece;
-			Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;			
+			//Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;			
 			if (turnsLeft < 55) 
 			{
 				Cannonballs[redLastRow][redLastCol].renderer.material = RedPiece;
-				Cannonballs[redLastRow][redLastCol].renderer.enabled = true;				
+				//Cannonballs[redLastRow][redLastCol].renderer.enabled = true;				
 			}
 		}
 

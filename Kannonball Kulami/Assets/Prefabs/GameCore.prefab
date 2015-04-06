@@ -187,6 +187,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   solid: {fileID: 0}
   meshRenderer: {fileID: 0}
+  playerCannonSmoke: {fileID: 0}
+  opponentCannonSmoke: {fileID: 0}
+  cannonBallToFire: {fileID: 128998, guid: b7b9e23dd1295304e95e2e498a05b4f7, type: 2}
+  fireSpeed: 20
   turn: 
   playerColor: 
   currentRow: 0
