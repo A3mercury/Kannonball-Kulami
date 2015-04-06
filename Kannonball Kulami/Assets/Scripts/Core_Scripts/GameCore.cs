@@ -28,7 +28,7 @@ public class GameCore : MonoBehaviour
     private int blackLastPiece;
     public int currentRow;
     public int currentCol;
-    private int turnsLeft;
+    public int turnsLeft;
     private int boardSize = 8;
     public bool GameIsOver;
 	private bool assistanceOn;
