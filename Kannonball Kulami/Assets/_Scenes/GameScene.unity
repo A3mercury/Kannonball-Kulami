@@ -1730,7 +1730,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: .960784316, g: .960784316, b: .960784316, a: 1}
@@ -1740,7 +1740,7 @@ MonoBehaviour:
     m_FadeDuration: .100000001
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 21300000, guid: 8bcf65efe86ec11448b72296c96a4c60, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -4123,11 +4123,21 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 391198535}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b94efb84eefb2e343aa216de7fa31148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ChatPanel: {fileID: 0}
+  chatboxAnimators: []
+  ChatOpenCloseAnimator: {fileID: 0}
+  SendButtonAnimator: {fileID: 0}
+  messageField: {fileID: 0}
+  chatboxButtons: []
+  sendChatButton: {fileID: 0}
+  pulloutTab: {fileID: 0}
+  networkManager: {fileID: 0}
+  chatManager: {fileID: 0}
 --- !u!114 &391198539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8769,13 +8779,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollPosition: {x: 0, y: 0}
   myskin: {fileID: 0}
-  GameSceneCanvas: {fileID: 0}
-  ChatBoxPanel: {fileID: 0}
-  sendButton: {fileID: 0}
-  messageField: {fileID: 0}
-  pulloutTab: {fileID: 0}
-  ChatBoxShowHide: {fileID: 0}
-  SendMessageButton: {fileID: 0}
+  GameSceneCanvas: {fileID: 391198541}
+  ChatBoxPanel: {fileID: 2061324706}
+  sendButton: {fileID: 152133926}
+  messageField: {fileID: 2069059242}
+  pulloutTab: {fileID: 171526855}
+  ChatBoxShowHide: {fileID: 2061324708}
 --- !u!1 &1229034583
 GameObject:
   m_ObjectHideFlags: 0
