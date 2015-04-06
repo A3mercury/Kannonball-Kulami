@@ -69,7 +69,7 @@ public class Network_Manager : MonoBehaviour {
 
     void Awake()
     {
-        Debug.Log("NetworkManager here");
+        //Debug.Log("NetworkManager here");
 
         if(Application.loadedLevelName == "GameScene")
             gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
@@ -164,7 +164,7 @@ public class Network_Manager : MonoBehaviour {
                 // If we are not currently connected
                 if (Network.peerType == NetworkPeerType.Disconnected)
                 {
-                    Debug.Log("It has restarted.");
+                    //Debug.Log("It has restarted.");
                     ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowBeforeConnection, "");
                 }
                 else

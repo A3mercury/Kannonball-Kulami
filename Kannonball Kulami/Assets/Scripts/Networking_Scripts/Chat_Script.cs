@@ -10,7 +10,7 @@ public class Chat_Script : MonoBehaviour
         networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();        
     }
 
-    public Vector2 scrollPosition;
+    public Vector2 scrollPosition = Vector2.zero;
     public GUISkin myskin;
     private GUIStyle myStyle;
     private GUIStyle myOtherStyle;
@@ -106,7 +106,7 @@ public class Chat_Script : MonoBehaviour
         GUI.skin = ChatSkin;
 
         scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-        GUILayout.Box(messBox, ChatSkin.box);
+        GUILayout.Box(messBox, GUI.skin.box);
         GUILayout.EndScrollView();
         //GUILayout.BeginHorizontal();
 
