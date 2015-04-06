@@ -6256,8 +6256,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678455468}
-  m_LocalRotation: {x: .470959395, y: -.0821777582, z: -.0327099375, w: -.877709627}
-  m_LocalPosition: {x: 45.7842331, y: -70.3452911, z: -107.244453}
+  m_LocalRotation: {x: .0491402261, y: -.00701272022, z: .00966035388, w: -.998720586}
+  m_LocalPosition: {x: 90.6137543, y: -307.079529, z: -558.262024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -10486,7 +10486,7 @@ MonoBehaviour:
   messageField: {fileID: 2069059242}
   pulloutTab: {fileID: 171526855}
   ChatBoxShowHide: {fileID: 2061324708}
-  ChatSkin: {fileID: 0}
+  ChatSkin: {fileID: 11400000, guid: 2b22632dcdfd5d4489a007a25e3f6f4c, type: 2}
 --- !u!1 &1229034583
 GameObject:
   m_ObjectHideFlags: 0

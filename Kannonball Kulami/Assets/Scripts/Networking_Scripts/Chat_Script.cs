@@ -83,7 +83,7 @@ public class Chat_Script : MonoBehaviour
 
     void SendButtonClick()
     {
-        if (messageField.text != "")
+        if (messageField.text != "" && messageField.text.Length < 140)
         {
             networkView.RPC("SendMyMessage", RPCMode.All, networkManager.userName + ": " + messageField.text + "\n");
             messageField.text = "";
@@ -105,7 +105,7 @@ public class Chat_Script : MonoBehaviour
 
         GUI.skin = ChatSkin;
 
-        scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition,GUI.skin.customStyles[0]);
         GUILayout.Box(messBox, GUI.skin.box);
         GUILayout.EndScrollView();
         //GUILayout.BeginHorizontal();
