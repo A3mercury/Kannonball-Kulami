@@ -107,38 +107,73 @@ public class GameCore : MonoBehaviour
         gamePlaces = new GamePlace[boardSize, boardSize];
 
         // Gameboard number is sent as second parameter
-        if(!networkManager.isOnline)
+        if (!networkManager.isOnline)
+        {
             boardReader = new ReadGameboard(gamePlaces, currentBoard);
+            InitializeCannonballs();
+        }
 
         //boardReader.Output();
 
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
 
-		Cannonballs = new GameObject[8][];
-		for (int i=0; i<8; i++) 
-		{
-			Cannonballs[i] = new GameObject[8];
-			for(int j= 0; j<8; j++)
-			{
-				string CannonBallObjectString = "CannonBall" + i.ToString () + j.ToString ();
-				GameObject chosenObject = GameObject.Find (CannonBallObjectString);
-				Cannonballs[i][j] = chosenObject;
-			}
-		}
-		assistanceOn = OptionsMenuTT.isAssistanceChecked;
-		if (turn == playerColor) 
-		{
-			if(assistanceOn)
-			{
-				ShowValidMoves();
-			}
-		} 
-		else if(!networkManager.isOnline)
-		{
-			MakeAIMove();
-		}
+        //Cannonballs = new GameObject[8][];
+        //for (int i=0; i<8; i++) 
+        //{
+        //    Cannonballs[i] = new GameObject[8];
+        //    for(int j= 0; j<8; j++)
+        //    {
+        //        string CannonBallObjectString = "CannonBall" + i.ToString () + j.ToString ();
+        //        GameObject chosenObject = GameObject.Find (CannonBallObjectString);
+        //        Cannonballs[i][j] = chosenObject;
+        //    }
+        //}
+
+        //Debug.Log("Done with cannonballs");
+        //assistanceOn = OptionsMenuTT.isAssistanceChecked;
+        //if (turn == playerColor) 
+        //{
+        //    if(assistanceOn)
+        //    {
+        //        ShowValidMoves();
+        //    }
+        //} 
+        //else if(!networkManager.isOnline)
+        //{
+        //    MakeAIMove();
+        //}
     }
 	
+    public void InitializeCannonballs()
+    {
+        Cannonballs = new GameObject[8][];
+        for (int i = 0; i < 8; i++)
+        {
+            Cannonballs[i] = new GameObject[8];
+            for (int j = 0; j < 8; j++)
+            {
+                string CannonBallObjectString = "CannonBall" + i.ToString() + j.ToString();
+                GameObject chosenObject = GameObject.Find(CannonBallObjectString);
+                Cannonballs[i][j] = chosenObject;
+            }
+        }
+
+        Debug.Log("Done with cannonballs");
+
+        assistanceOn = OptionsMenuTT.isAssistanceChecked;
+        if (turn == playerColor)
+        {
+            if (assistanceOn)
+            {
+                ShowValidMoves();
+            }
+        }
+        else if (!networkManager.isOnline)
+        {
+            MakeAIMove();
+        }
+    }
+
 	// Update is called once per frame
 	void Update () {
         if (myJob != null)
@@ -159,7 +194,7 @@ public class GameCore : MonoBehaviour
 		else if (turn == playerColor && !OptionsMenuTT.isAssistanceChecked && assistanceOn) 
 		{
 			ShowValidMoves();
-			HideValidMoves();
+			//HideValidMoves();
 			assistanceOn = false;
 		}
 
@@ -179,7 +214,7 @@ public class GameCore : MonoBehaviour
     public void PlacePiece(int row, int col)
     {
 		if (isClickable) {
-			HideValidMoves ();
+			//HideValidMoves ();
 
 			//audio.Play();
 			CannonFireSound.Instance.FireCannon ();
