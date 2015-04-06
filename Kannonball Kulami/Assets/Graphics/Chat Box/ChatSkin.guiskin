@@ -16,7 +16,7 @@ MonoBehaviour:
     m_Name: box
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: .176470593, g: .176470593, b: .176470593, a: 1}
+      m_TextColor: {r: .968627453, g: .866666675, b: .639215708, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -49,16 +49,16 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Padding:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
+      m_Left: 4
+      m_Right: 4
+      m_Top: 4
+      m_Bottom: 4
     m_Overflow:
       m_Left: 0
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
-    m_Font: {fileID: 12800000, guid: 07297bad35749b2408db60663f3d935d, type: 3}
+    m_Font: {fileID: 12800000, guid: 122bfeaff67f0be4a92ca3419ae38dca, type: 3}
     m_FontSize: 0
     m_FontStyle: 0
     m_Alignment: 0
@@ -1195,7 +1195,7 @@ MonoBehaviour:
   m_CustomStyles:
   - m_Name: 
     m_Normal:
-      m_Background: {fileID: 0}
+      m_Background: {fileID: 2800000, guid: 5d73b49749beb444fa43d0fac73f3ee7, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
