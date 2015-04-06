@@ -6054,7 +6054,7 @@ Prefab:
       objectReference: {fileID: 128998, guid: b7b9e23dd1295304e95e2e498a05b4f7, type: 2}
     - target: {fileID: 11418192, guid: 6de4641b4410f5c41ae3f196026af2f4, type: 2}
       propertyPath: fireSpeed
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6de4641b4410f5c41ae3f196026af2f4, type: 2}
@@ -6264,8 +6264,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678455468}
-  m_LocalRotation: {x: .0491402261, y: -.00701272022, z: .00966035388, w: -.998720586}
-  m_LocalPosition: {x: 90.6137543, y: -307.079529, z: -558.262024}
+  m_LocalRotation: {x: -.122915097, y: .0386900716, z: .00479632802, w: .991651118}
+  m_LocalPosition: {x: -102.241302, y: -71.7489624, z: -135.706802}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -14789,7 +14789,7 @@ MonoBehaviour:
   playerCannonSmoke: {fileID: 1136944088}
   opponentCannonSmoke: {fileID: 1260383284}
   cannonBallToFire: {fileID: 128998, guid: b7b9e23dd1295304e95e2e498a05b4f7, type: 2}
-  fireSpeed: 2
+  fireSpeed: 5
   turn: 
   playerColor: 
   currentRow: 0
