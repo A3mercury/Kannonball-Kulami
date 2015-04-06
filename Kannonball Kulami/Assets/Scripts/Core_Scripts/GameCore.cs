@@ -67,8 +67,18 @@ public class GameCore : MonoBehaviour
         //{
            int rand = Random.Range(1, 8);
 
-        if(!networkManager.isOnline)
-            MakeGameboard(rand);
+        if (!networkManager.isOnline) 
+		{
+			MakeGameboard (rand);
+			if(OptionsMenuTT.PlayerGoesFirst)
+			{
+				playerColor = "black";
+			}
+			else
+			{
+				playerColor = "red";
+			}
+		}
 
             networkManager.randomBoard = rand;
         //}

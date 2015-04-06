@@ -25,18 +25,6 @@ public class ClickGameboard : MonoBehaviour
 		col = int.Parse(gameObject.name[11].ToString());
         gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
         network = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
-        
-		if(!network.isOnline)
-		{
-			if(OptionsMenuTT.PlayerGoesFirst)
-			{
-				gameCore.playerColor = "black";
-			}
-			else
-			{
-				gameCore.playerColor = "red";
-			}
-		}
 
 		isClickable = true;
 	}
