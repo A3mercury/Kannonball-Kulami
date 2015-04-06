@@ -22,9 +22,6 @@ public class ReadGameboard
         Debug.Log("gbnum = " + gbNum);
 		pieceNumbers = GetGameBoardPieces (gbNum).Split (',');
 
-        foreach (string s in pieceNumbers)
-            Debug.Log("pieceNumbers: " + s);
-
         //gamePlaces = new GamePlace[boardSize, boardSize];
         this.gamePlaces = gamePlaces;
 
