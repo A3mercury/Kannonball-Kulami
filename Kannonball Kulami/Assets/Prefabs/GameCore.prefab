@@ -192,6 +192,7 @@ MonoBehaviour:
   currentRow: 0
   currentCol: 0
   GameIsOver: 0
+  currentBoard: 0
   AIMove: {fileID: 0}
   mainCam: {fileID: 0}
   CameraLookat1: {fileID: 0}
@@ -200,10 +201,10 @@ MonoBehaviour:
   isClickable: 0
   GameSceneCanvas: {fileID: 0}
   ChatBoxPanel: {fileID: 0}
-  PlayerPiece: {fileID: 2100000, guid: abf3037c45b4c0044a996b919f250205, type: 2}
-  PlayerLastPiece: {fileID: 2100000, guid: 413b10e23f8b4b04ca8df6483b2457f8, type: 2}
-  OpponentPiece: {fileID: 2100000, guid: 8b9806d7be168834e8628bb164ea1d9f, type: 2}
-  OpponentLastPiece: {fileID: 2100000, guid: 1d8fa6894b398f74494acf180685ba56, type: 2}
+  BlackPiece: {fileID: 2100000, guid: abf3037c45b4c0044a996b919f250205, type: 2}
+  BlackLastPiece: {fileID: 2100000, guid: 413b10e23f8b4b04ca8df6483b2457f8, type: 2}
+  RedPiece: {fileID: 2100000, guid: 8b9806d7be168834e8628bb164ea1d9f, type: 2}
+  RedLastPiece: {fileID: 2100000, guid: 1d8fa6894b398f74494acf180685ba56, type: 2}
 --- !u!114 &11418194
 MonoBehaviour:
   m_ObjectHideFlags: 1
