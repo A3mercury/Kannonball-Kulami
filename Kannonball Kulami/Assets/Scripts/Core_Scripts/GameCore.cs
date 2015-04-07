@@ -48,6 +48,7 @@ public class GameCore : MonoBehaviour
 
     public Camera serverCam;
     private Network_Manager networkManager;
+	private AICannonScript aiCannon;
 
 	public bool isClickable;
 
@@ -67,6 +68,7 @@ public class GameCore : MonoBehaviour
     {
 		isClickable = true;
         networkManager = GameObject.FindObjectOfType<Network_Manager>();
+		aiCannon = GameObject.FindObjectOfType<AICannonScript>();
         Debug.Log("Gamecore here");
         Debug.Log("Gamecore isOnline " + networkManager.isOnline);
         //if (!networkManager.isOnline )
@@ -184,7 +186,8 @@ public class GameCore : MonoBehaviour
             if (myJob.Update())
             {
 				AIMove = Cannonballs[myJob.AIChosenMove.Key][myJob.AIChosenMove.Value];
-                PlacePiece(myJob.AIChosenMove.Key, myJob.AIChosenMove.Value);
+                //PlacePiece(myJob.AIChosenMove.Key, myJob.AIChosenMove.Value);
+				aiCannon.MoveCannonAndFire(AIMove.transform.position, myJob.AIChosenMove.Key, myJob.AIChosenMove.Value);
                 myJob = null;
             }
         }
