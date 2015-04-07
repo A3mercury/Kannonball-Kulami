@@ -253,7 +253,8 @@ public class Network_Manager : MonoBehaviour {
                 messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
                 windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
             }
-            else if(conceded)
+
+            if(conceded) 
             {
                 Debug.Log("Made it to concede popup");
                 messBox = "Your opponent has conceded!  You are the victor!";
@@ -781,6 +782,8 @@ public class Network_Manager : MonoBehaviour {
     [RPC]
     public void Concede(bool concede)
     {
-
+        Debug.Log("concede has been called");
+        conceded = concede;
+        Debug.Log(conceded);
     }
 }

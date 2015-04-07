@@ -73,7 +73,6 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
-    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &7705961
 GameObject:
@@ -1346,8 +1345,12 @@ MonoBehaviour:
   ingame: 0
   calledgamescene: 0
   isOnline: 0
+  lobbycamera: 0
+  detecteddisconnect: 0
+  conceded: 0
   serverName: 
   clientName: 
+  randomBoard: 0
   userName: 
   maxPlayers: 50
   port: 21212
@@ -1429,6 +1432,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollPosition: {x: 0, y: 0}
   myskin: {fileID: 0}
+  GameSceneCanvas: {fileID: 0}
+  ChatBoxPanel: {fileID: 0}
+  sendButton: {fileID: 0}
+  messageField: {fileID: 0}
+  pulloutTab: {fileID: 0}
+  ChatBoxShowHide: {fileID: 0}
+  ChatSkin: {fileID: 0}
 --- !u!148 &1041572357
 NetworkView:
   m_ObjectHideFlags: 0
@@ -1681,7 +1691,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1163642338}
   m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: -374.431976, y: -582.429321, z: 4.875}
+  m_LocalPosition: {x: -374.431976, y: -302.429321, z: 4.875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 256149363}
@@ -2145,8 +2155,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  ignoreReversedGraphics: 1
+  blockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 0
