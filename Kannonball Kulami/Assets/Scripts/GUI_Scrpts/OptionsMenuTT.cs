@@ -45,6 +45,8 @@ public class OptionsMenuTT : MonoBehaviour
 	public static bool PlayerGoesFirst = true;
 	public static string AIDifficulty = "Easy";
 
+    // on gui
+    public GUISkin OptionsSkin;
 
 	// Use this for initialization
 	void Start () 
@@ -310,8 +312,9 @@ public class OptionsMenuTT : MonoBehaviour
 
 	void OnGUI () 
 	{
+        GUI.skin = OptionsSkin;
 		if (Application.loadedLevelName == "MainMenuScene" || Application.loadedLevelName == "GameScene") {
-			if (GUI.Button (new Rect(0, Screen.height - (50), 75, 50), "Options")) {
+			if (GUI.Button (new Rect(20, Screen.height - (48), 48, 48), "", GUI.skin.customStyles[0])) {
 				if (optionPanel.activeSelf == true)
 				{
 					resumeGame();
