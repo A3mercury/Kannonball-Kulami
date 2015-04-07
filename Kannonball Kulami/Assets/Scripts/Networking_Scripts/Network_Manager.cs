@@ -464,12 +464,12 @@ public class Network_Manager : MonoBehaviour {
             (ServerBackground.height * 68f) / 100f
             );
 
-        GUILayout.BeginArea(OpponentListRect, GUI.skin.customStyles[8]);
-        if (GUILayout.Button("Refresh")) // temp button placement
-        {
-            MasterServer.ClearHostList();
-            MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
-        }
+        GUILayout.BeginArea(OpponentListRect, GUI.skin.customStyles[8]);        
+        ////////////////////if (GUILayout.Button("Refresh")) // temp button placement
+        ////////////////////{
+        ////////////////////    MasterServer.ClearHostList();
+        ////////////////////    MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
+        ////////////////////}
         //else
         //InvokeRepeating("GetHostList", 0, 60);
 
@@ -532,11 +532,26 @@ public class Network_Manager : MonoBehaviour {
         }
         GUILayout.EndArea();
 
-
+        // Refresh button
+        Rect RefreshRect = new Rect(
+            (HeaderRect.width * 41f) / 100,
+            (HeaderRect.height * 10f) / 100,
+            (HeaderRect.width * 6f) / 100,
+            (HeaderRect.height * 78f) / 100
+            );
+        GUILayout.BeginArea(RefreshRect);
+        {
+            if(GUILayout.Button("", GUI.skin.customStyles[12]))
+            {
+                MasterServer.ClearHostList();
+                MasterServer.RequestHostList("Kannonball_Kulami_HU_Softdev_Team1_2015");
+            }
+        }
+        GUILayout.EndArea();
 
         // connect button
         Rect ConnectButtonRect = new Rect(
-            (HeaderRect.width * 48f) / 100,
+            (HeaderRect.width * 49f) / 100,
             0,
             (HeaderRect.width * 25f) / 100,
             HeaderRect.height

@@ -4,10 +4,14 @@ using System.Collections;
 
 public class PopUpInfo : MonoBehaviour {
 
+    private GameCore gameCore;
+
 	private bool doWindowSinglePlayer = false;
 	private bool doWindowMultiPlayer = false;
 	private bool doWindowOptions = false;
 	private bool doWindowCredits = false;
+    private bool doWindowPlayerMoves = false;
+    private bool doWindowOpponentMoves = false;
 	private Vector3 mousePos;
 	public Toggle assistanceCheck;
 	
@@ -16,7 +20,7 @@ public class PopUpInfo : MonoBehaviour {
 	public GUISkin onHoverSkin;
 
 	void Start () {
-
+        gameCore = GameObject.Find("GameCore").GetComponent<GameCore>() as GameCore;
 	}
 	
 	void Update () {
@@ -39,6 +43,12 @@ public class PopUpInfo : MonoBehaviour {
 
             if (gameObject.name.ToString() == "credits")
                 doWindowCredits = true;
+
+            if (gameObject.name.ToString() == "PlayerMovesRemaining")
+                doWindowPlayerMoves = true;
+
+            if (gameObject.name.ToString() == "OpponentMovesRemaining")
+                doWindowOpponentMoves = true;
         }
 	}
 
@@ -47,6 +57,7 @@ public class PopUpInfo : MonoBehaviour {
 		doWindowMultiPlayer = false;
 		doWindowOptions = false;
 		doWindowCredits = false;
+        doWindowPlayerMoves = false;
 	}
 	
 	void DoWindow0(int windowID) {
@@ -69,6 +80,9 @@ public class PopUpInfo : MonoBehaviour {
 
         if (doWindowCredits)
             GUI.Window(0, new Rect(mousePos.x + 20, mousePos.y - 45, 150, 110), DoWindow0, "This takes you to the credits screen, where you can see who made this game!");
+
+        if (doWindowPlayerMoves)
+            GUI.Window(0, new Rect(mousePos.x + 20, mousePos.y - 45, 200, 100), DoWindow0, "Moves remaining: " + (gameCore.turnsLeft / 2));
 
     }
 }

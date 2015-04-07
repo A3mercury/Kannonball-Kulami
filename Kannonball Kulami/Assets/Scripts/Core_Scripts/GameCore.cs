@@ -28,7 +28,7 @@ public class GameCore : MonoBehaviour
     private int blackLastPiece;
     public int currentRow;
     public int currentCol;
-    private int turnsLeft;
+    public int turnsLeft;
     private int boardSize = 8;
     public bool GameIsOver;
 	private bool assistanceOn;
@@ -220,11 +220,25 @@ public class GameCore : MonoBehaviour
 		if (turn == "black")
 		{
 			// get textures for cannonballs
-			Cannonballs[row][col].renderer.material = BlackLastPiece;
+			if(assistanceOn)
+			{
+				Cannonballs[row][col].renderer.material = BlackLastPiece;
+			}
+			else 
+			{
+				Cannonballs[row][col].renderer.material = BlackPiece;
+			}
 		}
 		else
 		{
-			Cannonballs[row][col].renderer.material = RedLastPiece;
+			if(assistanceOn)
+			{
+				Cannonballs[row][col].renderer.material = RedLastPiece;
+			}
+			else 
+			{
+				Cannonballs[row][col].renderer.material = RedPiece;
+			}
 		}
 		Cannonballs[row][col].rigidbody.AddForceAtPosition (new Vector3 (0f, -250f, 0f), Cannonballs[row][col].rigidbody.worldCenterOfMass);
 	}
@@ -246,7 +260,14 @@ public class GameCore : MonoBehaviour
 			if (turn == "black") 
 			{
 				GameObject shot = Instantiate(cannonBallToFire, playerCannonSmoke.transform.position, Quaternion.identity) as GameObject;
-				shot.renderer.material = BlackLastPiece;
+				if(assistanceOn)
+				{
+					shot.renderer.material = BlackLastPiece;
+				}
+				else
+				{
+					shot.renderer.material = BlackPiece;
+				}
 				//shot.rigidbody.velocity = ((Cannonballs[row][col].transform.position - shot.transform.position).normalized * 500);
 				shot.GetComponent<FireAt>().set(row, col, turn, Cannonballs[row][col], fireSpeed, this);
 				Cannonballs[row][col].renderer.enabled = false;
@@ -261,7 +282,14 @@ public class GameCore : MonoBehaviour
 			else 
 			{
 				GameObject shot = Instantiate(cannonBallToFire, opponentCannonSmoke.transform.position, Quaternion.identity) as GameObject;
-				shot.renderer.material = RedLastPiece;
+				if(assistanceOn)
+				{
+					shot.renderer.material = RedLastPiece;
+				}
+				else
+				{
+					shot.renderer.material = RedPiece;
+				}
 				//shot.rigidbody.velocity = ((Cannonballs[row][col].transform.position - shot.transform.position).normalized * 500);
 				shot.GetComponent<FireAt>().set(row, col, turn, Cannonballs[row][col], fireSpeed, this);
 				Cannonballs[row][col].renderer.enabled = false;	
