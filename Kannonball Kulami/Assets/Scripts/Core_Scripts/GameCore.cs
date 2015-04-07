@@ -72,7 +72,7 @@ public class GameCore : MonoBehaviour
         //if (!networkManager.isOnline )
         //{
            int rand = Random.Range(1, 8);
-
+           //rand = 6;
         if (!networkManager.isOnline) 
 		{
 			MakeGameboard (rand);
