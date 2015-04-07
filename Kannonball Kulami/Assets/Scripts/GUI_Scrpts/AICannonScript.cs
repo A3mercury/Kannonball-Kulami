@@ -9,7 +9,7 @@ public class AICannonScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		OpponentCannon = GameObject.Find("OpponentCannon");
+		OpponentCannon = gameObject;//GameObject.Find("OpponentCannon");
 		coreScript = FindObjectOfType (typeof(GameCore)) as GameCore;
 	}
 	
@@ -17,6 +17,7 @@ public class AICannonScript : MonoBehaviour {
 	void Update () {
 		if(coreScript.AIMove != null)
 			MoveCannon (coreScript.AIMove.transform.position);
+			//MoveCannon(new Vector3(10f, 10f, 5f));
 	}
 
 	void MoveCannon(Vector3 target)

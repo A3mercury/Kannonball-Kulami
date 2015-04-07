@@ -6264,8 +6264,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678455468}
-  m_LocalRotation: {x: -.122915097, y: .0386900716, z: .00479632802, w: .991651118}
-  m_LocalPosition: {x: -102.241302, y: -71.7489624, z: -135.706802}
+  m_LocalRotation: {x: -.319556117, y: .250288159, z: .0879234523, w: .90967536}
+  m_LocalPosition: {x: -62.5949631, y: -75.7008743, z: -32.9131699}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6432,6 +6432,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 705072787}
   - 95: {fileID: 705072788}
+  - 114: {fileID: 705072789}
   m_Layer: 0
   m_Name: CannonBarrelCannonBarrel_2
   m_TagString: Untagged
@@ -6468,6 +6469,17 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &705072789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 705072786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fd5f36ac9dc4952bc28702a93214af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &706810438
 GameObject:
   m_ObjectHideFlags: 0
