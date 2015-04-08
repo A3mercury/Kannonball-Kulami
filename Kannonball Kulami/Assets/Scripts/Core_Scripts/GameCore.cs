@@ -19,7 +19,6 @@ public class GameCore : MonoBehaviour
 
     public GamePlace[,] gamePlaces;
     public string turn;
-    public string playerColor;
     private int redLastCol;
     private int redLastRow;
     private int redLastPiece;
@@ -73,19 +72,10 @@ public class GameCore : MonoBehaviour
         Debug.Log("Gamecore isOnline " + networkManager.isOnline);
         //if (!networkManager.isOnline )
         //{
-           int rand = Random.Range(1, 8);
-           //rand = 6;
+        int rand = Random.Range(1, 8);
         if (!networkManager.isOnline) 
 		{
 			MakeGameboard (rand);
-			if(OptionsMenuTT.PlayerGoesFirst)
-			{
-				playerColor = "black";
-			}
-			else
-			{
-				playerColor = "red";
-			}
 		}
 
             networkManager.randomBoard = rand;
@@ -106,8 +96,14 @@ public class GameCore : MonoBehaviour
 	
 
         turnsLeft = 56;
-
-        turn = "black";
+        if (OptionsMenuTT.PlayerGoesFirst)
+        {
+            turn = "black";
+        }
+        else
+        {
+            turn = "red";
+        }
 
         gamePlaces = new GamePlace[boardSize, boardSize];
 
@@ -122,31 +118,6 @@ public class GameCore : MonoBehaviour
 
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
 
-        //Cannonballs = new GameObject[8][];
-        //for (int i=0; i<8; i++) 
-        //{
-        //    Cannonballs[i] = new GameObject[8];
-        //    for(int j= 0; j<8; j++)
-        //    {
-        //        string CannonBallObjectString = "CannonBall" + i.ToString () + j.ToString ();
-        //        GameObject chosenObject = GameObject.Find (CannonBallObjectString);
-        //        Cannonballs[i][j] = chosenObject;
-        //    }
-        //}
-
-        //Debug.Log("Done with cannonballs");
-        //assistanceOn = OptionsMenuTT.isAssistanceChecked;
-        //if (turn == playerColor) 
-        //{
-        //    if(assistanceOn)
-        //    {
-        //        ShowValidMoves();
-        //    }
-        //} 
-        //else if(!networkManager.isOnline)
-        //{
-        //    MakeAIMove();
-        //}
     }
 	
     public void InitializeCannonballs()
@@ -166,7 +137,7 @@ public class GameCore : MonoBehaviour
         Debug.Log("Done with cannonballs");
 
         assistanceOn = OptionsMenuTT.isAssistanceChecked;
-        if (turn == playerColor)
+        if (OptionsMenuTT.PlayerGoesFirst)
         {
             if (assistanceOn)
             {
@@ -192,12 +163,12 @@ public class GameCore : MonoBehaviour
             }
         }
 
-        if (turn == playerColor && OptionsMenuTT.isAssistanceChecked && !assistanceOn)
+        if (turn == "black" && OptionsMenuTT.isAssistanceChecked && !assistanceOn)
 		{
 			ShowValidMoves ();
 			assistanceOn = true;
 		} 
-		else if (turn == playerColor && !OptionsMenuTT.isAssistanceChecked && assistanceOn) 
+		else if (turn == "black" && !OptionsMenuTT.isAssistanceChecked && assistanceOn) 
 		{
 			ShowValidMoves();
 			HideValidMoves();
@@ -315,7 +286,7 @@ public class GameCore : MonoBehaviour
 				KeyValuePair<int, int> score = GetScore ();
 				Debug.Log ("Red score: " + score.Key);
 				Debug.Log ("Black score: " + score.Value);
-				if ((playerColor == "red" && score.Key > score.Value) || (playerColor == "black" && score.Key < score.Value)) {
+				if ( score.Key < score.Value) {
 					GameIsOver = false;
 					Application.LoadLevel ("VictoryScene");
 				} else {
@@ -326,7 +297,7 @@ public class GameCore : MonoBehaviour
 
 
 		} 
-		else if (turn != playerColor) 
+		else if (turn != "black") 
 		{
 			MovesBlockedByOptions.Add(new KeyValuePair<int, int>(row, col));
 		}
@@ -381,14 +352,9 @@ public class GameCore : MonoBehaviour
 
     public bool isGameOver()
     {
-    //    bool gameOver = false;
-
         if (turnsLeft == 0)
             return true;
-        else if (noValidMoves())
-            return true;
-
-        return false;
+        return noValidMoves();
     }
 
     // return true if there are no valid moves left on the board
@@ -452,7 +418,7 @@ public class GameCore : MonoBehaviour
         {
             for (var j = 0; j < 8; j++)
             {
-                if (isValidMove(i, j) && turn == playerColor)
+                if (isValidMove(i, j) && turn == "black")
                 {
 					Cannonballs[i][j].renderer.enabled = OptionsMenuTT.isAssistanceChecked;
 					if (OptionsMenuTT.isAssistanceChecked)

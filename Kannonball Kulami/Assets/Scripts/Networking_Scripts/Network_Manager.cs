@@ -186,7 +186,7 @@ public class Network_Manager : MonoBehaviour {
                     // if we are the server
                     if (Network.isServer)
                     {
-                        gameCore.playerColor = "black";
+                        OptionsMenuTT.PlayerGoesFirst = true;
                         networkplayer = 1;
                     }
                     // if we are the client
@@ -507,7 +507,7 @@ public class Network_Manager : MonoBehaviour {
                         Network.Connect(c);
                         serverName = c.gameName;
                         userwantingtoconnectfromserver = c.gameName;
-                        gameCore.playerColor = "red";
+                        OptionsMenuTT.PlayerGoesFirst = false;
 
                     }
                 }

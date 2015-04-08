@@ -40,8 +40,8 @@ public class ClickGameboard : MonoBehaviour
 			gameCore.currentRow = row;
 			gameCore.currentCol = col;
 			//Debug.Log(gameCore.playerColor);
-			if (!gameCore.GameIsOver && (gameCore.playerColor == gameCore.turn)) {
-				if (firstMove && (gameCore.playerColor == "black")) {
+			if (!gameCore.GameIsOver && ("black" == gameCore.turn)) {
+				if (firstMove && OptionsMenuTT.PlayerGoesFirst) {
 					if (network.isOnline) {
 						network.networkView.RPC ("SendMove", RPCMode.All, row, col);
 						firstMove = false;
