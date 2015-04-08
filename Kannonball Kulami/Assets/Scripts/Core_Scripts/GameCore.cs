@@ -16,7 +16,7 @@ public class GameCore : MonoBehaviour
 
 	public GameObject cannonBallToFire;
 	public float fireSpeed;
-
+	public float downwardForce;
     public GamePlace[,] gamePlaces;
     public string turn;
     public string playerColor;
@@ -74,7 +74,7 @@ public class GameCore : MonoBehaviour
         //if (!networkManager.isOnline )
         //{
            int rand = Random.Range(1, 8);
-
+		//rand = 1;
         if (!networkManager.isOnline) 
 		{
 			MakeGameboard (rand);
@@ -243,7 +243,7 @@ public class GameCore : MonoBehaviour
 				Cannonballs[row][col].renderer.material = RedPiece;
 			}
 		}
-		Cannonballs[row][col].rigidbody.AddForceAtPosition (new Vector3 (0f, -250f, 0f), Cannonballs[row][col].rigidbody.worldCenterOfMass);
+		Cannonballs[row][col].rigidbody.AddForceAtPosition (new Vector3 (0f, -downwardForce, 0f), Cannonballs[row][col].rigidbody.worldCenterOfMass);
 	}
 
     public void PlacePiece(int row, int col)
