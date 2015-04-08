@@ -73,7 +73,6 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
-    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &14913040
 GameObject:
@@ -4429,7 +4428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &391198536
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4461,7 +4460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AssistanceToggle: {fileID: 914861443}
-  OptionsSkin: {fileID: 0}
+  OptionsSkin: {fileID: 11400000, guid: c05c001fd97101a4889bc6e7abf9566b, type: 2}
 --- !u!114 &391198538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4484,8 +4483,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  ignoreReversedGraphics: 1
+  blockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 0
@@ -6516,8 +6515,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678455468}
-  m_LocalRotation: {x: -.205601066, y: .329775333, z: .0738240331, w: .918437004}
-  m_LocalPosition: {x: -110.041565, y: -244.587799, z: -286.036377}
+  m_LocalRotation: {x: .235645056, y: -.258608848, z: -.0544764698, w: -.935213983}
+  m_LocalPosition: {x: -104.423264, y: -146.132553, z: -203.137238}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
