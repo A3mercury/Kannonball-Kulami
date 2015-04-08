@@ -36,6 +36,7 @@ public class GameCore : MonoBehaviour
 	public int currentBoard;
 	private List<KeyValuePair<int, int>> MovesBlockedByOptions;
 	private bool EasyAI;
+	private bool CannonballsInitialized = false;
 
 	public GameObject AIMove;
 
@@ -133,7 +134,7 @@ public class GameCore : MonoBehaviour
                 Cannonballs[i][j] = chosenObject;
             }
         }
-
+		CannonballsInitialized = true;
         Debug.Log("Done with cannonballs");
 
         assistanceOn = OptionsMenuTT.isAssistanceChecked;
@@ -163,12 +164,12 @@ public class GameCore : MonoBehaviour
             }
         }
 
-        if (turn == "black" && OptionsMenuTT.isAssistanceChecked && !assistanceOn)
+        if (turn == "black" && OptionsMenuTT.isAssistanceChecked && !assistanceOn && CannonballsInitialized)
 		{
 			ShowValidMoves ();
 			assistanceOn = true;
 		} 
-		else if (turn == "black" && !OptionsMenuTT.isAssistanceChecked && assistanceOn) 
+		else if (turn == "black" && !OptionsMenuTT.isAssistanceChecked && assistanceOn && CannonballsInitialized) 
 		{
 			ShowValidMoves();
 			HideValidMoves();
