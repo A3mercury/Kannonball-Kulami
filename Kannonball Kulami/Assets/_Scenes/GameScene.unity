@@ -73,6 +73,7 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
+    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &17609225
 GameObject:
@@ -4395,6 +4396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AssistanceToggle: {fileID: 914861443}
+  OptionsSkin: {fileID: 0}
 --- !u!114 &391198538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4417,8 +4419,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 0
@@ -6664,7 +6666,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 717712922}
   m_LocalRotation: {x: -.330596477, y: .221122265, z: .0799796954, w: .914009988}
-  m_LocalPosition: {x: -68, y: -185.88501, z: -144}
+  m_LocalPosition: {x: -68, y: -190.485001, z: -144}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6999,7 +7001,7 @@ GameObject:
   - 33: {fileID: 810125683}
   - 135: {fileID: 810125682}
   - 23: {fileID: 810125681}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10473,7 +10475,9 @@ MonoBehaviour:
   ingame: 0
   calledgamescene: 0
   isOnline: 0
+  lobbycamera: 0
   detecteddisconnect: 0
+  conceded: 0
   serverName: 
   clientName: 
   randomBoard: 0
@@ -10646,7 +10650,7 @@ GameObject:
   - 33: {fileID: 1232636378}
   - 135: {fileID: 1232636377}
   - 23: {fileID: 1232636376}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13505,7 +13509,7 @@ GameObject:
   - 33: {fileID: 1347854159}
   - 135: {fileID: 1347854158}
   - 23: {fileID: 1347854157}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14335,7 +14339,7 @@ GameObject:
   - 33: {fileID: 1451310707}
   - 135: {fileID: 1451310706}
   - 23: {fileID: 1451310705}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14877,7 +14881,6 @@ MonoBehaviour:
   cannonBallToFire: {fileID: 128998, guid: b7b9e23dd1295304e95e2e498a05b4f7, type: 2}
   fireSpeed: 5
   turn: 
-  playerColor: 
   currentRow: 0
   currentCol: 0
   turnsLeft: 0
@@ -15544,7 +15547,7 @@ GameObject:
   - 33: {fileID: 1583979998}
   - 135: {fileID: 1583979997}
   - 23: {fileID: 1583979996}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15697,7 +15700,7 @@ GameObject:
   - 33: {fileID: 1596693791}
   - 135: {fileID: 1596693790}
   - 23: {fileID: 1596693789}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15943,7 +15946,7 @@ GameObject:
   - 33: {fileID: 1621158523}
   - 135: {fileID: 1621158522}
   - 23: {fileID: 1621158521}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17216,7 +17219,7 @@ GameObject:
   - 33: {fileID: 1751358539}
   - 135: {fileID: 1751358538}
   - 23: {fileID: 1751358537}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18061,7 +18064,7 @@ GameObject:
   - 33: {fileID: 1868868435}
   - 135: {fileID: 1868868434}
   - 23: {fileID: 1868868433}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18269,7 +18272,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1904867691}
   - 65: {fileID: 1904867692}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerMovesRemaining
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18610,7 +18613,7 @@ GameObject:
   - 33: {fileID: 1940993673}
   - 135: {fileID: 1940993672}
   - 23: {fileID: 1940993671}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19283,7 +19286,7 @@ GameObject:
   - 33: {fileID: 2016468203}
   - 135: {fileID: 2016468202}
   - 23: {fileID: 2016468201}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
