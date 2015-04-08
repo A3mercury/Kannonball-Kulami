@@ -215,6 +215,9 @@ public class GameCore : MonoBehaviour
     {
         Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + boardNum.ToString()));
 		currentBoard = boardNum;
+
+        //GameObject g = GameObject.Find("Gameboard " + boardNum.ToString() + "(Clone)");
+        //Destroy(g);
     }
 
 	public void PlacePhysical(int row, int col, string turn)
