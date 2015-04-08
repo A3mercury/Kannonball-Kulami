@@ -24,7 +24,8 @@ public class Network_Manager : MonoBehaviour {
     public bool invoked, disconnected, sentRequest, ingame = false, calledgamescene;
     public static bool chat = false;
     public bool isOnline;
-    public bool detecteddisconnect;
+    public bool lobbycamera;
+    public bool detecteddisconnect, conceded;
     public static bool fromtransition;
     public string serverName;
     public string clientName;
@@ -103,6 +104,8 @@ public class Network_Manager : MonoBehaviour {
         sentRequest = false;
         calledgamescene = false;
         detecteddisconnect = false;
+        conceded = false;
+        lobbycamera = false;
     }
 
     void OnServerInitialized()
@@ -160,6 +163,12 @@ public class Network_Manager : MonoBehaviour {
         {
             if (!ingame)
             {
+                if (!lobbycamera)
+                {
+                    GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();
+                    lobbycamera = true;
+                }
+
                 GUI.skin = ServerSkin;
 
                 // If we are not currently connected
@@ -177,7 +186,7 @@ public class Network_Manager : MonoBehaviour {
                     // if we are the server
                     if (Network.isServer)
                     {
-                        gameCore.playerColor = "black";
+                        OptionsMenuTT.PlayerGoesFirst = true;
                         networkplayer = 1;
                     }
                     // if we are the client
@@ -238,11 +247,18 @@ public class Network_Manager : MonoBehaviour {
                 //    windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
                 //}
             }
-            else
+            else if(detecteddisconnect && !conceded)
             {
                 Debug.Log("Made it to disconnect.");
                 messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
                 windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
+            }
+
+            if(conceded) 
+            {
+                Debug.Log("Made it to concede popup");
+                messBox = "Your opponent has conceded!  You are the victor!";
+                windowRect = GUI.Window(1, windowRect, ConcededpopUp, "");
             }
         }
         else
@@ -491,7 +507,7 @@ public class Network_Manager : MonoBehaviour {
                         Network.Connect(c);
                         serverName = c.gameName;
                         userwantingtoconnectfromserver = c.gameName;
-                        gameCore.playerColor = "red";
+                        OptionsMenuTT.PlayerGoesFirst = false;
 
                     }
                 }
@@ -677,6 +693,36 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.EndHorizontal();
 
     }
+    private void ConcededpopUp(int id)
+    {
+        myStyle = GUI.skin.box;
+        myStyle.alignment = TextAnchor.UpperLeft;
+        myStyle.wordWrap = true;
+        myStyle.stretchHeight = true;
+        myOtherStyle = GUI.skin.textField;
+        myOtherStyle.alignment = TextAnchor.MiddleLeft;
+        myOtherStyle.clipping = TextClipping.Clip;
+        myOtherStyle.wordWrap = false;
+        myOtherStyle.fixedWidth = 200;
+
+
+        GUILayout.Width(250);
+        GUILayout.Box(messBox, myStyle);
+        GUILayout.BeginHorizontal();
+
+        Debug.Log("Concede popup is up");
+        if (GUILayout.Button("Ok", GUILayout.Width(75)))
+        {
+            //invoked = false;
+            StartServer();
+        }
+
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+        GUILayout.EndHorizontal();
+
+    }
+
 
     private void AwaitingResponse(int id)
     {
@@ -731,5 +777,13 @@ public class Network_Manager : MonoBehaviour {
     public void SendMove(int row, int col)
     {
         gameCore.PlacePiece(row, col);
+    }
+
+    [RPC]
+    public void Concede(bool concede)
+    {
+        Debug.Log("concede has been called");
+        conceded = concede;
+        Debug.Log(conceded);
     }
 }
