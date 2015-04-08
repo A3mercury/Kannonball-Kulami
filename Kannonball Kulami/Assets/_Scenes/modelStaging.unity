@@ -73,7 +73,6 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
-    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &16024340
 GameObject:
@@ -210,6 +209,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 92208211}
+  - 114: {fileID: 92208212}
   m_Layer: 0
   m_Name: TreasureChest
   m_TagString: Untagged
@@ -232,6 +232,22 @@ Transform:
   - {fileID: 1562568827}
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!114 &92208212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 92208210}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a654352baca496942bf52be18fa03a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LockPress: {fileID: 248999346}
+  OpenChest: {fileID: 913316669}
+  TreasureChest: {fileID: 92208210}
+  Top: {fileID: 913316667}
+  Lock: {fileID: 248999344}
 --- !u!1 &127467813
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,8 +395,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 248999345}
   - 95: {fileID: 248999346}
+  - 114: {fileID: 248999347}
+  - 65: {fileID: 248999348}
   m_Layer: 0
-  m_Name: ChestLock-PP_2
+  m_Name: ChestLock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -409,12 +427,40 @@ Animator:
   m_GameObject: {fileID: 248999344}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d268ac427e7770d449b0983e0894f420, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bbf4c8b4ccd4240468467c85d29db424, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &248999347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 248999344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a654352baca496942bf52be18fa03a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LockPress: {fileID: 248999346}
+  OpenChest: {fileID: 913316669}
+  TreasureChest: {fileID: 92208210}
+  Top: {fileID: 913316667}
+  Lock: {fileID: 248999344}
+--- !u!65 &248999348
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 248999344}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .104719065, y: .447738171, z: .403274924}
+  m_Center: {x: .592828691, y: -.204930648, z: .00318427081}
 --- !u!1 &266336484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1532,7 +1578,7 @@ GameObject:
   - 4: {fileID: 913316668}
   - 95: {fileID: 913316669}
   m_Layer: 0
-  m_Name: ChestTop-PP_1
+  m_Name: ChestTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1561,7 +1607,7 @@ Animator:
   m_GameObject: {fileID: 913316667}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 1d3d4f2e1b1425a41a233b458b416314, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4a30a81340aaf0b48a0adf19389b5126, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1940,7 +1986,7 @@ GameObject:
   - 4: {fileID: 1562568827}
   - 95: {fileID: 1562568826}
   m_Layer: 0
-  m_Name: ChestBaseCL_PM3D_Cube3D_3
+  m_Name: ChestBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2013,6 +2059,26 @@ Prefab:
     - target: {fileID: 451790, guid: cd2c94749121c3143b0608542919db4e, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9551792, guid: cd2c94749121c3143b0608542919db4e, type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: bbf4c8b4ccd4240468467c85d29db424, type: 2}
+    - target: {fileID: 9551790, guid: cd2c94749121c3143b0608542919db4e, type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 4a30a81340aaf0b48a0adf19389b5126, type: 2}
+    - target: {fileID: 151812, guid: cd2c94749121c3143b0608542919db4e, type: 2}
+      propertyPath: m_Name
+      value: ChestLock
+      objectReference: {fileID: 0}
+    - target: {fileID: 151802, guid: cd2c94749121c3143b0608542919db4e, type: 2}
+      propertyPath: m_Name
+      value: ChestTop
+      objectReference: {fileID: 0}
+    - target: {fileID: 151820, guid: cd2c94749121c3143b0608542919db4e, type: 2}
+      propertyPath: m_Name
+      value: ChestBase
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd2c94749121c3143b0608542919db4e, type: 2}
@@ -2097,8 +2163,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1728759985}
-  m_LocalRotation: {x: .248182699, y: 0, z: 0, w: .968713284}
-  m_LocalPosition: {x: -66.6999969, y: 20.6000004, z: -33.2000008}
+  m_LocalRotation: {x: .122582443, y: -.685098827, z: .118583396, w: .70820272}
+  m_LocalPosition: {x: 45.5, y: 12.6999998, z: 2.4000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
