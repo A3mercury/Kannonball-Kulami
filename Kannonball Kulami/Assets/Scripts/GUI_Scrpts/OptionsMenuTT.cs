@@ -12,6 +12,7 @@ public class OptionsMenuTT : MonoBehaviour
 
     Image[] images;
     GameObject optionPanel;
+    private Network_Manager networkManager;
 
     GameObject soundsParent;
     //AudioSource[] sounds;
@@ -58,6 +59,7 @@ public class OptionsMenuTT : MonoBehaviour
             backgroundShipNoise = GameObject.Find("BackgroundShipNoise").GetComponent<AudioSource>();
             
 			clickScript = GameObject.FindObjectOfType (typeof(GameCore)) as GameCore;
+            networkManager = GameObject.FindObjectOfType<Network_Manager>();
 
 		}
 
@@ -297,7 +299,16 @@ public class OptionsMenuTT : MonoBehaviour
 
     public void concedeGame()
     {
-		Application.LoadLevel("MainMenuScene");
+        //Added for network play to return to lobby
+        if(networkManager.isOnline)
+        {
+            networkManager.isOnline = true;
+            networkManager.networkView.RPC("Concede", RPCMode.Others, true);
+            networkManager.StartServer();
+            optionPanel.gameObject.SetActive(false);
+        }
+        else
+		    Application.LoadLevel("MainMenuScene");
     }
 
     public void quitGame()
