@@ -2056,7 +2056,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100034}
   m_LocalRotation: {x: 0, y: .21643962, z: 0, w: .976296008}
-  m_LocalPosition: {x: 0, y: -7, z: 0}
+  m_LocalPosition: {x: 0, y: -13, z: 0}
   m_LocalScale: {x: 9, y: 9, z: 9}
   m_Children:
   - {fileID: 400002}
@@ -5073,12 +5073,12 @@ Rigidbody:
   m_GameObject: {fileID: 100030}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476746
 Rigidbody:
@@ -5193,12 +5193,12 @@ Rigidbody:
   m_GameObject: {fileID: 100010}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476762
 Rigidbody:
@@ -5313,12 +5313,12 @@ Rigidbody:
   m_GameObject: {fileID: 100004}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476778
 Rigidbody:
@@ -5328,12 +5328,12 @@ Rigidbody:
   m_GameObject: {fileID: 100008}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476780
 Rigidbody:
@@ -5358,12 +5358,12 @@ Rigidbody:
   m_GameObject: {fileID: 100022}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476784
 Rigidbody:
@@ -5478,12 +5478,12 @@ Rigidbody:
   m_GameObject: {fileID: 100020}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476800
 Rigidbody:
@@ -5538,12 +5538,12 @@ Rigidbody:
   m_GameObject: {fileID: 100028}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476808
 Rigidbody:
@@ -5613,12 +5613,12 @@ Rigidbody:
   m_GameObject: {fileID: 100014}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476818
 Rigidbody:
@@ -5658,12 +5658,12 @@ Rigidbody:
   m_GameObject: {fileID: 100016}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476824
 Rigidbody:
@@ -5718,12 +5718,12 @@ Rigidbody:
   m_GameObject: {fileID: 100000}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476832
 Rigidbody:
@@ -5838,12 +5838,12 @@ Rigidbody:
   m_GameObject: {fileID: 100032}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476848
 Rigidbody:
@@ -5913,12 +5913,12 @@ Rigidbody:
   m_GameObject: {fileID: 100024}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476858
 Rigidbody:
@@ -5988,12 +5988,12 @@ Rigidbody:
   m_GameObject: {fileID: 100018}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476868
 Rigidbody:
@@ -6048,12 +6048,12 @@ Rigidbody:
   m_GameObject: {fileID: 100012}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476876
 Rigidbody:
@@ -6078,12 +6078,12 @@ Rigidbody:
   m_GameObject: {fileID: 100006}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476880
 Rigidbody:
@@ -6183,12 +6183,12 @@ Rigidbody:
   m_GameObject: {fileID: 100002}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476894
 Rigidbody:
@@ -6228,12 +6228,12 @@ Rigidbody:
   m_GameObject: {fileID: 100026}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 1
+  m_AngularDrag: .300000012
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!54 &5476900
 Rigidbody:
@@ -7972,9 +7972,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7987,9 +7987,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8002,9 +8002,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8017,9 +8017,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8032,9 +8032,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8047,9 +8047,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8062,9 +8062,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8077,9 +8077,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8092,9 +8092,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465242
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8107,9 +8107,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8122,9 +8122,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8137,9 +8137,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8152,9 +8152,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8167,9 +8167,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8182,9 +8182,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8197,9 +8197,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11465256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8212,9 +8212,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   density: 500
-  slicesPerAxis: 2
+  slicesPerAxis: 4
   isConcave: 0
-  voxelsLimit: 16
+  voxelsLimit: 32
 --- !u!114 &11476742
 MonoBehaviour:
   m_ObjectHideFlags: 1
