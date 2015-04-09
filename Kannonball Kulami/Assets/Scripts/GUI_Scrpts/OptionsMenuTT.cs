@@ -303,8 +303,9 @@ public class OptionsMenuTT : MonoBehaviour
         if(networkManager.isOnline)
         {
             networkManager.isOnline = true;
-            networkManager.networkView.RPC("Concede", RPCMode.All, true);
-            Application.LoadLevel("GameScene");
+            networkManager.networkView.RPC("Concede", RPCMode.Others, true);
+            networkManager.StartServer();
+            optionPanel.gameObject.SetActive(false);
         }
         else
 		    Application.LoadLevel("MainMenuScene");

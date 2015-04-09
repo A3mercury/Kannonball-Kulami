@@ -653,6 +653,8 @@ public class Network_Manager : MonoBehaviour {
 
         if (GUILayout.Button("Ok", GUILayout.Width(75)))
         {
+            //GameObject g = GameObject.Find("Gameboard " + boardNum.ToString() + "(Clone)");
+            //Destroy(g);
             invoked = false;
             StartServer();
             GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();

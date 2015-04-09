@@ -16,7 +16,7 @@ public class GameCore : MonoBehaviour
 
 	public GameObject cannonBallToFire;
 	public float fireSpeed;
-
+	public float downwardForce;
     public GamePlace[,] gamePlaces;
     public string turn;
     private int redLastCol;
@@ -187,6 +187,9 @@ public class GameCore : MonoBehaviour
     {
         Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + boardNum.ToString()));
 		currentBoard = boardNum;
+
+        //GameObject g = GameObject.Find("Gameboard " + boardNum.ToString() + "(Clone)");
+        //Destroy(g);
     }
 
 	public void PlacePhysical(int row, int col, string turn)
@@ -215,7 +218,7 @@ public class GameCore : MonoBehaviour
 				Cannonballs[row][col].renderer.material = RedPiece;
 			}
 		}
-		Cannonballs[row][col].rigidbody.AddForceAtPosition (new Vector3 (0f, -250f, 0f), Cannonballs[row][col].rigidbody.worldCenterOfMass);
+		Cannonballs[row][col].rigidbody.AddForceAtPosition (new Vector3 (0f, -downwardForce, 0f), Cannonballs[row][col].rigidbody.worldCenterOfMass);
 	}
 
     public void PlacePiece(int row, int col)
