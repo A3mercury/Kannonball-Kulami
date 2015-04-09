@@ -12,6 +12,7 @@ GameObject:
   - 23: {fileID: 2300000}
   - 54: {fileID: 5421548}
   - 65: {fileID: 6558306}
+  - 114: {fileID: 11473998}
   m_Layer: 0
   m_Name: pieceNum8_side4
   m_TagString: Untagged
@@ -31,6 +32,7 @@ GameObject:
   - 23: {fileID: 2300002}
   - 54: {fileID: 5421504}
   - 65: {fileID: 6558320}
+  - 114: {fileID: 11473986}
   m_Layer: 0
   m_Name: pieceNum12_front4
   m_TagString: Untagged
@@ -50,6 +52,7 @@ GameObject:
   - 23: {fileID: 2300004}
   - 54: {fileID: 5421600}
   - 65: {fileID: 6558314}
+  - 114: {fileID: 11473984}
   m_Layer: 0
   m_Name: pieceNum11_side2
   m_TagString: Untagged
@@ -69,6 +72,7 @@ GameObject:
   - 23: {fileID: 2300006}
   - 54: {fileID: 5421494}
   - 65: {fileID: 6558304}
+  - 114: {fileID: 11473978}
   m_Layer: 0
   m_Name: pieceNum13_front6
   m_TagString: Untagged
@@ -88,6 +92,7 @@ GameObject:
   - 23: {fileID: 2300008}
   - 54: {fileID: 5421458}
   - 65: {fileID: 6558308}
+  - 114: {fileID: 11473994}
   m_Layer: 0
   m_Name: pieceNum6_front6
   m_TagString: Untagged
@@ -107,6 +112,7 @@ GameObject:
   - 23: {fileID: 2300010}
   - 54: {fileID: 5421514}
   - 65: {fileID: 6558324}
+  - 114: {fileID: 11474004}
   m_Layer: 0
   m_Name: pieceNum7_front2
   m_TagString: Untagged
@@ -126,6 +132,7 @@ GameObject:
   - 23: {fileID: 2300012}
   - 54: {fileID: 5421554}
   - 65: {fileID: 6558334}
+  - 114: {fileID: 11473996}
   m_Layer: 0
   m_Name: pieceNum9_side3
   m_TagString: Untagged
@@ -145,6 +152,7 @@ GameObject:
   - 23: {fileID: 2300014}
   - 54: {fileID: 5421470}
   - 65: {fileID: 6558328}
+  - 114: {fileID: 11473992}
   m_Layer: 0
   m_Name: pieceNum14_front3
   m_TagString: Untagged
@@ -164,6 +172,7 @@ GameObject:
   - 23: {fileID: 2300016}
   - 54: {fileID: 5421602}
   - 65: {fileID: 6558316}
+  - 114: {fileID: 11473976}
   m_Layer: 0
   m_Name: pieceNum15_front3
   m_TagString: Untagged
@@ -183,6 +192,7 @@ GameObject:
   - 23: {fileID: 2300018}
   - 54: {fileID: 5421510}
   - 65: {fileID: 6558302}
+  - 114: {fileID: 11473982}
   m_Layer: 0
   m_Name: pieceNum17_front4
   m_TagString: Untagged
@@ -202,6 +212,7 @@ GameObject:
   - 23: {fileID: 2300020}
   - 54: {fileID: 5421598}
   - 65: {fileID: 6558312}
+  - 114: {fileID: 11473988}
   m_Layer: 0
   m_Name: pieceNum16_side2
   m_TagString: Untagged
@@ -221,6 +232,7 @@ GameObject:
   - 23: {fileID: 2300022}
   - 54: {fileID: 5421484}
   - 65: {fileID: 6558332}
+  - 114: {fileID: 11473990}
   m_Layer: 0
   m_Name: pieceNum10_side6
   m_TagString: Untagged
@@ -240,6 +252,7 @@ GameObject:
   - 23: {fileID: 2300024}
   - 54: {fileID: 5421604}
   - 65: {fileID: 6558318}
+  - 114: {fileID: 11474000}
   m_Layer: 0
   m_Name: pieceNum5_front4
   m_TagString: Untagged
@@ -259,6 +272,7 @@ GameObject:
   - 23: {fileID: 2300026}
   - 54: {fileID: 5421580}
   - 65: {fileID: 6558322}
+  - 114: {fileID: 11473972}
   m_Layer: 0
   m_Name: pieceNum4_side2
   m_TagString: Untagged
@@ -278,6 +292,7 @@ GameObject:
   - 23: {fileID: 2300028}
   - 54: {fileID: 5421518}
   - 65: {fileID: 6558326}
+  - 114: {fileID: 11474002}
   m_Layer: 0
   m_Name: pieceNum3_front3
   m_TagString: Untagged
@@ -297,6 +312,7 @@ GameObject:
   - 23: {fileID: 2300030}
   - 54: {fileID: 5421592}
   - 65: {fileID: 6558310}
+  - 114: {fileID: 11473974}
   m_Layer: 0
   m_Name: pieceNum2_side6
   m_TagString: Untagged
@@ -316,6 +332,7 @@ GameObject:
   - 23: {fileID: 2300032}
   - 54: {fileID: 5421464}
   - 65: {fileID: 6558330}
+  - 114: {fileID: 11473980}
   m_Layer: 0
   m_Name: pieceNum1_side4
   m_TagString: Untagged
@@ -8052,6 +8069,261 @@ MonoBehaviour:
   drag: 1
   angularDrag: 1.5
   bounceDamp: .200000003
+--- !u!114 &11473972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473974
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473980
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473986
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473992
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473994
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473996
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11473998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11474000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11474002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
+--- !u!114 &11474004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087f36544e1ad4f47a2d2b37a75faa4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 500
+  slicesPerAxis: 2
+  isConcave: 0
+  voxelsLimit: 16
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1
