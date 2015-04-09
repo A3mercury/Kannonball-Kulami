@@ -74,6 +74,7 @@ public class GameCore : MonoBehaviour
         //if (!networkManager.isOnline )
         //{
         int rand = Random.Range(1, 8);
+        rand = 1;
         if (!networkManager.isOnline) 
 		{
 			MakeGameboard (rand);
@@ -255,6 +256,7 @@ public class GameCore : MonoBehaviour
 				blackLastPiece = gamePlaces [row, col].pieceNum;
 				turn = "red";
 				//CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
+                CannonFireAnimate.letTheBassCannonKickIt = true;
 				playerCannonSmoke.Play();
 			} 
 			else 

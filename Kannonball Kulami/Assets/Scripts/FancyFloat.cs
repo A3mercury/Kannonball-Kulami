@@ -86,7 +86,8 @@ public class FancyFloat : MonoBehaviour
 	/// <summary>
 	/// Provides initialization.
 	/// </summary>
-	private void Start()
+	//private void Start()
+    void Awake()
 	{
 		
 		forces = new List<Vector3[]>(); // For drawing force gizmos
@@ -313,7 +314,7 @@ public class FancyFloat : MonoBehaviour
 	private void FixedUpdate()
 	{
 		forces.Clear(); // For drawing force gizmos
-		
+
 		//foreach (var point in voxels)
 		for(int i = 0; i < voxels.Count; i++)
 		{

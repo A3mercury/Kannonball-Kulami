@@ -338,7 +338,7 @@ Material:
       data:
         first:
           name: _Foam
-        second: {r: 1, g: 1, b: 0, a: 0}
+        second: {r: 1, g: .984000027, b: 0, a: 0}
       data:
         first:
           name: _GAmplitude
