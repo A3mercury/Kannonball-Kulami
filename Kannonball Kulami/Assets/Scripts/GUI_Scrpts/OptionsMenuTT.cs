@@ -34,7 +34,7 @@ public class OptionsMenuTT : MonoBehaviour
     Button SoundsButton;
     Button MusicButton;
 
-	public Toggle AssistanceToggle;
+	public static Toggle AssistanceToggle;
 
     // starts at half
     float sliderStartVol = 0.5f;
@@ -148,8 +148,12 @@ public class OptionsMenuTT : MonoBehaviour
         changeSoundsButton();
         changeMusicButton();
 
-        if(AIDifficulty == "Expert")
-            AssistanceToggle.interactable = false;
+        if (AIDifficulty == "Expert" && Application.loadedLevelName != "MainMenuScene")
+			AssistanceToggle.interactable = false;
+        else
+        {
+            AssistanceToggle.interactable = true;
+        }
 	}
 
     #region Assignments
@@ -303,7 +307,7 @@ public class OptionsMenuTT : MonoBehaviour
     public void concedeGame()
     {
         //Added for network play to return to lobby
-        if(networkManager.isOnline)
+        if (networkManager.isOnline)
         {
             networkManager.isOnline = true;
             networkManager.networkView.RPC("Concede", RPCMode.Others, true);
@@ -311,7 +315,10 @@ public class OptionsMenuTT : MonoBehaviour
             optionPanel.gameObject.SetActive(false);
         }
         else
-		    Application.LoadLevel("MainMenuScene");
+        {
+            AssistanceToggle.interactable = true;
+            Application.LoadLevel("MainMenuScene");
+        }
     }
 
     public void quitGame()
