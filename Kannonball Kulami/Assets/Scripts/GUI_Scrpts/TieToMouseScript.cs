@@ -33,6 +33,7 @@ public class TieToMouseScript : MonoBehaviour {
         // create a ray that goes into the scene from the camera, through the mouse position
         if (mainCam.enabled)
         {
+            int layerMask = 1 << 9; //will only hit objects in the Board Space layer
             Ray ray = Camera.main.ScreenPointToRay(mouseScreenPosition);
             float depth;
             RaycastHit hitInfo; // var to store info about the object hit (if any)
@@ -42,7 +43,7 @@ public class TieToMouseScript : MonoBehaviour {
             // the 'out' keyword is a parameter modifier used to tell C# that this obj should be passed by ref
             //   to properly access hitInfo
             // objets we hope to hit must have a collider component
-            if (Physics.Raycast(ray, out hitInfo))
+            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, layerMask))
             {
                 // move this obj to the position we hit
                 this.transform.position = new Vector3(hitInfo.point.x, hitInfo.point.y, hitInfo.point.z);
