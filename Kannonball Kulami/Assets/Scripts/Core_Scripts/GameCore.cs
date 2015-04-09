@@ -255,6 +255,7 @@ public class GameCore : MonoBehaviour
 				blackLastPiece = gamePlaces [row, col].pieceNum;
 				turn = "red";
 				//CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
+                CannonFireAnimate.letTheBassCannonKickIt = true;
 				playerCannonSmoke.Play();
 			} 
 			else 
