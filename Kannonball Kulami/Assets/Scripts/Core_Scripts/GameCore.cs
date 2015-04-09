@@ -16,7 +16,7 @@ public class GameCore : MonoBehaviour
 
 	public GameObject cannonBallToFire;
 	public float fireSpeed;
-
+	public float downwardForce;
     public GamePlace[,] gamePlaces;
     public string turn;
     private int redLastCol;
@@ -218,7 +218,7 @@ public class GameCore : MonoBehaviour
 				Cannonballs[row][col].renderer.material = RedPiece;
 			}
 		}
-		Cannonballs[row][col].rigidbody.AddForceAtPosition (new Vector3 (0f, -250f, 0f), Cannonballs[row][col].rigidbody.worldCenterOfMass);
+		Cannonballs[row][col].rigidbody.AddForceAtPosition (new Vector3 (0f, -downwardForce, 0f), Cannonballs[row][col].rigidbody.worldCenterOfMass);
 	}
 
     public void PlacePiece(int row, int col)
