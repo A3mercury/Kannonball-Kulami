@@ -122,7 +122,7 @@ public class Gerstner : MonoBehaviour {
 		
 		Vector4 ABCD = VectorMul(frequency, new Vector4(dot (new Vector2(directionAB.x, directionAB.y), new Vector2(point.x, point.z)), dot (new Vector2(directionAB.z, directionAB.w), new Vector2(point.x, point.z)),
 		                                                dot (new Vector2(directionCD.x, directionCD.y), new Vector2(point.x, point.z)), dot (new Vector2(directionCD.z, directionCD.w), new Vector2(point.x, point.z))));
-		Vector4 time = VectorMul(new Vector4(Time.time + timeOffset, Time.time + timeOffset, Time.time + timeOffset, Time.time + timeOffset), speed);
+        Vector4 time = VectorMul(new Vector4(Time.timeSinceLevelLoad + timeOffset, Time.timeSinceLevelLoad + timeOffset, Time.timeSinceLevelLoad + timeOffset, Time.timeSinceLevelLoad + timeOffset), speed);
 		Vector4 temp = ABCD + time;
 		Vector4 cos = new Vector4(Mathf.Cos(temp.x), Mathf.Cos(temp.y), Mathf.Cos(temp.z), Mathf.Cos(temp.w));
 		Vector4 sin = new Vector4(Mathf.Sin(temp.x), Mathf.Sin(temp.y), Mathf.Sin(temp.z), Mathf.Sin(temp.w));

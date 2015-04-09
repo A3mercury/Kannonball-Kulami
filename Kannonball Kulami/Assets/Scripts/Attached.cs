@@ -5,7 +5,7 @@ public class Attached : MonoBehaviour {
 	private Vector3 attachedPosition;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		attachedPosition = transform.localPosition;
 	}
 	
