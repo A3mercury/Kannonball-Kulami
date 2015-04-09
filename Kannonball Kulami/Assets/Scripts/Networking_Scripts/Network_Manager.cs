@@ -34,7 +34,8 @@ public class Network_Manager : MonoBehaviour {
     public string userName = "", maxPlayers = "10", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     private string messBox = "", messageToSend = "", user = "";
     public GUISkin myskin;
- 
+
+    private AICannonScript opponentCannon;
     private GameCore gameCore;
     public Vector2 scrollPosition = Vector2.zero;
 
@@ -72,8 +73,11 @@ public class Network_Manager : MonoBehaviour {
     {
         //Debug.Log("NetworkManager here");
 
-        if(Application.loadedLevelName == "GameScene")
+        if (Application.loadedLevelName == "GameScene")
+        {
             gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
+            opponentCannon = GameObject.Find("OpponentShip").GetComponentInChildren<AICannonScript>();
+        }
         isOnline = fromtransition;
 
         ConnectionRequestRect = new Rect((Screen.width - 100) / 2, (Screen.height - 100) / 2, 100, 100);
@@ -787,5 +791,11 @@ public class Network_Manager : MonoBehaviour {
         Debug.Log("concede has been called");
         conceded = concede;
         Debug.Log(conceded);
+    }
+
+    [RPC]
+    public void MoveOpponentCannon(float x, float y, float z)
+    {
+        opponentCannon.MoveCannon(new Vector3(x, y, z));
     }
 }

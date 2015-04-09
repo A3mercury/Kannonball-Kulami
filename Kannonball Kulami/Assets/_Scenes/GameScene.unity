@@ -4550,7 +4550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0b49734c1676c4cb70f5a93a48b4c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AssistanceToggle: {fileID: 914861443}
   OptionsSkin: {fileID: 11400000, guid: c05c001fd97101a4889bc6e7abf9566b, type: 2}
 --- !u!114 &391198538
 MonoBehaviour:
@@ -6455,7 +6454,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 418194, guid: 6de4641b4410f5c41ae3f196026af2f4, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 14818194, guid: 6de4641b4410f5c41ae3f196026af2f4, type: 2}
       propertyPath: m_ViewID.m_ID
@@ -6758,8 +6757,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678455468}
-  m_LocalRotation: {x: -.456880778, y: .197078332, z: .104565606, w: .861095905}
-  m_LocalPosition: {x: -49.5332565, y: -152.257431, z: -98.4642181}
+  m_LocalRotation: {x: -.0979335234, y: .325115949, z: .0338727497, w: .939979434}
+  m_LocalPosition: {x: -114.263779, y: -3.47502851, z: -50.4382935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -18883,7 +18882,7 @@ Renderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1783317188}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
@@ -18904,7 +18903,7 @@ MeshCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1783317188}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
@@ -18923,9 +18922,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1783317188}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 62.7672653, y: -224.157623, z: 134.022202}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: .21643962, z: 0, w: .976296008}
+  m_LocalPosition: {x: -5, y: 0, z: 5}
+  m_LocalScale: {x: 16, y: 1, z: 16}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 24

@@ -5,6 +5,8 @@ public class TieToMouseScript : MonoBehaviour {
 
     ////////////private float actualDistance;
 
+    private Vector3 lastKnownPosition = new Vector3(0f, 0f, 0f);
+    private Network_Manager networkManager;
     float depthIntoScene = 10f;
     GameObject PlayerCannon;
 
@@ -15,8 +17,19 @@ public class TieToMouseScript : MonoBehaviour {
         //////////actualDistance = (transform.position - Camera.main.transform.position).magnitude;
         PlayerCannon = GameObject.Find("PlayerCannon");
         mainCam = GameObject.Find("MainCamera").GetComponent<Camera>();
+        networkManager = GameObject.FindObjectOfType<Network_Manager>();
 	}
 	
+    void SendLocationAsServer()
+    {
+        networkManager.networkView.RPC("MoveOpponentCannon", RPCMode.Others, lastKnownPosition.x, lastKnownPosition.y, lastKnownPosition.z);
+    }
+
+    void SendLocationAsClient()
+    {
+        networkManager.networkView.RPC("MoveOpponentCannon", RPCMode.Server, lastKnownPosition.x, lastKnownPosition.y, lastKnownPosition.z);
+    }
+
 	// Update is called once per frame
 	void Update () {
         //////////Vector3 myMousePosition = Input.mousePosition;
@@ -25,6 +38,18 @@ public class TieToMouseScript : MonoBehaviour {
 
         MoveToMouseAtObjectDepth();
 	}
+
+    public void BeginSendingOverNetwork()
+    {
+        if (Network.isServer)
+        {
+            InvokeRepeating("LendLocationAsServer", 2f, 1f);
+        }
+        else
+        {
+            InvokeRepeating("LendLocationAsClient", 2f, 1f);
+        }
+    }
 
     void MoveToMouseAtObjectDepth()
     {
@@ -45,6 +70,7 @@ public class TieToMouseScript : MonoBehaviour {
             // objets we hope to hit must have a collider component
             if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, layerMask))
             {
+                lastKnownPosition = hitInfo.point;
                 // move this obj to the position we hit
                 this.transform.position = new Vector3(hitInfo.point.x, hitInfo.point.y, hitInfo.point.z);
 				//Debug.Log("Mouse x = " + hitInfo.point.x + ", y = " +hitInfo.point.y + ", z = " + hitInfo.point.z);

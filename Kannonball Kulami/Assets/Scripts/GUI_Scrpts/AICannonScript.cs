@@ -41,7 +41,7 @@ public class AICannonScript : MonoBehaviour {
 				//Debug.Log ("done moving cannon");
 				if(firing)
 				{
-					Debug.Log("firing cannon");
+					//Debug.Log("firing cannon");
 					//FIRE!
 					coreScript.PlacePiece(targetRow, targetCol);
 					firing = false;
@@ -56,11 +56,18 @@ public class AICannonScript : MonoBehaviour {
 
 	}
 
-	void MoveCannon(Vector3 target)
+	public void MoveCannon(Vector3 target)
 	{
-		OpponentCannon.transform.LookAt(target);
-		//Debug.Log("Euler angle x: " + PlayerCannon.transform.eulerAngles.x + " y: " + PlayerCannon.transform.eulerAngles.y + 90 + " z: " + PlayerCannon.transform.eulerAngles.z);
-		OpponentCannon.transform.eulerAngles = new Vector3(0, OpponentCannon.transform.eulerAngles.y + 90, 0);
+		//OpponentCannon.transform.LookAt(target);
+		////Debug.Log("Euler angle x: " + PlayerCannon.transform.eulerAngles.x + " y: " + PlayerCannon.transform.eulerAngles.y + 90 + " z: " + PlayerCannon.transform.eulerAngles.z);
+		//OpponentCannon.transform.eulerAngles = new Vector3(0, OpponentCannon.transform.eulerAngles.y + 90, 0);
+        if(!firing)
+        {
+            oldPosition = targetPosition;
+            targetPosition = target;
+            startTime = Time.time;
+            journeyLength = Vector3.Distance(oldPosition, targetPosition);
+        }
 	}
 
 	public void MoveCannonAndFire(Vector3 target, int row, int col)
