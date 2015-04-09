@@ -147,6 +147,9 @@ public class OptionsMenuTT : MonoBehaviour
 
         changeSoundsButton();
         changeMusicButton();
+
+        if(AIDifficulty == "Expert")
+            AssistanceToggle.interactable = false;
 	}
 
     #region Assignments
