@@ -138,10 +138,9 @@ public class GameCore : MonoBehaviour
         turnsLeft = 56;
         currentRow = 0;
         currentCol = 0;
-        if (!GameObject.Find("OptionsPanel").activeSelf)
-        {
-            isClickable = true;
-        }
+        
+        isClickable = true;
+        
     }
 
     public void RemoveGameBoard()

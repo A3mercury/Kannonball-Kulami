@@ -47,11 +47,11 @@ public class TieToMouseScript : MonoBehaviour {
     {
         if (Network.isServer)
         {
-            InvokeRepeating("SendLocationAsServer", 2f, 0.1f);
+            InvokeRepeating("SendLocationAsServer", 2f, .5f);
         }
         else
         {
-            InvokeRepeating("SendLocationAsClient", 2f, 0.1f);
+            InvokeRepeating("SendLocationAsClient", 2f, 0.5f);
         }
     }
 

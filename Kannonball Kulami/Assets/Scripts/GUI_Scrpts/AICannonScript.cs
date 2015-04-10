@@ -66,7 +66,7 @@ public class AICannonScript : MonoBehaviour {
             oldPosition = targetPosition;
             targetPosition = target;
             startTime = Time.time;
-            journeyLength = Vector3.Distance(oldPosition, targetPosition);
+            journeyLength = Vector3.Distance(oldPosition, targetPosition) * 2;
         }
 	}
 
