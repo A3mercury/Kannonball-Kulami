@@ -32,8 +32,8 @@ public class AICannonScript : MonoBehaviour {
 		//	startTime = Time.time;
 		//	journeyLength = Vector3.Distance(oldPosition, targetPosition);
 		//}
-		if(!firstMove)
-		{
+		//if(!firstMove)
+		//{
 			float distCovered = (Time.time - startTime) * speed;
 			float fracJourney = distCovered / journeyLength;
 			if(fracJourney >= 1)
@@ -52,7 +52,7 @@ public class AICannonScript : MonoBehaviour {
 				OpponentCannon.transform.LookAt(Vector3.Lerp(oldPosition, targetPosition, fracJourney));
 				OpponentCannon.transform.eulerAngles = new Vector3(0, OpponentCannon.transform.eulerAngles.y + 90, 0);
 			}
-		}
+		//}
 
 	}
 

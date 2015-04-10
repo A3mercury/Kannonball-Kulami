@@ -312,6 +312,7 @@ public class OptionsMenuTT : MonoBehaviour
             networkManager.isOnline = true;
             networkManager.networkView.RPC("Concede", RPCMode.Others, true);
             networkManager.StartServer();
+            GameObject.FindObjectOfType<GameCore>().RemoveGameBoard();
             optionPanel.gameObject.SetActive(false);
         }
         else

@@ -22,12 +22,16 @@ public class TieToMouseScript : MonoBehaviour {
 	
     void SendLocationAsServer()
     {
+       // Debug.Log("sending " + lastKnownPosition + " to client");
         networkManager.networkView.RPC("MoveOpponentCannon", RPCMode.Others, lastKnownPosition.x, lastKnownPosition.y, lastKnownPosition.z);
+       // Debug.Log(networkManager);
     }
 
     void SendLocationAsClient()
     {
+        //Debug.Log("sending " + lastKnownPosition + " to server");
         networkManager.networkView.RPC("MoveOpponentCannon", RPCMode.Server, lastKnownPosition.x, lastKnownPosition.y, lastKnownPosition.z);
+        //Debug.Log(networkManager);
     }
 
 	// Update is called once per frame
@@ -43,11 +47,11 @@ public class TieToMouseScript : MonoBehaviour {
     {
         if (Network.isServer)
         {
-            InvokeRepeating("LendLocationAsServer", 2f, 1f);
+            InvokeRepeating("SendLocationAsServer", 2f, 0.1f);
         }
         else
         {
-            InvokeRepeating("LendLocationAsClient", 2f, 1f);
+            InvokeRepeating("SendLocationAsClient", 2f, 0.1f);
         }
     }
 

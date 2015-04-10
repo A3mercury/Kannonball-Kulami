@@ -25,6 +25,7 @@ public class SceneTransitionScript : MonoBehaviour {
 
 	public void SinglePlayer () {
         Network_Manager.fromtransition = false;
+        OptionsMenuTT.PlayerGoesFirst = true;
 	}
 	
 	public void NetworkPlay () {

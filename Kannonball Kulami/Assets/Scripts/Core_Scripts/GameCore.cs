@@ -63,6 +63,8 @@ public class GameCore : MonoBehaviour
 
 	public GameObject[][] Cannonballs;
 
+    private GameObject theBoard = null;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -73,19 +75,18 @@ public class GameCore : MonoBehaviour
         Debug.Log("Gamecore isOnline " + networkManager.isOnline);
         //if (!networkManager.isOnline )
         //{
-        int rand = Random.Range(1, 8);
-        rand = 1;
+        //int rand = Random.Range(1, 8);
+        //rand = 1;
         if (!networkManager.isOnline) 
 		{
+            int rand = Random.Range(1, 8);
 			MakeGameboard (rand);
 		}
 
-            networkManager.randomBoard = rand;
+            //networkManager.randomBoard = rand;
         //}
 
-		GameIsOver = false;
-		Moves = new List<KeyValuePair<int, int>> ();
-		MovesBlockedByOptions = new List<KeyValuePair<int, int>> ();
+        ResetCore();
 
 		if (OptionsMenuTT.AIDifficulty == "Easy") 
 		{
@@ -107,7 +108,7 @@ public class GameCore : MonoBehaviour
             turn = "red";
         }
 
-        gamePlaces = new GamePlace[boardSize, boardSize];
+        
 
         // Gameboard number is sent as second parameter
         if (!networkManager.isOnline)
@@ -122,6 +123,37 @@ public class GameCore : MonoBehaviour
 
     }
 	
+    private void ResetCore()
+    {
+        GameIsOver = false;
+        Moves = new List<KeyValuePair<int, int>>();
+        MovesBlockedByOptions = new List<KeyValuePair<int, int>>();
+        gamePlaces = new GamePlace[boardSize, boardSize];
+        blackLastCol = 0;
+        blackLastRow = 0;
+        blackLastPiece = 0;
+        redLastCol = 0;
+        redLastRow = 0;
+        redLastPiece = 0;
+        turnsLeft = 56;
+        currentRow = 0;
+        currentCol = 0;
+    }
+
+    public void RemoveGameBoard()
+    {
+        if (theBoard == null)
+        {
+            Debug.Log("tried to remove the board when it didn't exist.");
+        }
+        else
+        {
+            Destroy(theBoard);
+            theBoard = null;
+            ResetCore();
+        }
+    }
+
     public void InitializeCannonballs()
     {
         Cannonballs = new GameObject[8][];
@@ -186,9 +218,16 @@ public class GameCore : MonoBehaviour
 
     public void MakeGameboard(int boardNum)
     {
-        Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + boardNum.ToString()));
-		currentBoard = boardNum;
-
+        if (theBoard != null)
+        {
+            Debug.Log("tried to make a gameboard when there already was one.");
+        }
+        else
+        {
+            theBoard = (GameObject)Instantiate(Resources.Load("GameScene Prefabs/Gameboards/Gameboard " + boardNum.ToString()));
+            currentBoard = boardNum;
+        }
+        
         //GameObject g = GameObject.Find("Gameboard " + boardNum.ToString() + "(Clone)");
         //Destroy(g);
     }

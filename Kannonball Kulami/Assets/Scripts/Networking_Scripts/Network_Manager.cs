@@ -129,8 +129,8 @@ public class Network_Manager : MonoBehaviour {
             Debug.Log("Registration failed because an empty game type was given");
         else if (masterServerEvent == MasterServerEvent.RegistrationFailedGameName)
             Debug.Log("Registration failed because an empty game name was given.");
-        else
-            Debug.Log("Registration failed");
+       // else
+       //     Debug.Log("Registration failed");
     }
 
     void Update()
@@ -192,12 +192,14 @@ public class Network_Manager : MonoBehaviour {
                     {
                         OptionsMenuTT.PlayerGoesFirst = true;
                         networkplayer = 1;
+                        gameCore.turn = "black";
                     }
                     // if we are the client
                     if (Network.isClient && !sentRequest && !disconnected)
                     {
                         Debug.Log("It's here");
                         networkView.RPC("SendConnectionRequest", RPCMode.All, userName, true);
+                        gameCore.turn = "red";
                     }
                     // sent or recieving a invite
                     if (sentRequest && !disconnected)
@@ -232,10 +234,11 @@ public class Network_Manager : MonoBehaviour {
             }
             else if(!detecteddisconnect)
             {
-                Debug.Log("detecteddisconnect = " + detecteddisconnect);
+                //Debug.Log("detecteddisconnect = " + detecteddisconnect);
                 if(!calledgamescene)
                 {
                     GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();
+                    GameObject.FindObjectOfType<TieToMouseScript>().BeginSendingOverNetwork();
                     calledgamescene = true;
                 }
 
@@ -376,7 +379,7 @@ public class Network_Manager : MonoBehaviour {
             GUILayout.BeginArea(AcceptButton);
             if(GUILayout.Button("", GUI.skin.customStyles[5]))
             {
-                networkView.RPC("RespondtoRequest", RPCMode.All, true, randomBoard);
+                networkView.RPC("RespondtoRequest", RPCMode.All, true, UnityEngine.Random.Range(1, 8));//randomBoard);
             }
             GUILayout.EndArea();
             GUILayout.BeginArea(DenyButton);
@@ -657,11 +660,11 @@ public class Network_Manager : MonoBehaviour {
 
         if (GUILayout.Button("Ok", GUILayout.Width(75)))
         {
-            //GameObject g = GameObject.Find("Gameboard " + boardNum.ToString() + "(Clone)");
-            //Destroy(g);
             invoked = false;
             StartServer();
             GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();
+            GameObject.FindObjectOfType<AICannonScript>().CancelInvoke();
+            gameCore.RemoveGameBoard();
         }
 
         GUILayout.EndHorizontal();
@@ -692,6 +695,7 @@ public class Network_Manager : MonoBehaviour {
         {
             //invoked = false;
             StartServer();
+            gameCore.RemoveGameBoard();
         }
 
         GUILayout.EndHorizontal();
@@ -721,6 +725,7 @@ public class Network_Manager : MonoBehaviour {
         {
             //invoked = false;
             StartServer();
+            gameCore.RemoveGameBoard();
         }
 
         GUILayout.EndHorizontal();
@@ -769,8 +774,10 @@ public class Network_Manager : MonoBehaviour {
             gameCore.MakeGameboard(board);
             boardReader = new ReadGameboard(gameCore.gamePlaces, gameCore.currentBoard);
             gameCore.InitializeCannonballs();
-
+            
             ChatPanel.SetActive(true);
+
+            
         }
         else
         {
@@ -796,6 +803,7 @@ public class Network_Manager : MonoBehaviour {
     [RPC]
     public void MoveOpponentCannon(float x, float y, float z)
     {
+       // Debug.Log("moving opponent cannon to " + x + ", " + y + ", " + z);
         opponentCannon.MoveCannon(new Vector3(x, y, z));
     }
 }
