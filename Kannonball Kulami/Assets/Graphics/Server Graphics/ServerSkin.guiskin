@@ -15,7 +15,7 @@ MonoBehaviour:
   m_box:
     m_Name: box
     m_Normal:
-      m_Background: {fileID: 0}
+      m_Background: {fileID: 2800000, guid: 5d73b49749beb444fa43d0fac73f3ee7, type: 3}
       m_TextColor: {r: .799999952, g: .799999952, b: .799999952, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -2051,9 +2051,9 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 122bfeaff67f0be4a92ca3419ae38dca, type: 3}
-    m_FontSize: 18
+    m_FontSize: 24
     m_FontStyle: 0
-    m_Alignment: 0
+    m_Alignment: 1
     m_WordWrap: 1
     m_RichText: 1
     m_TextClipping: 0
@@ -2109,7 +2109,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 122bfeaff67f0be4a92ca3419ae38dca, type: 3}
-    m_FontSize: 18
+    m_FontSize: 0
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 1
@@ -2119,7 +2119,7 @@ MonoBehaviour:
     m_ContentOffset: {x: 0, y: 0}
     m_FixedWidth: 0
     m_FixedHeight: 0
-    m_StretchWidth: 0
+    m_StretchWidth: 1
     m_StretchHeight: 1
   m_Settings:
     m_DoubleClickSelectsWord: 1
