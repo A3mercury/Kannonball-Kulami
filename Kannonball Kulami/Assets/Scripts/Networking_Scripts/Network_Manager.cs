@@ -609,7 +609,7 @@ public class Network_Manager : MonoBehaviour {
             {
                 GUILayout.BeginHorizontal(GUI.skin.customStyles[10]);
                 GUILayout.Box(c.gameName, GUI.skin.customStyles[10]);
-                if (c.gameName != userName && !popupflag)
+                if (c.gameName != userName && !popupflag && c.connectedPlayers != 1)
                 {
 
                     if (GUILayout.Button("", GUI.skin.customStyles[11]))
