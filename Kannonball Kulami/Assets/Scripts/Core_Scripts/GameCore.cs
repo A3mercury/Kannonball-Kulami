@@ -398,13 +398,13 @@ public class GameCore : MonoBehaviour
                 GUILayout.BeginArea(BackgroundRect, GUI.skin.customStyles[1]);
 
             Rect OpponentScoreRect = new Rect(
-                (BackgroundRect.width * 35f) / 100, 
+                (BackgroundRect.width * 62f) / 100, 
                 (BackgroundRect.height * 37f) / 100, 
                 (BackgroundRect.width * 8f) / 100, 
                 (BackgroundRect.height * 8f) / 100
                 );
             Rect PlayerScoreRect = new Rect(
-                (BackgroundRect.width * 62f) / 100, 
+                (BackgroundRect.width * 35f) / 100, 
                 (BackgroundRect.height * 37f) / 100, 
                 (BackgroundRect.width * 8f) / 100, 
                 (BackgroundRect.height * 8f) / 100
