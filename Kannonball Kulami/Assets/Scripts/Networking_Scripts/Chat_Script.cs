@@ -5,10 +5,6 @@ using UnityEngine.UI;
 public class Chat_Script : MonoBehaviour
 {
     Network_Manager networkManager;
-    void Awake()
-    {
-        networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();        
-    }
 
     public Vector2 scrollPosition = Vector2.zero;
     public GUISkin myskin;
@@ -29,9 +25,9 @@ public class Chat_Script : MonoBehaviour
 
     public GUISkin ChatSkin;
 
-    void Start()
+    void Awake()
     {
-        
+        networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
 
         sendButton.onClick.AddListener(SendButtonClick);
         pulloutTab.onClick.AddListener(OpenCloseChat);
@@ -61,23 +57,9 @@ public class Chat_Script : MonoBehaviour
             (Screen.height * 50f) / 100
             );
 
-        //if (networkManager.isInGame)
-        //{
-            //if (firstConnection)
-            //{
-            //    if (Network.isServer)
-            //    {
-            //        messBox = networkManager.clientName + " has challenged you to a game! Do you accept?\n";
-            //    }
-            //    else
-            //    {
-            //        messBox = "You have connected to " + networkManager.serverName + ". You will go first, and play as red.\n";
-            //    }
-            //    firstConnection = false;
-            //}
+
             if(ChatBoxShowHide.GetBool("isChatOpen"))
                 GUI.Window(120, windowRect, windowFunc, "");
-        //}
 
     }
 
@@ -92,30 +74,13 @@ public class Chat_Script : MonoBehaviour
 
     private void windowFunc(int id)
     {
-        //myStyle = GUI.skin.box;
-        //myStyle.alignment = TextAnchor.UpperLeft;
-        //myStyle.wordWrap = true;
-        //myStyle.stretchHeight = true;
-        //myOtherStyle = GUI.skin.textField;
-        //myOtherStyle.alignment = TextAnchor.MiddleLeft;
-        //myOtherStyle.clipping = TextClipping.Clip;
-        //myOtherStyle.wordWrap = false;
-        //myOtherStyle.fixedWidth = 200;
-        //GUILayout.Box(messBox, myStyle, GUILayout.Height(350));
 
         GUI.skin = ChatSkin;
 
         scrollPosition = GUILayout.BeginScrollView(scrollPosition,GUI.skin.customStyles[0]);
         GUILayout.Box(messBox, GUI.skin.box);
         GUILayout.EndScrollView();
-        //GUILayout.BeginHorizontal();
 
-        //GUILayout.EndHorizontal();
-        //GUILayout.BeginHorizontal();
-        ////GUILayout.Label("User:");
-        ////user = GUILayout.TextField(user);
-        //GUILayout.EndHorizontal();
-        //GUI.DragWindow(new Rect(0, 0, Screen.width, Screen.height));
     }
 
    [RPC]

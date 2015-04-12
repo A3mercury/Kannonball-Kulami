@@ -144,7 +144,7 @@ public class FancyFloat : MonoBehaviour
 		float archimedesForceMagnitude = WATER_DENSITY * Mathf.Abs(Physics.gravity.y) * volume;
 		localArchimedesForce = new Vector3(0, archimedesForceMagnitude, 0) / voxels.Count;
 		
-		Debug.Log(string.Format("[Buoyancy.cs] Name=\"{0}\" volume={1:0.0}, mass={2:0.0}, density={3:0.0}", name, volume, rigidbody.mass, density));
+		//Debug.Log(string.Format("[Buoyancy.cs] Name=\"{0}\" volume={1:0.0}, mass={2:0.0}, density={3:0.0}", name, volume, rigidbody.mass, density));
 	}
 	
 	/// <summary>

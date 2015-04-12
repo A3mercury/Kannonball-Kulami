@@ -8,11 +8,11 @@ public class clickCoins : MonoBehaviour {
     public AudioSource coinSound;
    // public BoxCollider mesh;
    // public SphereCollider sphere;
-    private Camera mainCam;
+    //private Camera mainCam;
 
     void Start()
     {
-        //mainCam = GameObject.Find("Main Camera").camera;
+        //mainCam = GameObject.Find("Main Camera").GetComponent<Camera>() as Camera;
 		spoutTransform = GameObject.Find("Coin Spout").transform;
         //coinSpout = GetComponentInChildren<ParticleSystem>();
         //mesh = GetComponent<MeshCollider>();
