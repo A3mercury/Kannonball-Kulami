@@ -24,8 +24,10 @@ public class Network_Manager : MonoBehaviour {
     public bool invoked, disconnected, sentRequest, ingame = false, calledgamescene;
     public static bool chat = false;
     public bool isOnline;
+    public bool justplayedgame, rematchpopup, responsefromrematch;
     public bool lobbycamera;
     public bool detecteddisconnect, conceded;
+    public bool respondtorematch;
     public static bool fromtransition;
     public string serverName;
     public string clientName;
@@ -46,11 +48,19 @@ public class Network_Manager : MonoBehaviour {
     private GUIStyle myStyle;
     private GUIStyle myOtherStyle;
 
+    private Rect PopupRect = new Rect(
+        (Screen.width * (1 - (512f / 1440f))) / 2,
+        (Screen.height * (1 - (256f / 900f))) / 2,
+        Screen.width * (512f / 1440f),
+        Screen.height * (256f / 900f)
+        );
+
     private Rect ConcededRect;
     private Rect DisconnectedRect;
     private Rect WaitingForResponseRect;
     private Rect RematchRect;
     private Rect ChallengeRect;
+    private Rect DeclinedRect;
 
     // Austin's Gui crap
     float serverWindowWidth = 700f / 1440f;
@@ -75,6 +85,9 @@ public class Network_Manager : MonoBehaviour {
 
     bool popuptrue = false;
 
+    /// <summary>
+    /// Waiting to fix the clicking cancel and disabling on the other end for the pop up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    /// </summary>
     void Awake()
     {
         //Debug.Log("NetworkManager here");
@@ -117,6 +130,9 @@ public class Network_Manager : MonoBehaviour {
         detecteddisconnect = false;
         conceded = false;
         lobbycamera = false;
+        justplayedgame = false;
+        rematchpopup = false;
+        responsefromrematch = false;
     }
 
     void OnServerInitialized()
@@ -166,6 +182,11 @@ public class Network_Manager : MonoBehaviour {
                     lobbycamera = true;
                 }
 
+                if (justplayedgame)
+                {
+                    rematchpopup = true;
+                }
+
                 GUI.skin = ServerSkin;
 
                 // If we are not currently connected
@@ -206,25 +227,34 @@ public class Network_Manager : MonoBehaviour {
                         }
                         else // if we are sending an invite
                         {
-
-
                             messBox = "You have challenged " + serverName + " to a game. Awaiting response...\n";
-                            windowRect = GUI.Window(1, windowRect, AwaitingResponse, "");
+                            PopupRect = GUI.Window(1, PopupRect, AwaitingResponse, "");
                         }
                         //GUI.skin = PopupSkin;
                         //InviteWrapperRect = GUI.Window(1, InviteWrapperRect, InvitationPopupWindow, "");
                         //windowRect = GUI.Window(1, windowRect, popUp, "");
                     }
                 }
+                if(rematchpopup)
+                {
+                    
+
+                    messBox = "Would you like a rematch?";
+                    windowRect = GUI.Window(1, windowRect, RematchWindow, "");
+                }
 
                 // if game was denied
                 if (disconnected && invoked)
                 {
                     //Evoke();
+
+                    
+
                     messBox = "Request has been denied.\n";
-                    windowRect = GUI.Window(1, windowRect, popUp, "");
-                   // Invoke("Evoke", 3);
+                    windowRect = GUI.Window(1, PopupRect, popUp, "");
+                    //Invoke("Evoke", 3);
                     //Invoke("Disconnect", 3);
+
                 }
             }
             else if(!detecteddisconnect)
@@ -251,57 +281,78 @@ public class Network_Manager : MonoBehaviour {
             }
             else if(detecteddisconnect && !conceded)
             {
-                DisconnectedRect = new Rect(
-                    (Screen.width * (1 - (523f / 1440f))) / 2,
+                GUI.skin = ServerSkin;
+                ConcededRect = new Rect(
+                    (Screen.width * (1 - (512f / 1440f))) / 2,
                     (Screen.height * (1 - (256f / 900f))) / 2,
-                    Screen.width * (523f / 1440f),
+                    Screen.width * (512f / 1440f),
                     Screen.height * (256f / 900f)
                     );
 
-                GUILayout.BeginArea(DisconnectedRect, GUI.skin.customStyles[13]);
-
+                Rect InnerRect = new Rect(
+                    (ConcededRect.width * 12f) / 100,
+                    (ConcededRect.height * 16f) / 100,
+                    (ConcededRect.width * 78f) / 100,
+                    (ConcededRect.height * 70f) / 100
+                    );
+                messBox = "Your opponent has been disconnected. You will be taken back to the player list.";
+                GUILayout.BeginArea(ConcededRect, GUI.skin.customStyles[13]);
+                GUILayout.BeginArea(InnerRect);
                 GUILayout.BeginVertical();
-                GUILayout.Label("Unfortunately your opponent has been disconnected.\nYou will be taken back to the player list.", GUI.skin.customStyles[14]);
+                GUILayout.Label(messBox, GUI.skin.customStyles[14]);
+                Rect ContinueRect = new Rect(
+                    0,
+                    (InnerRect.height - (InnerRect.height * 32f) / 100),
+                    (InnerRect.width * 36f) / 100,
+                    (InnerRect.height * 32f) / 100
+                    );
+                GUILayout.BeginArea(ContinueRect);
                 if (GUILayout.Button("", GUI.skin.customStyles[15]))
                 {
                     StartServer();
                     gameCore.RemoveGameBoard();
                 }
+                GUILayout.EndArea();
+                GUILayout.EndArea();
                 GUILayout.EndVertical();
                 GUILayout.EndArea();
-
-                //DisconnectedRect = new Rect(
-                //    0,
-                //    0,
-                //    512,
-                //    256
-                //    );
-
-                //GUILayout.BeginArea(DisconnectedRect, GUI.skin.customStyles[13]);
-
-
-                ////messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
-                ////windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
-                //GUILayout.EndArea();
             }
 
             if(conceded) 
             {
+                GUI.skin = ServerSkin;
                 ConcededRect = new Rect(
-                    (Screen.width * (1 - (523f / 1440f))) / 2,
+                    (Screen.width * (1 - (512f / 1440f))) / 2,
                     (Screen.height * (1 - (256f / 900f))) / 2,
-                    Screen.width * (523f / 1440f),
+                    Screen.width * (512f / 1440f),
                     Screen.height * (256f / 900f)
                     );
 
+                Rect InnerRect = new Rect(
+                    (ConcededRect.width * 12f) / 100,
+                    (ConcededRect.height * 16f) / 100,
+                    (ConcededRect.width * 78f) / 100,
+                    (ConcededRect.height * 70f) / 100
+                    );
                 messBox = "Your opponent has conceded!  You are the victor!";
                 GUILayout.BeginArea(ConcededRect, GUI.skin.customStyles[13]);
+                GUILayout.BeginArea(InnerRect);
                 GUILayout.BeginVertical();
                 GUILayout.Label(messBox, GUI.skin.customStyles[14]);
+                Rect ContinueRect = new Rect(
+                    0,
+                    (InnerRect.height - (InnerRect.height * 32f) / 100),
+                    (InnerRect.width * 36f) / 100,
+                    (InnerRect.height * 32f) / 100
+                    );
+                GUILayout.BeginArea(ContinueRect);
                 if (GUILayout.Button("", GUI.skin.customStyles[15]))
                 {
-
+                    StartServer();
+                    gameCore.RemoveGameBoard();
                 }
+                GUILayout.EndArea();
+                GUILayout.EndArea();
                 GUILayout.EndVertical();
                 GUILayout.EndArea();
 
@@ -338,9 +389,6 @@ public class Network_Manager : MonoBehaviour {
                 //windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
             }
         }
-            
-        
-
     }
 
     public void InvitationPopupWindow(int id)
@@ -679,23 +727,35 @@ public class Network_Manager : MonoBehaviour {
 
     private void popUp(int id)
     {
-        myStyle = GUI.skin.box;
-        myStyle.alignment = TextAnchor.UpperLeft;
-        myStyle.wordWrap = true;
-        myStyle.stretchHeight = true;
-        myOtherStyle = GUI.skin.textField;
-        myOtherStyle.alignment = TextAnchor.MiddleLeft;
-        myOtherStyle.clipping = TextClipping.Clip;
-        myOtherStyle.wordWrap = false;
-        myOtherStyle.fixedWidth = 200;
+        GUI.skin = ServerSkin;
 
+        DisconnectedRect = new Rect(
+                0,
+                0,
+                Screen.width * (512f / 1440f),
+                Screen.height * (256f / 900f)
+                );
 
-        GUILayout.Width(300);
-        GUILayout.Box(messBox, myStyle);
-        GUILayout.BeginHorizontal();
+        Rect InnerRect = new Rect(
+                        (DisconnectedRect.width * 12f) / 100,
+                        (DisconnectedRect.height * 16f) / 100,
+                        (DisconnectedRect.width * 78f) / 100,
+                        (DisconnectedRect.height * 70f) / 100
+                        );
 
-
-        if (GUILayout.Button("Ok", GUILayout.Width(75)))
+        GUILayout.BeginArea(DisconnectedRect, GUI.skin.customStyles[13]);
+        GUILayout.BeginArea(InnerRect);
+        GUILayout.BeginVertical();
+        messBox = "Request has been denied.\n";
+        GUILayout.Label(messBox, GUI.skin.customStyles[14]);
+        Rect ContinueRect = new Rect(
+            0,
+            (InnerRect.height - (InnerRect.height * 32f) / 100),
+            (InnerRect.width * 36f) / 100,
+            (InnerRect.height * 32f) / 100
+            );
+        GUILayout.BeginArea(ContinueRect);
+        if (GUILayout.Button("", GUI.skin.customStyles[15]))
         {
             invoked = false;
             StartServer();
@@ -703,11 +763,10 @@ public class Network_Manager : MonoBehaviour {
             GameObject.FindObjectOfType<AICannonScript>().CancelInvoke();
             gameCore.RemoveGameBoard();
         }
-
-        GUILayout.EndHorizontal();
-        GUILayout.BeginHorizontal();
-        GUILayout.EndHorizontal();
-
+        GUILayout.EndArea();
+        GUILayout.EndArea();
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
     }
 
     private void DisconnectpopUp(int id)
@@ -775,6 +834,31 @@ public class Network_Manager : MonoBehaviour {
 
     private void AwaitingResponse(int id)
     {
+        GUI.skin = ServerSkin;
+        WaitingForResponseRect = new Rect(
+            0,
+            0,
+            Screen.width * (512f / 1440f),
+            Screen.height * (256f / 900f)
+            );
+
+        Rect InnerRect = new Rect(
+            (WaitingForResponseRect.width * 12f) / 100,
+            (WaitingForResponseRect.height * 16f) / 100,
+            (WaitingForResponseRect.width * 78f) / 100,
+            (WaitingForResponseRect.height * 70f) / 100
+            );
+        GUILayout.BeginArea(WaitingForResponseRect, GUI.skin.customStyles[13]);
+        GUILayout.BeginArea(InnerRect);
+        GUILayout.BeginVertical();
+        GUILayout.Label(messBox, GUI.skin.customStyles[14]);
+        GUILayout.EndArea();
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+    }
+
+    private void RematchWindow(int id)
+    {
         myStyle = GUI.skin.box;
         myStyle.alignment = TextAnchor.UpperLeft;
         myStyle.wordWrap = true;
@@ -786,14 +870,30 @@ public class Network_Manager : MonoBehaviour {
         myOtherStyle.fixedWidth = 200;
 
 
-        GUILayout.Width(250);
+        GUILayout.Width(300);
         GUILayout.Box(messBox, myStyle);
         GUILayout.BeginHorizontal();
+
+
+        if (GUILayout.Button("Rematch", GUILayout.Width(75)))
+        {
+            invoked = false;
+            StartServer();
+            GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();
+            GameObject.FindObjectOfType<AICannonScript>().CancelInvoke();
+            gameCore.RemoveGameBoard();
+        }
+        if (GUILayout.Button("Cancel", GUILayout.Width(75)))
+        {
+
+        }
+
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
         GUILayout.EndHorizontal();
+
     }
-   
+
 	
     [RPC]
     private void SendConnectionRequest(string userName, bool request)
@@ -836,6 +936,12 @@ public class Network_Manager : MonoBehaviour {
         Debug.Log("concede has been called");
         conceded = concede;
         Debug.Log(conceded);
+    }
+
+    [RPC]
+    public void SendRematchRequest(bool rematchrequest)
+    {
+        respondtorematch = rematchrequest;
     }
 
     [RPC]
