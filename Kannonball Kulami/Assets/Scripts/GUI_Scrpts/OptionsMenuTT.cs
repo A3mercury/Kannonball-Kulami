@@ -17,6 +17,7 @@ public class OptionsMenuTT : MonoBehaviour
     GameObject soundsParent;
     //AudioSource[] sounds;
     AudioSource backgroundShipNoise;
+    AudioSource KannonballKulamiTheme;
     //AudioSource cannonballFireSound;
 
     Slider[] optionSliders;
@@ -57,11 +58,15 @@ public class OptionsMenuTT : MonoBehaviour
 		{
             soundsParent = GameObject.Find("AudioSounds");
             backgroundShipNoise = GameObject.Find("BackgroundShipNoise").GetComponent<AudioSource>();
-            
+
 			clickScript = GameObject.FindObjectOfType (typeof(GameCore)) as GameCore;
             networkManager = GameObject.FindObjectOfType<Network_Manager>();
 
 		}
+        else if (Application.loadedLevelName == "MainMenuScene")
+        {
+            KannonballKulamiTheme = GameObject.Find("KannonBallKulamiTheme").GetComponent<AudioSource>();
+        }
 
         AssignSliders();
         AssignAnimators();
@@ -226,6 +231,10 @@ public class OptionsMenuTT : MonoBehaviour
         {
             CannonFireSound.SetVolume(soundSlider.value);
             backgroundShipNoise.volume = soundSlider.value;
+        }
+        else if (Application.loadedLevelName == "MainMenuScene")
+        {
+            KannonballKulamiTheme.volume = musicSlider.value;
         }
 
         // sliders for the MainMenuScene
