@@ -20474,8 +20474,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678455468}
-  m_LocalRotation: {x: -.285672367, y: .335742503, z: .107635856, w: .891113222}
-  m_LocalPosition: {x: -286.065857, y: -325.868652, z: -311.460022}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 272.832123, y: -851.242798, z: -1557.85547}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -21584,8 +21584,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 717712922}
-  m_LocalRotation: {x: -.35053584, y: .219317526, z: .0848035514, w: .90654999}
-  m_LocalPosition: {x: -70.6999969, y: -195.285004, z: -149.199997}
+  m_LocalRotation: {x: -.322621167, y: .216007397, z: .0758784935, w: .918421984}
+  m_LocalPosition: {x: -84.4525146, y: -99.3896942, z: -106.481705}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -23336,7 +23336,7 @@ GameObject:
   - 33: {fileID: 810125683}
   - 135: {fileID: 810125682}
   - 23: {fileID: 810125681}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35509,7 +35509,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1220275706}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9731f349ae016f4d95c1425810cead7, type: 3}
   m_Name: 
@@ -35920,7 +35920,7 @@ GameObject:
   - 33: {fileID: 1232636378}
   - 135: {fileID: 1232636377}
   - 23: {fileID: 1232636376}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40032,7 +40032,7 @@ GameObject:
   - 33: {fileID: 1347854159}
   - 135: {fileID: 1347854158}
   - 23: {fileID: 1347854157}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42828,7 +42828,7 @@ GameObject:
   - 33: {fileID: 1451310707}
   - 135: {fileID: 1451310706}
   - 23: {fileID: 1451310705}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47411,7 +47411,7 @@ GameObject:
   - 33: {fileID: 1583979998}
   - 135: {fileID: 1583979997}
   - 23: {fileID: 1583979996}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47655,6 +47655,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1596385628}
   - 65: {fileID: 1596385629}
+  - 114: {fileID: 1596385630}
   m_Layer: 0
   m_Name: OpponentMovesRemaining
   m_TagString: Untagged
@@ -47697,6 +47698,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 13.1722183, y: 9.32946777, z: 13.9543152}
   m_Center: {x: -59.9409752, y: 301.865967, z: 217.296158}
+--- !u!114 &1596385630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1596385627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85ed0665cb5e4caf9e198a861f55e21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assistanceCheck: {fileID: 914861443}
+  onHoverImage: {fileID: 2800000, guid: bb7230a06f6dc124f92283375557f292, type: 3}
+  onHoverSkin: {fileID: 11400000, guid: 6d7b6d3fe1d87482dac941ada83c1ed8, type: 2}
 --- !u!1 &1596693787
 GameObject:
   m_ObjectHideFlags: 0
@@ -47708,7 +47723,7 @@ GameObject:
   - 33: {fileID: 1596693791}
   - 135: {fileID: 1596693790}
   - 23: {fileID: 1596693789}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48123,7 +48138,7 @@ GameObject:
   - 33: {fileID: 1621158523}
   - 135: {fileID: 1621158522}
   - 23: {fileID: 1621158521}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48280,6 +48295,54 @@ Prefab:
     - target: {fileID: 411330, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 147368, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 147356, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 147354, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 147352, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 147350, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 147348, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 147346, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 147342, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 147340, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 147338, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 147336, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 147334, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79f0690db40657a409b3fa06dc03a0fb, type: 2}
@@ -52405,7 +52468,7 @@ GameObject:
   - 33: {fileID: 1751358539}
   - 135: {fileID: 1751358538}
   - 23: {fileID: 1751358537}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55273,7 +55336,7 @@ GameObject:
   - 33: {fileID: 1868868435}
   - 135: {fileID: 1868868434}
   - 23: {fileID: 1868868433}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56510,7 +56573,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1904867691}
   - 65: {fileID: 1904867692}
-  m_Layer: 2
+  - 114: {fileID: 1904867693}
+  m_Layer: 0
   m_Name: PlayerMovesRemaining
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56553,6 +56617,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 13.1722183, y: 9.32946777, z: 13.9543152}
   m_Center: {x: -59.9409752, y: 301.865967, z: 217.296158}
+--- !u!114 &1904867693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1904867690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85ed0665cb5e4caf9e198a861f55e21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assistanceCheck: {fileID: 914861443}
+  onHoverImage: {fileID: 2800000, guid: bb7230a06f6dc124f92283375557f292, type: 3}
+  onHoverSkin: {fileID: 11400000, guid: 6d7b6d3fe1d87482dac941ada83c1ed8, type: 2}
 --- !u!1 &1906523589
 GameObject:
   m_ObjectHideFlags: 0
@@ -59776,7 +59854,7 @@ GameObject:
   - 33: {fileID: 1940993673}
   - 135: {fileID: 1940993672}
   - 23: {fileID: 1940993671}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62099,7 +62177,7 @@ GameObject:
   - 33: {fileID: 2016468203}
   - 135: {fileID: 2016468202}
   - 23: {fileID: 2016468201}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
