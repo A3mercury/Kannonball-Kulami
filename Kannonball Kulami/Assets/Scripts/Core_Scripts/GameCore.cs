@@ -329,18 +329,28 @@ public class GameCore : MonoBehaviour
 			ShowValidMoves ();
 
 			if (isGameOver ()) {
+                //Added for ending game over network
+                if(networkManager.ingame)
+                {
+                    networkManager.justplayedgame = true;
+                }
+
 				GameIsOver = true;
 				Debug.Log ("Game is over!");
 				KeyValuePair<int, int> score = GetScore ();
 				Debug.Log ("Red score: " + score.Key);
 				Debug.Log ("Black score: " + score.Value);
-				if ( score.Key < score.Value) {
-					GameIsOver = false;
-					Application.LoadLevel ("VictoryScene");
-				} else {
-					GameIsOver = false;
-					Application.LoadLevel ("LoseScene");
-				}
+
+                if (score.Key < score.Value)
+                {
+                    GameIsOver = false;
+                    Application.LoadLevel("VictoryScene");
+                }
+                else
+                {
+                    GameIsOver = false;
+                    Application.LoadLevel("LoseScene");
+                }
 			}
 
 

@@ -5,11 +5,13 @@ using System.Collections;
 public class SceneTransitionScript : MonoBehaviour {
 
 	public static bool isClickable = true;
+    //private Network_Manager networkManager;
 	GameObject optionsPanel;
 	OptionsMenuTT optionsScript;
 
 	void Start () {
 		optionsScript = GameObject.FindObjectOfType (typeof(OptionsMenuTT)) as OptionsMenuTT;
+        //networkManager = GameObject.FindObjectOfType<Network_Manager>();
 		optionsPanel = GameObject.Find ("OptionsPanel");
 	}
 
@@ -38,7 +40,12 @@ public class SceneTransitionScript : MonoBehaviour {
 	}	
 
 	public void MainMenu () {
-		Application.LoadLevel("MainMenuScene");
+        if(Network_Manager.fromtransition)
+        {
+            Application.LoadLevel("GameScene");
+        }
+        else
+		    Application.LoadLevel("MainMenuScene");
 	}
 
     public void ExitGame()

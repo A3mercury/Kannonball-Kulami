@@ -7,6 +7,7 @@ public class MainMenuScript : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+        audio.Play();
         Scenes = new SceneTransitionScript();
 	}
 	

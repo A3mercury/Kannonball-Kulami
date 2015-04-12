@@ -32,7 +32,7 @@ public class PopUpInfo : MonoBehaviour {
 	void OnMouseEnter () {
         if (assistanceCheck.isOn)
         {
-            if (gameObject.name.ToString() == "singleplayer") ;
+            if (gameObject.name.ToString() == "singleplayer") 
             doWindowSinglePlayer = true;
 
             if (gameObject.name.ToString() == "networkplay")
