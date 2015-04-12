@@ -1540,7 +1540,7 @@ MonoBehaviour:
     m_FixedWidth: 0
     m_FixedHeight: 0
     m_StretchWidth: 1
-    m_StretchHeight: 0
+    m_StretchHeight: 1
   - m_Name: testTExtures
     m_Normal:
       m_Background: {fileID: 2800000, guid: 5d73b49749beb444fa43d0fac73f3ee7, type: 3}
