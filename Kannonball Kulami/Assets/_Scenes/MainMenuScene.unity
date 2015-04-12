@@ -1160,6 +1160,7 @@ GameObject:
   - 54: {fileID: 259805686}
   - 65: {fileID: 259805687}
   - 114: {fileID: 259805688}
+  - 114: {fileID: 259805689}
   m_Layer: 0
   m_Name: how_to_play_bottle
   m_TagString: Untagged
@@ -1265,6 +1266,40 @@ MonoBehaviour:
   assistanceCheck: {fileID: 1906649878}
   onHoverImage: {fileID: 2800000, guid: bb7230a06f6dc124f92283375557f292, type: 3}
   onHoverSkin: {fileID: 11400000, guid: 848fbcab49dae5240815ee89bb1c0b37, type: 2}
+--- !u!114 &259805689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 259805681}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09a4bfb956b05d046b30b4c5e7470e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterLevel: 1
+  floatHeight: 3
+  bounceDamp: 1
+  forceDampening: 1
+  bouyancyForce: {x: 0, y: 1, z: 0}
+  pointNum: 15
+  points:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  autoFill: 1
 --- !u!1 &263677026
 GameObject:
   m_ObjectHideFlags: 0
@@ -4572,8 +4607,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1094647778}
-  m_LocalRotation: {x: -.69930476, y: .10475155, z: .10475155, w: .69930476}
-  m_LocalPosition: {x: -416.214752, y: -244.58252, z: -21.2339649}
+  m_LocalRotation: {x: -.628664374, y: .0595875345, z: .0484108925, w: .773877859}
+  m_LocalPosition: {x: -411.716278, y: -239.993546, z: -27.4645767}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 663912114}

@@ -52,6 +52,8 @@ public class OptionsMenuTT : MonoBehaviour
     // on gui
     public GUISkin OptionsSkin;
 
+    public Button BackButton;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -100,7 +102,7 @@ public class OptionsMenuTT : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)) 
         {
             if (optionPanel.gameObject.activeSelf == true)
             {
@@ -108,7 +110,10 @@ public class OptionsMenuTT : MonoBehaviour
             }
             else
             {
-                optionPanel.gameObject.SetActive(true);
+                if (!networkManager.ingame && networkManager.isOnline)
+                    optionPanel.gameObject.SetActive(false);
+                else
+                    optionPanel.gameObject.SetActive(true);
                 
             }
 
@@ -165,6 +170,14 @@ public class OptionsMenuTT : MonoBehaviour
         {
             AssistanceToggle.interactable = true;
         }
+
+        if (Application.loadedLevelName == "GameScene")
+        {
+            if ((networkManager.isOnline && !networkManager.ingame))
+                BackButton.gameObject.SetActive(true);
+            else
+                BackButton.gameObject.SetActive(false);
+        }
 	}
 
     #region Assignments
@@ -220,8 +233,11 @@ public class OptionsMenuTT : MonoBehaviour
         }
 
         // button even listeners
-        if(Application.loadedLevelName == "GameScene")
+        if (Application.loadedLevelName == "GameScene")
+        {
             ConcedeButton.onClick.AddListener(concedeGame);
+            BackButton.onClick.AddListener(BackToMenu);
+        }
         QuitButton.onClick.AddListener(quitGame);
         ResumeButton.onClick.AddListener(resumeGame);
         SoundsButton.onClick.AddListener(MuteSounds);
@@ -316,6 +332,13 @@ public class OptionsMenuTT : MonoBehaviour
 
     }
 
+    public void BackToMenu()
+    {
+        optionPanel.gameObject.SetActive(false);
+        networkManager.Disconnect();
+        Application.LoadLevel("MainMenuScene");
+    }
+
     public void resumeGame()
     {
         optionPanel.gameObject.SetActive(false);
@@ -355,22 +378,54 @@ public class OptionsMenuTT : MonoBehaviour
 
 	void OnGUI () 
 	{
-        GUI.skin = OptionsSkin;
-		if (Application.loadedLevelName == "MainMenuScene" || Application.loadedLevelName == "GameScene") {
-			if (GUI.Button (new Rect(20, Screen.height - (48), 48, 48), "", GUI.skin.customStyles[0])) {
-				if (optionPanel.activeSelf == true)
-				{
-					resumeGame();
-				}
-				else
-				{
-					optionPanel.gameObject.SetActive (true);
-					if (Application.loadedLevelName == "MainMenuScene")
-						mainMenuClickScript.ToggleClickability();
-					if (Application.loadedLevelName == "GameScene")
-						ToggleClickScript();
-				}
-			}
-		}
+        if(Application.loadedLevelName == "GameScene")
+        {
+            if (!(!networkManager.ingame && networkManager.isOnline))
+            {
+                GUI.skin = OptionsSkin;
+                if (Application.loadedLevelName == "MainMenuScene" || Application.loadedLevelName == "GameScene")
+                {
+                    if (GUI.Button(new Rect(20, Screen.height - (48), 48, 48), "", GUI.skin.customStyles[0]))
+                    {
+                        if (optionPanel.activeSelf == true)
+                        {
+                            resumeGame();
+                        }
+                        else
+                        {
+                            optionPanel.gameObject.SetActive(true);
+                            if (Application.loadedLevelName == "MainMenuScene")
+                                mainMenuClickScript.ToggleClickability();
+                            if (Application.loadedLevelName == "GameScene")
+                                ToggleClickScript();
+                        }
+
+                    }
+                }
+            }
+        }
+        else
+        {
+            GUI.skin = OptionsSkin;
+            if (Application.loadedLevelName == "MainMenuScene" || Application.loadedLevelName == "GameScene")
+            {
+                if (GUI.Button(new Rect(20, Screen.height - (48), 48, 48), "", GUI.skin.customStyles[0]))
+                {
+                    if (optionPanel.activeSelf == true)
+                    {
+                        resumeGame();
+                    }
+                    else
+                    {
+                        optionPanel.gameObject.SetActive(true);
+                        if (Application.loadedLevelName == "MainMenuScene")
+                            mainMenuClickScript.ToggleClickability();
+                        if (Application.loadedLevelName == "GameScene")
+                            ToggleClickScript();
+                    }
+
+                }
+            }
+        }
 	}
 }
