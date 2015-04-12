@@ -46,6 +46,12 @@ public class Network_Manager : MonoBehaviour {
     private GUIStyle myStyle;
     private GUIStyle myOtherStyle;
 
+    private Rect ConcededRect;
+    private Rect DisconnectedRect;
+    private Rect WaitingForResponseRect;
+    private Rect RematchRect;
+    private Rect ChallengeRect;
+
     // Austin's Gui crap
     float serverWindowWidth = 700f / 1440f;
     float serverWindowHeight = 650f / 900f;
@@ -98,7 +104,8 @@ public class Network_Manager : MonoBehaviour {
     public void StartServer()
     {
         //Network.InitializeSecurity();
-        Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
+        //Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
+        Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), true);
         //MasterServer.updateRate = 1;
         MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
         Debug.Log("Restarted");
@@ -148,19 +155,30 @@ public class Network_Manager : MonoBehaviour {
     
     private void OnGUI()
     {
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    popuptrue = true;
-        //}
+        GUI.skin = ServerSkin;
 
-        //// FOR TESTING THE POPUP 
-        //if (popuptrue)
-        //{
-        //    GUI.skin = PopupSkin;
 
-        //    InviteWrapperRect = GUI.Window(1, InviteWrapperRect, InvitationPopupWindow, "");
+        DisconnectedRect = new Rect(
+            (Screen.width * (1 - (523f / 1440f))) / 2,
+            (Screen.height * (1 - (256f / 900f))) / 2,
+            Screen.width * (523f / 1440f),
+            Screen.height * (256f / 900f)
+            );
 
-        //}
+        GUILayout.BeginArea(DisconnectedRect, GUI.skin.customStyles[13]);
+       
+        GUILayout.BeginVertical();
+        GUILayout.Label("Unfortunately your opponent has been disconnected.\nYou will be taken back to the player list.", GUI.skin.customStyles[14]);
+        //messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
+        if (GUILayout.Button("", GUI.skin.customStyles[15]))
+        {
+            StartServer();
+            gameCore.RemoveGameBoard();
+        }
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+
+
 
         // If we are in an online game
         if (isOnline)
@@ -213,6 +231,8 @@ public class Network_Manager : MonoBehaviour {
                         }
                         else // if we are sending an invite
                         {
+
+
                             messBox = "You have challenged " + serverName + " to a game. Awaiting response...\n";
                             windowRect = GUI.Window(1, windowRect, AwaitingResponse, "");
                         }
@@ -256,14 +276,23 @@ public class Network_Manager : MonoBehaviour {
             }
             else if(detecteddisconnect && !conceded)
             {
-                Debug.Log("Made it to disconnect.");
-                messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
-                windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
+                DisconnectedRect = new Rect(
+                    0,
+                    0,
+                    512,
+                    256
+                    );
+
+                GUILayout.BeginArea(DisconnectedRect, GUI.skin.customStyles[13]);
+
+
+                //messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
+                //windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
+                GUILayout.EndArea();
             }
 
             if(conceded) 
             {
-                Debug.Log("Made it to concede popup");
                 messBox = "Your opponent has conceded!  You are the victor!";
                 windowRect = GUI.Window(1, windowRect, ConcededpopUp, "");
             }
@@ -418,10 +447,6 @@ public class Network_Manager : MonoBehaviour {
         Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
         MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
     }
-    //public void RequestPopup(int id)
-    //{
-    //    GUILayout.TextField(userwantingtoconnect);
-    //}
 
     #region server list 
 
@@ -703,6 +728,7 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.EndHorizontal();
 
     }
+
     private void ConcededpopUp(int id)
     {
         myStyle = GUI.skin.box;
