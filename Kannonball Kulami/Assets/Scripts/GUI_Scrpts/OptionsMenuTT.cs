@@ -40,6 +40,8 @@ public class OptionsMenuTT : MonoBehaviour
     // starts at half
     float sliderStartVol = 0.5f;
     float cannonballStartVol = 0.5f;
+    float musicSliderCurrentVol = 0.5f;
+    float soundsSliderCurrentVol = 0.5f;
 
     public static bool areSoundsMuted = false;
     public static bool areMusicMuted = false;
@@ -245,14 +247,13 @@ public class OptionsMenuTT : MonoBehaviour
         if(areSoundsMuted) // if sounds are muted, unmute them
         {
             areSoundsMuted = false;
-            soundSlider.value = sliderStartVol;
+            soundSlider.value = soundsSliderCurrentVol;
             soundSlider.interactable = true;
-
-            SetSoundsToHalf();
         }
         else // if sounds are not muted, mute them
         {
             areSoundsMuted = true;
+            soundsSliderCurrentVol = soundSlider.value;
             soundSlider.value = 0.0f;
             soundSlider.interactable = false;
         }
@@ -267,7 +268,7 @@ public class OptionsMenuTT : MonoBehaviour
         if (areMusicMuted)
         {
             areMusicMuted = false;
-            musicSlider.value = sliderStartVol;
+            musicSlider.value = musicSliderCurrentVol;
             musicSlider.interactable = false;
 
             // set music volume
@@ -275,6 +276,7 @@ public class OptionsMenuTT : MonoBehaviour
         else
         {
             areMusicMuted = true;
+            musicSliderCurrentVol = musicSlider.value;
             musicSlider.value = 0.0f;
             musicSlider.interactable = true;
         }
