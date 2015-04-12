@@ -39,7 +39,7 @@ public class Chat_Script : MonoBehaviour
 
     void Update()
     {
-
+        
     }
 
     public void OpenCloseChat()
