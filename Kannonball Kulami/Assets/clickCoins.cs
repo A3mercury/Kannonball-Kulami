@@ -12,7 +12,7 @@ public class clickCoins : MonoBehaviour {
 
     void Start()
     {
-        mainCam = GameObject.Find("Main Camera").camera;
+        //mainCam = GameObject.Find("Main Camera").camera;
 		spoutTransform = GameObject.Find("Coin Spout").transform;
         //coinSpout = GetComponentInChildren<ParticleSystem>();
         //mesh = GetComponent<MeshCollider>();
