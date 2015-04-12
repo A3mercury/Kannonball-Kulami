@@ -20,10 +20,11 @@ public class PopUpInfo : MonoBehaviour {
 	public GUISkin onHoverSkin;
 
 	void Start () {
-        gameCore = GameObject.Find("GameCore").GetComponent<GameCore>() as GameCore;
+       // gameCore = GameObject.Find("GameCore").GetComponent<GameCore>() as GameCore;
 	}
 	
 	void Update () {
+
 		mousePos.x = (Input.mousePosition.x) - 300;
 		mousePos.y = -(Input.mousePosition.y - Screen.height);
 		mousePos.z = (0);
