@@ -274,9 +274,12 @@ public class OptionsMenuTT : MonoBehaviour
             areMusicMuted = false;
             musicSlider.value = musicSliderCurrentVol;
             musicSlider.interactable = false;
-            if (!KannonballKulamiTheme.isPlaying)
+            if (Application.loadedLevelName == "MainMenuScene")
             {
-                KannonballKulamiTheme.Play();
+                if (!KannonballKulamiTheme.isPlaying)
+                {
+                    KannonballKulamiTheme.Play();
+                }
             }
             // set music volume
         }
