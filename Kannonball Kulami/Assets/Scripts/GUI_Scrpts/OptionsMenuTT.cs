@@ -38,10 +38,10 @@ public class OptionsMenuTT : MonoBehaviour
 	public static Toggle AssistanceToggle;
 
     // starts at half
-    float sliderStartVol = 0.5f;
-    float cannonballStartVol = 0.5f;
-    float musicSliderCurrentVol = 0.5f;
-    float soundsSliderCurrentVol = 0.5f;
+    public static float sliderStartVol = 0.5f;
+    public static float cannonballStartVol = 0.5f;
+    public static float musicSliderCurrentVol = 0.5f;
+    public static float soundsSliderCurrentVol = 0.5f;
 
     public static bool areSoundsMuted = false;
     public static bool areMusicMuted = false;
