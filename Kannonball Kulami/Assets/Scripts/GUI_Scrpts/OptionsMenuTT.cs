@@ -68,6 +68,10 @@ public class OptionsMenuTT : MonoBehaviour
         else if (Application.loadedLevelName == "MainMenuScene")
         {
             KannonballKulamiTheme = GameObject.Find("KannonBallKulamiTheme").GetComponent<AudioSource>();
+            if (!areMusicMuted)
+            {
+                KannonballKulamiTheme.Play();
+            }
         }
 
         AssignSliders();
@@ -174,15 +178,15 @@ public class OptionsMenuTT : MonoBehaviour
             {
                 soundSlider = slider;
                 soundSlider.interactable = true;
-                soundSlider.value = sliderStartVol;
-                SetSoundsToHalf();
+                soundSlider.value = soundsSliderCurrentVol;
+               // SetSoundsToHalf();
             }
             else if (slider.name == "music_slider")
             {
                 musicSlider = slider;
                 musicSlider.interactable = true;
-                musicSlider.value = sliderStartVol;
-                SetMusicToHalf();
+                musicSlider.value = musicSliderCurrentVol;
+              //  SetMusicToHalf();
             }
         }
     }
