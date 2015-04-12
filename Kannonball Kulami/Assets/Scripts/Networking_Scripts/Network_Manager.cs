@@ -155,31 +155,6 @@ public class Network_Manager : MonoBehaviour {
     
     private void OnGUI()
     {
-        GUI.skin = ServerSkin;
-
-
-        DisconnectedRect = new Rect(
-            (Screen.width * (1 - (523f / 1440f))) / 2,
-            (Screen.height * (1 - (256f / 900f))) / 2,
-            Screen.width * (523f / 1440f),
-            Screen.height * (256f / 900f)
-            );
-
-        GUILayout.BeginArea(DisconnectedRect, GUI.skin.customStyles[13]);
-       
-        GUILayout.BeginVertical();
-        GUILayout.Label("Unfortunately your opponent has been disconnected.\nYou will be taken back to the player list.", GUI.skin.customStyles[14]);
-        //messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
-        if (GUILayout.Button("", GUI.skin.customStyles[15]))
-        {
-            StartServer();
-            gameCore.RemoveGameBoard();
-        }
-        GUILayout.EndVertical();
-        GUILayout.EndArea();
-
-
-
         // If we are in an online game
         if (isOnline)
         {
@@ -277,18 +252,38 @@ public class Network_Manager : MonoBehaviour {
             else if(detecteddisconnect && !conceded)
             {
                 DisconnectedRect = new Rect(
-                    0,
-                    0,
-                    512,
-                    256
+                    (Screen.width * (1 - (523f / 1440f))) / 2,
+                    (Screen.height * (1 - (256f / 900f))) / 2,
+                    Screen.width * (523f / 1440f),
+                    Screen.height * (256f / 900f)
                     );
 
                 GUILayout.BeginArea(DisconnectedRect, GUI.skin.customStyles[13]);
 
-
+                GUILayout.BeginVertical();
+                GUILayout.Label("Unfortunately your opponent has been disconnected.\nYou will be taken back to the player list.", GUI.skin.customStyles[14]);
                 //messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
-                //windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
+                if (GUILayout.Button("", GUI.skin.customStyles[15]))
+                {
+                    StartServer();
+                    gameCore.RemoveGameBoard();
+                }
+                GUILayout.EndVertical();
                 GUILayout.EndArea();
+
+                //DisconnectedRect = new Rect(
+                //    0,
+                //    0,
+                //    512,
+                //    256
+                //    );
+
+                //GUILayout.BeginArea(DisconnectedRect, GUI.skin.customStyles[13]);
+
+
+                ////messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
+                ////windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
+                //GUILayout.EndArea();
             }
 
             if(conceded) 
