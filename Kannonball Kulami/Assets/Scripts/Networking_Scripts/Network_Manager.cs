@@ -262,7 +262,6 @@ public class Network_Manager : MonoBehaviour {
 
                 GUILayout.BeginVertical();
                 GUILayout.Label("Unfortunately your opponent has been disconnected.\nYou will be taken back to the player list.", GUI.skin.customStyles[14]);
-                //messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
                 if (GUILayout.Button("", GUI.skin.customStyles[15]))
                 {
                     StartServer();
@@ -288,8 +287,26 @@ public class Network_Manager : MonoBehaviour {
 
             if(conceded) 
             {
+                ConcededRect = new Rect(
+                    (Screen.width * (1 - (523f / 1440f))) / 2,
+                    (Screen.height * (1 - (256f / 900f))) / 2,
+                    Screen.width * (523f / 1440f),
+                    Screen.height * (256f / 900f)
+                    );
+
                 messBox = "Your opponent has conceded!  You are the victor!";
-                windowRect = GUI.Window(1, windowRect, ConcededpopUp, "");
+                GUILayout.BeginArea(ConcededRect, GUI.skin.customStyles[13]);
+                GUILayout.BeginVertical();
+                GUILayout.Label(messBox, GUI.skin.customStyles[14]);
+                if (GUILayout.Button("", GUI.skin.customStyles[15]))
+                {
+
+                }
+                GUILayout.EndVertical();
+                GUILayout.EndArea();
+
+                //messBox = "Your opponent has conceded!  You are the victor!";
+                //windowRect = GUI.Window(1, windowRect, ConcededpopUp, "");
             }
         }
         else

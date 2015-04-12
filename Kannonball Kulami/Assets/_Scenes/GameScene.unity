@@ -44841,7 +44841,8 @@ MonoBehaviour:
   turn: 
   currentRow: 0
   currentCol: 0
-  turnsLeft: 0
+  redTurnsLeft: 0
+  blackTurnsLeft: 0
   GameIsOver: 0
   currentBoard: 0
   AIMove: {fileID: 0}
