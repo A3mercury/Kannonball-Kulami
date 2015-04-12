@@ -630,7 +630,7 @@ public class Network_Manager : MonoBehaviour {
             GUILayout.BeginArea(ConnectButtonRect);
             if (GUILayout.Button("", GUI.skin.customStyles[4]))
             {
-                if (userName != "")
+                if (userName.Trim() != "")
                 {
                     try
                     {
