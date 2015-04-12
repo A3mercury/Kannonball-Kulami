@@ -73,6 +73,7 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
+    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &15441821
 GameObject:
@@ -4338,8 +4339,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1094647778}
-  m_LocalRotation: {x: .175826743, y: -.27292338, z: -.0402067639, w: -.944976866}
-  m_LocalPosition: {x: -539.323547, y: -417.951111, z: -314.443512}
+  m_LocalRotation: {x: .0316621065, y: .965320468, z: .217896521, w: -.140267953}
+  m_LocalPosition: {x: -64.6755371, y: -454.673035, z: 41.6200409}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 663912114}
@@ -5238,8 +5239,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 0
@@ -6798,7 +6799,7 @@ GameObject:
   - 4: {fileID: 1680695576}
   - 82: {fileID: 1680695575}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: KannonBallKulamiTheme
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
