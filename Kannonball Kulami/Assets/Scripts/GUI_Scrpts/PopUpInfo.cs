@@ -59,6 +59,7 @@ public class PopUpInfo : MonoBehaviour {
 		doWindowOptions = false;
 		doWindowCredits = false;
         doWindowPlayerMoves = false;
+        doWindowOpponentMoves = false;
 	}
 	
 	void DoWindow0(int windowID) {
