@@ -66,6 +66,11 @@ public class GameCore : MonoBehaviour
 
     private GameObject theBoard = null;
 
+    // to pop up the win/loss popups
+    private bool ShowVictoryDefeat = false;
+    private bool PlayerWin = false;
+    public GUISkin VD_Skin;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -346,12 +351,16 @@ public class GameCore : MonoBehaviour
                 if (score.Key < score.Value)
                 {
                     GameIsOver = false;
-                    Application.LoadLevel("VictoryScene");
+                    ShowVictoryDefeat = true;
+                    PlayerWin = true;
+                    //Application.LoadLevel("VictoryScene");
                 }
                 else
                 {
                     GameIsOver = false;
-                    Application.LoadLevel("LoseScene");
+                    ShowVictoryDefeat = true;
+                    PlayerWin = false;
+                    //Application.LoadLevel("LoseScene");
                 }
 			}
 
@@ -362,6 +371,100 @@ public class GameCore : MonoBehaviour
 			MovesBlockedByOptions.Add(new KeyValuePair<int, int>(row, col));
 		}
 	
+    }
+
+    void OnGUI()
+    {
+        GUI.skin = VD_Skin;
+
+        if(ShowVictoryDefeat)
+        {
+
+
+            Rect VD_Wrapper = new Rect(
+                (Screen.width * (1 - (1024f / 1440f))) / 2,
+                (Screen.height * (1 - (512f / 900f))) / 2,
+                Screen.width * (1024f / 1440f),
+                Screen.height * (512f / 900f)
+                );
+
+            Rect BackgroundRect = new Rect(0,0,VD_Wrapper.width, VD_Wrapper.height);
+            GUILayout.BeginArea(VD_Wrapper);
+            if (PlayerWin) // if the player wins show victory
+                GUILayout.BeginArea(BackgroundRect, GUI.skin.customStyles[0]);
+            else if (GetScore().Key == GetScore().Value) // else if there is a tie show tie
+                GUILayout.BeginArea(BackgroundRect, GUI.skin.customStyles[2]);
+            else // else show defeat
+                GUILayout.BeginArea(BackgroundRect, GUI.skin.customStyles[1]);
+
+            Rect OpponentScoreRect = new Rect(
+                (BackgroundRect.width * 35f) / 100, 
+                (BackgroundRect.height * 37f) / 100, 
+                (BackgroundRect.width * 8f) / 100, 
+                (BackgroundRect.height * 8f) / 100
+                );
+            Rect PlayerScoreRect = new Rect(
+                (BackgroundRect.width * 62f) / 100, 
+                (BackgroundRect.height * 37f) / 100, 
+                (BackgroundRect.width * 8f) / 100, 
+                (BackgroundRect.height * 8f) / 100
+                );
+
+            GUILayout.BeginArea(OpponentScoreRect);
+            GUILayout.Label(GetScore().Key.ToString(), GUI.skin.customStyles[3]);
+            GUILayout.EndArea();
+
+            GUILayout.BeginArea(PlayerScoreRect);
+            GUILayout.Label(GetScore().Value.ToString(), GUI.skin.customStyles[3]);
+            GUILayout.EndArea();
+
+            
+            GUILayout.BeginHorizontal();
+
+            Rect ContinueButtonRect = new Rect(
+                (BackgroundRect.width * 22f) / 100,
+                (BackgroundRect.height * 55f) / 100,
+                (BackgroundRect.width * 20f) / 100,
+                (BackgroundRect.height * 18f)  / 100
+                );
+            Rect ReviewButtonRect = new Rect(
+                (BackgroundRect.width * 58f) / 100,
+                (BackgroundRect.height * 55f) / 100,
+                (BackgroundRect.width * 20f) / 100,
+                (BackgroundRect.height * 18f) / 100
+                );
+
+            GUILayout.BeginArea(ContinueButtonRect);
+            if(GUILayout.Button("", GUI.skin.customStyles[4]))
+            {
+                // continue is going to go back to the 
+                if(!networkManager.isOnline)
+                {
+                    // 1) main menu if in single player
+                    Application.LoadLevel("MainMenuScene");
+                }
+                else
+                {
+                    // 2) network manager if in multi player
+                    networkManager.StartServer();
+                    RemoveGameBoard();
+                }
+            }
+            GUILayout.EndArea();
+
+            GUILayout.BeginArea(ReviewButtonRect);
+            if(GUILayout.Button("", GUI.skin.customStyles[5]))
+            {
+                // review is going to go back to the game
+                ShowVictoryDefeat = false;
+            }
+            GUILayout.EndArea();
+            
+            GUILayout.EndHorizontal();
+            
+            GUILayout.EndArea();
+            GUILayout.EndArea();
+        }
     }
 
 	private struct GamePiece

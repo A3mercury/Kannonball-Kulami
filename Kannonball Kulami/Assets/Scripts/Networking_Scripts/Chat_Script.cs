@@ -69,6 +69,7 @@ public class Chat_Script : MonoBehaviour
         {
             networkView.RPC("SendMyMessage", RPCMode.All, networkManager.userName + ": " + messageField.text + "\n");
             messageField.text = "";
+            SendMyMessage(messageField.text);
         }
     }
 

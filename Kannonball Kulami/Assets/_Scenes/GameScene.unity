@@ -44862,6 +44862,7 @@ MonoBehaviour:
   BlackLastPiece: {fileID: 2100000, guid: 413b10e23f8b4b04ca8df6483b2457f8, type: 2}
   RedPiece: {fileID: 2100000, guid: 8b9806d7be168834e8628bb164ea1d9f, type: 2}
   RedLastPiece: {fileID: 2100000, guid: 1d8fa6894b398f74494acf180685ba56, type: 2}
+  VD_Skin: {fileID: 11400000, guid: a9dd445dc24cd6f4fa03fc15fdfeb6b6, type: 2}
 --- !u!114 &1507640957
 MonoBehaviour:
   m_ObjectHideFlags: 0
