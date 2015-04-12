@@ -27,7 +27,8 @@ public class GameCore : MonoBehaviour
     private int blackLastPiece;
     public int currentRow;
     public int currentCol;
-    public int turnsLeft;
+    public int redTurnsLeft;
+    public int blackTurnsLeft;
     private int boardSize = 8;
     public bool GameIsOver;
 	private bool assistanceOn;
@@ -98,7 +99,8 @@ public class GameCore : MonoBehaviour
 		}
 	
 
-        turnsLeft = 56;
+        redTurnsLeft = 28;
+        blackTurnsLeft = 28;
         if (OptionsMenuTT.PlayerGoesFirst)
         {
             turn = "black";
@@ -135,7 +137,8 @@ public class GameCore : MonoBehaviour
         redLastCol = 0;
         redLastRow = 0;
         redLastPiece = 0;
-        turnsLeft = 56;
+        blackTurnsLeft = 28;
+        redTurnsLeft = 28;
         currentRow = 0;
         currentCol = 0;
         
@@ -300,6 +303,7 @@ public class GameCore : MonoBehaviour
 				//CannonParticleFire.Instance.CreateParticles ("PlayerParticleObject");
                 CannonFireAnimate.letTheBassCannonKickIt = true;
 				playerCannonSmoke.Play();
+                blackTurnsLeft--;
 			} 
 			else 
 			{
@@ -320,12 +324,10 @@ public class GameCore : MonoBehaviour
 				redLastCol = col;
 				redLastPiece = gamePlaces [row, col].pieceNum;
 				turn = "black";
-
+                redTurnsLeft--;
 				//CannonParticleFire.Instance.CreateParticles ("OpponentParticleObject");
 				opponentCannonSmoke.Play();
 			}
-
-			turnsLeft--;
 			ShowValidMoves ();
 
 			if (isGameOver ()) {
@@ -410,7 +412,7 @@ public class GameCore : MonoBehaviour
 
     public bool isGameOver()
     {
-        if (turnsLeft == 0)
+        if (blackTurnsLeft == 0 && redTurnsLeft == 0)
             return true;
         return noValidMoves();
     }
@@ -436,7 +438,7 @@ public class GameCore : MonoBehaviour
 
     public bool isValidMove(int row, int col)
     {
-		if (turnsLeft == 56) 
+		if (blackTurnsLeft == 28 && redTurnsLeft == 28) 
 			return true;
 
 		if (gamePlaces[row, col].owner != "open")
@@ -487,16 +489,19 @@ public class GameCore : MonoBehaviour
                 }
             }
         }
-		if (turnsLeft < 56 && OptionsMenuTT.isAssistanceChecked)
-		{
-			Cannonballs[blackLastRow][blackLastCol].renderer.material = BlackLastPiece;
-			//Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;
-			if(turnsLeft < 55)
-			{				
-				Cannonballs[redLastRow][redLastCol].renderer.material = RedLastPiece;
-				//Cannonballs[redLastRow][redLastCol].renderer.enabled = true;			
-			}
-		}
+        if (OptionsMenuTT.isAssistanceChecked)
+        {
+            if (blackTurnsLeft < 28)
+            {
+                Cannonballs[blackLastRow][blackLastCol].renderer.material = BlackLastPiece;
+                //Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;
+            }
+            if (redTurnsLeft < 28)
+            {
+                Cannonballs[redLastRow][redLastCol].renderer.material = RedLastPiece;
+                //Cannonballs[redLastRow][redLastCol].renderer.enabled = true;			
+            }
+        }
     }
 
     public void HideValidMoves()
@@ -513,15 +518,15 @@ public class GameCore : MonoBehaviour
                 }
             }
         }
-		if (turnsLeft < 56) 
+		if (blackTurnsLeft < 28) 
 		{
 			Cannonballs[blackLastRow][blackLastCol].renderer.material = BlackPiece;
-			//Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;			
-			if (turnsLeft < 55) 
-			{
-				Cannonballs[redLastRow][redLastCol].renderer.material = RedPiece;
-				//Cannonballs[redLastRow][redLastCol].renderer.enabled = true;				
-			}
+			//Cannonballs[blackLastRow][blackLastCol].renderer.enabled = true;		
+        }
+		if (redTurnsLeft < 28) 
+		{
+			Cannonballs[redLastRow][redLastCol].renderer.material = RedPiece;
+			//Cannonballs[redLastRow][redLastCol].renderer.enabled = true;				
 		}
 
     }

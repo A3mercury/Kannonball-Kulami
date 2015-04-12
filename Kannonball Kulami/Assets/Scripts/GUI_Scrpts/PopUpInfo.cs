@@ -20,10 +20,13 @@ public class PopUpInfo : MonoBehaviour {
 	public GUISkin onHoverSkin;
 
 	void Start () {
-        gameCore = GameObject.Find("GameCore").GetComponent<GameCore>() as GameCore;
-	}
+    }
 	
 	void Update () {
+        if (gameCore == null && GameObject.Find("GameCore") != null)
+        {
+            gameCore = GameObject.Find("GameCore").GetComponent<GameCore>() as GameCore;
+        }
 		mousePos.x = (Input.mousePosition.x) - 300;
 		mousePos.y = -(Input.mousePosition.y - Screen.height);
 		mousePos.z = (0);
@@ -32,7 +35,7 @@ public class PopUpInfo : MonoBehaviour {
 	void OnMouseEnter () {
         if (assistanceCheck.isOn)
         {
-            if (gameObject.name.ToString() == "singleplayer") 
+            if (gameObject.name.ToString() == "singleplayer")
             doWindowSinglePlayer = true;
 
             if (gameObject.name.ToString() == "networkplay")
@@ -58,6 +61,7 @@ public class PopUpInfo : MonoBehaviour {
 		doWindowOptions = false;
 		doWindowCredits = false;
         doWindowPlayerMoves = false;
+        doWindowOpponentMoves = false;
 	}
 	
 	void DoWindow0(int windowID) {
@@ -82,7 +86,11 @@ public class PopUpInfo : MonoBehaviour {
             GUI.Window(0, new Rect(25, 370, 150, 110), DoWindow0, "This takes you to the credits screen, where you can see who made this game!");
 
         if (doWindowPlayerMoves)
-            GUI.Window(0, new Rect(mousePos.x + 20, mousePos.y - 45, 200, 100), DoWindow0, "Moves remaining: " + (gameCore.turnsLeft / 2));
+            GUI.Window(25, new Rect(630, 480, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.blackTurnsLeft));
+		
+        if (doWindowOpponentMoves)
+			GUI.Window(25, new Rect(100, 290, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.redTurnsLeft));
+
 
     }
 }
