@@ -21,3 +21,5 @@ EditorBuildSettings:
     path: Assets/_Scenes/CreditsScene.unity
   - enabled: 1
     path: Assets/_Scenes/LoseScene.unity
+  - enabled: 1
+    path: Assets/_Scenes/HowToPlayScene.unity
