@@ -28,6 +28,7 @@ public class Network_Manager : MonoBehaviour {
     public bool lobbycamera;
     public bool detecteddisconnect, conceded;
     public bool respondtorematch;
+    public bool popupflag; 
     public static bool fromtransition;
     public string serverName;
     public string clientName;
@@ -133,6 +134,7 @@ public class Network_Manager : MonoBehaviour {
         justplayedgame = false;
         rematchpopup = false;
         responsefromrematch = false;
+        popupflag = false;
     }
 
     void OnServerInitialized()
@@ -281,6 +283,8 @@ public class Network_Manager : MonoBehaviour {
             }
             else if(detecteddisconnect && !conceded)
             {
+                popupflag = true;
+
                 GUI.skin = ServerSkin;
                 ConcededRect = new Rect(
                     (Screen.width * (1 - (512f / 1440f))) / 2,
@@ -320,6 +324,8 @@ public class Network_Manager : MonoBehaviour {
 
             if(conceded) 
             {
+                popupflag = true;
+
                 GUI.skin = ServerSkin;
                 ConcededRect = new Rect(
                     (Screen.width * (1 - (512f / 1440f))) / 2,
@@ -358,6 +364,18 @@ public class Network_Manager : MonoBehaviour {
 
                 //messBox = "Your opponent has conceded!  You are the victor!";
                 //windowRect = GUI.Window(1, windowRect, ConcededpopUp, "");
+            }
+            if (disconnected && invoked)
+            {
+                //Evoke();
+
+
+
+                messBox = "Request has been denied.\n";
+                windowRect = GUI.Window(1, PopupRect, popUp, "");
+                //Invoke("Evoke", 3);
+                //Invoke("Disconnect", 3);
+
             }
         }
         else
@@ -591,7 +609,7 @@ public class Network_Manager : MonoBehaviour {
             {
                 GUILayout.BeginHorizontal(GUI.skin.customStyles[10]);
                 GUILayout.Box(c.gameName, GUI.skin.customStyles[10]);
-                if (c.gameName != userName)
+                if (c.gameName != userName && !popupflag)
                 {
 
                     if (GUILayout.Button("", GUI.skin.customStyles[11]))
@@ -834,6 +852,8 @@ public class Network_Manager : MonoBehaviour {
 
     private void AwaitingResponse(int id)
     {
+        popupflag = true;
+
         GUI.skin = ServerSkin;
         WaitingForResponseRect = new Rect(
             0,
