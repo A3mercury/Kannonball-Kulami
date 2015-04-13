@@ -26,7 +26,7 @@ public class Network_Manager : MonoBehaviour {
     public int randomBoard = 0;
     public static int networkplayer;
     public bool invoked, disconnected, sentRequest, ingame = false, calledgamescene, 
-                isOnline, lobbycamera,  detecteddisconnect, conceded, popupflag; 
+                isOnline, lobbycamera,  detecteddisconnect, conceded, popupflag, cancelledrequest; 
     public string serverName, clientName, userName = "", maxPlayers = "10", port = "21212", 
                   userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     private string messBox = "", messageToSend = "", user = "";
@@ -107,7 +107,7 @@ public class Network_Manager : MonoBehaviour {
         Debug.Log("Restarted");
 
         ingame = false; invoked = true; disconnected = false; sentRequest = false; calledgamescene = false; detecteddisconnect = false;
-        conceded = false; lobbycamera = false; popupflag = false;
+        conceded = false; lobbycamera = false; popupflag = false; cancelledrequest = false;
         
     }
 
@@ -143,6 +143,7 @@ public class Network_Manager : MonoBehaviour {
         {
             if (!ingame)
             {
+                gameCore.ShowVictoryDefeat = false;
                 if (!lobbycamera)
                 {
                     GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();
@@ -177,7 +178,7 @@ public class Network_Manager : MonoBehaviour {
                         gameCore.turn = "red";
                     }
                     // sent or recieving a invite
-                    if (sentRequest && !disconnected)
+                    if (sentRequest && !disconnected && !cancelledrequest)
                     {
                         // if we have been sent an invite
                         if (Network.isServer)
@@ -190,6 +191,10 @@ public class Network_Manager : MonoBehaviour {
                             messBox = "You have challenged " + serverName + " to a game. Awaiting response...\n";
                             PopupRect = GUI.Window(1, PopupRect, AwaitingResponse, "");
                         }
+                    }
+                    if(cancelledrequest)
+                    {
+                        invoked = true;
                     }
                 }
                 if (disconnected && invoked)
@@ -412,6 +417,7 @@ public class Network_Manager : MonoBehaviour {
     }
     public void Disconnect()
     {
+        MasterServer.ClearHostList();
         Network.Disconnect();
         MasterServer.UnregisterHost();
         ingame = false;
@@ -762,45 +768,27 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.BeginArea(InnerRect);
         GUILayout.BeginVertical();
         GUILayout.Label(messBox, GUI.skin.customStyles[14]);
+        Rect CancelRect = new Rect(
+          0,
+          (InnerRect.height - (InnerRect.height * 32f) / 100),
+          (InnerRect.width * 36f) / 100,
+          (InnerRect.height * 32f) / 100
+          );
+        GUILayout.BeginArea(CancelRect);
+        if (GUILayout.Button("", GUI.skin.customStyles[16]))
+        {
+            networkView.RPC("CancelRequest", RPCMode.All, true);
+            //invoked = false;
+            //StartServer();
+            //GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();
+            //GameObject.FindObjectOfType<AICannonScript>().CancelInvoke();
+            //gameCore.RemoveGameBoard();
+        }
         GUILayout.EndArea();
         GUILayout.EndVertical();
         GUILayout.EndArea();
+        GUILayout.EndArea();
     }
-
-    private void RematchWindow(int id)
-    {
-        myStyle = GUI.skin.box;
-        myStyle.alignment = TextAnchor.UpperLeft;
-        myStyle.wordWrap = true;
-        myStyle.stretchHeight = true;
-        myOtherStyle = GUI.skin.textField;
-        myOtherStyle.alignment = TextAnchor.MiddleLeft;
-        myOtherStyle.clipping = TextClipping.Clip;
-        myOtherStyle.wordWrap = false;
-        myOtherStyle.fixedWidth = 200;
-
-
-        GUILayout.Width(300);
-        GUILayout.Box(messBox, myStyle);
-        GUILayout.BeginHorizontal();
-
-
-        if (GUILayout.Button("Rematch", GUILayout.Width(75)))
-        {
-            networkView.RPC("SendRematchRequest", RPCMode.All, true);
-
-        }
-        if (GUILayout.Button("Cancel", GUILayout.Width(75)))
-        {
-            networkView.RPC("SendRematchRequest", RPCMode.All, false);
-        }
-
-        GUILayout.EndHorizontal();
-        GUILayout.BeginHorizontal();
-        GUILayout.EndHorizontal();
-
-    }
-
 	
     [RPC]
     private void SendConnectionRequest(string userName, bool request)
@@ -846,6 +834,12 @@ public class Network_Manager : MonoBehaviour {
     public void MoveOpponentCannon(float x, float y, float z)
     {
         opponentCannon.MoveCannon(new Vector3(x, y, z));
+    }
+    [RPC]
+    public void CancelRequest(bool cancel)
+    {
+        cancelledrequest = cancel;
+        disconnected = true;
     }
 
 }

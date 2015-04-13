@@ -8,10 +8,11 @@ public class PopUpInfo : MonoBehaviour {
 
 	private bool doWindowSinglePlayer = false;
 	private bool doWindowMultiPlayer = false;
-	private bool doWindowOptions = false;
+	private bool doWindowBottle = false;
 	private bool doWindowCredits = false;
     private bool doWindowPlayerMoves = false;
     private bool doWindowOpponentMoves = false;
+    private bool doWindowChestInfo = false;
 	private Vector3 mousePos;
 	public Toggle assistanceCheck;
 	
@@ -41,8 +42,8 @@ public class PopUpInfo : MonoBehaviour {
             if (gameObject.name.ToString() == "networkplay")
                 doWindowMultiPlayer = true;
 
-            if (gameObject.name.ToString() == "options")
-                doWindowOptions = true;
+            if (gameObject.name.ToString() == "how_to_play_bottle")
+                doWindowBottle = true;
 
             if (gameObject.name.ToString() == "credits")
                 doWindowCredits = true;
@@ -52,16 +53,22 @@ public class PopUpInfo : MonoBehaviour {
 
             if (gameObject.name.ToString() == "OpponentMovesRemaining")
                 doWindowOpponentMoves = true;
+
+            if(gameObject.name.ToString() == "New Chest")
+                doWindowChestInfo = true;
+
+            Debug.Log(gameObject.name.ToString());
         }
 	}
 
 	void OnMouseExit () {
 		doWindowSinglePlayer = false;
 		doWindowMultiPlayer = false;
-		doWindowOptions = false;
+        doWindowBottle = false;
 		doWindowCredits = false;
         doWindowPlayerMoves = false;
         doWindowOpponentMoves = false;
+        doWindowChestInfo = false;
 	}
 	
 	void DoWindow0(int windowID) {
@@ -74,23 +81,24 @@ public class PopUpInfo : MonoBehaviour {
         GUI.skin.window.normal.background = onHoverImage;
 
         if (doWindowSinglePlayer)
-            GUI.Window(0, new Rect(3, 60, 200, 95), DoWindow0, "This takes you to a single player game, where you can either play against an easy or hard AI.");
+            GUI.Window(0, new Rect(3, 60, 200, 95), DoWindow0, "Test your skills against an easy, hard, or expert computer!");
 
         if (doWindowMultiPlayer)
-            GUI.Window(0, new Rect(25, 150, 150, 110), DoWindow0, "This takes you to a multi-player game, where you can play against other people.");
+            GUI.Window(0, new Rect(25, 150, 150, 80), DoWindow0, "Battle against your friends online!");
 
-        if (doWindowOptions)
-            GUI.Window(0, new Rect(3, 280, 200, 60), DoWindow0, "Don't press this. Really. Don't");
+        if (doWindowBottle)
+            GUI.Window(0, new Rect(3, 280, 200, 60), DoWindow0, "Learn how to play here!");
 
         if (doWindowCredits)
-            GUI.Window(0, new Rect(25, 370, 150, 110), DoWindow0, "This takes you to the credits screen, where you can see who made this game!");
+            GUI.Window(0, new Rect(25, 370, 150, 112), DoWindow0, "This takes you to the credits screen, where you can see who made this game!");
 
         if (doWindowPlayerMoves)
-            GUI.Window(25, new Rect(630, 480, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.blackTurnsLeft));
+            GUI.Window(25, new Rect(740, 510, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.blackTurnsLeft));
 		
         if (doWindowOpponentMoves)
-			GUI.Window(25, new Rect(100, 290, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.redTurnsLeft));
+			GUI.Window(25, new Rect(130, 320, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.redTurnsLeft));
 
-
+        if (doWindowChestInfo)
+            GUI.Window(25, new Rect(680, 130, 175, 60), DoWindow0, "Arrrrggg, here be treasure!");
     }
 }

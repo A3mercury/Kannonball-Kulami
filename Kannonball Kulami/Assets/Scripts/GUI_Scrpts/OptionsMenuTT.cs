@@ -347,13 +347,20 @@ public class OptionsMenuTT : MonoBehaviour
     public void BackToMenu()
     {
         optionPanel.gameObject.SetActive(false);
-        if (networkManager != null && networkManager.isOnline)
+        if (networkManager != null && networkManager.ingame)
         {
-            networkManager.Disconnect();
-            Application.LoadLevel("GameScene");          
+            MasterServer.ClearHostList();
+            Network.Disconnect();
+            MasterServer.UnregisterHost();
+            Application.LoadLevel("GameScene");
         }
         else
+        {
+            MasterServer.ClearHostList();
+            Network.Disconnect();
+            MasterServer.UnregisterHost();
             Application.LoadLevel("MainMenuScene");
+        }
     }
 
     public void resumeGame()

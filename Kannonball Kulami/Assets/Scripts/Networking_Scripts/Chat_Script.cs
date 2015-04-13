@@ -55,11 +55,14 @@ public class Chat_Script : MonoBehaviour
     {
         if (networkManager.ingame)
         {
+            ChatBoxPanel.gameObject.SetActive(true);
             GUI.skin = ChatSkin;
             //GUI.Label(windowRect, messBox);
             if (ChatBoxShowHide.GetBool("isChatOpen"))
-            GUI.Window(120, windowRect, windowFunc, "");
+                GUI.Window(120, windowRect, windowFunc, "");
         }
+        else
+            ChatBoxPanel.gameObject.SetActive(false);
     }
 
     void SendButtonClick()

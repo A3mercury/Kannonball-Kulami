@@ -67,7 +67,7 @@ public class GameCore : MonoBehaviour
     private GameObject theBoard = null;
 
     // to pop up the win/loss popups
-    private bool ShowVictoryDefeat = false;
+    public bool ShowVictoryDefeat = false;
     private bool PlayerWin = false;
     public GUISkin VD_Skin;
 
@@ -375,7 +375,7 @@ public class GameCore : MonoBehaviour
     {
         GUI.skin = VD_Skin;
 
-        if(ShowVictoryDefeat)
+        if (ShowVictoryDefeat)
         {
             ToggleClickability(false);
 
@@ -396,26 +396,44 @@ public class GameCore : MonoBehaviour
                 GUILayout.BeginArea(BackgroundRect, GUI.skin.customStyles[1]);
 
             Rect OpponentScoreRect = new Rect(
-                (BackgroundRect.width * 62f) / 100, 
+                (BackgroundRect.width * 58f) / 100, 
                 (BackgroundRect.height * 37f) / 100, 
-                (BackgroundRect.width * 8f) / 100, 
+                (BackgroundRect.width * 20f) / 100, 
                 (BackgroundRect.height * 10f) / 100
                 );
             Rect PlayerScoreRect = new Rect(
-                (BackgroundRect.width * 35f) / 100, 
+                (BackgroundRect.width * 23f) / 100, 
                 (BackgroundRect.height * 37f) / 100, 
-                (BackgroundRect.width * 8f) / 100, 
+                (BackgroundRect.width * 20f) / 100, 
                 (BackgroundRect.height * 10f) / 100
                 );
 
+
             GUILayout.BeginArea(OpponentScoreRect);
+            GUILayout.BeginHorizontal();
             GUILayout.Label(GetScore().Key.ToString(), GUI.skin.customStyles[3]);
+            if (networkManager != null && networkManager.ingame)
+            {
+                if(Network.isClient)
+                    GUILayout.Label(networkManager.serverName, GUI.skin.customStyles[7]);
+                else
+                    GUILayout.Label(networkManager.clientName, GUI.skin.customStyles[7]);
+            }
+            else
+                GUILayout.Label("Computer", GUI.skin.customStyles[7]);
+
+            GUILayout.EndHorizontal();
             GUILayout.EndArea();
 
             GUILayout.BeginArea(PlayerScoreRect);
+            GUILayout.BeginHorizontal();
             GUILayout.Label(GetScore().Value.ToString(), GUI.skin.customStyles[3]);
+            if (networkManager != null && networkManager.ingame)
+                GUILayout.Label(networkManager.userName, GUI.skin.customStyles[7]);
+            else
+                GUILayout.Label("Player", GUI.skin.customStyles[7]);
+            GUILayout.EndHorizontal();
             GUILayout.EndArea();
-
             
             GUILayout.BeginHorizontal();
 
