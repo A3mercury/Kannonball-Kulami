@@ -11,6 +11,7 @@ public class Chat_Script : MonoBehaviour
     private GUIStyle myStyle;
     private GUIStyle myOtherStyle;
     private bool firstConnection = true;
+    public bool clearbox = false;
     private Rect windowRect = new Rect(
                 (Screen.width * 2f) / 100,
                 (Screen.height * 34f) / 100,
@@ -61,8 +62,13 @@ public class Chat_Script : MonoBehaviour
             if (ChatBoxShowHide.GetBool("isChatOpen"))
                 GUI.Window(120, windowRect, windowFunc, "");
         }
-        else
+        else if(networkManager.ingame)
+        {
             ChatBoxPanel.gameObject.SetActive(false);
+            messBox = "";
+            if (ChatBoxShowHide.GetBool("isChatOpen"))
+                GUI.Window(120, windowRect, windowFunc, "");
+        }
     }
 
     void SendButtonClick()

@@ -347,7 +347,10 @@ public class OptionsMenuTT : MonoBehaviour
 
     void changeSoundsButton()
     {
-        SoundsButtonAnimator.SetBool("isSoundsMuted", areSoundsMuted);
+        if (SoundsButtonAnimator.enabled)
+        {
+            SoundsButtonAnimator.SetBool("isSoundsMuted", areSoundsMuted);
+        }
     }
 
     void changeMusicButton()

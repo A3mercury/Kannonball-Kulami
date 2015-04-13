@@ -200,34 +200,38 @@ public class GameCore : MonoBehaviour
 
 	// Update is called once per frame
 	void Update () {
-        if (myJob != null)
+        if (!GameIsOver)
         {
-            if (myJob.Update())
+            if (myJob != null)
             {
-				AIMove = Cannonballs[myJob.AIChosenMove.Key][myJob.AIChosenMove.Value];
-                //PlacePiece(myJob.AIChosenMove.Key, myJob.AIChosenMove.Value);
-				aiCannon.MoveCannonAndFire(AIMove.transform.position, myJob.AIChosenMove.Key, myJob.AIChosenMove.Value);
-                myJob = null;
+                if (myJob.Update())
+                {
+                    AIMove = Cannonballs[myJob.AIChosenMove.Key][myJob.AIChosenMove.Value];
+                    //PlacePiece(myJob.AIChosenMove.Key, myJob.AIChosenMove.Value);
+                    aiCannon.MoveCannonAndFire(AIMove.transform.position, myJob.AIChosenMove.Key, myJob.AIChosenMove.Value);
+                    myJob = null;
+                }
+            }
+
+            if (turn == "black" && OptionsMenuTT.isAssistanceChecked && !assistanceOn && CannonballsInitialized)
+            {
+                ShowValidMoves();
+                assistanceOn = true;
+            }
+            else if (turn == "black" && !OptionsMenuTT.isAssistanceChecked && assistanceOn && CannonballsInitialized)
+            {
+                ShowValidMoves();
+                HideValidMoves();
+                assistanceOn = false;
+            }
+
+            if (MovesBlockedByOptions.Count > 0 && isClickable)
+            {
+                PlacePiece(MovesBlockedByOptions[0].Key, MovesBlockedByOptions[0].Value);
+                MovesBlockedByOptions.Clear();
             }
         }
-
-        if (turn == "black" && OptionsMenuTT.isAssistanceChecked && !assistanceOn && CannonballsInitialized)
-		{
-			ShowValidMoves ();
-			assistanceOn = true;
-		} 
-		else if (turn == "black" && !OptionsMenuTT.isAssistanceChecked && assistanceOn && CannonballsInitialized) 
-		{
-			ShowValidMoves();
-			HideValidMoves();
-			assistanceOn = false;
-		}
-
-		if (MovesBlockedByOptions.Count > 0 && isClickable) 
-		{
-			PlacePiece(MovesBlockedByOptions[0].Key, MovesBlockedByOptions[0].Value);
-			MovesBlockedByOptions.Clear();
-		}
+        
     }
 
     public void MakeGameboard(int boardNum)
@@ -348,14 +352,14 @@ public class GameCore : MonoBehaviour
 
                 if (score.Key < score.Value)
                 {
-                    GameIsOver = false;
+                    //GameIsOver = false;
                     ShowVictoryDefeat = true;
                     PlayerWin = true;
                     //Application.LoadLevel("VictoryScene");
                 }
                 else
                 {
-                    GameIsOver = false;
+                    //GameIsOver = false;
                     ShowVictoryDefeat = true;
                     PlayerWin = false;
                     //Application.LoadLevel("LoseScene");

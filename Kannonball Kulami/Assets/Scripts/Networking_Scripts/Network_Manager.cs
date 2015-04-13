@@ -25,7 +25,7 @@ public class Network_Manager : MonoBehaviour {
     public static bool fromtransition, chat = false;
     public int randomBoard = 0;
     public static int networkplayer;
-    public bool invoked, disconnected, sentRequest, ingame = false, calledgamescene, 
+    public bool invoked, disconnected, sentRequest, ingame = false, calledgamescene, invitepopup,
                 isOnline, lobbycamera,  detecteddisconnect, conceded, popupflag, cancelledrequest; 
     public string serverName, clientName, userName = "", maxPlayers = "10", port = "21212", 
                   userwantingtoconnect = "", userwantingtoconnectfromserver = "";
@@ -160,6 +160,7 @@ public class Network_Manager : MonoBehaviour {
                 else
                 {
                     // open the server window
+                    GUI.depth = 0;
                     ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowBeforeConnection, "");
                     ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowAfterConnection, "");
 
@@ -183,6 +184,8 @@ public class Network_Manager : MonoBehaviour {
                         // if we have been sent an invite
                         if (Network.isServer)
                         {
+                            invitepopup = true;
+                            GUI.depth = 1;
                             InviteWrapperRect = GUI.Window(200, InviteWrapperRect, InvitationPopupWindow, "");
 
                         }
@@ -612,8 +615,9 @@ public class Network_Manager : MonoBehaviour {
             GUILayout.Button("", GUI.skin.customStyles[7]);
             GUILayout.EndArea();
         }
-        else
+        else if(!invitepopup)
         {
+            Debug.Log("invitepopup = " + invitepopup);
             // Disabled connect button
             GUILayout.BeginArea(ConnectButtonRect);
             GUILayout.Button("", GUI.skin.customStyles[6]);
@@ -622,10 +626,25 @@ public class Network_Manager : MonoBehaviour {
             GUILayout.BeginArea(DisconnectButtonRect);
             if (GUILayout.Button("", GUI.skin.customStyles[5]))
             {
-                Network.Disconnect();
-                MasterServer.UnregisterHost();
-                Debug.Log("You have been disconnected");
+                if (invitepopup)
+                { }
+                else
+                {
+                    Network.Disconnect();
+                    MasterServer.UnregisterHost();
+                    Debug.Log("You have been disconnected");
+                }
             }
+            GUILayout.EndArea();
+        }
+        else
+        {
+            GUILayout.BeginArea(ConnectButtonRect);
+            GUILayout.Button("", GUI.skin.customStyles[6]);
+            GUILayout.EndArea();
+
+            GUILayout.BeginArea(DisconnectButtonRect);
+            GUILayout.Button("", GUI.skin.customStyles[7]);
             GUILayout.EndArea();
         }
                
