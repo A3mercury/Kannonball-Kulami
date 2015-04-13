@@ -54,9 +54,13 @@ public class OptionsMenuTT : MonoBehaviour
 
     public Button BackButton;
 
+    public bool overrideBackButton;
+
 	// Use this for initialization
 	void Start () 
     {
+        overrideBackButton = false;
+
         // load the sounds for GameScene
         if (Application.loadedLevelName == "GameScene") 
 		{
@@ -110,7 +114,7 @@ public class OptionsMenuTT : MonoBehaviour
             }
             else
             {
-                if (!networkManager.ingame && networkManager.isOnline)
+                if (networkManager != null && (!networkManager.ingame && networkManager.isOnline))
                     optionPanel.gameObject.SetActive(false);
                 else
                     optionPanel.gameObject.SetActive(true);
@@ -120,8 +124,13 @@ public class OptionsMenuTT : MonoBehaviour
 			if(Application.loadedLevelName == "MainMenuScene")
 				mainMenuClickScript.ToggleClickability();
 
-			if (Application.loadedLevelName != "MainMenuScene")
-				clickScript.ToggleClickability();
+            if (Application.loadedLevelName != "MainMenuScene")
+            {
+                if (clickScript.isClickable)
+                    clickScript.ToggleClickability(false);
+                else
+                    clickScript.ToggleClickability(true);
+            }
         }
 		if(Input.GetKeyDown(KeyCode.Alpha2))
 		{
@@ -174,6 +183,8 @@ public class OptionsMenuTT : MonoBehaviour
         if (Application.loadedLevelName == "GameScene")
         {
             if ((networkManager.isOnline && !networkManager.ingame))
+                BackButton.gameObject.SetActive(true);
+            else if (overrideBackButton)
                 BackButton.gameObject.SetActive(true);
             else
                 BackButton.gameObject.SetActive(false);
@@ -252,6 +263,7 @@ public class OptionsMenuTT : MonoBehaviour
         if (Application.loadedLevelName == "GameScene")
         {
             CannonFireSound.SetVolume(soundSlider.value);
+            clickCoins.SetVolume(soundSlider.value);
             backgroundShipNoise.volume = soundSlider.value;
         }
         else if (Application.loadedLevelName == "MainMenuScene")
@@ -335,7 +347,8 @@ public class OptionsMenuTT : MonoBehaviour
     public void BackToMenu()
     {
         optionPanel.gameObject.SetActive(false);
-        networkManager.Disconnect();
+        if(networkManager != null && networkManager.isOnline)
+            networkManager.Disconnect();
         Application.LoadLevel("MainMenuScene");
     }
 
@@ -343,7 +356,7 @@ public class OptionsMenuTT : MonoBehaviour
     {
         optionPanel.gameObject.SetActive(false);
         if (Application.loadedLevelName == "GameScene")
-            clickScript.ToggleClickability();
+            clickScript.ToggleClickability(true);
         if (Application.loadedLevelName == "MainMenuScene")
             mainMenuClickScript.ToggleClickability();
     }
@@ -373,7 +386,7 @@ public class OptionsMenuTT : MonoBehaviour
 
 	public void ToggleClickScript ()
 	{
-		clickScript.ToggleClickability();
+		clickScript.ToggleClickability(false);
 	}
 
 	void OnGUI () 

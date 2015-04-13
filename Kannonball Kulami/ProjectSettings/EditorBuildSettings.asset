@@ -8,6 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/SplashScreens.unity
   - enabled: 1
+    path: Assets/_Scenes/IntroAnimationScene.unity
+  - enabled: 1
     path: Assets/_Scenes/MainMenuScene.unity
   - enabled: 1
     path: Assets/_Scenes/MultiplayerScene.unity
@@ -15,9 +17,11 @@ EditorBuildSettings:
     path: Assets/_Scenes/GameScene.unity
   - enabled: 1
     path: Assets/_Scenes/OptionsScene.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/VictoryScene.unity
   - enabled: 1
     path: Assets/_Scenes/CreditsScene.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/LoseScene.unity
+  - enabled: 1
+    path: Assets/_Scenes/HowToPlayScene.unity

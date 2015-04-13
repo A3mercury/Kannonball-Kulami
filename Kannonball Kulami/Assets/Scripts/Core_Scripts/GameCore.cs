@@ -71,6 +71,9 @@ public class GameCore : MonoBehaviour
     private bool PlayerWin = false;
     public GUISkin VD_Skin;
 
+    public Button BackButton;
+    public OptionsMenuTT options;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -379,7 +382,7 @@ public class GameCore : MonoBehaviour
 
         if(ShowVictoryDefeat)
         {
-
+            ToggleClickability(false);
 
             Rect VD_Wrapper = new Rect(
                 (Screen.width * (1 - (1024f / 1440f))) / 2,
@@ -398,16 +401,16 @@ public class GameCore : MonoBehaviour
                 GUILayout.BeginArea(BackgroundRect, GUI.skin.customStyles[1]);
 
             Rect OpponentScoreRect = new Rect(
-                (BackgroundRect.width * 35f) / 100, 
-                (BackgroundRect.height * 37f) / 100, 
-                (BackgroundRect.width * 8f) / 100, 
-                (BackgroundRect.height * 8f) / 100
-                );
-            Rect PlayerScoreRect = new Rect(
                 (BackgroundRect.width * 62f) / 100, 
                 (BackgroundRect.height * 37f) / 100, 
                 (BackgroundRect.width * 8f) / 100, 
-                (BackgroundRect.height * 8f) / 100
+                (BackgroundRect.height * 10f) / 100
+                );
+            Rect PlayerScoreRect = new Rect(
+                (BackgroundRect.width * 35f) / 100, 
+                (BackgroundRect.height * 37f) / 100, 
+                (BackgroundRect.width * 8f) / 100, 
+                (BackgroundRect.height * 10f) / 100
                 );
 
             GUILayout.BeginArea(OpponentScoreRect);
@@ -423,13 +426,13 @@ public class GameCore : MonoBehaviour
 
             Rect ContinueButtonRect = new Rect(
                 (BackgroundRect.width * 22f) / 100,
-                (BackgroundRect.height * 55f) / 100,
+                (BackgroundRect.height * 54f) / 100,
                 (BackgroundRect.width * 20f) / 100,
                 (BackgroundRect.height * 18f)  / 100
                 );
             Rect ReviewButtonRect = new Rect(
-                (BackgroundRect.width * 58f) / 100,
-                (BackgroundRect.height * 55f) / 100,
+                (BackgroundRect.width * 59f) / 100,
+                (BackgroundRect.height * 54f) / 100,
                 (BackgroundRect.width * 20f) / 100,
                 (BackgroundRect.height * 18f) / 100
                 );
@@ -438,8 +441,9 @@ public class GameCore : MonoBehaviour
             if(GUILayout.Button("", GUI.skin.customStyles[4]))
             {
                 // continue is going to go back to the 
-                if(!networkManager.isOnline)
+                if(networkManager != null && !networkManager.isOnline)
                 {
+                    ToggleClickability(true);
                     // 1) main menu if in single player
                     Application.LoadLevel("MainMenuScene");
                 }
@@ -456,6 +460,9 @@ public class GameCore : MonoBehaviour
             if(GUILayout.Button("", GUI.skin.customStyles[5]))
             {
                 // review is going to go back to the game
+                HideValidMoves();
+                options.overrideBackButton = true;
+                BackButton.gameObject.SetActive(true);
                 ShowVictoryDefeat = false;
             }
             GUILayout.EndArea();
@@ -634,18 +641,19 @@ public class GameCore : MonoBehaviour
 
     }
 
-	public void ToggleClickability () 
+	public void ToggleClickability (bool change) 
 	{
+        isClickable = change;
 
-		if (isClickable == true) {
-			isClickable = false;
-			Debug.Log("Board not clickable.");
-		} 
-		else 
-		{
-			isClickable = true;
-			Debug.Log("Board is clickable");
-		}
+        //if (isClickable == true) {
+        //    isClickable = false;
+        //    Debug.Log("Board not clickable.");
+        //} 
+        //else 
+        //{
+        //    isClickable = true;
+        //    Debug.Log("Board is clickable");
+        //}
 		
 	}
 }

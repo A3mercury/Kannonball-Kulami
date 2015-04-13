@@ -73,7 +73,6 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
-    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &161801
 GameObject:
@@ -11295,6 +11294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OptionsSkin: {fileID: 11400000, guid: c05c001fd97101a4889bc6e7abf9566b, type: 2}
   BackButton: {fileID: 1777552752}
+  overrideBackButton: 0
 --- !u!114 &391198538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11317,8 +11317,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  ignoreReversedGraphics: 1
+  blockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 0
@@ -18830,6 +18830,14 @@ Prefab:
       propertyPath: downwardForce
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 11418192, guid: 6de4641b4410f5c41ae3f196026af2f4, type: 2}
+      propertyPath: BackButton
+      value: 
+      objectReference: {fileID: 1777552752}
+    - target: {fileID: 11418192, guid: 6de4641b4410f5c41ae3f196026af2f4, type: 2}
+      propertyPath: options
+      value: 
+      objectReference: {fileID: 391198537}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6de4641b4410f5c41ae3f196026af2f4, type: 2}
   m_RootGameObject: {fileID: 1507640950}
@@ -20476,8 +20484,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678455468}
-  m_LocalRotation: {x: -.228661388, y: .0149120037, z: .00350670097, w: .973385513}
-  m_LocalPosition: {x: 249.181351, y: -729.169128, z: -511.36908}
+  m_LocalRotation: {x: .204407841, y: -.196467087, z: -.0314743109, w: -.958450615}
+  m_LocalPosition: {x: -212.478516, y: -522.016174, z: -1048.34863}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -44865,6 +44873,8 @@ MonoBehaviour:
   RedPiece: {fileID: 2100000, guid: 8b9806d7be168834e8628bb164ea1d9f, type: 2}
   RedLastPiece: {fileID: 2100000, guid: 1d8fa6894b398f74494acf180685ba56, type: 2}
   VD_Skin: {fileID: 11400000, guid: a9dd445dc24cd6f4fa03fc15fdfeb6b6, type: 2}
+  BackButton: {fileID: 1777552752}
+  options: {fileID: 391198537}
 --- !u!114 &1507640957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53093,7 +53103,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: -322.399994, y: 184}
-  m_SizeDelta: {x: 96, y: 96}
+  m_SizeDelta: {x: 48, y: 48}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1777552752
 MonoBehaviour:
