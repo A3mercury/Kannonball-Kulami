@@ -3562,7 +3562,7 @@ Transform:
   m_PrefabInternal: {fileID: 1688275730}
   m_GameObject: {fileID: 874083954}
   m_LocalRotation: {x: 0, y: .99934119, z: 0, w: .0362948291}
-  m_LocalPosition: {x: -36.5, y: 0, z: -9.69999981}
+  m_LocalPosition: {x: -36.4000015, y: 0, z: -9.69999981}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4607,8 +4607,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1094647778}
-  m_LocalRotation: {x: -.628664374, y: .0595875345, z: .0484108925, w: .773877859}
-  m_LocalPosition: {x: -411.716278, y: -239.993546, z: -27.4645767}
+  m_LocalRotation: {x: .347084433, y: .156212613, z: .0587470159, w: -.922864497}
+  m_LocalPosition: {x: -402.107849, y: -414.843262, z: -214.926941}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 663912114}
@@ -5496,6 +5496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OptionsSkin: {fileID: 11400000, guid: c05c001fd97101a4889bc6e7abf9566b, type: 2}
+  BackButton: {fileID: 0}
 --- !u!114 &1321017958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7156,7 +7157,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 461084, guid: 612283f7b779c9544b0be810233fac89, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -36.5
+      value: -36.4000015
       objectReference: {fileID: 0}
     - target: {fileID: 461084, guid: 612283f7b779c9544b0be810233fac89, type: 2}
       propertyPath: m_LocalPosition.y
@@ -7184,7 +7185,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 461084, guid: 612283f7b779c9544b0be810233fac89, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11456604, guid: 612283f7b779c9544b0be810233fac89, type: 2}
       propertyPath: optionsPanel
