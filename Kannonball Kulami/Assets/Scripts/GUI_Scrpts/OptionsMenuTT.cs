@@ -56,6 +56,10 @@ public class OptionsMenuTT : MonoBehaviour
 
     public bool overrideBackButton;
 
+    public GameObject ScoreBoardPanel;
+    public Text OppScore;
+    public Text PlayerScore;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -101,6 +105,11 @@ public class OptionsMenuTT : MonoBehaviour
         parentCanvas = GetComponentInParent<Canvas>();
 
 		mainMenuClickScript = GameObject.FindObjectOfType (typeof(SceneTransitionScript)) as SceneTransitionScript;
+
+        if(Application.loadedLevelName == "GameScene")
+            ScoreBoardPanel.gameObject.SetActive(true);
+        //else
+        //    ScoreBoardPanel.gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -126,10 +135,18 @@ public class OptionsMenuTT : MonoBehaviour
 
             if (Application.loadedLevelName != "MainMenuScene")
             {
+
+
                 if (clickScript.isClickable)
+                {
                     clickScript.ToggleClickability(false);
+                    ScoreBoardPanel.gameObject.SetActive(false);
+                }
                 else
+                {
                     clickScript.ToggleClickability(true);
+                    ScoreBoardPanel.gameObject.SetActive(true);
+                }
             }
         }
 		if(Input.GetKeyDown(KeyCode.Alpha2))
@@ -189,7 +206,17 @@ public class OptionsMenuTT : MonoBehaviour
             else
                 BackButton.gameObject.SetActive(false);
         }
-	}
+
+        // getting scores
+        if (Application.loadedLevelName == "GameScene")
+        {
+            if (clickScript != null && !clickScript.isGameOver())
+            {
+                OppScore.text = clickScript.GetScore().Key.ToString();
+                PlayerScore.text = clickScript.GetScore().Value.ToString();
+            }
+        }
+    }
 
     #region Assignments
 
@@ -367,7 +394,10 @@ public class OptionsMenuTT : MonoBehaviour
     {
         optionPanel.gameObject.SetActive(false);
         if (Application.loadedLevelName == "GameScene")
+        {
             clickScript.ToggleClickability(true);
+            ScoreBoardPanel.gameObject.SetActive(true);
+        }
         if (Application.loadedLevelName == "MainMenuScene")
             mainMenuClickScript.ToggleClickability();
     }
@@ -398,6 +428,7 @@ public class OptionsMenuTT : MonoBehaviour
 	public void ToggleClickScript ()
 	{
 		clickScript.ToggleClickability(false);
+        ScoreBoardPanel.gameObject.SetActive(false);
 	}
 
 	void OnGUI () 

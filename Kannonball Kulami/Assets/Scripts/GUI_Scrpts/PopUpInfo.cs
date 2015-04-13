@@ -93,10 +93,10 @@ public class PopUpInfo : MonoBehaviour {
             GUI.Window(0, new Rect(25, 370, 150, 112), DoWindow0, "This takes you to the credits screen, where you can see who made this game!");
 
         if (doWindowPlayerMoves)
-            GUI.Window(25, new Rect(740, 510, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.blackTurnsLeft));
+            GUI.Window(25, new Rect(940, 610, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.blackTurnsLeft));
 		
         if (doWindowOpponentMoves)
-			GUI.Window(25, new Rect(130, 320, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.redTurnsLeft));
+			GUI.Window(25, new Rect(230, 420, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.redTurnsLeft));
 
         if (doWindowChestInfo)
             GUI.Window(25, new Rect(680, 130, 175, 60), DoWindow0, "Arrrrggg, here be treasure!");

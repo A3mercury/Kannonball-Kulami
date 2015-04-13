@@ -16,12 +16,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/GameScene.unity
   - enabled: 1
-    path: Assets/_Scenes/_depricated/OptionsScene.unity
-  - enabled: 0
-    path: Assets/_Scenes/_depricated/VictoryScene.unity
-  - enabled: 1
     path: Assets/_Scenes/CreditsScene.unity
-  - enabled: 0
-    path: Assets/_Scenes/_depricated/LoseScene.unity
   - enabled: 1
     path: Assets/_Scenes/HowToPlayScene.unity
