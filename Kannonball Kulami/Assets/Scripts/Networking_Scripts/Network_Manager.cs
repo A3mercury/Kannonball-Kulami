@@ -186,13 +186,15 @@ public class Network_Manager : MonoBehaviour {
                         {
                             invitepopup = true;
                             GUI.depth = 1;
-                            InviteWrapperRect = GUI.Window(200, InviteWrapperRect, InvitationPopupWindow, "");
+                            //InviteWrapperRect = GUI.Window(200, InviteWrapperRect, InvitationPopupWindow, "");
+                            //GUI.FocusWindow(200);
+                            InviteWrapperRect = GUI.ModalWindow(200, InviteWrapperRect, InvitationPopupWindow, "");
 
                         }
                         else // if we are sending an invite
                         {
                             messBox = "You have challenged " + serverName + " to a game. Awaiting response...\n";
-                            PopupRect = GUI.Window(1, PopupRect, AwaitingResponse, "");
+                            PopupRect = GUI.ModalWindow(1, PopupRect, AwaitingResponse, "");
                         }
                     }
                     if(cancelledrequest)
@@ -203,7 +205,7 @@ public class Network_Manager : MonoBehaviour {
                 if (disconnected && invoked)
                 {
                     messBox = "Request has been denied.\n";
-                    windowRect = GUI.Window(1, PopupRect, popUp, "");
+                    windowRect = GUI.ModalWindow(1, PopupRect, popUp, "");
                 }
             }
             else if(!detecteddisconnect)
@@ -299,7 +301,7 @@ public class Network_Manager : MonoBehaviour {
             if (disconnected && invoked)
             {
                 messBox = "Request has been denied.\n";
-                windowRect = GUI.Window(1, PopupRect, popUp, "");
+                windowRect = GUI.ModalWindow(1, PopupRect, popUp, "");
             }
         }
         else
@@ -397,7 +399,6 @@ public class Network_Manager : MonoBehaviour {
 
         GUILayout.BeginArea(HoldHorizontal);
         GUILayout.BeginHorizontal(GUI.skin.customStyles[4]);
-
         if (Network.isServer)
         {
             GUILayout.BeginArea(AcceptButton);
