@@ -90,7 +90,8 @@ public class PopUpInfo : MonoBehaviour {
             GUI.Window(0, new Rect(3, 280, 200, 60), DoWindow0, "Learn how to play here!");
 
         if (doWindowCredits)
-            GUI.Window(0, new Rect(25, 370, 150, 112), DoWindow0, "This takes you to the credits screen, where you can see who made this game!");
+           // GUI.Window(0, new Rect(25, 370, 150, 112), DoWindow0, "This takes you to the credits screen, where you can see who made this game!");
+            GUI.Window(0, new Rect(25, 370, 150, 80), DoWindow0, "Disabled For Now To Ensure Fair Testing Evaluations");
 
         if (doWindowPlayerMoves)
             GUI.Window(25, new Rect(940, 610, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.blackTurnsLeft));
