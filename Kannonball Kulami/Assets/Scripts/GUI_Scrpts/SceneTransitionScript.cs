@@ -52,6 +52,10 @@ public class SceneTransitionScript : MonoBehaviour {
     {
         Application.Quit();
     }
+    public void HowToPlay()
+    {
+        Application.LoadLevel("HowToPlayScene");
+    }
 
 	IEnumerator delayedSinglePlayer ()
 	{
@@ -70,6 +74,12 @@ public class SceneTransitionScript : MonoBehaviour {
 		yield return new WaitForSeconds(1);
 		Credits ();
 	}
+
+    IEnumerator delayedHowToPlay()
+    {
+        yield return new WaitForSeconds(1);
+        HowToPlay();
+    }
 
     public void OnMouseDown()
     {
@@ -107,6 +117,10 @@ public class SceneTransitionScript : MonoBehaviour {
               //  OptionsMenuTT.AssistanceToggle.interactable = false;
 				StartCoroutine(delayedSinglePlayer());
 			}
+            if (gameObject.name.ToString() == "how_to_play_bottle")
+            {
+                StartCoroutine(delayedHowToPlay());
+            }
 			
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			float depth;
