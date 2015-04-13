@@ -34,8 +34,10 @@ public class IntroAnimation : MonoBehaviour
                 stopbeinginhere = false;
             }
         }
-
         if (countdown >= 18.5f || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
-            Application.LoadLevel("MainMenuScene");
+        {
+            Debug.Log("This");
+            Application.LoadLevel("MainMenuScene"); 
+        }
     }
 }
