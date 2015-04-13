@@ -30,19 +30,19 @@ public class SplashScreens : MonoBehaviour
     {
         countdown -= Time.deltaTime;
 
-	    if(countdown <= 0 || Input.GetKeyDown(KeyCode.Space))
+	    if(countdown <= 0 || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
         {
-            if(firstLogo)
-            {
-                ssLogo.SetActive(false);
-                kkLogo.SetActive(true);
-                firstLogo = false;
-                countdown = 15f;
-            }
-            else
-            {
-                Application.LoadLevel("MainMenuScene");
-            }
+            //if(firstLogo)
+            //{
+            //    ssLogo.SetActive(false);
+            //    kkLogo.SetActive(true);
+            //    firstLogo = false;
+            //    countdown = 15f;
+            //}
+            //else
+            //{
+                Application.LoadLevel("IntroAnimationScene");
+            //}
         }
 	}
 
