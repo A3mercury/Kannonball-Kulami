@@ -339,11 +339,6 @@ public class GameCore : MonoBehaviour
 			ShowValidMoves ();
 
 			if (isGameOver ()) {
-                //Added for ending game over network
-                if(networkManager.ingame)
-                {
-                    networkManager.justplayedgame = true;
-                }
 
 				GameIsOver = true;
 				Debug.Log ("Game is over!");

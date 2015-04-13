@@ -20484,8 +20484,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678455468}
-  m_LocalRotation: {x: .204407841, y: -.196467087, z: -.0314743109, w: -.958450615}
-  m_LocalPosition: {x: -212.478516, y: -522.016174, z: -1048.34863}
+  m_LocalRotation: {x: .18154572, y: .000874134537, z: .0103235282, w: -.983327925}
+  m_LocalPosition: {x: 124.37571, y: -931.384583, z: -1735.27637}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -35421,23 +35421,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d29053574d2057418ed0256629bf1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randomBoard: 0
   invoked: 0
   disconnected: 0
   sentRequest: 0
   ingame: 0
   calledgamescene: 0
   isOnline: 0
-  justplayedgame: 0
-  rematchpopup: 0
-  responsefromrematch: 0
   lobbycamera: 0
   detecteddisconnect: 0
   conceded: 0
-  respondtorematch: 0
   popupflag: 0
   serverName: 
   clientName: 
-  randomBoard: 0
   userName: 
   maxPlayers: 50
   port: 21212
@@ -35524,13 +35520,16 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1220275706}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9731f349ae016f4d95c1425810cead7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scrollPosition: {x: 0, y: 0}
   myskin: {fileID: 0}
+  messBox: 
+  messageToSend: 
+  user: 
   GameSceneCanvas: {fileID: 391198541}
   ChatBoxPanel: {fileID: 2061324706}
   sendButton: {fileID: 152133926}
@@ -63544,6 +63543,7 @@ GameObject:
   - 224: {fileID: 2061324707}
   - 222: {fileID: 2061324709}
   - 95: {fileID: 2061324708}
+  - 148: {fileID: 2061324710}
   m_Layer: 5
   m_Name: ChatBoxPanel
   m_TagString: Untagged
@@ -63593,6 +63593,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2061324706}
+--- !u!148 &2061324710
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2061324706}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 2061324707}
+  m_ViewID:
+    m_ID: 5
+    m_Type: 1
 --- !u!1 &2069059240
 GameObject:
   m_ObjectHideFlags: 0

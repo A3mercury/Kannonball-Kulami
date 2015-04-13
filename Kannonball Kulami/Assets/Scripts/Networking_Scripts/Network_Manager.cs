@@ -19,22 +19,16 @@ public class Network_Manager : MonoBehaviour {
     /// -userwantingtoconnectfromserver- sends the requesting player back the receiving player's name.
     /// -myskin- is used for testing GUI at this point in development 2/24/2015
     /// -windowRect- defines a new window. 
-    /// </summary>
-    /// 
-    public bool invoked, disconnected, sentRequest, ingame = false, calledgamescene;
-    public static bool chat = false;
-    public bool isOnline;
-    public bool justplayedgame, rematchpopup, responsefromrematch;
-    public bool lobbycamera;
-    public bool detecteddisconnect, conceded;
-    public bool respondtorematch;
-    public bool popupflag; 
-    public static bool fromtransition;
-    public string serverName;
-    public string clientName;
+    /// </summary> 
+    Chat_Script chat_script;
+
+    public static bool fromtransition, chat = false;
     public int randomBoard = 0;
     public static int networkplayer;
-    public string userName = "", maxPlayers = "10", port = "21212", userwantingtoconnect = "", userwantingtoconnectfromserver = "";
+    public bool invoked, disconnected, sentRequest, ingame = false, calledgamescene, 
+                isOnline, lobbycamera,  detecteddisconnect, conceded, popupflag; 
+    public string serverName, clientName, userName = "", maxPlayers = "10", port = "21212", 
+                  userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     private string messBox = "", messageToSend = "", user = "";
     public GUISkin myskin;
 
@@ -66,15 +60,14 @@ public class Network_Manager : MonoBehaviour {
     // Austin's Gui crap
     float serverWindowWidth = 700f / 1440f;
     float serverWindowHeight = 650f / 900f;
-    Rect ServerWrapperRect;
 
+    Rect ServerWrapperRect;
     Rect ServerBackground;
     Rect UsernameRect;
     Rect ConnectionRequestRect;
     
     public GUISkin ServerSkin;
     public GUISkin PopupSkin;
-
     public GUIStyle OpponentRect;
 
     // Invitation GUI stuff
@@ -83,26 +76,18 @@ public class Network_Manager : MonoBehaviour {
 
     // Show chatbox
     GameObject ChatPanel;
-
     bool popuptrue = false;
 
-    /// <summary>
-    /// Waiting to fix the clicking cancel and disabling on the other end for the pop up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    /// </summary>
     void Awake()
     {
-        //Debug.Log("NetworkManager here");
-
         if (Application.loadedLevelName == "GameScene")
         {
             gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
             opponentCannon = GameObject.Find("OpponentShip").GetComponentInChildren<AICannonScript>();
         }
+        
         isOnline = fromtransition;
-
         ConnectionRequestRect = new Rect((Screen.width - 100) / 2, (Screen.height - 100) / 2, 100, 100);
-        //randomBoard = UnityEngine.Random.Range(1, 8);
-
         ChatPanel = GameObject.Find("ChatBoxPanel") as GameObject;
         ChatPanel.SetActive(false);
     }
@@ -117,24 +102,13 @@ public class Network_Manager : MonoBehaviour {
 
     public void StartServer()
     {
-        //Network.InitializeSecurity();
-        //Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), !Network.HavePublicAddress());
         Network.InitializeServer(int.Parse(maxPlayers), int.Parse(port), true);
-        //MasterServer.updateRate = 1;
         MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
         Debug.Log("Restarted");
-        ingame = false;
-        invoked = true;
-        disconnected = false;
-        sentRequest = false;
-        calledgamescene = false;
-        detecteddisconnect = false;
-        conceded = false;
-        lobbycamera = false;
-        justplayedgame = false;
-        rematchpopup = false;
-        responsefromrematch = false;
-        popupflag = false;
+
+        ingame = false; invoked = true; disconnected = false; sentRequest = false; calledgamescene = false; detecteddisconnect = false;
+        conceded = false; lobbycamera = false; popupflag = false;
+        
     }
 
     void OnServerInitialized()
@@ -154,21 +128,12 @@ public class Network_Manager : MonoBehaviour {
             Debug.Log("Registration failed because an empty game type was given");
         else if (masterServerEvent == MasterServerEvent.RegistrationFailedGameName)
             Debug.Log("Registration failed because an empty game name was given.");
-       // else
-       //     Debug.Log("Registration failed");
     }
 
     void Update()
     {
         if(Network.isServer)
            MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
-
-        //if (detecteddisconnect)
-        //{
-        //    Debug.Log("Made it to disconnect.");
-        //    messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
-        //    windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
-        //}
     }
     
     private void OnGUI()
@@ -184,17 +149,11 @@ public class Network_Manager : MonoBehaviour {
                     lobbycamera = true;
                 }
 
-                if (justplayedgame)
-                {
-                    rematchpopup = true;
-                }
-
                 GUI.skin = ServerSkin;
 
                 // If we are not currently connected
                 if (Network.peerType == NetworkPeerType.Disconnected)
                 {
-                    //Debug.Log("It has restarted.");
                     ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowBeforeConnection, "");
                 }
                 else
@@ -223,7 +182,6 @@ public class Network_Manager : MonoBehaviour {
                         // if we have been sent an invite
                         if (Network.isServer)
                         {
-                            //messBox = clientName + " has challenged you to a game! Do you accept?\n";
                             InviteWrapperRect = GUI.Window(200, InviteWrapperRect, InvitationPopupWindow, "");
 
                         }
@@ -232,54 +190,22 @@ public class Network_Manager : MonoBehaviour {
                             messBox = "You have challenged " + serverName + " to a game. Awaiting response...\n";
                             PopupRect = GUI.Window(1, PopupRect, AwaitingResponse, "");
                         }
-                        //GUI.skin = PopupSkin;
-                        //InviteWrapperRect = GUI.Window(1, InviteWrapperRect, InvitationPopupWindow, "");
-                        //windowRect = GUI.Window(1, windowRect, popUp, "");
                     }
                 }
-                if(rematchpopup)
-                {
-                    
-
-                    messBox = "Would you like a rematch?";
-                    windowRect = GUI.Window(1, windowRect, RematchWindow, "");
-                }
-
-                // if game was denied
                 if (disconnected && invoked)
                 {
-                    //Evoke();
-
-                    
-
                     messBox = "Request has been denied.\n";
                     windowRect = GUI.Window(1, PopupRect, popUp, "");
-                    //Invoke("Evoke", 3);
-                    //Invoke("Disconnect", 3);
-
                 }
             }
             else if(!detecteddisconnect)
             {
-                //Debug.Log("detecteddisconnect = " + detecteddisconnect);
                 if(!calledgamescene)
                 {
                     GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();
                     GameObject.FindObjectOfType<TieToMouseScript>().BeginSendingOverNetwork();
                     calledgamescene = true;
                 }
-
-                //if (detecteddisconnect)
-                //{
-                //    Debug.Log("Made it to disconnect.");
-                //    messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
-                //    windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
-                //}
-                //if(!Network.isClient && !Network.isServer)
-                //{
-                //    messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
-                //    windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
-                //}
             }
             else if(detecteddisconnect && !conceded)
             {
@@ -361,35 +287,21 @@ public class Network_Manager : MonoBehaviour {
                 GUILayout.EndArea();
                 GUILayout.EndVertical();
                 GUILayout.EndArea();
-
-                //messBox = "Your opponent has conceded!  You are the victor!";
-                //windowRect = GUI.Window(1, windowRect, ConcededpopUp, "");
             }
             if (disconnected && invoked)
             {
-                //Evoke();
-
-
-
                 messBox = "Request has been denied.\n";
                 windowRect = GUI.Window(1, PopupRect, popUp, "");
-                //Invoke("Evoke", 3);
-                //Invoke("Disconnect", 3);
-
             }
         }
         else
             return;
     } 
-
     void OnPlayerDisconnected(NetworkPlayer player)
     {
         detecteddisconnect = true;
         Debug.Log(player.ipAddress + " has disconnected.");
-        //messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
-        //windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
     }
-
     void OnDisconnectedFromServer(NetworkDisconnection info)
     {
         Debug.Log("Disconnected from server");
@@ -403,12 +315,9 @@ public class Network_Manager : MonoBehaviour {
             if (ingame)
             {
                 detecteddisconnect = true;
-                //messBox = "Unfortunately your opponent has been disconnected.\n You will be taken back to the player list.";
-                //windowRect = GUI.Window(1, windowRect, DisconnectpopUp, "");
             }
         }
     }
-
     public void InvitationPopupWindow(int id)
     {
         GUI.skin = PopupSkin;
@@ -501,14 +410,6 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.EndArea();
         GUILayout.EndArea();
     }
-
-    public void Evoke()
-    {
-        //invoked = false;
-        Network.Disconnect();
-        MasterServer.UnregisterHost();
-        MasterServer.ClearHostList();
-    }
     public void Disconnect()
     {
         Network.Disconnect();
@@ -576,12 +477,9 @@ public class Network_Manager : MonoBehaviour {
         // Background image stretched to the wrapper
         ServerBackground = new Rect(0, 0, ServerWrapperRect.width, ServerWrapperRect.height);
 
-        // background image in customSyles[0]
         GUILayout.BeginArea(ServerBackground, GUI.skin.customStyles[0]);
 
         InsertHeader(true);
-
-        /////////////////////////////////////// Opponent's list
 
         Rect OpponentListRect = new Rect(
             (ServerBackground.width * 6f) / 100f,
@@ -591,13 +489,6 @@ public class Network_Manager : MonoBehaviour {
             );
 
         GUILayout.BeginArea(OpponentListRect, GUI.skin.customStyles[8]);        
-        ////////////////////if (GUILayout.Button("Refresh")) // temp button placement
-        ////////////////////{
-        ////////////////////    MasterServer.ClearHostList();
-        ////////////////////    MasterServer.RequestHostList("KannonBall_Kulami_HU_Softdev_Team1_2015");
-        ////////////////////}
-        //else
-        //InvokeRepeating("GetHostList", 0, 60);
 
         if (MasterServer.PollHostList().Length != 0)
         {
@@ -808,7 +699,6 @@ public class Network_Manager : MonoBehaviour {
         Debug.Log("disconnection popup is up");
         if (GUILayout.Button("Ok", GUILayout.Width(75)))
         {
-            //invoked = false;
             StartServer();
             gameCore.RemoveGameBoard();
         }
@@ -839,7 +729,6 @@ public class Network_Manager : MonoBehaviour {
         Debug.Log("Concede popup is up");
         if (GUILayout.Button("Ok", GUILayout.Width(75)))
         {
-            //invoked = false;
             StartServer();
             gameCore.RemoveGameBoard();
         }
@@ -898,15 +787,12 @@ public class Network_Manager : MonoBehaviour {
 
         if (GUILayout.Button("Rematch", GUILayout.Width(75)))
         {
-            invoked = false;
-            StartServer();
-            GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();
-            GameObject.FindObjectOfType<AICannonScript>().CancelInvoke();
-            gameCore.RemoveGameBoard();
+            networkView.RPC("SendRematchRequest", RPCMode.All, true);
+
         }
         if (GUILayout.Button("Cancel", GUILayout.Width(75)))
         {
-
+            networkView.RPC("SendRematchRequest", RPCMode.All, false);
         }
 
         GUILayout.EndHorizontal();
@@ -934,9 +820,7 @@ public class Network_Manager : MonoBehaviour {
             boardReader = new ReadGameboard(gameCore.gamePlaces, gameCore.currentBoard);
             gameCore.InitializeCannonballs();
             
-            ChatPanel.SetActive(true);
-
-            
+            ChatPanel.SetActive(true);            
         }
         else
         {
@@ -958,17 +842,10 @@ public class Network_Manager : MonoBehaviour {
         conceded = concede;
         Debug.Log(conceded);
     }
-
-    [RPC]
-    public void SendRematchRequest(bool rematchrequest)
-    {
-        respondtorematch = rematchrequest;
-    }
-
     [RPC]
     public void MoveOpponentCannon(float x, float y, float z)
     {
-       // Debug.Log("moving opponent cannon to " + x + ", " + y + ", " + z);
         opponentCannon.MoveCannon(new Vector3(x, y, z));
     }
+
 }
