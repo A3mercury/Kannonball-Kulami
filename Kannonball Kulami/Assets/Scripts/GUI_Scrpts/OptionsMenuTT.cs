@@ -413,6 +413,7 @@ public class OptionsMenuTT : MonoBehaviour
             networkManager.StartServer();
             GameObject.FindObjectOfType<GameCore>().RemoveGameBoard();
             optionPanel.gameObject.SetActive(false);
+            ScoreBoardPanel.gameObject.SetActive(true);
         }
         else
         {

@@ -36,11 +36,18 @@ public class GameScenePopUpInfo : MonoBehaviour {
 		doGameStartInfoRed = true;
 	}
 
-	IEnumerator endGameStartInfo ()
+	public IEnumerator endGameStartInfo ()
 	{
-		yield return new WaitForSeconds (10);
+        if (gameCore.blackTurnsLeft == 28)
+        {
+            yield return false;
+        }
+        else
+        {
+            yield return new WaitForSeconds(0);
 
-		doGameStartInfoRed = false;
+            doGameStartInfoRed = false;
+        }
 	}
 
 	void DoWindow0(int windowID) {
