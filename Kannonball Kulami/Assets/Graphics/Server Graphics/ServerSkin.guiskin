@@ -2063,7 +2063,7 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 1
-  - m_Name: DisconnectedContinue
+  - m_Name: ContinueButton
     m_Normal:
       m_Background: {fileID: 2800000, guid: 556cb32dc35acb94cbe5b4368cf72dd4, type: 3}
       m_TextColor: {r: 1, g: .892892182, b: .661764741, a: 1}
@@ -2121,15 +2121,15 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 1
-  - m_Name: DisconnectedContinue
+  - m_Name: CancelButton
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 763b53baebba63542a2dff1ebda748b7, type: 3}
+      m_Background: {fileID: 2800000, guid: cb5adb8f8117f8a48bffa5b29f0f6dae, type: 3}
       m_TextColor: {r: 1, g: .892892182, b: .661764741, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Active:
-      m_Background: {fileID: 2800000, guid: 7a9b3d4fd63853e46958e5b1ba3c5b6e, type: 3}
+      m_Background: {fileID: 2800000, guid: 914f3cdefa6aada4aaa3cf1533e5e9bf, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Focused:
       m_Background: {fileID: 0}

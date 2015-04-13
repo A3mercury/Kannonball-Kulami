@@ -115,7 +115,7 @@ public class SceneTransitionScript : MonoBehaviour {
 			}
 
 			if (gameObject.name.ToString () == "credits") {
-				StartCoroutine(delayedCredits());
+			//	StartCoroutine(delayedCredits());
 			}
 
             if (gameObject.name.ToString() == "easyboard")
