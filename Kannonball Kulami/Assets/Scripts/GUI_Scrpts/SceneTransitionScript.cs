@@ -8,6 +8,7 @@ public class SceneTransitionScript : MonoBehaviour {
     //private Network_Manager networkManager;
 	GameObject optionsPanel;
 	OptionsMenuTT optionsScript;
+    bool clickedOnFirst;
 
 	void Start () {
 		optionsScript = GameObject.FindObjectOfType (typeof(OptionsMenuTT)) as OptionsMenuTT;
@@ -26,10 +27,19 @@ public class SceneTransitionScript : MonoBehaviour {
 	}
 
 	public void SinglePlayer () {
-        Network_Manager.fromtransition = false;
-        OptionsMenuTT.PlayerGoesFirst = true;
+        //Network_Manager.fromtransition = false;
+        //OptionsMenuTT.PlayerGoesFirst = true;
 	}
 	
+    public void OrderOfPlayers()
+    {
+        Network_Manager.fromtransition = false;
+        if (clickedOnFirst)
+            OptionsMenuTT.PlayerGoesFirst = true;
+        else
+            OptionsMenuTT.PlayerGoesFirst = false;
+    }
+
 	public void NetworkPlay () {
         Network_Manager.fromtransition = true;
         Application.LoadLevel("GameScene");
@@ -102,24 +112,33 @@ public class SceneTransitionScript : MonoBehaviour {
             {
                 OptionsMenuTT.AIDifficulty = "Easy";
                 OptionsMenuTT.AssistanceToggle.isOn = true;
-                StartCoroutine(delayedSinglePlayer());
+                //StartCoroutine(delayedSinglePlayer());
             }
 
 			if (gameObject.name.ToString () == "hardboard") {
 				OptionsMenuTT.AIDifficulty = "Hard";
-				//optionsScript.AssistanceToggle.isOn = false;
-				StartCoroutine(delayedSinglePlayer());
+				//StartCoroutine(delayedSinglePlayer());
 			}
 
 			if (gameObject.name.ToString () == "expertboard") {
 				OptionsMenuTT.AIDifficulty = "Expert";
 				OptionsMenuTT.AssistanceToggle.isOn = false;
-              //  OptionsMenuTT.AssistanceToggle.interactable = false;
-				StartCoroutine(delayedSinglePlayer());
+				//StartCoroutine(delayedSinglePlayer());
 			}
             if (gameObject.name.ToString() == "how_to_play_bottle")
             {
                 StartCoroutine(delayedHowToPlay());
+            }
+
+            if(gameObject.name.ToString() == "first")
+            {
+                clickedOnFirst = true;
+                StartCoroutine(delayedSinglePlayer());
+            }
+            if(gameObject.name.ToString() == "second")
+            {
+                clickedOnFirst = false;
+                StartCoroutine(delayedSinglePlayer());
             }
 			
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

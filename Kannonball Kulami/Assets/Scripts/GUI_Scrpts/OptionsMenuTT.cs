@@ -46,7 +46,7 @@ public class OptionsMenuTT : MonoBehaviour
     public static bool areSoundsMuted = false;
     public static bool areMusicMuted = false;
 	public static bool isAssistanceChecked = true;	
-	public static bool PlayerGoesFirst = true;
+	public static bool PlayerGoesFirst;
 	public static string AIDifficulty = "Easy";
 
     // on gui
