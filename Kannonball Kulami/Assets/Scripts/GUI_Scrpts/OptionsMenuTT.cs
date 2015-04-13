@@ -263,6 +263,7 @@ public class OptionsMenuTT : MonoBehaviour
         if (Application.loadedLevelName == "GameScene")
         {
             CannonFireSound.SetVolume(soundSlider.value);
+            clickCoins.SetVolume(soundSlider.value);
             backgroundShipNoise.volume = soundSlider.value;
         }
         else if (Application.loadedLevelName == "MainMenuScene")
