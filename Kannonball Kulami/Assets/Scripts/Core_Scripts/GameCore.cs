@@ -117,7 +117,16 @@ public class GameCore : MonoBehaviour
         {
             turn = "red";
         }
-
+        if (OptionsMenuTT.AIDifficulty != "Expert")
+        {
+            options.OppScore.text = "00";
+            options.PlayerScore.text = "00";
+        }
+        else
+        {
+            options.OppScore.text = "??";
+            options.PlayerScore.text = "??";
+        }
         
 
         // Gameboard number is sent as second parameter
@@ -199,7 +208,8 @@ public class GameCore : MonoBehaviour
     }
 
 	// Update is called once per frame
-	void Update () {
+    void Update()
+    {
         if (!GameIsOver)
         {
             if (myJob != null)
@@ -230,8 +240,8 @@ public class GameCore : MonoBehaviour
                 PlacePiece(MovesBlockedByOptions[0].Key, MovesBlockedByOptions[0].Value);
                 MovesBlockedByOptions.Clear();
             }
+
         }
-        
     }
 
     public void MakeGameboard(int boardNum)
@@ -374,8 +384,30 @@ public class GameCore : MonoBehaviour
 		}
 	
         // update the scores
-        options.OppScore.text = GetScore().Key.ToString();
-        options.PlayerScore.text = GetScore().Value.ToString();
+        if (OptionsMenuTT.AIDifficulty != "Expert")
+        {
+            if (GetScore().Key < 10)
+            {
+                options.OppScore.text = "0" + GetScore().Key.ToString();
+            }
+            else
+            {
+                options.OppScore.text = GetScore().Key.ToString();
+            }
+            if (GetScore().Value < 10)
+            {
+                options.PlayerScore.text = "0" + GetScore().Value.ToString();
+            }
+            else
+            {
+                options.PlayerScore.text = GetScore().Value.ToString();
+            }
+        }
+        else
+        {
+            options.OppScore.text = "??";
+            options.PlayerScore.text = "??";
+        }
     }
 
     void OnGUI()
