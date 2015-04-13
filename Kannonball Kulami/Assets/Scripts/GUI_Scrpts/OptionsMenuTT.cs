@@ -108,8 +108,6 @@ public class OptionsMenuTT : MonoBehaviour
 
         if(Application.loadedLevelName == "GameScene")
             ScoreBoardPanel.gameObject.SetActive(true);
-        //else
-        //    ScoreBoardPanel.gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -208,14 +206,14 @@ public class OptionsMenuTT : MonoBehaviour
         }
 
         // getting scores
-        if (Application.loadedLevelName == "GameScene")
-        {
-            if (clickScript != null && !clickScript.isGameOver())
-            {
-                OppScore.text = clickScript.GetScore().Key.ToString();
-                PlayerScore.text = clickScript.GetScore().Value.ToString();
-            }
-        }
+        //if (Application.loadedLevelName == "GameScene")
+        //{
+        //    if (clickScript != null && !clickScript.isGameOver())
+        //    {
+        //        OppScore.text = clickScript.GetScore().Key.ToString();
+        //        PlayerScore.text = clickScript.GetScore().Value.ToString();
+        //    }
+        //}
     }
 
     #region Assignments

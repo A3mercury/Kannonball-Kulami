@@ -369,6 +369,9 @@ public class GameCore : MonoBehaviour
 			MovesBlockedByOptions.Add(new KeyValuePair<int, int>(row, col));
 		}
 	
+        // update the scores
+        options.OppScore.text = GetScore().Key.ToString();
+        options.PlayerScore.text = GetScore().Value.ToString();
     }
 
     void OnGUI()
@@ -377,6 +380,12 @@ public class GameCore : MonoBehaviour
 
         if (ShowVictoryDefeat)
         {
+            redTurnsLeft = 0;
+            blackTurnsLeft = 0;
+
+            options.OppScore.text = GetScore().Key.ToString();
+            options.PlayerScore.text = GetScore().Value.ToString();
+
             ToggleClickability(false);
 
             Rect VD_Wrapper = new Rect(
@@ -407,7 +416,6 @@ public class GameCore : MonoBehaviour
                 (BackgroundRect.width * 20f) / 100, 
                 (BackgroundRect.height * 10f) / 100
                 );
-
 
             GUILayout.BeginArea(OpponentScoreRect);
             GUILayout.BeginHorizontal();
