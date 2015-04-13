@@ -30,14 +30,21 @@ public class SceneTransitionScript : MonoBehaviour {
         //Network_Manager.fromtransition = false;
         //OptionsMenuTT.PlayerGoesFirst = true;
 	}
-	
+
     public void OrderOfPlayers()
     {
         Network_Manager.fromtransition = false;
         if (clickedOnFirst)
+        {
             OptionsMenuTT.PlayerGoesFirst = true;
+
+        }
         else
+        {
             OptionsMenuTT.PlayerGoesFirst = false;
+
+        }
+        StartCoroutine(delayedSinglePlayer());
     }
 
 	public void NetworkPlay () {
@@ -96,9 +103,9 @@ public class SceneTransitionScript : MonoBehaviour {
         //Debug.Log("isClickable " + isClickable);
 		if (isClickable) 
 		{
-			if (gameObject.name.ToString () == "singleplayer") {
-				SinglePlayer();
-			}
+            //if (gameObject.name.ToString () == "singleplayer") {
+            //    OrderOfPlayers();
+            //}
 
 			if (gameObject.name.ToString () == "networkplay") {
 				StartCoroutine(delayedNetworkPlay());
@@ -133,12 +140,14 @@ public class SceneTransitionScript : MonoBehaviour {
             if(gameObject.name.ToString() == "first")
             {
                 clickedOnFirst = true;
-                StartCoroutine(delayedSinglePlayer());
+                OrderOfPlayers();
+                //StartCoroutine(delayedSinglePlayer());
             }
             if(gameObject.name.ToString() == "second")
             {
                 clickedOnFirst = false;
-                StartCoroutine(delayedSinglePlayer());
+                OrderOfPlayers();
+                //StartCoroutine(delayedSinglePlayer());
             }
 			
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
