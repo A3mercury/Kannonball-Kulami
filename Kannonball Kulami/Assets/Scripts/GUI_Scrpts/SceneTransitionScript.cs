@@ -119,8 +119,15 @@ public class SceneTransitionScript : MonoBehaviour {
 			}
             if (gameObject.name.ToString() == "how_to_play_bottle")
             {
+                isClickable = true;
                 StartCoroutine(delayedHowToPlay());
             }
+            if (gameObject.name.ToString() == "Back_To_Main_Menu")
+            {
+                isClickable = true;
+                MainMenu();
+            }
+
 			
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			float depth;
