@@ -117,6 +117,7 @@ public class GameCore : MonoBehaviour
         {
             turn = "red";
         }
+       options.ScoreBoardPanel.gameObject.SetActive(true);
         if (OptionsMenuTT.AIDifficulty != "Expert")
         {
             options.OppScore.text = "00";
@@ -127,7 +128,6 @@ public class GameCore : MonoBehaviour
             options.OppScore.text = "??";
             options.PlayerScore.text = "??";
         }
-        
 
         // Gameboard number is sent as second parameter
         if (!networkManager.isOnline)
