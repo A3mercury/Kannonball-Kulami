@@ -149,7 +149,10 @@ public class SceneTransitionScript : MonoBehaviour {
                 OrderOfPlayers();
                 //StartCoroutine(delayedSinglePlayer());
             }
-			
+            if(gameObject.name.ToString() == "Back_To_Main_Menu")
+            {
+                MainMenu();
+            }
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			float depth;
 			RaycastHit hitInfo;
