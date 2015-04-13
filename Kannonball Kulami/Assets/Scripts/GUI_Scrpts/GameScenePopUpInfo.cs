@@ -12,6 +12,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 	private Network_Manager network;
 
 	private bool doGameStartInfoRed = false;
+    private bool PlaySecondFirstMove = false;
 	// Use this for initialization
 	void Start () {
 		OnLevelWasLoaded ();
@@ -31,13 +32,43 @@ public class GameScenePopUpInfo : MonoBehaviour {
 
 	IEnumerator gameStartInfo ()
 	{
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(0);
 
 		doGameStartInfoRed = true;
 	}
 
 	public IEnumerator endGameStartInfo ()
 	{
+        if (OptionsMenuTT.PlayerGoesFirst)
+        {
+            if (gameCore.blackTurnsLeft == 28)
+            {
+                yield return false;
+            }
+            else
+            {
+                yield return new WaitForSeconds(0);
+
+                doGameStartInfoRed = false;
+            }
+        }
+        else
+        {
+            if (gameCore.redTurnsLeft == 28)
+            {
+                yield return false;
+            }
+            else
+            {
+                yield return new WaitForSeconds(0);
+
+                doGameStartInfoRed = false;
+                PlaySecondFirstMove = true;
+            }
+        }
+	}
+    public IEnumerator endSecondStartInfo()
+    {
         if (gameCore.blackTurnsLeft == 28)
         {
             yield return false;
@@ -45,10 +76,9 @@ public class GameScenePopUpInfo : MonoBehaviour {
         else
         {
             yield return new WaitForSeconds(0);
-
-            doGameStartInfoRed = false;
+            PlaySecondFirstMove = false;
         }
-	}
+    }
 
 	void DoWindow0(int windowID) {
 		
@@ -75,6 +105,11 @@ public class GameScenePopUpInfo : MonoBehaviour {
                 GUI.Window(0, new Rect(760, 10, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
                 StartCoroutine(endGameStartInfo());
             }
+            else if (PlaySecondFirstMove)
+            {
+                GUI.Window(784, new Rect(760, 10, 200, 100), DoWindow0, "You may now place a piece on any of the available moves (highlighted in white).");
+                StartCoroutine(endSecondStartInfo());
+            }
         }
 
 		if (assistanceToggle.isOn && network.isOnline && network.ingame && OptionsMenuTT.PlayerGoesFirst) 
@@ -93,6 +128,11 @@ public class GameScenePopUpInfo : MonoBehaviour {
 				GUI.Window (0, new Rect (760, 10, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
 				StartCoroutine (endGameStartInfo ());
 			}
+            else if (PlaySecondFirstMove)
+            {
+                GUI.Window(784, new Rect(760, 10, 200, 100), DoWindow0, "You may now place a piece on any of the available moves (highlighted in white).");
+                StartCoroutine(endSecondStartInfo());
+            }
 		}
 	}
 }
