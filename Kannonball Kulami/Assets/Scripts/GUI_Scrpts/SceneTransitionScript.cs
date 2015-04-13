@@ -161,7 +161,7 @@ public class SceneTransitionScript : MonoBehaviour {
 			RaycastHit hitInfo;
 			if (Physics.Raycast(ray, out hitInfo))
 			{
-				gameObject.rigidbody.AddForceAtPosition(new Vector3(0f, -100f, 0f), new Vector3(hitInfo.point.x, hitInfo.point.y, hitInfo.point.z));
+				//gameObject.rigidbody.AddForceAtPosition(new Vector3(0f, -100f, 0f), new Vector3(hitInfo.point.x, hitInfo.point.y, hitInfo.point.z));
 			}
 
 		}
