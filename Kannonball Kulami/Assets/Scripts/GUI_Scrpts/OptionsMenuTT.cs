@@ -78,9 +78,13 @@ public class OptionsMenuTT : MonoBehaviour
             networkManager = GameObject.FindObjectOfType<Network_Manager>();
 
             GameBackgroundMusic = GameObject.Find("GameBackgroundMusic").GetComponent<AudioSource>();
-            if (!areMusicMuted)
+            if (!areMusicMuted &&(networkManager == null || !networkManager.isOnline))
             {
                 GameBackgroundMusic.Play();
+            }
+            if (!areSoundsMuted)
+            {
+                backgroundShipNoise.Play();
             }
             VictoryMusic = GameObject.Find("VictoryMusic").GetComponent<AudioSource>();
             LossMusic = GameObject.Find("LossMusic").GetComponent<AudioSource>();
@@ -89,7 +93,7 @@ public class OptionsMenuTT : MonoBehaviour
         else if (Application.loadedLevelName == "MainMenuScene")
         {
             KannonballKulamiTheme = GameObject.Find("KannonBallKulamiTheme").GetComponent<AudioSource>();
-            if (!areMusicMuted)
+            if (!areMusicMuted && (networkManager == null || !networkManager.isOnline))
             {
                 KannonballKulamiTheme.Play();
             }
@@ -298,7 +302,7 @@ public class OptionsMenuTT : MonoBehaviour
             clickCoins.SetVolume(soundSlider.value);
            // AudioListener.volume = musicSlider.value;
             backgroundShipNoise.volume = soundSlider.value;
-            GameBackgroundMusic.volume = musicSlider.value * 0.25f;
+            GameBackgroundMusic.volume = musicSlider.value;
             VictoryMusic.volume = musicSlider.value;
             LossMusic.volume = musicSlider.value;
         }
@@ -317,6 +321,13 @@ public class OptionsMenuTT : MonoBehaviour
             areSoundsMuted = false;
             soundSlider.value = soundsSliderCurrentVol;
             soundSlider.interactable = true;
+            if (Application.loadedLevelName == "GameScene")
+            {
+                if (!backgroundShipNoise.isPlaying )
+                {
+                    backgroundShipNoise.Play();
+                }
+            }
         }
         else // if sounds are not muted, mute them
         {
@@ -340,14 +351,14 @@ public class OptionsMenuTT : MonoBehaviour
             musicSlider.interactable = false;
             if (Application.loadedLevelName == "MainMenuScene")
             {
-                if (!KannonballKulamiTheme.isPlaying)
+                if (!KannonballKulamiTheme.isPlaying && (networkManager == null || !networkManager.isOnline))
                 {
                     KannonballKulamiTheme.Play();
                 }
             }
             else if (Application.loadedLevelName == "GameScene")
             {
-                if (!GameBackgroundMusic.isPlaying)
+                if (!GameBackgroundMusic.isPlaying && (networkManager == null || !networkManager.isOnline))
                 {
                     GameBackgroundMusic.Play();
                 }
@@ -393,12 +404,15 @@ public class OptionsMenuTT : MonoBehaviour
     public void PlayVictoryMusic()
     {
         GameBackgroundMusic.Stop();
+        backgroundShipNoise.Stop();
         VictoryMusic.Play();
     }
     public void PlayLossMusic()
     {
         GameBackgroundMusic.Stop();
+        backgroundShipNoise.Stop();
         LossMusic.Play();
+       
     }
 
     public void BackToMenu()

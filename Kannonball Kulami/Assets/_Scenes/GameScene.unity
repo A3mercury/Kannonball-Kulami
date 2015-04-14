@@ -6563,7 +6563,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: c1f396e29f9402042bbb809ff9d57d57, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -44594,6 +44594,7 @@ MonoBehaviour:
   VD_Skin: {fileID: 11400000, guid: a9dd445dc24cd6f4fa03fc15fdfeb6b6, type: 2}
   BackButton: {fileID: 1777552752}
   options: {fileID: 391198537}
+  MusicPlayed: 0
 --- !u!114 &1507640957
 MonoBehaviour:
   m_ObjectHideFlags: 0
