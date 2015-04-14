@@ -345,6 +345,13 @@ public class OptionsMenuTT : MonoBehaviour
                     KannonballKulamiTheme.Play();
                 }
             }
+            else if (Application.loadedLevelName == "GameScene")
+            {
+                if (!GameBackgroundMusic.isPlaying)
+                {
+                    GameBackgroundMusic.Play();
+                }
+            }
             // set music volume
         }
         else
