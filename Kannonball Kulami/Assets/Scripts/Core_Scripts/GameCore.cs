@@ -443,13 +443,13 @@ public class GameCore : MonoBehaviour
             else // else show defeat
                 GUILayout.BeginArea(BackgroundRect, GUI.skin.customStyles[1]);
 
-            Rect OpponentScoreRect = new Rect(
+            Rect PlayerScoreRect = new Rect(
                 (BackgroundRect.width * 58f) / 100, 
                 (BackgroundRect.height * 37f) / 100, 
                 (BackgroundRect.width * 20f) / 100, 
                 (BackgroundRect.height * 10f) / 100
                 );
-            Rect PlayerScoreRect = new Rect(
+            Rect OpponentScoreRect = new Rect(
                 (BackgroundRect.width * 23f) / 100, 
                 (BackgroundRect.height * 37f) / 100, 
                 (BackgroundRect.width * 20f) / 100, 
