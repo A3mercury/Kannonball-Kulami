@@ -301,6 +301,14 @@ public class OptionsMenuTT : MonoBehaviour
         // sliders for the GameScene
         if (Application.loadedLevelName == "GameScene")
         {
+            if (!areMusicMuted && (networkManager == null || networkManager.ingame) && !GameBackgroundMusic.isPlaying)
+            {
+                GameBackgroundMusic.Play();
+            }
+            else if (networkManager != null && !networkManager.ingame)
+            {
+                GameBackgroundMusic.Stop();
+            }
             CannonFireSound.SetVolume(soundSlider.value);
             clickCoins.SetVolume(soundSlider.value);
            // AudioListener.volume = musicSlider.value;
