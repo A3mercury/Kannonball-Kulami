@@ -77,6 +77,7 @@ public class GameCore : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+        
 		isClickable = true;
         networkManager = GameObject.FindObjectOfType<Network_Manager>();
 		aiCannon = GameObject.FindObjectOfType<AICannonScript>();
@@ -416,6 +417,7 @@ public class GameCore : MonoBehaviour
 
         if (ShowVictoryDefeat)
         {
+            
             redTurnsLeft = 0;
             blackTurnsLeft = 0;
 

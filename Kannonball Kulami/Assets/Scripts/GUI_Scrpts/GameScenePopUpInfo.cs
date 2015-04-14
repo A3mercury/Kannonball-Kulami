@@ -93,7 +93,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 		{
 			if (doGameStartInfoRed)
 			{
-				GUI.Window (0, new Rect (760, 10, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");	
+				GUI.Window (0, new Rect (603, 325, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");	
 				StartCoroutine (endGameStartInfo ());
 			}
 		}
@@ -102,12 +102,12 @@ public class GameScenePopUpInfo : MonoBehaviour {
         {
             if (doGameStartInfoRed)
             {
-                GUI.Window(0, new Rect(760, 10, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
+                GUI.Window(0, new Rect(603, 325, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
                 StartCoroutine(endGameStartInfo());
             }
             else if (PlaySecondFirstMove)
             {
-                GUI.Window(784, new Rect(760, 10, 200, 100), DoWindow0, "You may now place a piece on any of the available moves (highlighted in white).");
+                GUI.Window(784, new Rect(603, 325, 200, 100), DoWindow0, "You may now place a piece on any of the available moves (highlighted in white).");
                 StartCoroutine(endSecondStartInfo());
             }
         }
@@ -116,7 +116,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 		{
 			if (doGameStartInfoRed)
 			{
-				GUI.Window (0, new Rect (760, 10, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");
+				GUI.Window (0, new Rect (603, 325, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");
 				StartCoroutine (endGameStartInfo ());
 			}
 		}
@@ -125,12 +125,12 @@ public class GameScenePopUpInfo : MonoBehaviour {
 		{
 			if (doGameStartInfoRed)
 			{
-				GUI.Window (0, new Rect (760, 10, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
+				GUI.Window (0, new Rect (603, 325, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
 				StartCoroutine (endGameStartInfo ());
 			}
             else if (PlaySecondFirstMove)
             {
-                GUI.Window(784, new Rect(760, 10, 200, 100), DoWindow0, "You may now place a piece on any of the available moves (highlighted in white).");
+                GUI.Window(784, new Rect(603, 325, 200, 100), DoWindow0, "You may now place a piece on any of the available moves (highlighted in white).");
                 StartCoroutine(endSecondStartInfo());
             }
 		}

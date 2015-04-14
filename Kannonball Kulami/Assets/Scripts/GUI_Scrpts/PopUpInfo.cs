@@ -81,25 +81,25 @@ public class PopUpInfo : MonoBehaviour {
         GUI.skin.window.normal.background = onHoverImage;
 
         if (doWindowSinglePlayer)
-            GUI.Window(0, new Rect(3, 60, 200, 95), DoWindow0, "Test your skills against an easy, hard, or expert computer!");
+            GUI.Window(0, new Rect(48, 105, 200, 95), DoWindow0, "Test your skills against an easy, hard, or expert computer!");
 
         if (doWindowMultiPlayer)
-            GUI.Window(0, new Rect(25, 150, 150, 80), DoWindow0, "Battle against your friends online!");
+            GUI.Window(0, new Rect(70, 255, 150, 80), DoWindow0, "Battle against your friends online!");
 
         if (doWindowBottle)
-            GUI.Window(0, new Rect(3, 280, 200, 60), DoWindow0, "Learn how to play here!");
+            GUI.Window(0, new Rect(48, 415, 200, 60), DoWindow0, "Learn how to play here!");
 
         if (doWindowCredits)
            // GUI.Window(0, new Rect(25, 370, 150, 112), DoWindow0, "This takes you to the credits screen, where you can see who made this game!");
-            GUI.Window(0, new Rect(25, 370, 150, 80), DoWindow0, "Disabled For Now To Ensure Fair Testing Evaluations");
+            GUI.Window(0, new Rect(70, 560, 150, 80), DoWindow0, "Disabled For Now To Ensure Fair Testing Evaluations");
 
         if (doWindowPlayerMoves)
-            GUI.Window(25, new Rect(940, 610, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.blackTurnsLeft));
+            GUI.Window(25, new Rect(945, 640, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.blackTurnsLeft));
 		
         if (doWindowOpponentMoves)
-			GUI.Window(25, new Rect(230, 420, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.redTurnsLeft));
+			GUI.Window(25, new Rect(200, 400, 175, 60), DoWindow0, "Moves remaining: " + (gameCore.redTurnsLeft));
 
         if (doWindowChestInfo)
-            GUI.Window(25, new Rect(680, 130, 175, 60), DoWindow0, "Arrrrggg, here be treasure!");
+            GUI.Window(25, new Rect(900, 135, 175, 60), DoWindow0, "Arrrrggg, here be treasure!");
     }
 }
