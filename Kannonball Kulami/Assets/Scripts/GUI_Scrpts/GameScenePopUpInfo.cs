@@ -115,7 +115,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 
 		if (assistanceToggle.isOn && network.isOnline && network.ingame && OptionsMenuTT.PlayerGoesFirst) 
 		{
-            if (doGameStartInfoRed && GameObject.Find("OptionsPanel") == null)
+            if (doGameStartInfoRed && GameObject.Find("OptionsPanel") == null && !network.popUpOpen)
 			{
 				GUI.Window (0, new Rect (603, 325, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");
 				StartCoroutine (endGameStartInfo ());
@@ -124,7 +124,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 
 		if (assistanceToggle.isOn && network.isOnline && network.ingame && !OptionsMenuTT.PlayerGoesFirst) 
 		{
-            if (doGameStartInfoRed && GameObject.Find("OptionsPanel") == null)
+            if (doGameStartInfoRed && GameObject.Find("OptionsPanel") == null && !network.popUpOpen)
 			{
 				GUI.Window (0, new Rect (603, 325, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
 				StartCoroutine (endGameStartInfo ());
