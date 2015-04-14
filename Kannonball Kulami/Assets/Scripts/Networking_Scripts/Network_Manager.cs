@@ -20,7 +20,6 @@ public class Network_Manager : MonoBehaviour {
     /// -myskin- is used for testing GUI at this point in development 2/24/2015
     /// -windowRect- defines a new window. 
     /// </summary> 
-    Chat_Script chat_script;
 
     public static bool fromtransition, chat = false;
     public int randomBoard = 0;
@@ -555,10 +554,10 @@ public class Network_Manager : MonoBehaviour {
         // Actual username
         GUILayout.BeginArea(UsernameRect);
         if (!hitConnected)
-            userName = GUILayout.TextField(userName, 15, GUI.skin.customStyles[2]).Replace("\n", "");
+            userName = GUILayout.TextField(userName, 8, GUI.skin.customStyles[2]).Replace("\n", "");
         else
         {
-            GUILayout.TextField(userName, 15, GUI.skin.customStyles[2]).Replace("\n", "");
+            GUILayout.TextField(userName, 8, GUI.skin.customStyles[2]).Replace("\n", "");
             
         }
         GUILayout.EndArea();
