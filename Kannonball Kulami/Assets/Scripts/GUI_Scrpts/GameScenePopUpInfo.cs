@@ -9,10 +9,11 @@ public class GameScenePopUpInfo : MonoBehaviour {
 	public GUISkin onHoverSkin;
 
 	private GameCore gameCore;
-	private Network_Manager network;
+    private Network_Manager network;
 
 	private bool doGameStartInfoRed = false;
     private bool PlaySecondFirstMove = false;
+
 	// Use this for initialization
 	void Start () {
 		OnLevelWasLoaded ();
@@ -37,7 +38,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 		doGameStartInfoRed = true;
 	}
 
-	public IEnumerator endGameStartInfo ()
+	IEnumerator endGameStartInfo ()
 	{
         if (OptionsMenuTT.PlayerGoesFirst)
         {
@@ -67,7 +68,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
             }
         }
 	}
-    public IEnumerator endSecondStartInfo()
+    IEnumerator endSecondStartInfo()
     {
         if (gameCore.blackTurnsLeft == 28)
         {
@@ -89,9 +90,9 @@ public class GameScenePopUpInfo : MonoBehaviour {
 		GUI.skin = onHoverSkin;
 		GUI.skin.window.normal.background = onHoverImage;
 
-        if (assistanceToggle.isOn && !network.isOnline && OptionsMenuTT.PlayerGoesFirst) 
+        if (assistanceToggle.isOn && !network.isOnline) 
 		{
-			if (doGameStartInfoRed)
+            if (doGameStartInfoRed && GameObject.Find("OptionsPanel") == null)
 			{
 				GUI.Window (0, new Rect (603, 325, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");	
 				StartCoroutine (endGameStartInfo ());
@@ -100,12 +101,12 @@ public class GameScenePopUpInfo : MonoBehaviour {
 
         if (assistanceToggle.isOn && !network.isOnline && !OptionsMenuTT.PlayerGoesFirst)
         {
-            if (doGameStartInfoRed)
+            if (doGameStartInfoRed && GameObject.Find("OptionsPanel") == null)
             {
                 GUI.Window(0, new Rect(603, 325, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
                 StartCoroutine(endGameStartInfo());
             }
-            else if (PlaySecondFirstMove)
+            else if (PlaySecondFirstMove && GameObject.Find("OptionsPanel") == null)
             {
                 GUI.Window(784, new Rect(603, 325, 200, 100), DoWindow0, "You may now place a piece on any of the available moves (highlighted in white).");
                 StartCoroutine(endSecondStartInfo());
@@ -114,7 +115,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 
 		if (assistanceToggle.isOn && network.isOnline && network.ingame && OptionsMenuTT.PlayerGoesFirst) 
 		{
-			if (doGameStartInfoRed)
+            if (doGameStartInfoRed && GameObject.Find("OptionsPanel") == null && !network.popUpOpen)
 			{
 				GUI.Window (0, new Rect (603, 325, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");
 				StartCoroutine (endGameStartInfo ());
@@ -123,12 +124,12 @@ public class GameScenePopUpInfo : MonoBehaviour {
 
 		if (assistanceToggle.isOn && network.isOnline && network.ingame && !OptionsMenuTT.PlayerGoesFirst) 
 		{
-			if (doGameStartInfoRed)
+            if (doGameStartInfoRed && GameObject.Find("OptionsPanel") == null && !network.popUpOpen)
 			{
 				GUI.Window (0, new Rect (603, 325, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
 				StartCoroutine (endGameStartInfo ());
 			}
-            else if (PlaySecondFirstMove)
+            else if (PlaySecondFirstMove && GameObject.Find("OptionsPanel") == null)
             {
                 GUI.Window(784, new Rect(603, 325, 200, 100), DoWindow0, "You may now place a piece on any of the available moves (highlighted in white).");
                 StartCoroutine(endSecondStartInfo());

@@ -26,7 +26,7 @@ public class Network_Manager : MonoBehaviour {
     public int randomBoard = 0;
     public static int networkplayer;
     public bool invoked, disconnected, sentRequest, ingame = false, calledgamescene, invitepopup,
-                isOnline, lobbycamera,  detecteddisconnect, conceded, popupflag, cancelledrequest; 
+                isOnline, lobbycamera,  detecteddisconnect, conceded, popupflag, cancelledrequest, popUpOpen; 
     public string serverName, clientName, userName = "", maxPlayers = "10", port = "21212", 
                   userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     private string messBox = "", messageToSend = "", user = "";
@@ -106,6 +106,7 @@ public class Network_Manager : MonoBehaviour {
         MasterServer.RegisterHost("KannonBall_Kulami_HU_Softdev_Team1_2015", userName);
         Debug.Log("Restarted");
 
+        popUpOpen = false;
         ingame = false; invoked = true; disconnected = false; sentRequest = false; calledgamescene = false; detecteddisconnect = false;
         conceded = false; lobbycamera = false; popupflag = false; cancelledrequest = false;
         
@@ -204,6 +205,7 @@ public class Network_Manager : MonoBehaviour {
                 }
                 if (disconnected && invoked)
                 {
+                    popUpOpen = true;
                     messBox = "Request has been denied.\n";
                     windowRect = GUI.ModalWindow(1, PopupRect, popUp, "");
                 }
@@ -220,7 +222,7 @@ public class Network_Manager : MonoBehaviour {
             else if(detecteddisconnect && !conceded)
             {
                 popupflag = true;
-
+                popUpOpen = true;
                 GUI.skin = ServerSkin;
                 ConcededRect = new Rect(
                     (Screen.width * (1 - (512f / 1440f))) / 2,
@@ -262,6 +264,7 @@ public class Network_Manager : MonoBehaviour {
             {
                 popupflag = true;
 
+                popUpOpen = true;
                 GUI.skin = ServerSkin;
                 ConcededRect = new Rect(
                     (Screen.width * (1 - (512f / 1440f))) / 2,
