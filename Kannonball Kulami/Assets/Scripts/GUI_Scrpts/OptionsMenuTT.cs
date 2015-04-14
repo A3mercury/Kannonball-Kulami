@@ -325,7 +325,7 @@ public class OptionsMenuTT : MonoBehaviour
                     GameBackgroundMusic.Play();
                 }
             }
-            else if (networkManager != null && networkManager.isOnline)
+            else if (networkManager.isOnline && !networkManager.ingame)
             {
                 GameBackgroundMusic.Stop();
             }
