@@ -31,7 +31,7 @@ public class Network_Manager : MonoBehaviour {
                   userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     private string messBox = "", messageToSend = "", user = "";
     public GUISkin myskin;
-
+    public string opponentName;
     private AICannonScript opponentCannon;
     private GameCore gameCore;
     public Vector2 scrollPosition = Vector2.zero;
@@ -219,7 +219,7 @@ public class Network_Manager : MonoBehaviour {
                     calledgamescene = true;
                 }
             }
-            else if(detecteddisconnect && !conceded)
+            else if(detecteddisconnect && !conceded && !gameCore.GameIsOver)
             {
                 popupflag = true;
                 popUpOpen = true;
@@ -830,7 +830,14 @@ public class Network_Manager : MonoBehaviour {
             gameCore.MakeGameboard(board);
             boardReader = new ReadGameboard(gameCore.gamePlaces, gameCore.currentBoard);
             gameCore.InitializeCannonballs();
-            
+            if (Network.isClient)
+            {
+                opponentName = serverName;
+            }
+            else
+            {
+                opponentName = clientName;
+            }
             ChatPanel.SetActive(true);            
         }
         else

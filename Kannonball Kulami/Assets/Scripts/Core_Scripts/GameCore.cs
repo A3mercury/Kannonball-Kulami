@@ -14,6 +14,8 @@ public class GameCore : MonoBehaviour
 	public ParticleSystem playerCannonSmoke;
 	public ParticleSystem opponentCannonSmoke;
 
+    private string playerName;
+    private string opponentName;
 	public GameObject cannonBallToFire;
 	public float fireSpeed;
 	public float downwardForce;
@@ -461,10 +463,7 @@ public class GameCore : MonoBehaviour
             GUILayout.Label(GetScore().Key.ToString(), GUI.skin.customStyles[3]);
             if (networkManager != null && networkManager.ingame)
             {
-                if(Network.isClient)
-                    GUILayout.Label(networkManager.serverName, GUI.skin.customStyles[7]);
-                else
-                    GUILayout.Label(networkManager.clientName, GUI.skin.customStyles[7]);
+                GUILayout.Label(networkManager.opponentName, GUI.skin.customStyles[7]);
             }
             else
                 GUILayout.Label("Computer", GUI.skin.customStyles[7]);
