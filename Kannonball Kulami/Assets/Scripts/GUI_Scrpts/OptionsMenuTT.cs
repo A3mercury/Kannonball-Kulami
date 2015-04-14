@@ -9,7 +9,7 @@ public class OptionsMenuTT : MonoBehaviour
 
 	GameCore clickScript;
 	SceneTransitionScript mainMenuClickScript;
-
+    CameraGameSceneMovement camScript;
     Image[] images;
     GameObject optionPanel;
     private Network_Manager networkManager;
@@ -66,6 +66,7 @@ public class OptionsMenuTT : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+        camScript = GameObject.FindObjectOfType<CameraGameSceneMovement>();
         overrideBackButton = false;
 
         // load the sounds for GameScene
@@ -117,13 +118,25 @@ public class OptionsMenuTT : MonoBehaviour
 
 		mainMenuClickScript = GameObject.FindObjectOfType (typeof(SceneTransitionScript)) as SceneTransitionScript;
 
-        if(Application.loadedLevelName == "GameScene")
-            ScoreBoardPanel.gameObject.SetActive(true);
+        //if(Application.loadedLevelName == "GameScene")
+        //    ScoreBoardPanel.gameObject.SetActive(true);
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
+        if (Application.loadedLevelName == "GameScene") 
+        {
+            if (camScript.position == CameraPosition.Board)
+	        {
+                //ScoreBoardPanel.gameObject.SetActive(true);
+	        }
+            else
+            {
+                //ScoreBoardPanel.gameObject.SetActive(false);
+            }
+        }
+            
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
             if (optionPanel.gameObject.activeSelf == true)
@@ -149,12 +162,12 @@ public class OptionsMenuTT : MonoBehaviour
                 if (clickScript.isClickable)
                 {
                     clickScript.ToggleClickability(false);
-                    ScoreBoardPanel.gameObject.SetActive(false);
+                    //ScoreBoardPanel.gameObject.SetActive(false);
                 }
                 else
                 {
                     clickScript.ToggleClickability(true);
-                    ScoreBoardPanel.gameObject.SetActive(true);
+                    //ScoreBoardPanel.gameObject.SetActive(true);
                 }
             }
         }
@@ -426,7 +439,7 @@ public class OptionsMenuTT : MonoBehaviour
         if (Application.loadedLevelName == "GameScene")
         {
             clickScript.ToggleClickability(true);
-            ScoreBoardPanel.gameObject.SetActive(true);
+            //ScoreBoardPanel.gameObject.SetActive(true);
         }
         if (Application.loadedLevelName == "MainMenuScene")
             mainMenuClickScript.ToggleClickability();
@@ -442,7 +455,7 @@ public class OptionsMenuTT : MonoBehaviour
             networkManager.StartServer();
             GameObject.FindObjectOfType<GameCore>().RemoveGameBoard();
             optionPanel.gameObject.SetActive(false);
-            ScoreBoardPanel.gameObject.SetActive(true);
+            //ScoreBoardPanel.gameObject.SetActive(true);
         }
         else
         {
@@ -459,7 +472,7 @@ public class OptionsMenuTT : MonoBehaviour
 	public void ToggleClickScript ()
 	{
 		clickScript.ToggleClickability(false);
-        ScoreBoardPanel.gameObject.SetActive(false);
+        //ScoreBoardPanel.gameObject.SetActive(false);
 	}
 
 	void OnGUI () 

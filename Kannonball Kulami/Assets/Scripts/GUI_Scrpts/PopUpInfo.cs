@@ -5,7 +5,6 @@ using System.Collections;
 public class PopUpInfo : MonoBehaviour {
 
     private GameCore gameCore;
-
 	private bool doWindowSinglePlayer = false;
 	private bool doWindowMultiPlayer = false;
 	private bool doWindowBottle = false;

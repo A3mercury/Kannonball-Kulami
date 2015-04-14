@@ -38,7 +38,8 @@ public class GameCore : MonoBehaviour
 	private List<KeyValuePair<int, int>> MovesBlockedByOptions;
 	private bool EasyAI;
 	private bool CannonballsInitialized = false;
-
+    private Text oppScore;
+    private Text playerScore;
 	public GameObject AIMove;
 
     public ReadGameboard boardReader;
@@ -83,6 +84,8 @@ public class GameCore : MonoBehaviour
 		isClickable = true;
         networkManager = GameObject.FindObjectOfType<Network_Manager>();
 		aiCannon = GameObject.FindObjectOfType<AICannonScript>();
+        playerScore = GameObject.Find("NewPlayerScore").GetComponent<Text>();
+        oppScore = GameObject.Find("NewOppScore").GetComponent<Text>();
         Debug.Log("Gamecore here");
         Debug.Log("Gamecore isOnline " + networkManager.isOnline);
         //if (!networkManager.isOnline )
@@ -120,16 +123,20 @@ public class GameCore : MonoBehaviour
         {
             turn = "red";
         }
-       options.ScoreBoardPanel.gameObject.SetActive(true);
+       //options.ScoreBoardPanel.gameObject.SetActive(true);
         if (OptionsMenuTT.AIDifficulty != "Expert")
         {
-            options.OppScore.text = "00";
-            options.PlayerScore.text = "00";
+            //options.OppScore.text = "00";
+            //options.PlayerScore.text = "00";
+            oppScore.text = "00";
+            playerScore.text = "00";
         }
         else
         {
-            options.OppScore.text = "??";
-            options.PlayerScore.text = "??";
+            //options.OppScore.text = "??";
+            //options.PlayerScore.text = "??";
+            oppScore.text = "??";
+            playerScore.text = "??";
         }
 
         // Gameboard number is sent as second parameter
@@ -390,25 +397,31 @@ public class GameCore : MonoBehaviour
         {
             if (GetScore().Key < 10)
             {
-                options.OppScore.text = "0" + GetScore().Key.ToString();
+                //options.OppScore.text = "0" + GetScore().Key.ToString();
+                oppScore.text = "0" + GetScore().Key.ToString();
             }
             else
             {
-                options.OppScore.text = GetScore().Key.ToString();
+                //options.OppScore.text = GetScore().Key.ToString();
+                oppScore.text = GetScore().Key.ToString();
             }
             if (GetScore().Value < 10)
             {
-                options.PlayerScore.text = "0" + GetScore().Value.ToString();
+                //options.PlayerScore.text = "0" + GetScore().Value.ToString();
+                playerScore.text = "0" + GetScore().Value.ToString();
             }
             else
             {
-                options.PlayerScore.text = GetScore().Value.ToString();
+               // options.PlayerScore.text = GetScore().Value.ToString();
+                playerScore.text = GetScore().Value.ToString();
             }
         }
         else
         {
-            options.OppScore.text = "??";
-            options.PlayerScore.text = "??";
+            //options.OppScore.text = "??";
+            //options.PlayerScore.text = "??";
+            playerScore.text = "??";
+            oppScore.text = "??";
         }
     }
 
@@ -422,8 +435,11 @@ public class GameCore : MonoBehaviour
             redTurnsLeft = 0;
             blackTurnsLeft = 0;
 
-            options.OppScore.text = GetScore().Key.ToString();
-            options.PlayerScore.text = GetScore().Value.ToString();
+            //options.OppScore.text = GetScore().Key.ToString();
+            //options.PlayerScore.text = GetScore().Value.ToString();
+
+            oppScore.text = GetScore().Key.ToString();
+            playerScore.text = GetScore().Value.ToString();
             
             ToggleClickability(false);
 

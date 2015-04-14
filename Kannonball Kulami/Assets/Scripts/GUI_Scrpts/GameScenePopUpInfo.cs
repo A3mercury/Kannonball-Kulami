@@ -8,6 +8,8 @@ public class GameScenePopUpInfo : MonoBehaviour {
 	public Texture2D onHoverImage;
 	public GUISkin onHoverSkin;
 
+    private CameraGameSceneMovement camScript;
+
 	private GameCore gameCore;
 	private Network_Manager network;
 
@@ -18,6 +20,7 @@ public class GameScenePopUpInfo : MonoBehaviour {
 		OnLevelWasLoaded ();
 		gameCore = FindObjectOfType (typeof(GameCore)) as GameCore;
 		network = FindObjectOfType (typeof(Network_Manager)) as Network_Manager;
+        camScript = GameObject.FindObjectOfType<CameraGameSceneMovement>();
 	}
 	
 	// Update is called once per frame
@@ -86,53 +89,56 @@ public class GameScenePopUpInfo : MonoBehaviour {
 
 	void OnGUI ()
 	{
-		GUI.skin = onHoverSkin;
-		GUI.skin.window.normal.background = onHoverImage;
-
-        if (assistanceToggle.isOn && !network.isOnline && OptionsMenuTT.PlayerGoesFirst) 
-		{
-			if (doGameStartInfoRed)
-			{
-				GUI.Window (0, new Rect (603, 325, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");	
-				StartCoroutine (endGameStartInfo ());
-			}
-		}
-
-        if (assistanceToggle.isOn && !network.isOnline && !OptionsMenuTT.PlayerGoesFirst)
+        if (camScript.position == CameraPosition.Board)
         {
-            if (doGameStartInfoRed)
+            GUI.skin = onHoverSkin;
+            GUI.skin.window.normal.background = onHoverImage;
+
+            if (assistanceToggle.isOn && !network.isOnline && OptionsMenuTT.PlayerGoesFirst)
             {
-                GUI.Window(0, new Rect(603, 325, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
-                StartCoroutine(endGameStartInfo());
+                if (doGameStartInfoRed)
+                {
+                    GUI.Window(0, new Rect(603, 325, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");
+                    StartCoroutine(endGameStartInfo());
+                }
             }
-            else if (PlaySecondFirstMove)
+
+            if (assistanceToggle.isOn && !network.isOnline && !OptionsMenuTT.PlayerGoesFirst)
             {
-                GUI.Window(784, new Rect(603, 325, 200, 100), DoWindow0, "You may now place a piece on any of the available moves (highlighted in white).");
-                StartCoroutine(endSecondStartInfo());
+                if (doGameStartInfoRed)
+                {
+                    GUI.Window(0, new Rect(603, 325, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
+                    StartCoroutine(endGameStartInfo());
+                }
+                else if (PlaySecondFirstMove)
+                {
+                    GUI.Window(784, new Rect(603, 325, 200, 100), DoWindow0, "You may now place a piece on any of the available moves (highlighted in white).");
+                    StartCoroutine(endSecondStartInfo());
+                }
+            }
+
+            if (assistanceToggle.isOn && network.isOnline && network.ingame && OptionsMenuTT.PlayerGoesFirst)
+            {
+                if (doGameStartInfoRed)
+                {
+                    GUI.Window(0, new Rect(603, 325, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");
+                    StartCoroutine(endGameStartInfo());
+                }
+            }
+
+            if (assistanceToggle.isOn && network.isOnline && network.ingame && !OptionsMenuTT.PlayerGoesFirst)
+            {
+                if (doGameStartInfoRed)
+                {
+                    GUI.Window(0, new Rect(603, 325, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
+                    StartCoroutine(endGameStartInfo());
+                }
+                else if (PlaySecondFirstMove)
+                {
+                    GUI.Window(784, new Rect(603, 325, 200, 100), DoWindow0, "You may now place a piece on any of the available moves (highlighted in white).");
+                    StartCoroutine(endSecondStartInfo());
+                }
             }
         }
-
-		if (assistanceToggle.isOn && network.isOnline && network.ingame && OptionsMenuTT.PlayerGoesFirst) 
-		{
-			if (doGameStartInfoRed)
-			{
-				GUI.Window (0, new Rect (603, 325, 200, 80), DoWindow0, "You go first this game. Place a piece anywhere on the board to begin.");
-				StartCoroutine (endGameStartInfo ());
-			}
-		}
-
-		if (assistanceToggle.isOn && network.isOnline && network.ingame && !OptionsMenuTT.PlayerGoesFirst) 
-		{
-			if (doGameStartInfoRed)
-			{
-				GUI.Window (0, new Rect (603, 325, 200, 80), DoWindow0, "You go second this game. Wait for the other player to place a piece.");
-				StartCoroutine (endGameStartInfo ());
-			}
-            else if (PlaySecondFirstMove)
-            {
-                GUI.Window(784, new Rect(603, 325, 200, 100), DoWindow0, "You may now place a piece on any of the available moves (highlighted in white).");
-                StartCoroutine(endSecondStartInfo());
-            }
-		}
 	}
 }
