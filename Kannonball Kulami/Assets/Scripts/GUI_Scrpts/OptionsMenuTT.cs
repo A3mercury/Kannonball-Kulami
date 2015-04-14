@@ -315,7 +315,7 @@ public class OptionsMenuTT : MonoBehaviour
             {
                 if (networkManager != null)
                 {
-                    if (networkManager.opponentName == "" || networkManager.ingame)
+					if ((networkManager.isOnline && networkManager.ingame) || !networkManager.isOnline)
                     {
                         GameBackgroundMusic.Play();
                     }
