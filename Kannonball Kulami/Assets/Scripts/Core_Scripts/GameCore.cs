@@ -74,10 +74,12 @@ public class GameCore : MonoBehaviour
     public Button BackButton;
     public OptionsMenuTT options;
 
+    public bool MusicPlayed;
+
 	// Use this for initialization
 	void Start () 
     {
-        
+        MusicPlayed = false;
 		isClickable = true;
         networkManager = GameObject.FindObjectOfType<Network_Manager>();
 		aiCannon = GameObject.FindObjectOfType<AICannonScript>();
@@ -294,7 +296,6 @@ public class GameCore : MonoBehaviour
     {
 		if (isClickable) {
 			HideValidMoves ();
-
 			//audio.Play();
 			CannonFireSound.Instance.FireCannon ();
 
@@ -423,7 +424,7 @@ public class GameCore : MonoBehaviour
 
             options.OppScore.text = GetScore().Key.ToString();
             options.PlayerScore.text = GetScore().Value.ToString();
-
+            
             ToggleClickability(false);
 
             Rect VD_Wrapper = new Rect(
@@ -530,6 +531,16 @@ public class GameCore : MonoBehaviour
             
             GUILayout.EndArea();
             GUILayout.EndArea();
+            if (PlayerWin && !MusicPlayed)
+            {
+                MusicPlayed = true;
+                options.PlayVictoryMusic();
+            }
+            else if(!MusicPlayed)
+            {
+                MusicPlayed = true;
+                options.PlayLossMusic();
+            }
         }
     }
 

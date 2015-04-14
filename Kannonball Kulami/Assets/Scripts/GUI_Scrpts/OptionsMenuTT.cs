@@ -18,6 +18,9 @@ public class OptionsMenuTT : MonoBehaviour
     //AudioSource[] sounds;
     AudioSource backgroundShipNoise;
     AudioSource KannonballKulamiTheme;
+    AudioSource GameBackgroundMusic;
+    AudioSource VictoryMusic;
+    AudioSource LossMusic;
     //AudioSource cannonballFireSound;
 
     Slider[] optionSliders;
@@ -73,6 +76,14 @@ public class OptionsMenuTT : MonoBehaviour
 
 			clickScript = GameObject.FindObjectOfType (typeof(GameCore)) as GameCore;
             networkManager = GameObject.FindObjectOfType<Network_Manager>();
+
+            GameBackgroundMusic = GameObject.Find("GameBackgroundMusic").GetComponent<AudioSource>();
+            if (!areMusicMuted)
+            {
+                GameBackgroundMusic.Play();
+            }
+            VictoryMusic = GameObject.Find("VictoryMusic").GetComponent<AudioSource>();
+            LossMusic = GameObject.Find("LossMusic").GetComponent<AudioSource>();
 
 		}
         else if (Application.loadedLevelName == "MainMenuScene")
@@ -147,10 +158,6 @@ public class OptionsMenuTT : MonoBehaviour
                 }
             }
         }
-		if(Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			PlayerGoesFirst = false;
-		}
 
         if (areSoundsMuted)
         {
@@ -289,7 +296,11 @@ public class OptionsMenuTT : MonoBehaviour
         {
             CannonFireSound.SetVolume(soundSlider.value);
             clickCoins.SetVolume(soundSlider.value);
+           // AudioListener.volume = musicSlider.value;
             backgroundShipNoise.volume = soundSlider.value;
+            GameBackgroundMusic.volume = musicSlider.value * 0.25f;
+            VictoryMusic.volume = musicSlider.value;
+            LossMusic.volume = musicSlider.value;
         }
         else if (Application.loadedLevelName == "MainMenuScene")
         {
@@ -334,6 +345,13 @@ public class OptionsMenuTT : MonoBehaviour
                     KannonballKulamiTheme.Play();
                 }
             }
+            else if (Application.loadedLevelName == "GameScene")
+            {
+                if (!GameBackgroundMusic.isPlaying)
+                {
+                    GameBackgroundMusic.Play();
+                }
+            }
             // set music volume
         }
         else
@@ -370,6 +388,17 @@ public class OptionsMenuTT : MonoBehaviour
     public void SetMusicToHalf()
     {
 
+    }
+
+    public void PlayVictoryMusic()
+    {
+        GameBackgroundMusic.Stop();
+        VictoryMusic.Play();
+    }
+    public void PlayLossMusic()
+    {
+        GameBackgroundMusic.Stop();
+        LossMusic.Play();
     }
 
     public void BackToMenu()

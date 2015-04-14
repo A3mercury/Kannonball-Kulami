@@ -57,14 +57,14 @@ public class SceneTransitionScript : MonoBehaviour {
 	}	
 
 	public void MainMenu () {
-        if (Application.loadedLevelName == "HowToPlayScene")
-            Application.LoadLevel("MainMenuScene");
+      //  if (Application.loadedLevelName == "HowToPlayScene")
+        //    Application.LoadLevel("MainMenuScene");
 
-        if(Network_Manager.fromtransition)
-        {
-            Application.LoadLevel("GameScene");
-        }
-        else
+      //  if(Network_Manager.fromtransition)
+        //{
+          //  Application.LoadLevel("GameScene");
+        //}
+        //else
 		    Application.LoadLevel("MainMenuScene");
 	}
 
