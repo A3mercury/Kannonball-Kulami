@@ -254,7 +254,7 @@ public class Network_Manager : MonoBehaviour {
                 GUILayout.BeginVertical();
                 GUILayout.Label(messBox, GUI.skin.customStyles[14]);
                 Rect ContinueRect = new Rect(
-                    0,
+                   (InnerRect.width - (InnerRect.width * 36f) / 100) / 2,
                     (InnerRect.height - (InnerRect.height * 32f) / 100),
                     (InnerRect.width * 36f) / 100,
                     (InnerRect.height * 32f) / 100
@@ -296,7 +296,7 @@ public class Network_Manager : MonoBehaviour {
                 GUILayout.BeginVertical();
                 GUILayout.Label(messBox, GUI.skin.customStyles[14]);
                 Rect ContinueRect = new Rect(
-                    0,
+                    (InnerRect.width - (InnerRect.width * 36f) / 100) / 2,
                     (InnerRect.height - (InnerRect.height * 32f) / 100),
                     (InnerRect.width * 36f) / 100,
                     (InnerRect.height * 32f) / 100
@@ -727,7 +727,7 @@ public class Network_Manager : MonoBehaviour {
         //messBox = "Request has been denied.\n";
         GUILayout.Label(messBox, GUI.skin.customStyles[14]);
         Rect ContinueRect = new Rect(
-            0,
+            (InnerRect.width- (InnerRect.width * 36f) / 100)/2,
             (InnerRect.height - (InnerRect.height * 32f) / 100),
             (InnerRect.width * 36f) / 100,
             (InnerRect.height * 32f) / 100
@@ -828,14 +828,14 @@ public class Network_Manager : MonoBehaviour {
             (WaitingForResponseRect.width * 12f) / 100,
             (WaitingForResponseRect.height * 16f) / 100,
             (WaitingForResponseRect.width * 78f) / 100,
-            (WaitingForResponseRect.height * 70f) / 100
+            (WaitingForResponseRect.height * 60f) / 100
             );
         GUILayout.BeginArea(WaitingForResponseRect, GUI.skin.customStyles[13]);
         GUILayout.BeginArea(InnerRect);
         GUILayout.BeginVertical();
         GUILayout.Label(messBox, GUI.skin.customStyles[14]);
         Rect CancelRect = new Rect(
-          0,
+          (InnerRect.width - (InnerRect.width * 36f) / 100) / 2,
           (InnerRect.height - (InnerRect.height * 32f) / 100),
           (InnerRect.width * 36f) / 100,
           (InnerRect.height * 32f) / 100
