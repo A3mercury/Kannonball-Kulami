@@ -27,6 +27,7 @@ public class Chat_Script : MonoBehaviour
     public Button sendButton;
     public InputField messageField;
     public Button pulloutTab;
+    public GameCore gameCore;
 
     public Animator ChatBoxShowHide;
 
@@ -35,7 +36,7 @@ public class Chat_Script : MonoBehaviour
     void Awake()
     {
         networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
-        
+        gameCore = GameObject.Find("GameCore").GetComponent<GameCore>();
         sendButton.onClick.AddListener(SendButtonClick);
         pulloutTab.onClick.AddListener(OpenCloseChat);
     }
@@ -61,7 +62,7 @@ public class Chat_Script : MonoBehaviour
 
     private void OnGUI()
     {
-        if (networkManager.ingame)
+        if (networkManager.ingame && !gameCore.GameIsOver)
         {
             ChatBoxPanel.gameObject.SetActive(true);
             GUI.skin = ChatSkin;
