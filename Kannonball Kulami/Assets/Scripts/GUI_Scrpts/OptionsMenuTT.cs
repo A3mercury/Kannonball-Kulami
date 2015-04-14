@@ -311,7 +311,7 @@ public class OptionsMenuTT : MonoBehaviour
         // sliders for the GameScene
         if (Application.loadedLevelName == "GameScene")
         {
-            if (!areMusicMuted && !GameBackgroundMusic.isPlaying)
+            if (!areMusicMuted && !GameBackgroundMusic.isPlaying && !clickScript.GameIsOver)
             {
                 if (networkManager != null)
                 {
@@ -325,7 +325,7 @@ public class OptionsMenuTT : MonoBehaviour
                     GameBackgroundMusic.Play();
                 }
             }
-            else if (networkManager.isOnline && !networkManager.ingame)
+            else if ((networkManager.isOnline && !networkManager.ingame) || clickScript.GameIsOver)
             {
                 GameBackgroundMusic.Stop();
             }
