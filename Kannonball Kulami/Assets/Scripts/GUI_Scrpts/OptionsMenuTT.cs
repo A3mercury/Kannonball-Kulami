@@ -78,6 +78,10 @@ public class OptionsMenuTT : MonoBehaviour
             networkManager = GameObject.FindObjectOfType<Network_Manager>();
 
             GameBackgroundMusic = GameObject.Find("GameBackgroundMusic").GetComponent<AudioSource>();
+            if (!areMusicMuted)
+            {
+                GameBackgroundMusic.Play();
+            }
             VictoryMusic = GameObject.Find("VictoryMusic").GetComponent<AudioSource>();
             LossMusic = GameObject.Find("LossMusic").GetComponent<AudioSource>();
 
@@ -377,6 +381,17 @@ public class OptionsMenuTT : MonoBehaviour
     public void SetMusicToHalf()
     {
 
+    }
+
+    public void PlayVictoryMusic()
+    {
+        GameBackgroundMusic.Stop();
+        VictoryMusic.Play();
+    }
+    public void PlayLossMusic()
+    {
+        GameBackgroundMusic.Stop();
+        LossMusic.Play();
     }
 
     public void BackToMenu()

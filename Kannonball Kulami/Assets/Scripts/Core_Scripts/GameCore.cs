@@ -421,7 +421,7 @@ public class GameCore : MonoBehaviour
 
             options.OppScore.text = GetScore().Key.ToString();
             options.PlayerScore.text = GetScore().Value.ToString();
-
+            
             ToggleClickability(false);
 
             Rect VD_Wrapper = new Rect(
@@ -528,6 +528,14 @@ public class GameCore : MonoBehaviour
             
             GUILayout.EndArea();
             GUILayout.EndArea();
+            if (PlayerWin)
+            {
+                options.PlayVictoryMusic();
+            }
+            else
+            {
+                options.PlayLossMusic();
+            }
         }
     }
 
