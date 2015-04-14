@@ -154,10 +154,6 @@ public class OptionsMenuTT : MonoBehaviour
                 }
             }
         }
-		if(Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			PlayerGoesFirst = false;
-		}
 
         if (areSoundsMuted)
         {
@@ -296,8 +292,9 @@ public class OptionsMenuTT : MonoBehaviour
         {
             CannonFireSound.SetVolume(soundSlider.value);
             clickCoins.SetVolume(soundSlider.value);
+           // AudioListener.volume = musicSlider.value;
             backgroundShipNoise.volume = soundSlider.value;
-            GameBackgroundMusic.volume = musicSlider.value;
+            GameBackgroundMusic.volume = musicSlider.value * 0.25f;
             VictoryMusic.volume = musicSlider.value;
             LossMusic.volume = musicSlider.value;
         }
