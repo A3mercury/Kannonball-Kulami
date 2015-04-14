@@ -62,9 +62,10 @@ public class Chat_Script : MonoBehaviour
             if (ChatBoxShowHide.GetBool("isChatOpen"))
                 GUI.Window(120, windowRect, windowFunc, "");
         }
-        else if(networkManager.ingame)
+        else
         {
             ChatBoxPanel.gameObject.SetActive(false);
+            GUI.skin = ChatSkin;
             messBox = "";
             if (ChatBoxShowHide.GetBool("isChatOpen"))
                 GUI.Window(120, windowRect, windowFunc, "");
