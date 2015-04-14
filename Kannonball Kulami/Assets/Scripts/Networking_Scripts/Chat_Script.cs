@@ -12,6 +12,7 @@ public class Chat_Script : MonoBehaviour
     private GUIStyle myOtherStyle;
     private bool firstConnection = true;
     public bool clearbox = false;
+    public static bool ChatOpen = false;
     private Rect windowRect = new Rect(
                 (Screen.width * 2f) / 100,
                 (Screen.height * 34f) / 100,
@@ -34,7 +35,7 @@ public class Chat_Script : MonoBehaviour
     void Awake()
     {
         networkManager = GameObject.Find("Network_Manager").GetComponent<Network_Manager>();
-
+        
         sendButton.onClick.AddListener(SendButtonClick);
         pulloutTab.onClick.AddListener(OpenCloseChat);
     }
@@ -47,9 +48,15 @@ public class Chat_Script : MonoBehaviour
     public void OpenCloseChat()
     {
         if (ChatBoxShowHide.GetBool("isChatOpen"))
+        {
+            ChatOpen = false;
             ChatBoxShowHide.SetBool("isChatOpen", false);
+        }
         else
+        {
+            ChatOpen = true;
             ChatBoxShowHide.SetBool("isChatOpen", true);
+        }
     }
 
     private void OnGUI()

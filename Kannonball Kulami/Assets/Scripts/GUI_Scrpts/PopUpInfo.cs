@@ -51,7 +51,7 @@ public class PopUpInfo : MonoBehaviour {
             if (gameObject.name.ToString() == "PlayerMovesRemaining")
                 doWindowPlayerMoves = true;
 
-            if (gameObject.name.ToString() == "OpponentMovesRemaining")
+            if (gameObject.name.ToString() == "OpponentMovesRemaining" && !Chat_Script.ChatOpen)
                 doWindowOpponentMoves = true;
 
             if(gameObject.name.ToString() == "New Chest")
