@@ -74,7 +74,7 @@ GameObject:
   - 33: {fileID: 3347842}
   - 135: {fileID: 13547864}
   - 23: {fileID: 2347842}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - 33: {fileID: 3347844}
   - 135: {fileID: 13547866}
   - 23: {fileID: 2347844}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 447792}
   - 65: {fileID: 6547882}
-  m_Layer: 2
+  - 114: {fileID: 11460464}
+  m_Layer: 0
   m_Name: PlayerMovesRemaining
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +127,7 @@ GameObject:
   - 33: {fileID: 3347846}
   - 135: {fileID: 13547868}
   - 23: {fileID: 2347846}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +145,7 @@ GameObject:
   - 33: {fileID: 3347848}
   - 135: {fileID: 13547870}
   - 23: {fileID: 2347848}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +180,7 @@ GameObject:
   - 33: {fileID: 3347852}
   - 135: {fileID: 13547872}
   - 23: {fileID: 2347852}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +198,7 @@ GameObject:
   - 33: {fileID: 3347854}
   - 135: {fileID: 13547874}
   - 23: {fileID: 2347854}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +216,7 @@ GameObject:
   - 33: {fileID: 3347856}
   - 135: {fileID: 13547876}
   - 23: {fileID: 2347856}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +234,7 @@ GameObject:
   - 33: {fileID: 3347858}
   - 135: {fileID: 13547878}
   - 23: {fileID: 2347858}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +252,7 @@ GameObject:
   - 33: {fileID: 3347860}
   - 135: {fileID: 13547880}
   - 23: {fileID: 2347860}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +270,7 @@ GameObject:
   - 33: {fileID: 3347862}
   - 135: {fileID: 13547882}
   - 23: {fileID: 2347862}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +372,7 @@ GameObject:
   - 33: {fileID: 3347870}
   - 135: {fileID: 13547884}
   - 23: {fileID: 2347870}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4764,7 +4765,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 111330}
   m_LocalRotation: {x: -.0518178046, y: .343525946, z: .0706107393, w: .935050249}
-  m_LocalPosition: {x: 70.9000015, y: -.400000006, z: -84.5}
+  m_LocalPosition: {x: 88.9000015, y: -.400000006, z: -84.5}
   m_LocalScale: {x: .0399999991, y: .0399999991, z: .0399999991}
   m_Children:
   - {fileID: 411334}
@@ -15751,6 +15752,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda61de3921f74f2793593384951e4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11460464
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85ed0665cb5e4caf9e198a861f55e21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assistanceCheck: {fileID: 0}
+  onHoverImage: {fileID: 2800000, guid: bb7230a06f6dc124f92283375557f292, type: 3}
+  onHoverSkin: {fileID: 11400000, guid: 6d7b6d3fe1d87482dac941ada83c1ed8, type: 2}
 --- !u!135 &13547864
 SphereCollider:
   m_ObjectHideFlags: 1
