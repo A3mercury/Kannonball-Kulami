@@ -515,12 +515,11 @@ public class GameCore : MonoBehaviour
                 }
             }
             GUILayout.EndArea();
-
+            HideValidMoves();
             GUILayout.BeginArea(ReviewButtonRect);
             if(GUILayout.Button("", GUI.skin.customStyles[5]))
             {
                 // review is going to go back to the game
-                HideValidMoves();
                 options.overrideBackButton = true;
                 BackButton.gameObject.SetActive(true);
                 ShowVictoryDefeat = false;
