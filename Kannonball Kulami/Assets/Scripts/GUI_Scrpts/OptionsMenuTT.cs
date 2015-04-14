@@ -18,6 +18,9 @@ public class OptionsMenuTT : MonoBehaviour
     //AudioSource[] sounds;
     AudioSource backgroundShipNoise;
     AudioSource KannonballKulamiTheme;
+    AudioSource GameBackgroundMusic;
+    AudioSource VictoryMusic;
+    AudioSource LossMusic;
     //AudioSource cannonballFireSound;
 
     Slider[] optionSliders;
@@ -73,6 +76,10 @@ public class OptionsMenuTT : MonoBehaviour
 
 			clickScript = GameObject.FindObjectOfType (typeof(GameCore)) as GameCore;
             networkManager = GameObject.FindObjectOfType<Network_Manager>();
+
+            GameBackgroundMusic = GameObject.Find("GameBackgroundMusic").GetComponent<AudioSource>();
+            VictoryMusic = GameObject.Find("VictoryMusic").GetComponent<AudioSource>();
+            LossMusic = GameObject.Find("LossMusic").GetComponent<AudioSource>();
 
 		}
         else if (Application.loadedLevelName == "MainMenuScene")
@@ -290,6 +297,9 @@ public class OptionsMenuTT : MonoBehaviour
             CannonFireSound.SetVolume(soundSlider.value);
             clickCoins.SetVolume(soundSlider.value);
             backgroundShipNoise.volume = soundSlider.value;
+            GameBackgroundMusic.volume = musicSlider.value;
+            VictoryMusic.volume = musicSlider.value;
+            LossMusic.volume = musicSlider.value;
         }
         else if (Application.loadedLevelName == "MainMenuScene")
         {
