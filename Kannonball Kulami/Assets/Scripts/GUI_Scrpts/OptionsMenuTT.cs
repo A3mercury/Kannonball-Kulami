@@ -78,9 +78,19 @@ public class OptionsMenuTT : MonoBehaviour
             networkManager = GameObject.FindObjectOfType<Network_Manager>();
 
             GameBackgroundMusic = GameObject.Find("GameBackgroundMusic").GetComponent<AudioSource>();
-            if (!areMusicMuted &&(networkManager == null || !networkManager.isOnline))
+            if (!areMusicMuted && !GameBackgroundMusic.isPlaying)
             {
-                GameBackgroundMusic.Play();
+                if (networkManager != null)
+                {
+                    if (networkManager.opponentName == "" || networkManager.ingame)
+                    {
+                        GameBackgroundMusic.Play();
+                    }
+                }
+                else
+                {
+                    GameBackgroundMusic.Play();
+                }
             }
             if (!areSoundsMuted)
             {
@@ -301,11 +311,21 @@ public class OptionsMenuTT : MonoBehaviour
         // sliders for the GameScene
         if (Application.loadedLevelName == "GameScene")
         {
-            if (!areMusicMuted && (networkManager == null || networkManager.ingame) && !GameBackgroundMusic.isPlaying)
+            if (!areMusicMuted && !GameBackgroundMusic.isPlaying)
             {
-                GameBackgroundMusic.Play();
+                if (networkManager != null)
+                {
+                    if (networkManager.opponentName == "" || networkManager.ingame)
+                    {
+                        GameBackgroundMusic.Play();
+                    }
+                }
+                else
+                {
+                    GameBackgroundMusic.Play();
+                }
             }
-            else if (networkManager != null && !networkManager.ingame)
+            else if (networkManager != null && networkManager.isOnline)
             {
                 GameBackgroundMusic.Stop();
             }
