@@ -209,7 +209,10 @@ public class OptionsMenuTT : MonoBehaviour
         if (Application.loadedLevelName == "GameScene")
         {
             if ((networkManager.isOnline && !networkManager.ingame))
+            {
                 BackButton.gameObject.SetActive(true);
+                optionPanel.gameObject.SetActive(false);
+            }
             else if (overrideBackButton)
                 BackButton.gameObject.SetActive(true);
             else
