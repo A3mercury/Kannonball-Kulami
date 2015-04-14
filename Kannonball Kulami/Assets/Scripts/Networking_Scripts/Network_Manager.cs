@@ -24,8 +24,9 @@ public class Network_Manager : MonoBehaviour {
     public static bool fromtransition, chat = false;
     public int randomBoard = 0;
     public static int networkplayer;
+    private float timeOfConnection;
     public bool invoked, disconnected, sentRequest, ingame = false, calledgamescene, invitepopup,
-                isOnline, lobbycamera,  detecteddisconnect, conceded, popupflag, cancelledrequest, popUpOpen; 
+                isOnline, lobbycamera,  detecteddisconnect, conceded, popupflag, cancelledrequest, popUpOpen, connectError = false; 
     public string serverName, clientName, userName = "", maxPlayers = "10", port = "21212", 
                   userwantingtoconnect = "", userwantingtoconnectfromserver = "";
     private string messBox = "", messageToSend = "", user = "";
@@ -156,6 +157,12 @@ public class Network_Manager : MonoBehaviour {
                 if (Network.peerType == NetworkPeerType.Disconnected)
                 {
                     ServerWrapperRect = GUI.Window(0, ServerWrapperRect, ServerWindowBeforeConnection, "");
+                    if (connectError )//&& invoked)
+                    {
+                        //connectError = false;
+                        messBox = "There was an error while trying to connect. Please try again.\n";
+                        windowRect = GUI.ModalWindow(1, PopupRect, popUp, "");
+                    }
                 }
                 else
                 {
@@ -201,6 +208,11 @@ public class Network_Manager : MonoBehaviour {
                     {
                         invoked = true;
                     }
+                    //if (disconnected && invoked && !connectError)
+                    //{
+                    //    messBox = "Request has been denied.\n";
+                    //    windowRect = GUI.ModalWindow(1, PopupRect, popUp, "");
+                    //}
                 }
                 if (disconnected && invoked)
                 {
@@ -300,11 +312,11 @@ public class Network_Manager : MonoBehaviour {
                 GUILayout.EndVertical();
                 GUILayout.EndArea();
             }
-            if (disconnected && invoked)
-            {
-                messBox = "Request has been denied.\n";
-                windowRect = GUI.ModalWindow(1, PopupRect, popUp, "");
-            }
+            //if (disconnected && invoked)
+            //{
+            //    messBox = "Request has been denied.\n";
+            //    windowRect = GUI.ModalWindow(1, PopupRect, popUp, "");
+            //}
         }
         else
             return;
@@ -312,22 +324,41 @@ public class Network_Manager : MonoBehaviour {
     void OnPlayerDisconnected(NetworkPlayer player)
     {
         detecteddisconnect = true;
+        if (Time.time - timeOfConnection < 1f)
+        {
+            connectError = true;
+        }
         Debug.Log(player.ipAddress + " has disconnected.");
     }
+
+    void OnFailedToConnect(NetworkConnectionError error)
+    {
+        Debug.Log(error);
+        connectError = true;
+    }
+
     void OnDisconnectedFromServer(NetworkDisconnection info)
     {
         Debug.Log("Disconnected from server");
 
+        
+
         if (Network.isServer)
-        { }
+        {
+            //detecteddisconnect = true;
+        }
         else
         {
+            if (info == NetworkDisconnection.LostConnection)
+            {
+                connectError = true;
+            }
             Debug.Log("Made it to nested if");
             Debug.Log(ingame);
-            if (ingame)
-            {
+            //if (ingame)
+            //{
                 detecteddisconnect = true;
-            }
+            //}
         }
     }
     public void InvitationPopupWindow(int id)
@@ -518,10 +549,19 @@ public class Network_Manager : MonoBehaviour {
 
                     if (GUILayout.Button("", GUI.skin.customStyles[11]))
                     {
-                        Network.Connect(c);
-                        serverName = c.gameName;
-                        userwantingtoconnectfromserver = c.gameName;
-                        OptionsMenuTT.PlayerGoesFirst = false;
+                        timeOfConnection = Time.time;
+                        NetworkConnectionError err = Network.Connect(c);
+                        if(err == NetworkConnectionError.NoError)
+                        {
+                            serverName = c.gameName;
+                            userwantingtoconnectfromserver = c.gameName;
+                            OptionsMenuTT.PlayerGoesFirst = false;
+                        }
+                        else
+                        {
+                            messBox = "There was and error when connecting. Please try again.\n";
+                            windowRect = GUI.ModalWindow(1, PopupRect, popUp, "");
+                        }
 
                     }
                 }
@@ -684,7 +724,7 @@ public class Network_Manager : MonoBehaviour {
         GUILayout.BeginArea(DisconnectedRect, GUI.skin.customStyles[13]);
         GUILayout.BeginArea(InnerRect);
         GUILayout.BeginVertical();
-        messBox = "Request has been denied.\n";
+        //messBox = "Request has been denied.\n";
         GUILayout.Label(messBox, GUI.skin.customStyles[14]);
         Rect ContinueRect = new Rect(
             0,
@@ -700,6 +740,10 @@ public class Network_Manager : MonoBehaviour {
             GameObject.FindObjectOfType<CameraGameSceneMovement>().SelectCameraPosition();
             GameObject.FindObjectOfType<AICannonScript>().CancelInvoke();
             gameCore.RemoveGameBoard();
+            if (connectError)
+            {
+                connectError = false;
+            }
         }
         GUILayout.EndArea();
         GUILayout.EndArea();
